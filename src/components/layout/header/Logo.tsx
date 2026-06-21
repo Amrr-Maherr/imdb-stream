@@ -5,7 +5,7 @@ export default function Logo() {
   return (
     <Link href="/" className="shrink-0">
       <Image
-        src="/Netflix_Symbol_CMYK.png"
+        src="/logo.svg"
         alt="SmartStream"
         width={96}
         height={32}
