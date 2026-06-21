@@ -11,6 +11,39 @@
       "people": "People"
     }
   },
+  "Auth": {
+    "signIn": {
+      "title": "Sign In",
+      "heading": "Sign in to SmartStream",
+      "emailLabel": "Email",
+      "emailPlaceholder": "you@example.com",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
+      "forgotPassword": "Forgot password?",
+      "submit": "Sign In",
+      "signingIn": "Signing In...",
+      "noAccount": "Don't have an account?",
+      "createAccount": "Create your account"
+    },
+    "signUp": {
+      "title": "Sign Up",
+      "heading": "Create your account",
+      "nameLabel": "Name",
+      "namePlaceholder": "Your name",
+      "emailLabel": "Email",
+      "emailPlaceholder": "you@example.com",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Create a password",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
+      "submit": "Create Account",
+      "creating": "Creating Account...",
+      "hasAccount": "Already have an account?",
+      "signIn": "Sign in"
+    }
+  },
   "Movies": {
     "title": "Movies"
   },
