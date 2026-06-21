@@ -13,7 +13,7 @@ export async function generateMetadata({ params }: Props) {
 export default async function TvShowsPage() {
   return (
     <div className="flex flex-col flex-1 items-center justify-center bg-background pt-16">
-      <main className="flex flex-1 w-full max-w-7xl flex-col items-center py-16 px-4 md:px-8">
+      <main className="app-container flex flex-1 flex-col items-center py-16">
         <h1 className="text-3xl font-bold text-foreground">TV Shows</h1>
       </main>
     </div>

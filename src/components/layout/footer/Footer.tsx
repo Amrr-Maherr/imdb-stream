@@ -4,7 +4,7 @@ import Copyright from "./Copyright";
 export default function Footer() {
   return (
     <footer className="mt-auto border-t border-border bg-card">
-      <div className="mx-auto max-w-7xl px-4 py-12 md:px-8">
+      <div className="app-container py-12">
         <FooterLinks />
       </div>
       <Copyright />

@@ -32,7 +32,7 @@ export default function Header() {
           : "bg-background/0"
       }`}
     >
-      <div className="flex h-16 items-center gap-4 px-4 md:px-8">
+      <div className="app-container flex h-16 items-center gap-4">
         <Logo />
 
         <NavLinks />
@@ -67,7 +67,7 @@ export default function Header() {
       </div>
 
       {mobileMenuOpen && (
-        <div className="space-y-4 border-t border-border bg-background px-4 py-4 md:hidden">
+        <div className="app-container space-y-4 border-t border-border bg-background py-4 md:hidden">
           <NavLinks mobile />
           <div className="flex flex-col gap-2 border-t border-border pt-4">
             <Link
