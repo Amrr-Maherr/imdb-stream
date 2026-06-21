@@ -36,8 +36,19 @@ export default async function ContactPage() {
             <CardTitle>{t("title")}</CardTitle>
             <CardDescription>{t("description")}</CardDescription>
           </CardHeader>
-          <CardContent className="text-sm text-muted-foreground leading-relaxed">
-            <p>{t("content")}</p>
+          <CardContent className="space-y-6">
+            <div className="space-y-2">
+              <h3 className="text-base font-semibold text-foreground">{t("section1.heading")}</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">{t("section1.body")}</p>
+            </div>
+            <div className="space-y-2">
+              <h3 className="text-base font-semibold text-foreground">{t("section2.heading")}</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">{t("section2.body")}</p>
+            </div>
+            <div className="space-y-2">
+              <h3 className="text-base font-semibold text-foreground">{t("section3.heading")}</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">{t("section3.body")}</p>
+            </div>
           </CardContent>
         </Card>
       </div>

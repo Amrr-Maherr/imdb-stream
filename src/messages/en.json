@@ -83,47 +83,158 @@
   "About": {
     "title": "About IMDb",
     "description": "Learn more about IMDb",
-    "content": "IMDb is the world's most popular and authoritative source for movie, TV show, and celebrity content. We provide comprehensive information about films, television series, streaming content, and entertainment news. Our platform offers users access to ratings, reviews, trailers, showtimes, and entertainment news. Founded with a passion for cinema, IMDb continues to be the go-to destination for entertainment enthusiasts worldwide."
+    "section1": {
+      "heading": "Our Mission",
+      "body": "IMDb is the world's most popular and authoritative source for movie, TV show, and celebrity content. Our mission is to help entertainment fans discover, explore, and connect with the content they love. We provide comprehensive information about films, television series, streaming content, and entertainment news from around the globe."
+    },
+    "section2": {
+      "heading": "Our History",
+      "body": "Founded in 1990, IMDb started as a simple collection of movie facts shared by passionate film enthusiasts. Over the years, it has grown into a global platform serving hundreds of millions of users each month. From humble beginnings as a Usenet group, IMDb has evolved into the definitive source of entertainment data, powering everything from casual browsing to industry research."
+    },
+    "section3": {
+      "heading": "Our Values",
+      "body": "We believe in the power of storytelling and the magic of cinema. Our team is dedicated to providing accurate, up-to-date information that helps users make informed decisions about what to watch. We value community contributions, editorial integrity, and innovation in how we present entertainment content to our global audience."
+    }
   },
   "Careers": {
     "title": "Careers",
     "description": "Join the IMDb team",
-    "content": "At IMDb, we're building the future of entertainment. We're looking for passionate individuals who love movies, TV, and technology. Our team works on cutting-edge problems at scale, serving millions of users worldwide. Explore opportunities across engineering, product, design, marketing, and content."
+    "section1": {
+      "heading": "Work With Us",
+      "body": "At IMDb, we're building the future of entertainment. We're looking for passionate individuals who love movies, TV, and technology. Our team works on cutting-edge problems at scale, serving millions of users worldwide. Explore opportunities across engineering, product, design, marketing, and content."
+    },
+    "section2": {
+      "heading": "Engineering",
+      "body": "Our engineering team builds and maintains one of the world's largest entertainment databases. We work with cutting-edge technologies including machine learning, natural language processing, and distributed systems. Engineers at IMDb tackle unique challenges in search, recommendations, data modeling, and real-time content delivery."
+    },
+    "section3": {
+      "heading": "Design & Product",
+      "body": "Designers and product managers at IMDb create intuitive experiences for millions of entertainment fans. From personalized recommendations to rich content discovery, our product teams shape how users explore and engage with movies, TV shows, and celebrities across web, mobile, and connected TV platforms."
+    },
+    "section4": {
+      "heading": "Why Join Us",
+      "body": "IMDb offers a collaborative culture, competitive benefits, and the opportunity to work on products that reach a global audience. You'll be part of a team that is passionate about entertainment and technology, with the resources and support to do your best work."
+    }
   },
   "Press": {
     "title": "Press",
     "description": "IMDb press and media resources",
-    "content": "Welcome to the IMDb press room. Here you'll find company announcements, media resources, and press contacts. For press inquiries, please reach out to our communications team."
+    "section1": {
+      "heading": "Press Room",
+      "body": "Welcome to the IMDb press room. Here you'll find company announcements, media resources, and press contacts. For press inquiries, please reach out to our communications team. We provide journalists and media professionals with the latest news, statistics, and resources they need to cover IMDb and the entertainment industry."
+    },
+    "section2": {
+      "heading": "Media Resources",
+      "body": "Our media resources include logos, brand guidelines, screenshots, and product fact sheets. These materials are available for editorial coverage and press use. All materials should be used in accordance with our brand guidelines. For access to our media kit, please contact the press team."
+    },
+    "section3": {
+      "heading": "Press Contacts",
+      "body": "For press inquiries, interview requests, or media partnerships, please contact our communications team. We aim to respond to all press inquiries within 24 hours. For urgent matters, please indicate the priority in your subject line."
+    }
   },
   "Faq": {
     "title": "FAQ",
     "description": "Frequently asked questions",
-    "content": "Find answers to commonly asked questions about using IMDb. Topics include account management, ratings and reviews, content information, troubleshooting, and more. If you can't find what you're looking for, please contact our support team."
+    "section1": {
+      "heading": "Account Management",
+      "body": "To create an account, click Sign In and select 'Create your account'. You can manage your account settings, update your email, change your password, and adjust notification preferences from your Profile page. If you forget your password, use the 'Forgot password' link on the Sign In page to reset it."
+    },
+    "section2": {
+      "heading": "Ratings & Reviews",
+      "body": "You can rate any movie or TV show on a scale of 1 to 10 stars. Your ratings help build our community-driven recommendation system. To write a review, navigate to the title's page and scroll to the reviews section. All reviews must follow our content guidelines."
+    },
+    "section3": {
+      "heading": "Troubleshooting",
+      "body": "If you're experiencing issues with the site, try clearing your browser cache and cookies first. Ensure your browser is up to date. For persistent problems, contact our support team with details about the issue, including your browser version and any error messages you encounter."
+    }
   },
   "Contact": {
     "title": "Contact Us",
     "description": "Get in touch with IMDb",
-    "content": "We'd love to hear from you. Whether you have a question, feedback, or partnership inquiry, reach out to us and we'll get back to you as soon as possible."
+    "section1": {
+      "heading": "Get in Touch",
+      "body": "We'd love to hear from you. Whether you have a question, feedback, or partnership inquiry, reach out to us and we'll get back to you as soon as possible. Our support team is available to help with account issues, content questions, and general inquiries."
+    },
+    "section2": {
+      "heading": "Customer Support",
+      "body": "For help with your account, billing issues, or technical support, our customer service team is here to assist. Please provide as much detail as possible so we can resolve your issue quickly. You can also find answers to common questions in our FAQ section."
+    },
+    "section3": {
+      "heading": "Business Inquiries",
+      "body": "For partnership opportunities, advertising inquiries, or licensing questions, please reach out to our business development team. We're always interested in exploring collaborations that enhance the entertainment experience for our users."
+    }
   },
   "Feedback": {
     "title": "Feedback",
     "description": "Share your thoughts with IMDb",
-    "content": "Your feedback helps us improve IMDb. Let us know what you love, what you'd like to see changed, or any features you'd like us to add. We read every submission and appreciate your input."
+    "section1": {
+      "heading": "We Value Your Input",
+      "body": "Your feedback helps us improve IMDb. Let us know what you love, what you'd like to see changed, or any features you'd like us to add. We read every submission and appreciate your input. Our product team uses community feedback to guide development priorities."
+    },
+    "section2": {
+      "heading": "Feature Suggestions",
+      "body": "Have an idea for a new feature? We want to hear it. Describe the feature you'd like to see, how it would work, and why it would be useful. While we can't implement every suggestion, we carefully review all ideas and consider them for future updates."
+    },
+    "section3": {
+      "heading": "Report a Problem",
+      "body": "If you've encountered a bug, incorrect information, or a broken feature, please let us know. Include details about what you were doing, what you expected to happen, and what actually happened. Screenshots and your device information are especially helpful."
+    }
   },
   "Terms": {
     "title": "Terms of Use",
     "description": "IMDb terms and conditions",
-    "content": "These Terms of Use govern your use of the IMDb website and services. By accessing or using IMDb, you agree to be bound by these terms. Please read them carefully. Our services are provided on an 'as is' basis, and we reserve the right to update these terms at any time."
+    "section1": {
+      "heading": "Acceptance of Terms",
+      "body": "These Terms of Use govern your use of the IMDb website and services. By accessing or using IMDb, you agree to be bound by these terms. Please read them carefully. If you do not agree with any part of these terms, you should not use our services."
+    },
+    "section2": {
+      "heading": "User Responsibilities",
+      "body": "You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account. You agree not to use IMDb for any unlawful purpose or in violation of these terms. You must not attempt to access restricted areas of the platform without proper authorization."
+    },
+    "section3": {
+      "heading": "Content & Intellectual Property",
+      "body": "All content on IMDb, including text, graphics, logos, and software, is protected by intellectual property laws. Users may not reproduce, distribute, or create derivative works without permission. User-contributed content remains the property of the contributor, with IMDb granted a license to display it."
+    },
+    "section4": {
+      "heading": "Limitation of Liability",
+      "body": "IMDb provides its services on an 'as is' and 'as available' basis. We make no warranties, express or implied, regarding the availability, accuracy, or reliability of our services. IMDb shall not be liable for any damages arising from your use of the platform."
+    }
   },
   "Privacy": {
     "title": "Privacy Policy",
     "description": "How IMDb handles your data",
-    "content": "Your privacy is important to us. This Privacy Policy explains how IMDb collects, uses, discloses, and safeguards your information when you use our platform. We are committed to protecting your personal data and being transparent about our practices."
+    "section1": {
+      "heading": "Information We Collect",
+      "body": "We collect information you provide when creating an account, including your name, email address, and profile information. We also collect data about your interactions with our platform, such as pages viewed, ratings submitted, and search queries. This information helps us personalize your experience."
+    },
+    "section2": {
+      "heading": "How We Use Your Data",
+      "body": "Your data is used to provide and improve our services, personalize content and recommendations, communicate with you about your account, and analyze platform usage. We do not sell your personal information to third parties. Your privacy is fundamental to how we operate."
+    },
+    "section3": {
+      "heading": "Data Protection",
+      "body": "We implement industry-standard security measures to protect your personal information from unauthorized access, alteration, disclosure, or destruction. This includes encryption in transit and at rest, regular security audits, and strict access controls for our employees."
+    },
+    "section4": {
+      "heading": "Your Rights",
+      "body": "You have the right to access, update, or delete your personal information at any time. You can manage your data through your account settings. You may also request a copy of the data we hold about you. For privacy-related inquiries, please contact our data protection team."
+    }
   },
   "Cookies": {
     "title": "Cookie Preferences",
     "description": "How IMDb uses cookies",
-    "content": "IMDb uses cookies and similar technologies to enhance your browsing experience, analyze site traffic, and deliver personalized content. You can manage your cookie preferences at any time. Cookies help us remember your preferences and improve our services."
+    "section1": {
+      "heading": "What Are Cookies",
+      "body": "Cookies are small text files stored on your device when you visit a website. They help websites remember your preferences, understand how you interact with the site, and provide a personalized experience. IMDb uses cookies and similar technologies to enhance your browsing experience."
+    },
+    "section2": {
+      "heading": "How We Use Cookies",
+      "body": "We use essential cookies that are necessary for the platform to function properly, including authentication and security cookies. Performance cookies help us understand how users interact with our site so we can improve it. Functionality cookies remember your preferences, such as language and region."
+    },
+    "section3": {
+      "heading": "Managing Cookies",
+      "body": "You can manage your cookie preferences at any time through your browser settings. Most browsers allow you to block or delete cookies. Please note that disabling certain cookies may affect the functionality of the platform. You can also opt out of non-essential cookies through our cookie preference center."
+    }
   },
   "Footer": {
     "about": "About",
