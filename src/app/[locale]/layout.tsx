@@ -19,8 +19,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "SmartStream",
-  description: "Watch your favorite movies and TV shows",
+  title: "IMDb",
+  description: "Movies, TV shows, and entertainment discovery platform.",
   icons: [{ rel: "icon", url: "/logo.svg", type: "image/svg+xml" }],
 };
 
