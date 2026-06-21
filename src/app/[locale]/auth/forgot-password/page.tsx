@@ -1,7 +1,7 @@
 import Image from "next/image"
 import { Link } from "@/i18n/navigation"
 import { getTranslations } from "next-intl/server"
-import { SignInForm } from "@/components/auth/sign-in-form"
+import { ForgotPasswordForm } from "@/components/auth/forgot-password-form"
 
 interface Props {
   params: Promise<{ locale: string }>
@@ -10,10 +10,10 @@ interface Props {
 export async function generateMetadata({ params }: Props) {
   const { locale } = await params
   const t = await getTranslations({ locale, namespace: "Auth" })
-  return { title: t("signIn.title") }
+  return { title: t("forgotPassword.title") }
 }
 
-export default async function SignInPage() {
+export default async function ForgotPasswordPage() {
   return (
     <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center bg-background px-4 py-12">
       <div className="w-full max-w-sm">
@@ -30,7 +30,7 @@ export default async function SignInPage() {
           </Link>
         </div>
 
-        <SignInForm />
+        <ForgotPasswordForm />
       </div>
     </div>
   )

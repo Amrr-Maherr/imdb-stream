@@ -6,7 +6,7 @@ export default function Logo() {
     <Link href="/" className="shrink-0">
       <Image
         src="/logo.svg"
-        alt="SmartStream"
+        alt="IMDb"
         width={96}
         height={32}
         className="h-8 w-auto"

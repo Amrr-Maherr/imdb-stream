@@ -1,7 +1,7 @@
 {
   "Home": {
-    "title": "Welcome to SmartStream",
-    "description": "Watch your favorite movies"
+    "title": "Welcome to IMDb",
+    "description": "Watch your favorite movies and TV shows"
   },
   "Header": {
     "nav": {
@@ -14,7 +14,7 @@
   "Auth": {
     "signIn": {
       "title": "Sign In",
-      "heading": "Sign in to SmartStream",
+      "heading": "Sign in to IMDb",
       "emailLabel": "Email",
       "emailPlaceholder": "you@example.com",
       "passwordLabel": "Password",
@@ -29,7 +29,7 @@
     },
     "signUp": {
       "title": "Sign Up",
-      "heading": "Create your account",
+      "heading": "Create your IMDb account",
       "nameLabel": "Name",
       "namePlaceholder": "Your name",
       "emailLabel": "Email",
@@ -44,6 +44,12 @@
       "signIn": "Sign in"
     }
   },
+  "Profile": {
+    "title": "Profile"
+  },
+  "Settings": {
+    "title": "Settings"
+  },
   "Movies": {
     "title": "Movies"
   },
@@ -53,13 +59,58 @@
   "People": {
     "title": "People"
   },
+  "About": {
+    "title": "About IMDb",
+    "description": "Learn more about IMDb",
+    "content": "IMDb is the world's most popular and authoritative source for movie, TV show, and celebrity content. We provide comprehensive information about films, television series, streaming content, and entertainment news. Our platform offers users access to ratings, reviews, trailers, showtimes, and entertainment news. Founded with a passion for cinema, IMDb continues to be the go-to destination for entertainment enthusiasts worldwide."
+  },
+  "Careers": {
+    "title": "Careers",
+    "description": "Join the IMDb team",
+    "content": "At IMDb, we're building the future of entertainment. We're looking for passionate individuals who love movies, TV, and technology. Our team works on cutting-edge problems at scale, serving millions of users worldwide. Explore opportunities across engineering, product, design, marketing, and content."
+  },
+  "Press": {
+    "title": "Press",
+    "description": "IMDb press and media resources",
+    "content": "Welcome to the IMDb press room. Here you'll find company announcements, media resources, and press contacts. For press inquiries, please reach out to our communications team."
+  },
+  "Faq": {
+    "title": "FAQ",
+    "description": "Frequently asked questions",
+    "content": "Find answers to commonly asked questions about using IMDb. Topics include account management, ratings and reviews, content information, troubleshooting, and more. If you can't find what you're looking for, please contact our support team."
+  },
+  "Contact": {
+    "title": "Contact Us",
+    "description": "Get in touch with IMDb",
+    "content": "We'd love to hear from you. Whether you have a question, feedback, or partnership inquiry, reach out to us and we'll get back to you as soon as possible."
+  },
+  "Feedback": {
+    "title": "Feedback",
+    "description": "Share your thoughts with IMDb",
+    "content": "Your feedback helps us improve IMDb. Let us know what you love, what you'd like to see changed, or any features you'd like us to add. We read every submission and appreciate your input."
+  },
+  "Terms": {
+    "title": "Terms of Use",
+    "description": "IMDb terms and conditions",
+    "content": "These Terms of Use govern your use of the IMDb website and services. By accessing or using IMDb, you agree to be bound by these terms. Please read them carefully. Our services are provided on an 'as is' basis, and we reserve the right to update these terms at any time."
+  },
+  "Privacy": {
+    "title": "Privacy Policy",
+    "description": "How IMDb handles your data",
+    "content": "Your privacy is important to us. This Privacy Policy explains how IMDb collects, uses, discloses, and safeguards your information when you use our platform. We are committed to protecting your personal data and being transparent about our practices."
+  },
+  "Cookies": {
+    "title": "Cookie Preferences",
+    "description": "How IMDb uses cookies",
+    "content": "IMDb uses cookies and similar technologies to enhance your browsing experience, analyze site traffic, and deliver personalized content. You can manage your cookie preferences at any time. Cookies help us remember your preferences and improve our services."
+  },
   "Footer": {
     "about": "About",
     "help": "Help",
     "legal": "Legal",
     "social": "Social",
     "aboutLinks": {
-      "about": "About SmartStream",
+      "about": "About IMDb",
       "careers": "Careers",
       "press": "Press"
     },
@@ -78,6 +129,6 @@
       "twitter": "Twitter",
       "instagram": "Instagram"
     },
-    "copyright": "© {year} SmartStream. All rights reserved."
+    "copyright": "© {year} IMDb. All rights reserved."
   }
 }

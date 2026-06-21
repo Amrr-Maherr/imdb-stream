@@ -72,7 +72,7 @@ export function SignInForm() {
 
           <div className="text-right">
             <Link
-              href="/auth/signin"
+              href="/auth/forgot-password"
               className="text-sm text-brand hover:text-brand/80 transition-colors"
             >
               {t("forgotPassword")}
