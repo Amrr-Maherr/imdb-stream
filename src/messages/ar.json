@@ -11,6 +11,15 @@
       "people": "الأشخاص"
     }
   },
+  "Movies": {
+    "title": "الأفلام"
+  },
+  "TvShows": {
+    "title": "المسلسلات"
+  },
+  "People": {
+    "title": "الأشخاص"
+  },
   "Footer": {
     "about": "حول",
     "help": "المساعدة",

@@ -32,13 +32,16 @@ export default function NavLinks({ mobile }: { mobile?: boolean }) {
           <Link
             key={link.href}
             href={link.href}
-            className={`px-3 py-2 text-sm font-medium transition-colors rounded-md ${
+            className={`relative px-3 py-2 text-sm font-medium transition-colors rounded-md ${
               isActive
-                ? "text-foreground bg-accent"
-                : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
+                ? "text-foreground"
+                : "text-muted-foreground hover:text-foreground"
             }`}
           >
             {t(link.key)}
+            {isActive && (
+              <span className="absolute inset-x-2 -bottom-px h-0.5 rounded-full bg-brand" />
+            )}
           </Link>
         );
       })}
