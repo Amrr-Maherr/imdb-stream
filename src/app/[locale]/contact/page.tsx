@@ -14,6 +14,7 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default async function ContactPage() {
+  const t = await getTranslations("Contact")
   return (
     <div className="flex min-h-[calc(100vh-4rem)] flex-col items-center bg-background px-4 py-16">
       <div className="w-full max-w-2xl">
