@@ -8,8 +8,12 @@
       "home": "Home",
       "movies": "Movies",
       "tvShows": "TV Shows",
-      "people": "People"
-    }
+      "people": "People",
+      "profile": "Profile",
+      "settings": "Settings"
+    },
+    "signIn": "Sign In",
+    "signOut": "Sign Out"
   },
   "Auth": {
     "signIn": {
@@ -45,10 +49,27 @@
     }
   },
   "Profile": {
-    "title": "Profile"
+    "title": "Profile",
+    "namePlaceholder": "John Doe",
+    "emailLabel": "Email",
+    "emailPlaceholder": "john@example.com",
+    "memberSince": "Member since",
+    "memberDate": "June 2026"
   },
   "Settings": {
-    "title": "Settings"
+    "title": "Settings",
+    "sections": {
+      "account": "Account",
+      "accountDesc": "Manage your account details",
+      "privacy": "Privacy",
+      "privacyDesc": "Control your privacy settings",
+      "notifications": "Notifications",
+      "notificationsDesc": "Choose what to be notified about",
+      "language": "Language",
+      "languageDesc": "Change your language preference",
+      "appearance": "Appearance",
+      "appearanceDesc": "Customize your theme and display"
+    }
   },
   "Movies": {
     "title": "Movies"

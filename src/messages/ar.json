@@ -8,8 +8,12 @@
       "home": "الرئيسية",
       "movies": "الأفلام",
       "tvShows": "المسلسلات",
-      "people": "الأشخاص"
-    }
+      "people": "الأشخاص",
+      "profile": "الملف الشخصي",
+      "settings": "الإعدادات"
+    },
+    "signIn": "تسجيل الدخول",
+    "signOut": "تسجيل الخروج"
   },
   "Auth": {
     "signIn": {
@@ -45,10 +49,27 @@
     }
   },
   "Profile": {
-    "title": "الملف الشخصي"
+    "title": "الملف الشخصي",
+    "namePlaceholder": "جون دو",
+    "emailLabel": "البريد الإلكتروني",
+    "emailPlaceholder": "john@example.com",
+    "memberSince": "عضو منذ",
+    "memberDate": "يونيو 2026"
   },
   "Settings": {
-    "title": "الإعدادات"
+    "title": "الإعدادات",
+    "sections": {
+      "account": "الحساب",
+      "accountDesc": "إدارة تفاصيل حسابك",
+      "privacy": "الخصوصية",
+      "privacyDesc": "التحكم في إعدادات الخصوصية",
+      "notifications": "الإشعارات",
+      "notificationsDesc": "اختر ما تريد الإشعار به",
+      "language": "اللغة",
+      "languageDesc": "تغيير تفضيلات اللغة",
+      "appearance": "المظهر",
+      "appearanceDesc": "تخصيص المظهر والعرض"
+    }
   },
   "Movies": {
     "title": "الأفلام"
@@ -129,6 +150,6 @@
       "twitter": "تويتر",
       "instagram": "انستغرام"
     },
-    "copyright": "© {year} سمارت ستريم. جميع الحقوق محفوظة."
+    "copyright": "© {year} IMDb. جميع الحقوق محفوظة."
   }
 }

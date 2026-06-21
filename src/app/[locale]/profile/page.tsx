@@ -15,6 +15,8 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default async function ProfilePage() {
+  const t = await getTranslations("Profile")
+
   return (
     <div className="flex min-h-[calc(100vh-4rem)] flex-col items-center bg-background px-4 py-16">
       <div className="w-full max-w-lg">
@@ -36,21 +38,21 @@ export default async function ProfilePage() {
             <div className="flex size-16 items-center justify-center rounded-full bg-muted">
               <User className="size-8 text-muted-foreground" />
             </div>
-            <CardTitle>John Doe</CardTitle>
+            <CardTitle>{t("namePlaceholder")}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex items-center gap-3 rounded-lg border border-border p-3">
               <Mail className="size-5 text-muted-foreground" />
               <div>
-                <p className="text-xs text-muted-foreground">Email</p>
-                <p className="text-sm font-medium">john@example.com</p>
+                <p className="text-xs text-muted-foreground">{t("emailLabel")}</p>
+                <p className="text-sm font-medium">{t("emailPlaceholder")}</p>
               </div>
             </div>
             <div className="flex items-center gap-3 rounded-lg border border-border p-3">
               <Calendar className="size-5 text-muted-foreground" />
               <div>
-                <p className="text-xs text-muted-foreground">Member since</p>
-                <p className="text-sm font-medium">June 2026</p>
+                <p className="text-xs text-muted-foreground">{t("memberSince")}</p>
+                <p className="text-sm font-medium">{t("memberDate")}</p>
               </div>
             </div>
           </CardContent>

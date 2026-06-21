@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import Logo from "./Logo";
 import NavLinks from "./NavLinks";
@@ -12,6 +13,7 @@ import ThemeToggle from "@/components/ui/theme-toggle";
 import { Button } from "@/components/ui/button";
 
 export default function Header() {
+  const t = useTranslations("Header");
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -47,7 +49,7 @@ export default function Header() {
             href="/auth/signin"
             className="hidden md:inline-flex items-center justify-center h-8 px-3 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors rounded-lg"
           >
-            Sign In
+            {t("signIn")}
           </Link>
 
           <UserMenu />
@@ -72,7 +74,7 @@ export default function Header() {
               href="/auth/signin"
               className="flex items-center justify-center h-9 px-4 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors rounded-lg border border-border"
             >
-              Sign In
+              {t("signIn")}
             </Link>
             <div className="flex items-center gap-2">
               <LanguageSwitcher />
