@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
+import { Link } from "@/i18n/navigation";
 import Logo from "./Logo";
 import NavLinks from "./NavLinks";
 import SearchBar from "./SearchBar";
@@ -42,6 +43,13 @@ export default function Header() {
             <ThemeToggle />
           </div>
 
+          <Link
+            href="/auth/signin"
+            className="hidden md:inline-flex items-center justify-center h-8 px-3 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors rounded-lg"
+          >
+            Sign In
+          </Link>
+
           <UserMenu />
 
           <Button
@@ -59,9 +67,17 @@ export default function Header() {
       {mobileMenuOpen && (
         <div className="space-y-4 border-t border-border bg-background px-4 py-4 md:hidden">
           <NavLinks mobile />
-          <div className="flex items-center gap-2 border-t border-border pt-4">
-            <LanguageSwitcher />
-            <ThemeToggle />
+          <div className="flex flex-col gap-2 border-t border-border pt-4">
+            <Link
+              href="/auth/signin"
+              className="flex items-center justify-center h-9 px-4 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors rounded-lg border border-border"
+            >
+              Sign In
+            </Link>
+            <div className="flex items-center gap-2">
+              <LanguageSwitcher />
+              <ThemeToggle />
+            </div>
           </div>
         </div>
       )}
