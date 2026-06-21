@@ -2,5 +2,40 @@
   "Home": {
     "title": "Welcome to SmartStream",
     "description": "Watch your favorite movies"
+  },
+  "Header": {
+    "nav": {
+      "home": "Home",
+      "movies": "Movies",
+      "tvShows": "TV Shows",
+      "people": "People"
+    }
+  },
+  "Footer": {
+    "about": "About",
+    "help": "Help",
+    "legal": "Legal",
+    "social": "Social",
+    "aboutLinks": {
+      "about": "About SmartStream",
+      "careers": "Careers",
+      "press": "Press"
+    },
+    "helpLinks": {
+      "faq": "FAQ",
+      "contact": "Contact Us",
+      "feedback": "Feedback"
+    },
+    "legalLinks": {
+      "terms": "Terms of Use",
+      "privacy": "Privacy Policy",
+      "cookies": "Cookie Preferences"
+    },
+    "socialLinks": {
+      "facebook": "Facebook",
+      "twitter": "Twitter",
+      "instagram": "Instagram"
+    },
+    "copyright": "© {year} SmartStream. All rights reserved."
   }
 }

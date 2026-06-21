@@ -5,6 +5,8 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { ThemeProvider } from "@/components/theme/theme-provider";
+import Header from "@/components/layout/header/Header";
+import Footer from "@/components/layout/footer/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -51,7 +53,11 @@ export default async function RootLayout({
           disableTransitionOnChange
         >
           <NextIntlClientProvider messages={messages}>
-            {children}
+            <div className="flex min-h-full flex-col">
+              <Header />
+              <main className="flex-1 pt-16">{children}</main>
+              <Footer />
+            </div>
           </NextIntlClientProvider>
         </ThemeProvider>
       </body>

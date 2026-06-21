@@ -2,5 +2,40 @@
   "Home": {
     "title": "مرحباً بك في سمارت ستريم",
     "description": "شاهد أفلامك المفضلة"
+  },
+  "Header": {
+    "nav": {
+      "home": "الرئيسية",
+      "movies": "الأفلام",
+      "tvShows": "المسلسلات",
+      "people": "الأشخاص"
+    }
+  },
+  "Footer": {
+    "about": "حول",
+    "help": "المساعدة",
+    "legal": "قانوني",
+    "social": "تواصل",
+    "aboutLinks": {
+      "about": "عن سمارت ستريم",
+      "careers": "وظائف",
+      "press": "صحافة"
+    },
+    "helpLinks": {
+      "faq": "الأسئلة الشائعة",
+      "contact": "اتصل بنا",
+      "feedback": "ملاحظات"
+    },
+    "legalLinks": {
+      "terms": "شروط الاستخدام",
+      "privacy": "سياسة الخصوصية",
+      "cookies": "تفضيلات الكوكيز"
+    },
+    "socialLinks": {
+      "facebook": "فيسبوك",
+      "twitter": "تويتر",
+      "instagram": "انستغرام"
+    },
+    "copyright": "© {year} سمارت ستريم. جميع الحقوق محفوظة."
   }
 }
