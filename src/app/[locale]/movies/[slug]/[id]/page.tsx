@@ -12,7 +12,7 @@ import { MovieSidebar } from "@/components/movie/movie-sidebar";
 import { RelatedMovies } from "@/components/movie/related-movies";
 
 interface Props {
-  params: Promise<{ locale: string; id: string }>;
+  params: Promise<{ locale: string; slug: string; id: string }>;
 }
 
 const APPEND_PARAMS = [
@@ -106,10 +106,8 @@ export default async function MoviePage({ params }: Props) {
         homepage={movie.homepage || null}
       />
 
-      {/* Two-column layout */}
       <div className="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 mt-8 md:mt-10 pb-16">
         <div className="flex flex-col lg:flex-row gap-10 lg:gap-12">
-          {/* Main content */}
           <div className="flex-1 min-w-0 space-y-10">
             <div className="flex flex-col sm:flex-row gap-6">
               <div className="flex-shrink-0 w-full max-w-[200px] mx-auto sm:mx-0">
@@ -144,7 +142,6 @@ export default async function MoviePage({ params }: Props) {
             />
           </div>
 
-          {/* Sidebar */}
           <div className="w-full lg:w-80 xl:w-96 flex-shrink-0">
             <MovieSidebar
               voteAverage={movie.vote_average}
