@@ -72,6 +72,20 @@
       "success": "Password reset successfully!",
       "backToSignIn": "Back to Sign In",
       "invalidLink": "Invalid or expired reset link"
+    },
+    "phone": {
+      "title": "Phone",
+      "heading": "Sign in with Phone",
+      "phoneLabel": "Phone Number",
+      "phonePlaceholder": "(555) 000-0000",
+      "sendOtp": "Send OTP",
+      "sendingOtp": "Sending...",
+      "otpLabel": "Enter verification code",
+      "otpPlaceholder": "Enter OTP code",
+      "verifyOtp": "Verify OTP",
+      "verifyingOtp": "Verifying...",
+      "backToPhone": "Back to phone input",
+      "success": "Signed in successfully!"
     }
   },
   "Profile": {

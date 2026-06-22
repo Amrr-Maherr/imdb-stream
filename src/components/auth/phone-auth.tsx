@@ -1,90 +1,148 @@
-import { Phone, ChevronDown, ArrowLeft } from "lucide-react"
+"use client"
+
+import { useState } from "react"
+import { useTranslations } from "next-intl"
+import { ArrowLeft, Loader2 } from "lucide-react"
+import { useForm, SubmitHandler } from "react-hook-form"
+import PhoneInput from "react-phone-number-input"
+import "react-phone-number-input/style.css"
 
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
-
-const COUNTRY_CODES = [
-  { code: "US", dial: "+1", flag: "🇺🇸" },
-  { code: "GB", dial: "+44", flag: "🇬🇧" },
-  { code: "SA", dial: "+966", flag: "🇸🇦" },
-  { code: "AE", dial: "+971", flag: "🇦🇪" },
-  { code: "EG", dial: "+20", flag: "🇪🇬" },
-  { code: "IN", dial: "+91", flag: "🇮🇳" },
-  { code: "CA", dial: "+1", flag: "🇨🇦" },
-  { code: "AU", dial: "+61", flag: "🇦🇺" },
-  { code: "DE", dial: "+49", flag: "🇩🇪" },
-  { code: "FR", dial: "+33", flag: "🇫🇷" },
-]
+import usePhoneAuth from "@/features/auth/hooks/usePhoneAuth"
+import AuthStatusMessage from "@/features/auth/components/AuthStatusMessage"
 
 export function PhoneAuth() {
+  const t = useTranslations("Auth.phone")
+  const { step, loading, firebaseError, sendOtp, verifyOtp, reset } = usePhoneAuth()
+  const [phone, setPhone] = useState<string>()
+  const [success, setSuccess] = useState(false)
+
+  type OtpInputs = {
+    otp: string
+  }
+
+  const {
+    register: registerOtp,
+    handleSubmit: handleOtpSubmit,
+    formState: { errors: otpErrors },
+  } = useForm<OtpInputs>()
+
+  const onSendOtp = async () => {
+    if (!phone) return
+    await sendOtp(phone)
+  }
+
+  const onVerifyOtp: SubmitHandler<OtpInputs> = async (data) => {
+    const result = await verifyOtp(data.otp)
+    if (result) setSuccess(true)
+  }
+
+  if (success) {
+    return (
+      <div className="space-y-4">
+        <AuthStatusMessage
+          message={t("success")}
+          type="success"
+          className="text-sm text-green-600"
+        />
+      </div>
+    )
+  }
+
   return (
     <div className="space-y-4">
-      <div className="space-y-2">
-        <Label htmlFor="auth-phone">Phone Number</Label>
-        <div className="flex gap-2">
-          <div className="relative shrink-0">
-            <button
-              type="button"
-              className="flex h-9 items-center gap-1 rounded-lg border border-input bg-background px-2.5 text-sm shadow-xs transition-[color,box-shadow] outline-none hover:bg-muted focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 dark:bg-input/30 dark:hover:bg-input/50"
-            >
-              <span className="text-base leading-none">🇺🇸</span>
-              <span className="text-muted-foreground font-medium">+1</span>
-              <ChevronDown size={14} className="text-muted-foreground" />
-            </button>
-          </div>
-          <div className="relative flex-1">
-            <Input
-              id="auth-phone"
-              type="tel"
-              placeholder="(555) 000-0000"
-              className="peer ps-9"
-              autoComplete="tel"
+      <div id="recaptcha-container" />
+
+      {step === "phone" ? (
+        <div className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="auth-phone">{t("phoneLabel")}</Label>
+            <PhoneInput
+              international
+              defaultCountry="US"
+              value={phone}
+              onChange={setPhone}
+              className="flex [&>input]:flex-1 [&>input]:h-9 [&>input]:rounded-lg [&>input]:border [&>input]:border-input [&>input]:bg-background [&>input]:px-3 [&>input]:text-sm [&>input]:shadow-xs [&>input]:outline-none [&>input]:transition-[color,box-shadow] [&>input]:file:inline-flex [&>input]:file:border-0 [&>input]:file:bg-transparent [&>input]:file:text-sm [&>input]:file:font-medium [&>input]:placeholder:text-muted-foreground/70 [&>input]:focus-visible:border-ring [&>input]:focus-visible:ring-3 [&>input]:focus-visible:ring-ring/50"
             />
-            <div className="pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 text-muted-foreground/80 peer-disabled:opacity-50">
-              <Phone size={16} strokeWidth={2} aria-hidden="true" />
+          </div>
+
+          {firebaseError && (
+            <AuthStatusMessage
+              message={firebaseError || null}
+              type="error"
+              className="text-sm text-red-600"
+            />
+          )}
+
+          <Button
+            type="button"
+            onClick={onSendOtp}
+            disabled={loading || !phone}
+            className="w-full bg-brand text-brand-foreground hover:bg-brand/90 font-semibold"
+          >
+            {loading && <Loader2 className="animate-spin" />}
+            {loading ? t("sendingOtp") : t("sendOtp")}
+          </Button>
+        </div>
+      ) : (
+        <form onSubmit={handleOtpSubmit(onVerifyOtp)} className="space-y-4">
+          <div className="space-y-3 pt-2">
+            <Label className="text-center block">{t("otpLabel")}</Label>
+            <div className="relative">
+              <Input
+                id="auth-otp"
+                type="text"
+                inputMode="numeric"
+                placeholder={t("otpPlaceholder")}
+                className={`text-center ${otpErrors.otp ? "border-red-700" : ""}`}
+                {...registerOtp("otp", {
+                  required: "Verification code is required",
+                  pattern: {
+                    value: /^\d{6}$/,
+                    message: "Code must be 6 digits",
+                  },
+                })}
+              />
             </div>
+            {otpErrors.otp?.message && (
+              <AuthStatusMessage
+                message={otpErrors.otp.message || null}
+                type="error"
+                className="text-sm text-red-600"
+              />
+            )}
           </div>
-        </div>
-      </div>
 
-      <Button
-        type="button"
-        className="w-full bg-brand text-brand-foreground hover:bg-brand/90 font-semibold"
-      >
-        Send OTP
-      </Button>
-
-      <div className="space-y-3 pt-2">
-        <Label className="text-center block">Enter verification code</Label>
-        <div className="flex justify-center gap-2" role="group" aria-label="OTP input">
-          {Array.from({ length: 6 }).map((_, i) => (
-            <Input
-              key={i}
-              type="text"
-              inputMode="numeric"
-              maxLength={1}
-              className="h-10 w-9 text-center text-base font-semibold md:h-11 md:w-10 [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
-              aria-label={`Digit ${i + 1}`}
+          {firebaseError && (
+            <AuthStatusMessage
+              message={firebaseError || null}
+              type="error"
+              className="text-sm text-red-600"
             />
-          ))}
-        </div>
+          )}
 
-        <Button
-          type="button"
-          className="w-full bg-brand text-brand-foreground hover:bg-brand/90 font-semibold"
-        >
-          Verify OTP
-        </Button>
+          <Button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-brand text-brand-foreground hover:bg-brand/90 font-semibold"
+          >
+            {loading && <Loader2 className="animate-spin" />}
+            {loading ? t("verifyingOtp") : t("verifyOtp")}
+          </Button>
 
-        <button
-          type="button"
-          className="flex w-full items-center justify-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
-        >
-          <ArrowLeft size={14} />
-          Back to phone input
-        </button>
-      </div>
+          <button
+            type="button"
+            disabled={loading}
+            onClick={reset}
+            className="flex w-full items-center justify-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors disabled:opacity-50"
+          >
+            <ArrowLeft size={14} />
+            {t("backToPhone")}
+          </button>
+        </form>
+      )}
     </div>
   )
 }

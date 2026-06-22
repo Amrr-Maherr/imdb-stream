@@ -13,8 +13,9 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default async function PhoneAuthPage() {
+  const t = await getTranslations("Auth.phone")
   return (
-    <AuthLayout title="Sign in with Phone">
+    <AuthLayout title={t("heading")}>
       <PhoneAuth />
     </AuthLayout>
   )

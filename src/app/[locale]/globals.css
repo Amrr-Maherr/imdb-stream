@@ -185,3 +185,31 @@
     @apply font-sans;
   }
 }
+
+.dark .PhoneInputCountry {
+  background-color: var(--input);
+  border-color: var(--border);
+}
+
+.dark .PhoneInputCountrySelectArrow {
+  border-color: var(--muted-foreground);
+}
+
+.dark .PhoneInputInput {
+  background-color: var(--background) !important;
+  color: var(--foreground) !important;
+}
+
+.dark .PhoneInput--focus .PhoneInputCountry {
+  border-color: var(--ring);
+}
+
+.dark .PhoneInput--focus .PhoneInputInput {
+  border-color: var(--ring);
+}
+
+.dark .PhoneInputCountry {
+  border-radius: var(--radius);
+  border: 1px solid var(--input);
+  padding: 0 0.5rem;
+}
