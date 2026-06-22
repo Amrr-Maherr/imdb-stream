@@ -1,7 +1,11 @@
 import Link from "next/link";
 import { AlertCircle } from "lucide-react";
 import { fetchApi } from "@/services/api/fetchApi";
-import type { TMDBCompanyDetails, TMDBCompanyMovie, TMDBResponse } from "@/types/tmdb";
+import type {
+  TMDBCompanyDetails,
+  TMDBCompanyMovie,
+  TMDBResponse,
+} from "@/types/tmdb";
 import { CompanyHero } from "@/components/company/company-hero";
 import { CompanyInfo } from "@/components/company/company-info";
 import { CompanyFilmography } from "@/components/company/company-filmography";
@@ -53,7 +57,9 @@ export default async function CompanyPage({ params }: Props) {
       <div className="flex flex-1 flex-col items-center justify-center bg-background p-8">
         <div className="flex flex-col items-center gap-4 text-center max-w-md">
           <AlertCircle className="size-12 text-muted-foreground" />
-          <h1 className="text-2xl font-bold text-foreground">Company not found</h1>
+          <h1 className="text-2xl font-bold text-foreground">
+            Company not found
+          </h1>
           <p className="text-muted-foreground">
             We couldn&apos;t find the company you&apos;re looking for.
           </p>
@@ -82,7 +88,7 @@ export default async function CompanyPage({ params }: Props) {
         totalProductions={movies.length}
       />
 
-      <div className="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 mt-8 md:mt-10 pb-16">
+      <div className="w-full mx-auto mt-8 md:mt-10 pb-16 app-container">
         <div className="flex flex-col lg:flex-row gap-10 lg:gap-12">
           <div className="flex-1 min-w-0 space-y-10">
             <CompanyFilmography movies={movies} />

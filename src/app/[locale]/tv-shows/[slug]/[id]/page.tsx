@@ -66,7 +66,9 @@ export default async function TvShowPage({ params }: Props) {
       <div className="flex flex-1 flex-col items-center justify-center bg-background p-8">
         <div className="flex flex-col items-center gap-4 text-center max-w-md">
           <AlertCircle className="size-12 text-muted-foreground" />
-          <h1 className="text-2xl font-bold text-foreground">TV Show not found</h1>
+          <h1 className="text-2xl font-bold text-foreground">
+            TV Show not found
+          </h1>
           <p className="text-muted-foreground">
             We couldn&apos;t find the TV show you&apos;re looking for.
           </p>
@@ -83,9 +85,12 @@ export default async function TvShowPage({ params }: Props) {
 
   const year = show.first_air_date?.slice(0, 4) ?? "";
   const trailers = (show.videos?.results ?? []).filter(
-    (v) => v.site === "YouTube" && (v.type === "Trailer" || v.type === "Teaser"),
+    (v) =>
+      v.site === "YouTube" && (v.type === "Trailer" || v.type === "Teaser"),
   );
-  const usRating = (show.content_ratings?.results ?? []).find((r) => r.iso_3166_1 === "US");
+  const usRating = (show.content_ratings?.results ?? []).find(
+    (r) => r.iso_3166_1 === "US",
+  );
   const certification = usRating?.rating ?? "";
   const runtime = show.episode_run_time?.[0] ?? 0;
   const creators = show.created_by?.map((c) => c.name) ?? [];
@@ -108,12 +113,16 @@ export default async function TvShowPage({ params }: Props) {
         homepage={show.homepage || null}
       />
 
-      <div className="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 mt-8 md:mt-10 pb-16">
+      <div className="w-full mx-auto px-4 app-container mt-8 md:mt-10 pb-16">
         <div className="flex flex-col lg:flex-row gap-10 lg:gap-12">
           <div className="flex-1 min-w-0 space-y-10">
             <div className="flex flex-col sm:flex-row gap-6">
               <div className="flex-shrink-0 w-full max-w-[200px] mx-auto sm:mx-0">
-                <MoviePoster posterPath={show.poster_path} title={show.name} priority />
+                <MoviePoster
+                  posterPath={show.poster_path}
+                  title={show.name}
+                  priority
+                />
               </div>
               <div className="flex-1 min-w-0">
                 <MovieOverview
@@ -126,7 +135,11 @@ export default async function TvShowPage({ params }: Props) {
 
             <MovieCast cast={show.credits?.cast ?? []} />
 
-            <TvSeasons seasons={show.seasons ?? []} tvId={show.id} tvSlug={slug} />
+            <TvSeasons
+              seasons={show.seasons ?? []}
+              tvId={show.id}
+              tvSlug={slug}
+            />
 
             <MovieVideos videos={show.videos?.results ?? []} />
 
@@ -135,13 +148,14 @@ export default async function TvShowPage({ params }: Props) {
               posters={show.images?.posters ?? []}
             />
 
-            {show.recommendations && show.recommendations.results.length > 0 && (
-              <MediaRow title="Recommendations">
-                {show.recommendations.results.map((tv) => (
-                  <TvCard key={tv.id} tv={tv} />
-                ))}
-              </MediaRow>
-            )}
+            {show.recommendations &&
+              show.recommendations.results.length > 0 && (
+                <MediaRow title="Recommendations">
+                  {show.recommendations.results.map((tv) => (
+                    <TvCard key={tv.id} tv={tv} />
+                  ))}
+                </MediaRow>
+              )}
             {show.similar && show.similar.results.length > 0 && (
               <MediaRow title="Similar Shows">
                 {show.similar.results.map((tv) => (

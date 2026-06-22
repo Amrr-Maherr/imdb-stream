@@ -4,23 +4,34 @@ import { MediaRow } from "./media-row";
 import { MovieCard } from "./movie-card";
 import { TvCard } from "./tv-card";
 import { PersonCard } from "./person-card";
-import { ProductionCompaniesSection, PlatformsSection } from "@/components/company/company-section";
+import {
+  ProductionCompaniesSection,
+  PlatformsSection,
+} from "@/components/company/company-section";
 
 export async function HomeSections() {
-  const [popular, topRated, nowPlaying, trendingTv, popularTv, airingToday, trendingPeople, popularPeople] =
-    await Promise.all([
-      safeFetch<TMDBMovie>("movie/popular"),
-      safeFetch<TMDBMovie>("movie/top_rated"),
-      safeFetch<TMDBMovie>("movie/now_playing"),
-      safeFetch<TMDBTV>("trending/tv/week"),
-      safeFetch<TMDBTV>("tv/popular"),
-      safeFetch<TMDBTV>("tv/airing_today"),
-      safeFetch<TMDBPerson>("trending/person/week"),
-      safeFetch<TMDBPerson>("person/popular"),
-    ]);
+  const [
+    popular,
+    topRated,
+    nowPlaying,
+    trendingTv,
+    popularTv,
+    airingToday,
+    trendingPeople,
+    popularPeople,
+  ] = await Promise.all([
+    safeFetch<TMDBMovie>("movie/popular"),
+    safeFetch<TMDBMovie>("movie/top_rated"),
+    safeFetch<TMDBMovie>("movie/now_playing"),
+    safeFetch<TMDBTV>("trending/tv/week"),
+    safeFetch<TMDBTV>("tv/popular"),
+    safeFetch<TMDBTV>("tv/airing_today"),
+    safeFetch<TMDBPerson>("trending/person/week"),
+    safeFetch<TMDBPerson>("person/popular"),
+  ]);
 
   return (
-    <div className="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+    <div className="w-full app-container py-8 space-y-12">
       {/* Movies */}
       <div className="space-y-10">
         <div className="flex items-center gap-3">

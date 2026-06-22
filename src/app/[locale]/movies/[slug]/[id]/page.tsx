@@ -63,10 +63,12 @@ export default async function MoviePage({ params }: Props) {
       <div className="flex flex-1 flex-col items-center justify-center bg-background p-8">
         <div className="flex flex-col items-center gap-4 text-center max-w-md">
           <AlertCircle className="size-12 text-muted-foreground" />
-          <h1 className="text-2xl font-bold text-foreground">Movie not found</h1>
+          <h1 className="text-2xl font-bold text-foreground">
+            Movie not found
+          </h1>
           <p className="text-muted-foreground">
-            We couldn&apos;t find the movie you&apos;re looking for. It may not exist or there was an error
-            loading it.
+            We couldn&apos;t find the movie you&apos;re looking for. It may not
+            exist or there was an error loading it.
           </p>
           <Link
             href="/"
@@ -81,11 +83,16 @@ export default async function MoviePage({ params }: Props) {
 
   const year = movie.release_date?.slice(0, 4) ?? "";
   const trailers = (movie.videos?.results ?? []).filter(
-    (v) => v.site === "YouTube" && (v.type === "Trailer" || v.type === "Teaser"),
+    (v) =>
+      v.site === "YouTube" && (v.type === "Trailer" || v.type === "Teaser"),
   );
   const director = movie.credits?.crew?.find((c) => c.job === "Director");
-  const writers = (movie.credits?.crew ?? []).filter((c) => c.department === "Writing");
-  const usRelease = (movie.release_dates?.results ?? []).find((r) => r.iso_3166_1 === "US");
+  const writers = (movie.credits?.crew ?? []).filter(
+    (c) => c.department === "Writing",
+  );
+  const usRelease = (movie.release_dates?.results ?? []).find(
+    (r) => r.iso_3166_1 === "US",
+  );
   const certification = usRelease?.release_dates?.[0]?.certification ?? "";
 
   return (
@@ -106,12 +113,16 @@ export default async function MoviePage({ params }: Props) {
         homepage={movie.homepage || null}
       />
 
-      <div className="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 mt-8 md:mt-10 pb-16">
+      <div className="w-full mx-auto app-container mt-8 md:mt-10 pb-16">
         <div className="flex flex-col lg:flex-row gap-10 lg:gap-12">
           <div className="flex-1 min-w-0 space-y-10">
             <div className="flex flex-col sm:flex-row gap-6">
               <div className="flex-shrink-0 w-full max-w-[200px] mx-auto sm:mx-0">
-                <MoviePoster posterPath={movie.poster_path} title={movie.title} priority />
+                <MoviePoster
+                  posterPath={movie.poster_path}
+                  title={movie.title}
+                  priority
+                />
               </div>
               <div className="flex-1 min-w-0">
                 <MovieOverview
