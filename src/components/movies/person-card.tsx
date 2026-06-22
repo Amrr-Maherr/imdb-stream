@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { TMDBPerson } from "@/types/tmdb";
+import { slugify } from "@/lib/slugify";
 
 const TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p";
 
@@ -16,7 +17,7 @@ export function PersonCard({ person }: PersonCardProps) {
 
   return (
     <Link
-      href={`/people/${person.id}`}
+      href={`/people/${slugify(person.name)}/${person.id}`}
       className="group flex-shrink-0 w-[140px] sm:w-[160px]"
     >
       <div className="relative aspect-[1/1] w-full overflow-hidden rounded-full bg-muted">

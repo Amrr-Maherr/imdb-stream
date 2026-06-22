@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Star } from "lucide-react";
 import type { TMDBMovie } from "@/types/tmdb";
+import { slugify } from "@/lib/slugify";
 
 const TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p";
 
@@ -15,7 +16,7 @@ export function MovieCard({ movie }: MovieCardProps) {
 
   return (
     <Link
-      href={`/movies/${movie.id}`}
+      href={`/movies/${slugify(movie.title)}/${movie.id}`}
       className="group flex-shrink-0 w-[160px] sm:w-[180px]"
     >
       <div className="relative aspect-[2/3] w-full overflow-hidden rounded-lg bg-muted">

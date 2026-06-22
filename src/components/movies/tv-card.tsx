@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Star } from "lucide-react";
 import type { TMDBTV } from "@/types/tmdb";
+import { slugify } from "@/lib/slugify";
 
 const TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p";
 
@@ -15,7 +16,7 @@ export function TvCard({ tv }: TvCardProps) {
 
   return (
     <Link
-      href={`/tv-shows/${tv.id}`}
+      href={`/tv-shows/${slugify(tv.name)}/${tv.id}`}
       className="group flex-shrink-0 w-[160px] sm:w-[180px]"
     >
       <div className="relative aspect-[2/3] w-full overflow-hidden rounded-lg bg-muted">

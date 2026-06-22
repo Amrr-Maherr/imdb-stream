@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight, Info, Play, Star } from "lucide-react";
 import type { TMDBMovie } from "@/types/tmdb";
+import { slugify } from "@/lib/slugify";
 
 const TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p";
 
@@ -79,14 +80,14 @@ export function HeroBanner({ movies }: HeroBannerProps) {
 
             <div className="flex flex-wrap gap-3 pt-2">
               <Link
-                href={`/movies/${movie.id}`}
+                href={`/movies/${slugify(movie.title)}/${movie.id}`}
                 className="inline-flex items-center gap-2 rounded-lg bg-brand px-6 py-3 text-sm font-semibold text-brand-foreground hover:bg-brand/90 transition-all"
               >
                 <Play className="size-4 fill-current" />
                 Watch
               </Link>
               <Link
-                href={`/movies/${movie.id}`}
+                href={`/movies/${slugify(movie.title)}/${movie.id}`}
                 className="inline-flex items-center gap-2 rounded-lg bg-white/10 backdrop-blur-sm px-6 py-3 text-sm font-semibold text-white hover:bg-white/20 transition-all"
               >
                 <Info className="size-4" />
