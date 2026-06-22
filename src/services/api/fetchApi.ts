@@ -9,16 +9,13 @@ export async function fetchApi<T = any>({
     cache = "force-cache",
     revalidate,
 }: FetchApiOptions): Promise<T> {
-    const res = await fetch(
-        `${process.env.TMDB_BASE_URL}/${endpoint}`,
-        {
-            cache,
-            next: revalidate ? { revalidate } : undefined,
-            headers: {
-                Authorization: `Bearer ${process.env.TMDB_TOKEN}`,
-            },
-        }
-    );
+    const separator = endpoint.includes("?") ? "&" : "?";
+    const url = `${process.env.TMDB_BASE_URL}/${endpoint}${separator}api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`;
+
+    const res = await fetch(url, {
+        cache,
+        next: revalidate ? { revalidate } : undefined,
+    });
 
     if (!res.ok) {
         throw new Error(`Request failed: ${endpoint}`);
