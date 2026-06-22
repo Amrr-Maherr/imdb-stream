@@ -10,7 +10,7 @@ export async function HeroSection() {
       endpoint: "trending/movie/week",
       revalidate: 3600,
     });
-    movies = data.results.slice(0, 15);
+    movies = data.results;
   } catch {
     return null;
   }
