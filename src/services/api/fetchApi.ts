@@ -10,7 +10,7 @@ export async function fetchApi<T = any>({
     revalidate,
 }: FetchApiOptions): Promise<T> {
     const separator = endpoint.includes("?") ? "&" : "?";
-    const url = `${process.env.TMDB_BASE_URL}/${endpoint}${separator}api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`;
+    const url = `${process.env.TMDB_BASE_URL}/${endpoint}${separator}api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&include_adult=true`;
 
     const res = await fetch(url, {
         cache,
