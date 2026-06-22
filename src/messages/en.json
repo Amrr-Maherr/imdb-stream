@@ -46,6 +46,32 @@
       "creating": "Creating Account...",
       "hasAccount": "Already have an account?",
       "signIn": "Sign in"
+    },
+    "forgotPassword": {
+      "title": "Forgot Password",
+      "heading": "Forgot your password?",
+      "description": "Enter your email address and we'll send you a link to reset your password.",
+      "emailLabel": "Email",
+      "emailPlaceholder": "you@example.com",
+      "submit": "Send Reset Link",
+      "sending": "Sending...",
+      "checkEmail": "Check your email",
+      "sentDescription": "We've sent a password reset link to your email. Please check your inbox.",
+      "backToSignIn": "Back to Sign In"
+    },
+    "resetPassword": {
+      "title": "Reset Password",
+      "heading": "Set a new password",
+      "description": "Enter your new password below.",
+      "passwordLabel": "New Password",
+      "passwordPlaceholder": "Enter your new password",
+      "confirmLabel": "Confirm Password",
+      "confirmPlaceholder": "Confirm your new password",
+      "submit": "Reset Password",
+      "resetting": "Resetting...",
+      "success": "Password reset successfully!",
+      "backToSignIn": "Back to Sign In",
+      "invalidLink": "Invalid or expired reset link"
     }
   },
   "Profile": {
