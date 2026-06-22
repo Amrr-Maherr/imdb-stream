@@ -4,6 +4,7 @@ import { MediaRow } from "./media-row";
 import { MovieCard } from "./movie-card";
 import { TvCard } from "./tv-card";
 import { PersonCard } from "./person-card";
+import { ProductionCompaniesSection, PlatformsSection } from "@/components/company/company-section";
 
 export async function HomeSections() {
   const [popular, topRated, nowPlaying, trendingTv, popularTv, airingToday, trendingPeople, popularPeople] =
@@ -48,6 +49,10 @@ export async function HomeSections() {
           </MediaRow>
         )}
       </div>
+
+      {/* Production Companies */}
+      <ProductionCompaniesSection />
+      <PlatformsSection />
 
       {/* TV Shows */}
       <div className="space-y-10">
