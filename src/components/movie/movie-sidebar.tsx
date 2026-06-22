@@ -1,5 +1,7 @@
+import Link from "next/link";
 import { DollarSign } from "lucide-react";
 import { MovieRating } from "./movie-rating";
+import { slugify } from "@/lib/slugify";
 
 type MovieSidebarProps = {
   voteAverage: number;
@@ -112,7 +114,13 @@ export function MovieSidebar({
               <h4 className="text-xs font-semibold text-muted-foreground uppercase">Production</h4>
               <div className="text-sm text-foreground mt-0.5 space-y-0.5">
                 {productionCompanies.map((c) => (
-                  <p key={c.id}>{c.name}</p>
+                  <Link
+                    key={c.id}
+                    href={`/company/${slugify(c.name)}/${c.id}`}
+                    className="block hover:text-brand transition-colors"
+                  >
+                    {c.name}
+                  </Link>
                 ))}
               </div>
             </div>

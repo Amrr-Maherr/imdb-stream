@@ -1,5 +1,7 @@
+import Link from "next/link";
 import { Monitor } from "lucide-react";
 import { MovieRating } from "@/components/movie/movie-rating";
+import { slugify } from "@/lib/slugify";
 
 type TvSidebarProps = {
   voteAverage: number;
@@ -132,10 +134,14 @@ export function TvSidebar({
               <h4 className="text-xs font-semibold text-muted-foreground uppercase">Network</h4>
               <div className="text-sm text-foreground mt-0.5">
                 {networks.map((n) => (
-                  <p key={n.id} className="flex items-center gap-1">
+                  <Link
+                    key={n.id}
+                    href={`/company/${slugify(n.name)}/${n.id}`}
+                    className="flex items-center gap-1 hover:text-brand transition-colors"
+                  >
                     <Monitor className="size-3.5 text-muted-foreground" />
                     {n.name}
-                  </p>
+                  </Link>
                 ))}
               </div>
             </div>
@@ -145,7 +151,13 @@ export function TvSidebar({
               <h4 className="text-xs font-semibold text-muted-foreground uppercase">Production</h4>
               <div className="text-sm text-foreground mt-0.5 space-y-0.5">
                 {productionCompanies.map((c) => (
-                  <p key={c.id}>{c.name}</p>
+                  <Link
+                    key={c.id}
+                    href={`/company/${slugify(c.name)}/${c.id}`}
+                    className="block hover:text-brand transition-colors"
+                  >
+                    {c.name}
+                  </Link>
                 ))}
               </div>
             </div>
