@@ -1,6 +1,6 @@
 import { getTranslations } from "next-intl/server"
 import { AuthLayout } from "@/components/auth/auth-layout"
-import { AuthProviders } from "@/components/auth/auth-providers"
+import { PhoneAuth } from "@/components/auth/phone-auth"
 
 interface Props {
   params: Promise<{ locale: string }>
@@ -9,15 +9,13 @@ interface Props {
 export async function generateMetadata({ params }: Props) {
   const { locale } = await params
   const t = await getTranslations({ locale, namespace: "Auth" })
-  return { title: t("signIn.title") }
+  return { title: "Phone" }
 }
 
-export default async function SignInPage() {
-  const t = await getTranslations("Auth")
-
+export default async function PhoneAuthPage() {
   return (
-    <AuthLayout title={t("signIn.heading")}>
-      <AuthProviders />
+    <AuthLayout title="Sign in with Phone">
+      <PhoneAuth />
     </AuthLayout>
   )
 }
