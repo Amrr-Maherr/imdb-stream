@@ -22,6 +22,7 @@ import "swiper/css/effect-coverflow";
 export interface SliderProps {
   children: React.ReactNode;
   slidesPerView?: number | "auto";
+  slidesMobilePerView?: number;
   spaceBetween?: number;
   loop?: boolean;
   autoplay?: boolean | { delay: number };
@@ -42,6 +43,7 @@ export interface SliderProps {
 export function Slider({
   children,
   slidesPerView = "auto",
+  slidesMobilePerView,
   spaceBetween = 16,
   loop = false,
   autoplay = false,
@@ -58,6 +60,14 @@ export function Slider({
   onSwiper,
   onSlideChange,
 }: SliderProps) {
+  const activeSlidesPerView = slidesMobilePerView ?? slidesPerView;
+
+  const mergedBreakpoints: Record<number, object> = {
+    ...breakpoints,
+  };
+  if (slidesMobilePerView != null) {
+    mergedBreakpoints[640] = { slidesPerView };
+  }
   const swiperRef = useRef<SwiperClass | null>(null);
 
   const handleSwiper = useCallback(
@@ -91,13 +101,13 @@ export function Slider({
     <div className={className}>
       <Swiper
         modules={modules}
-        slidesPerView={slidesPerView}
+        slidesPerView={activeSlidesPerView}
         spaceBetween={spaceBetween}
         loop={loop}
         autoplay={autoplayConfig}
         navigation={navigation}
         pagination={paginationConfig}
-        breakpoints={breakpoints}
+        breakpoints={mergedBreakpoints as Record<number, object>}
         direction={direction}
         speed={speed}
         centeredSlides={centeredSlides}

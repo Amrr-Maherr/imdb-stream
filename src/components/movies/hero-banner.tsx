@@ -53,8 +53,8 @@ export function HeroBanner({ movies }: HeroBannerProps) {
         </div>
       ))}
 
-      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
-      <div className="absolute inset-0 bg-gradient-to-r from-background/80 via-transparent to-transparent" />
+      <div className="absolute inset-0 dark:bg-gradient-to-t dark:from-background dark:via-background/60 dark:to-transparent" />
+      <div className="absolute inset-0 dark:bg-gradient-to-r dark:from-background/80 dark:via-transparent dark:to-transparent" />
 
       <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-full flex-col justify-end pb-20 md:pb-32 lg:pb-40 max-w-2xl">
