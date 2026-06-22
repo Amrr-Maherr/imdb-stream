@@ -1,5 +1,5 @@
 "use client";
-import { Mail, Eye, EyeOff } from "lucide-react";
+import { Mail, Eye, EyeOff, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Input } from "@/components/ui/input";
@@ -130,6 +130,7 @@ export function EmailPasswordAuth() {
         disabled={isSubmitting}
         className="w-full bg-brand text-brand-foreground hover:bg-brand/90 font-semibold disabled:opacity-70 disabled:cursor-not-allowed"
       >
+        {isSubmitting && <Loader2 className="animate-spin" />}
         {isSubmitting ? "Signing in..." : "Sign in"}
       </Button>
 

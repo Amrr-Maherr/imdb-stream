@@ -1,7 +1,7 @@
 import React from "react";
 
 type AuthStatusMessageProps = {
-  message: string | object | null;
+  message: string | null;
   type?: "success" | "error";
   className?: string;
 };
