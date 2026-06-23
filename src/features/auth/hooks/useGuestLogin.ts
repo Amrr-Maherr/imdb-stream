@@ -3,9 +3,11 @@
 import { signInAnonymously } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 import { useState } from "react";
+import { useRouter } from "@/i18n/navigation";
 import storeUserData from "./saveUserToLocalStorage";
 
 export default function useGuestLogin() {
+    const router = useRouter();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
@@ -17,6 +19,7 @@ export default function useGuestLogin() {
             const result = await signInAnonymously(auth);
             if (result) {
                 storeUserData(result)
+                router.push("/");
             }
             return result;
         } catch (err: any) {

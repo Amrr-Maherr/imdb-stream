@@ -3,6 +3,7 @@
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 import { useState } from "react";
+import { useRouter } from "@/i18n/navigation";
 import storeUserData from "./saveUserToLocalStorage";
 
 type RegisterData = {
@@ -12,6 +13,7 @@ type RegisterData = {
 };
 
 export default function useRegister() {
+    const router = useRouter();
     const [firebaseError, setFirebaseError] = useState<string | null>(null);
 
     const register = async (data: RegisterData) => {
@@ -28,6 +30,7 @@ export default function useRegister() {
 
             if (response) {
                 storeUserData(response)
+                router.push("/");
             }
 
             return response;

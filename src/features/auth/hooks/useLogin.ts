@@ -3,6 +3,7 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 import { useState } from "react";
+import { useRouter } from "@/i18n/navigation";
 import storeUserData from "./saveUserToLocalStorage";
 // login data types
 type LoginData = {
@@ -11,7 +12,7 @@ type LoginData = {
 };
 
 export default function useLogin() {
-    // state for fireBase error
+    const router = useRouter();
     const [firebaseError, setFirebaseError] = useState<string | null>(null);
 
     const login = async (data: LoginData) => {
@@ -24,6 +25,7 @@ export default function useLogin() {
             );
             if (response) {
                 storeUserData(response)
+                router.push("/");
             } else {
                 return;
             }
