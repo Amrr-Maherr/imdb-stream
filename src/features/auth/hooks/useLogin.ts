@@ -3,6 +3,7 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 import { useState } from "react";
+import storeUserData from "./saveUserToLocalStorage";
 // login data types
 type LoginData = {
     email: string;
@@ -21,7 +22,12 @@ export default function useLogin() {
                 data.email,
                 data.password
             );
-
+            if (response) {
+                localStorage.setItem("user_data", JSON.stringify(response))
+                storeUserData(response)
+            } else {
+                return;
+            }
             return response;
         } catch (error: any) {
             const firebaseErr =
