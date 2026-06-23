@@ -34,11 +34,21 @@ export async function ProductionCompaniesSection() {
     <div className="space-y-6">
       <div className="flex items-center gap-3">
         <div className="h-6 w-1 rounded-full bg-brand" />
-        <h2 className="text-2xl font-bold text-foreground">
-          Production Companies
-        </h2>
+        <div>
+          <h2 className="text-2xl font-bold text-foreground">
+            Production Companies
+          </h2>
+          <p className="text-sm text-muted-foreground">
+            Major studios and production houses
+          </p>
+        </div>
       </div>
-      <MediaRow title="Studios">
+      <MediaRow
+        title="Studios"
+        slidesPerView={5}
+        slidesMobilePerView={2.5}
+        spaceBetween={14}
+      >
         {companies.map((company) => (
           <CompanyCard key={company.id} company={company} />
         ))}
@@ -55,11 +65,19 @@ export async function PlatformsSection() {
     <div className="space-y-6">
       <div className="flex items-center gap-3">
         <div className="h-6 w-1 rounded-full bg-brand" />
-        <h2 className="text-2xl font-bold text-foreground">
-          Platforms
-        </h2>
+        <div>
+          <h2 className="text-2xl font-bold text-foreground">Platforms</h2>
+          <p className="text-sm text-muted-foreground">
+            Networks and streaming services
+          </p>
+        </div>
       </div>
-      <MediaRow title="Networks & Streaming">
+      <MediaRow
+        title="Networks & Streaming"
+        slidesPerView={5}
+        slidesMobilePerView={2.5}
+        spaceBetween={14}
+      >
         {platforms.map((platform) => (
           <CompanyCard key={platform.id} company={platform} />
         ))}

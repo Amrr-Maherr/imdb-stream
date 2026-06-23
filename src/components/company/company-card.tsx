@@ -28,7 +28,9 @@ export function CompanyCard({ company }: CompanyCardProps) {
         ) : (
           <div className="flex flex-col items-center gap-2 text-muted-foreground">
             <Building2 className="size-8" />
-            <span className="text-xs text-center line-clamp-2">{company.name}</span>
+            <span className="text-xs text-center line-clamp-2">
+              {company.name}
+            </span>
           </div>
         )}
       </div>
@@ -39,6 +41,11 @@ export function CompanyCard({ company }: CompanyCardProps) {
         <p className="text-xs text-muted-foreground">
           {company.origin_country || "Production Company"}
         </p>
+        {company.description && (
+          <p className="text-[10px] text-muted-foreground/50 line-clamp-1 leading-relaxed">
+            {company.description}
+          </p>
+        )}
       </div>
     </Link>
   );

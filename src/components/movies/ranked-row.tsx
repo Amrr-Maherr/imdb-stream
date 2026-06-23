@@ -2,26 +2,21 @@
 
 import { Slider } from "@/components/ui/slider";
 
-type MediaRowProps = {
+type RankedRowProps = {
   title: string;
-  children: React.ReactNode;
   subtitle?: string;
-  slidesPerView?: number;
-  slidesMobilePerView?: number;
-  spaceBetween?: number;
+  children: React.ReactNode;
+  startRank?: number;
 };
 
-export function MediaRow({
+export function RankedRow({
   title,
-  children,
   subtitle,
-  slidesPerView = 6,
-  slidesMobilePerView = 2.5,
-  spaceBetween = 16,
-}: MediaRowProps) {
+  children,
+}: RankedRowProps) {
   return (
-    <section>
-      <div className="flex items-end justify-between mb-4">
+    <section className="space-y-4">
+      <div className="flex items-end justify-between">
         <div>
           <h2 className="text-xl font-bold text-foreground">{title}</h2>
           {subtitle && (
@@ -30,9 +25,9 @@ export function MediaRow({
         </div>
       </div>
       <Slider
-        slidesPerView={slidesPerView}
-        slidesMobilePerView={slidesMobilePerView}
-        spaceBetween={spaceBetween}
+        slidesPerView={5}
+        slidesMobilePerView={2.5}
+        spaceBetween={14}
         grabCursor
         freeMode
       >

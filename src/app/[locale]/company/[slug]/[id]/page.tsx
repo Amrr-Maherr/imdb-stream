@@ -5,10 +5,14 @@ import type {
   TMDBCompanyDetails,
   TMDBCompanyMovie,
   TMDBResponse,
+  ExternalIds,
+  Image,
 } from "@/types/tmdb";
-import { CompanyHero } from "@/components/company/company-hero";
-import { CompanyInfo } from "@/components/company/company-info";
-import { CompanyFilmography } from "@/components/company/company-filmography";
+import { ProductionCompanyHero } from "@/components/company/production-company-hero";
+import { ProductionCompanyOverview } from "@/components/company/production-company-overview";
+import { ProductionCompanyPortfolio } from "@/components/company/production-company-portfolio";
+import { ProductionCompanyMedia } from "@/components/company/production-company-media";
+import { ProductionCompanyLinks } from "@/components/company/production-company-links";
 
 interface Props {
   params: Promise<{ locale: string; slug: string; id: string }>;
@@ -28,6 +32,29 @@ async function getCompanyMovies(id: string): Promise<TMDBCompanyMovie[]> {
       revalidate: 3600,
     });
     return data.results;
+  } catch {
+    return [];
+  }
+}
+
+async function getCompanyExternalIds(id: string): Promise<ExternalIds | null> {
+  try {
+    return await fetchApi<ExternalIds>({
+      endpoint: `company/${id}/external_ids`,
+      revalidate: 86400,
+    });
+  } catch {
+    return null;
+  }
+}
+
+async function getCompanyImages(id: string): Promise<Image[]> {
+  try {
+    const data = await fetchApi<{ id: number; logos: Image[] }>({
+      endpoint: `company/${id}/images`,
+      revalidate: 86400,
+    });
+    return data.logos;
   } catch {
     return [];
   }
@@ -74,38 +101,44 @@ export default async function CompanyPage({ params }: Props) {
     );
   }
 
-  const movies = await getCompanyMovies(id);
+  const [movies, externalIds, logos] = await Promise.all([
+    getCompanyMovies(id),
+    getCompanyExternalIds(id),
+    getCompanyImages(id),
+  ]);
 
   return (
     <div className="flex flex-col flex-1 bg-background">
-      <CompanyHero
+      <ProductionCompanyHero
         name={company.name}
         logoPath={company.logo_path}
-        headquarters={company.headquarters}
         originCountry={company.origin_country}
-        homepage={company.homepage}
+        headquarters={company.headquarters}
         description={company.description}
+        homepage={company.homepage}
         totalProductions={movies.length}
       />
 
-      <div className="w-full mx-auto mt-8 md:mt-10 pb-16 app-container">
-        <div className="flex flex-col lg:flex-row gap-10 lg:gap-12">
-          <div className="flex-1 min-w-0 space-y-10">
-            <CompanyFilmography movies={movies} />
-          </div>
+      <div className="w-full mx-auto app-container mt-8 md:mt-10 pb-16 space-y-10">
+        <ProductionCompanyOverview
+          description={company.description}
+          originCountry={company.origin_country}
+          headquarters={company.headquarters}
+          parentCompany={company.parent_company}
+          totalProductions={movies.length}
+          homepage={company.homepage}
+        />
 
-          <div className="w-full lg:w-80 xl:w-96 flex-shrink-0">
-            <CompanyInfo
-              name={company.name}
-              originCountry={company.origin_country}
-              headquarters={company.headquarters}
-              foundedDate={null}
-              parentCompany={company.parent_company}
-              homepage={company.homepage}
-              totalProductions={movies.length}
-            />
-          </div>
-        </div>
+        {movies.length > 0 && <ProductionCompanyPortfolio movies={movies} />}
+
+        {logos.length > 0 && <ProductionCompanyMedia logos={logos} />}
+
+        {(externalIds || company.homepage) && (
+          <ProductionCompanyLinks
+            homepage={company.homepage}
+            externalIds={externalIds}
+          />
+        )}
       </div>
     </div>
   );
