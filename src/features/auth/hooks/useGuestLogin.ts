@@ -3,6 +3,7 @@
 import { signInAnonymously } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 import { useState } from "react";
+import storeUserData from "./saveUserToLocalStorage";
 
 export default function useGuestLogin() {
     const [loading, setLoading] = useState(false);
@@ -14,6 +15,9 @@ export default function useGuestLogin() {
 
         try {
             const result = await signInAnonymously(auth);
+            if (result) {
+                storeUserData(result)
+            }
             return result;
         } catch (err: any) {
             const message =

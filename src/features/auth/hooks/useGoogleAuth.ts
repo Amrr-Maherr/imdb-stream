@@ -3,6 +3,7 @@
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 import { useState } from "react";
+import storeUserData from "./saveUserToLocalStorage";
 
 export default function useGoogleAuth() {
     const [firebaseError, setFirebaseError] = useState<string | null>(null);
@@ -15,6 +16,9 @@ export default function useGoogleAuth() {
         try {
             const provider = new GoogleAuthProvider();
             const response = await signInWithPopup(auth, provider);
+            if (response) {
+                storeUserData(response)
+            }
             return response;
         } catch (error: any) {
             const firebaseErr =

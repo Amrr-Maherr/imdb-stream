@@ -23,7 +23,6 @@ export default function useLogin() {
                 data.password
             );
             if (response) {
-                localStorage.setItem("user_data", JSON.stringify(response))
                 storeUserData(response)
             } else {
                 return;

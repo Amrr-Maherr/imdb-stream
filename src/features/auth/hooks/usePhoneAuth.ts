@@ -7,6 +7,7 @@ import {
 } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 import { useState } from "react";
+import storeUserData from "./saveUserToLocalStorage";
 
 export type Step = "phone" | "otp";
 
@@ -64,7 +65,10 @@ export default function usePhoneAuth() {
     setLoading(true);
     setFirebaseError(null);
     try {
-      await confirmationResult.confirm(otp);
+      const response = await confirmationResult.confirm(otp);
+      if (response) {
+        storeUserData(response)
+      }
       return true;
     } catch (error: any) {
       setFirebaseError(

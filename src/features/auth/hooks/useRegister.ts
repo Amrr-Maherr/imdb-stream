@@ -3,6 +3,7 @@
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 import { useState } from "react";
+import storeUserData from "./saveUserToLocalStorage";
 
 type RegisterData = {
     name: string;
@@ -24,6 +25,10 @@ export default function useRegister() {
             await updateProfile(response.user, {
                 displayName: data.name,
             });
+
+            if (response) {
+                storeUserData(response)
+            }
 
             return response;
         } catch (error: any) {
