@@ -37,8 +37,11 @@ export default function Header() {
 
         <NavLinks />
 
-        <div className="flex items-center gap-1 ml-auto md:gap-2">
-          <SearchBar open={searchOpen} onToggle={() => setSearchOpen((p) => !p)} />
+        <div className="flex items-center gap-1 ms-auto md:gap-2">
+          <SearchBar
+            open={searchOpen}
+            onToggle={() => setSearchOpen((p) => !p)}
+          />
 
           <div className="hidden items-center gap-1 md:flex md:gap-2">
             <LanguageSwitcher />
@@ -61,7 +64,11 @@ export default function Header() {
             onClick={() => setMobileMenuOpen((p) => !p)}
             aria-label="Toggle menu"
           >
-            {mobileMenuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
+            {mobileMenuOpen ? (
+              <X className="size-5" />
+            ) : (
+              <Menu className="size-5" />
+            )}
           </Button>
         </div>
       </div>
