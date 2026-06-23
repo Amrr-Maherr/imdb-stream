@@ -8,10 +8,11 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import useLogin from "@/features/auth/hooks/useLogin";
 import AuthStatusMessage from "@/features/auth/components/AuthStatusMessage";
-
+import { useRouter } from "next/navigation";
 export function EmailPasswordAuth() {
   const { login, firebaseError } = useLogin();
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const router = useRouter();
   type Inputs = {
     email: string;
     password: string;
@@ -29,6 +30,7 @@ export function EmailPasswordAuth() {
       if (result?.user) {
         setSuccessMessage("Welcome back! You’ve signed in successfully.");
         reset();
+        router.push("/");
       }
     } catch (error: any) {
       console.log(error);
