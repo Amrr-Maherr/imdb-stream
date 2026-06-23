@@ -1,18 +1,28 @@
-import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, Star, Clock, AlertCircle } from "lucide-react";
+import { AlertCircle } from "lucide-react";
 import { fetchApi } from "@/services/api/fetchApi";
-import type { TVEpisode } from "@/types/tmdb";
-
-const TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p";
+import type { TMDBEpisodeDetails, TVSeasonDetails } from "@/types/tmdb";
+import { EpisodeHero } from "@/components/episode/episode-hero";
+import { EpisodeMainContent } from "@/components/episode/episode-main-content";
+import { EpisodeSidebarColumn } from "@/components/episode/episode-sidebar-column";
 
 interface Props {
   params: Promise<{ locale: string; slug: string; id: string; seasonNumber: string; episodeNumber: string }>;
 }
 
+const EPISODE_APPEND = "videos,images,external_ids,credits";
+const SEASON_APPEND = "videos,images,external_ids,credits,aggregate_credits";
+
 async function getEpisode(tvId: string, seasonNumber: string, episodeNumber: string) {
-  return fetchApi<TVEpisode>({
-    endpoint: `tv/${tvId}/season/${seasonNumber}/episode/${episodeNumber}`,
+  return fetchApi<TMDBEpisodeDetails>({
+    endpoint: `tv/${tvId}/season/${seasonNumber}/episode/${episodeNumber}?append_to_response=${EPISODE_APPEND}`,
+    revalidate: 3600,
+  });
+}
+
+async function getSeason(tvId: string, seasonNumber: string) {
+  return fetchApi<TVSeasonDetails>({
+    endpoint: `tv/${tvId}/season/${seasonNumber}?append_to_response=${SEASON_APPEND}`,
     revalidate: 3600,
   });
 }
@@ -30,9 +40,13 @@ export async function generateMetadata({ params }: Props) {
 export default async function EpisodePage({ params }: Props) {
   const { id, seasonNumber, episodeNumber, slug } = await params;
 
-  let ep: TVEpisode;
+  let ep: TMDBEpisodeDetails;
+  let season: TVSeasonDetails | null = null;
   try {
-    ep = await getEpisode(id, seasonNumber, episodeNumber);
+    [ep, season] = await Promise.all([
+      getEpisode(id, seasonNumber, episodeNumber),
+      getSeason(id, seasonNumber).catch(() => null),
+    ]);
   } catch {
     return (
       <div className="flex flex-1 flex-col items-center justify-center bg-background p-8">
@@ -52,113 +66,29 @@ export default async function EpisodePage({ params }: Props) {
 
   return (
     <div className="flex flex-col flex-1 bg-background">
-      <div className="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <Link
-          href={`/tv-shows/${slug}/${id}/season/${seasonNumber}`}
-          className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors mb-6"
-        >
-          <ArrowLeft className="size-4" />
-          Back to Season {seasonNumber}
-        </Link>
+      <EpisodeHero
+        stillPath={ep.still_path}
+        name={ep.name}
+        seasonNumber={seasonNumber}
+        episodeNumber={ep.episode_number}
+        voteAverage={ep.vote_average}
+        voteCount={ep.vote_count}
+        airDate={ep.air_date}
+        runtime={ep.runtime}
+      />
 
-        {/* Hero still */}
-        {ep.still_path && (
-          <div className="relative w-full aspect-video max-h-[500px] overflow-hidden rounded-xl bg-muted mb-8">
-            <Image
-              src={`${TMDB_IMAGE_BASE}/original${ep.still_path}`}
-              alt={ep.name}
-              fill
-              className="object-cover"
-              sizes="100vw"
-              priority
-            />
-          </div>
-        )}
-
-        <div className="max-w-3xl">
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <p className="text-sm text-muted-foreground">
-                S{String(seasonNumber).padStart(2, "0")} · E{String(ep.episode_number).padStart(2, "0")}
-              </p>
-              <h1 className="text-3xl sm:text-4xl font-bold text-foreground leading-tight mt-1">
-                {ep.name}
-              </h1>
-            </div>
-            <div className="flex items-center gap-1.5 flex-shrink-0">
-              <Star className="size-5 fill-rating-star text-rating-star" />
-              <span className="text-lg font-bold text-foreground">{ep.vote_average.toFixed(1)}</span>
-              <span className="text-sm text-muted-foreground">({ep.vote_count.toLocaleString()})</span>
-            </div>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-4 mt-4 text-sm text-muted-foreground">
-            {ep.air_date && (
-              <span>
-                {new Date(ep.air_date).toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
-              </span>
-            )}
-            {ep.runtime != null && ep.runtime > 0 && (
-              <span className="flex items-center gap-1">
-                <Clock className="size-3.5" />
-                {ep.runtime} min
-              </span>
-            )}
-          </div>
-
-          {ep.overview && (
-            <p className="mt-6 text-muted-foreground leading-relaxed">{ep.overview}</p>
-          )}
+      <div className="w-full mx-auto app-container mt-8 md:mt-10 pb-16">
+        <div className="flex flex-col lg:flex-row gap-10 lg:gap-12">
+          <EpisodeMainContent ep={ep} />
+          <EpisodeSidebarColumn
+            ep={ep}
+            seasonNumber={seasonNumber}
+            seasonEpisodes={season?.episodes ?? []}
+            currentEpisodeNumber={ep.episode_number}
+            slug={slug}
+            tvId={id}
+          />
         </div>
-
-        {/* Guest Stars */}
-        {ep.guest_stars && ep.guest_stars.length > 0 && (
-          <section className="mt-12">
-            <h2 className="text-xl font-bold text-foreground mb-4">Guest Stars</h2>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-              {ep.guest_stars.map((star) => (
-                <div key={star.credit_id} className="text-center">
-                  <div className="relative mx-auto w-16 h-16 overflow-hidden rounded-full bg-muted">
-                    {star.profile_path ? (
-                      <Image
-                        src={`${TMDB_IMAGE_BASE}/w185${star.profile_path}`}
-                        alt={star.name}
-                        fill
-                        className="object-cover"
-                        sizes="64px"
-                      />
-                    ) : (
-                      <div className="flex h-full items-center justify-center text-xs text-muted-foreground">
-                        {star.name.charAt(0)}
-                      </div>
-                    )}
-                  </div>
-                  <p className="text-xs font-medium text-foreground mt-1 line-clamp-1">{star.name}</p>
-                  <p className="text-[11px] text-muted-foreground line-clamp-1">{star.character}</p>
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* Crew */}
-        {ep.crew && ep.crew.length > 0 && (
-          <section className="mt-12">
-            <h2 className="text-xl font-bold text-foreground mb-4">Crew</h2>
-            <div className="space-y-1">
-              {ep.crew.map((member) => (
-                <div key={member.credit_id} className="flex items-center gap-2 text-sm">
-                  <span className="text-foreground font-medium">{member.name}</span>
-                  <span className="text-muted-foreground">· {member.job}</span>
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
       </div>
     </div>
   );

@@ -4,6 +4,7 @@ import { MoviePoster } from "@/components/movie/movie-poster";
 import { MovieOverview } from "@/components/movie/movie-overview";
 import { MovieSection } from "@/components/movie/movie-section";
 import { MovieCast } from "@/components/movie/movie-cast";
+import { FullCastSlider } from "@/components/movie/full-cast-slider";
 import { MovieVideos } from "@/components/movie/movie-videos";
 import { MoviePhotos } from "@/components/movie/movie-photos";
 import { MovieProductionCompanies } from "@/components/movie/movie-production-companies";
@@ -26,6 +27,7 @@ type TvMainContentProps = {
 
 export function TvMainContent({ show, slug, creators }: TvMainContentProps) {
   const allCrew = show.aggregate_credits?.crew ?? show.credits?.crew ?? [];
+  const allCast = show.aggregate_credits?.cast ?? show.credits?.cast ?? [];
   const reviews = show.reviews?.results ?? [];
   const altTitles = show.alternative_titles?.results ?? [];
   const ratings = show.content_ratings?.results ?? [];
@@ -92,6 +94,14 @@ export function TvMainContent({ show, slug, creators }: TvMainContentProps) {
       <FadeIn delay={0.15}>
         <MovieCast cast={show.credits?.cast ?? []} />
       </FadeIn>
+
+      {allCast.length > 0 && (
+        <FadeIn delay={0.18}>
+          <MovieSection title="Filmography">
+            <FullCastSlider cast={allCast} />
+          </MovieSection>
+        </FadeIn>
+      )}
 
       <FadeIn delay={0.2}>
         <TvSeasons seasons={show.seasons ?? []} tvId={show.id} tvSlug={slug} />

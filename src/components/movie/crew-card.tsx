@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { slugify } from "@/lib/slugify";
 
 const TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p";
 
@@ -20,7 +21,7 @@ export function CrewCard({
 }: CrewCardProps) {
   return (
     <Link
-      href={`/person/${id}`}
+      href={`/people/${slugify(name)}/${id}`}
       className="group w-full text-center"
     >
       <div className="relative size-24 mx-auto overflow-hidden rounded-full bg-muted ring-2 ring-border group-hover:ring-brand transition-all">

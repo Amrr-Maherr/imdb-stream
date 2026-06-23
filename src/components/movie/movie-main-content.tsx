@@ -6,6 +6,7 @@ import { MovieSection } from "./movie-section";
 import { MovieProductionCompanies } from "./movie-production-companies";
 import { MovieCrewSection } from "./movie-crew";
 import { MovieCast } from "./movie-cast";
+import { FullCastSlider } from "./full-cast-slider";
 import { MovieVideos } from "./movie-videos";
 import { MoviePhotos } from "./movie-photos";
 import { MovieReviews } from "./movie-reviews";
@@ -61,6 +62,14 @@ export function MovieMainContent({ movie, directorName, writers }: MovieMainCont
       <FadeIn delay={0.15}>
         <MovieCast cast={movie.credits?.cast ?? []} />
       </FadeIn>
+
+      {movie.credits && movie.credits.cast.length > 0 && (
+        <FadeIn delay={0.18}>
+          <MovieSection title="Filmography">
+            <FullCastSlider cast={movie.credits.cast} />
+          </MovieSection>
+        </FadeIn>
+      )}
 
       <FadeIn delay={0.2}>
         <MovieVideos videos={movie.videos?.results ?? []} />

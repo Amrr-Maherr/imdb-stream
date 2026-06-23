@@ -3,8 +3,8 @@ import { AlertCircle } from "lucide-react";
 import { fetchApi } from "@/services/api/fetchApi";
 import type { TMDBPersonDetails } from "@/types/tmdb";
 import { PersonHero } from "@/components/person/person-hero";
-import { PersonSidebar } from "@/components/person/person-sidebar";
-import { PersonCredits } from "@/components/person/person-credits";
+import { PersonMainContent } from "@/components/person/person-main-content";
+import { PersonSidebarColumn } from "@/components/person/person-sidebar-column";
 
 interface Props {
   params: Promise<{ locale: string; slug: string; id: string }>;
@@ -58,14 +58,11 @@ export default async function PersonPage({ params }: Props) {
     );
   }
 
-  const combinedCredits = person.combined_credits;
-
   return (
     <div className="flex flex-col flex-1 bg-background">
       <PersonHero
         name={person.name}
         profilePath={person.profile_path}
-        biography={person.biography}
         knownForDepartment={person.known_for_department}
         birthday={person.birthday}
         deathday={person.deathday}
@@ -76,24 +73,8 @@ export default async function PersonPage({ params }: Props) {
 
       <div className="w-full mx-auto app-container mt-8 md:mt-10 pb-16">
         <div className="flex flex-col lg:flex-row gap-10 lg:gap-12">
-          <div className="flex-1 min-w-0 space-y-10">
-            <PersonCredits
-              cast={combinedCredits?.cast ?? []}
-              crew={combinedCredits?.crew ?? []}
-            />
-          </div>
-
-          <div className="w-full lg:w-80 xl:w-96 flex-shrink-0">
-            <PersonSidebar
-              knownForDepartment={person.known_for_department}
-              gender={person.gender}
-              birthday={person.birthday}
-              deathday={person.deathday}
-              placeOfBirth={person.place_of_birth}
-              alsoKnownAs={person.also_known_as}
-              popularity={person.popularity}
-            />
-          </div>
+          <PersonMainContent person={person} />
+          <PersonSidebarColumn person={person} />
         </div>
       </div>
     </div>

@@ -17,7 +17,9 @@ export function MoviePhotos({ backdrops, posters, logos }: MoviePhotosProps) {
 
   return (
     <section>
-      <h2 className="text-xl font-bold text-foreground mb-4">Photos{logos && logos.length > 0 ? " & Logos" : ""}</h2>
+      <h2 className="text-xl font-bold text-foreground mb-4">
+        Photos{logos && logos.length > 0 ? " & Logos" : ""}
+      </h2>
       <Slider
         slidesPerView={3}
         slidesMobilePerView={1.5}
@@ -32,7 +34,7 @@ export function MoviePhotos({ backdrops, posters, logos }: MoviePhotosProps) {
             className="relative aspect-video w-full h-50 overflow-hidden rounded-lg bg-muted"
           >
             <Image
-              src={`${TMDB_IMAGE_BASE}/w780${img.file_path}`}
+              src={`${TMDB_IMAGE_BASE}/w780${img?.file_path}`}
               alt={`Movie photo ${i + 1}`}
               fill
               className="object-cover"

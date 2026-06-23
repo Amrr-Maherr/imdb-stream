@@ -443,6 +443,20 @@ export type TVSeasonDetails = {
   season_number: number;
   vote_average: number;
   episodes: TVEpisode[];
+
+  // append_to_response
+  videos?: { results: Video[] };
+  images?: { posters: Image[]; backdrops: Image[] };
+  external_ids?: { tvdb_id: number | null; imdb_id: string | null };
+  credits?: Credits;
+  aggregate_credits?: Credits;
+};
+
+export type TMDBEpisodeDetails = TVEpisode & {
+  videos?: { results: Video[] };
+  images?: { stills: Image[] };
+  external_ids?: { tvdb_id: number | null; imdb_id: string | null };
+  credits?: Credits;
 };
 
 export type TMDBCompany = {
