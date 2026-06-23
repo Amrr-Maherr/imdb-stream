@@ -1,3 +1,6 @@
+"use client";
+
+import { Slider } from "@/components/ui/slider";
 import { MovieCard } from "@/components/movies/movie-card";
 import type { TMDBMovie } from "@/types/tmdb";
 
@@ -12,11 +15,18 @@ export function RelatedMovies({ title, movies }: RelatedMoviesProps) {
   return (
     <section>
       <h2 className="text-xl font-bold text-foreground mb-4">{title}</h2>
-      <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-none">
+      <Slider
+        slidesPerView={4}
+        slidesMobilePerView={2}
+        spaceBetween={16}
+        grabCursor
+        freeMode
+        className="-mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 pb-8"
+      >
         {movies.map((movie) => (
           <MovieCard key={movie.id} movie={movie} />
         ))}
-      </div>
+      </Slider>
     </section>
   );
 }

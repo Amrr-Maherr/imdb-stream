@@ -18,8 +18,8 @@ export function MovieCast({ cast }: MovieCastProps) {
     <section>
       <h2 className="text-xl font-bold text-foreground mb-4">Top Cast</h2>
       <Slider
-        slidesPerView={5}
-        slidesMobilePerView={2}
+        slidesPerView={6}
+        slidesMobilePerView={2.5}
         spaceBetween={16}
         grabCursor
         freeMode

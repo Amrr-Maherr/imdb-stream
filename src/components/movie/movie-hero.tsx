@@ -199,7 +199,7 @@ export function MovieHero({
 
       {/* Content overlay – z-20 */}
       <div className="absolute inset-0 z-20 flex flex-col justify-end pb-16 md:pb-20">
-        <div className="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full mx-auto app-container">
           <MovieInfo
             title={title}
             year={year}
@@ -248,7 +248,7 @@ export function MovieHero({
       {/* Video controls toolbar */}
       {ready && trailerKey && (
         <div className="absolute bottom-0 left-0 right-0 z-30 border-t border-white/10 bg-black/60 backdrop-blur-sm">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex items-center gap-2">
+          <div className="py-2 flex items-center gap-2 app-container">
             <button
               onClick={togglePlay}
               className="flex size-9 items-center justify-center rounded-lg bg-white/10 text-white hover:bg-white/20 transition-colors"

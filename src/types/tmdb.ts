@@ -180,6 +180,13 @@ export type List = {
   poster_path: string | null;
 };
 
+export type Collection = {
+  id: number;
+  name: string;
+  poster_path: string | null;
+  backdrop_path: string | null;
+};
+
 export type TMDBMovieDetails = {
   id: number;
   title: string;
@@ -205,6 +212,8 @@ export type TMDBMovieDetails = {
   production_companies: ProductionCompany[];
   production_countries: ProductionCountry[];
   spoken_languages: SpokenLanguage[];
+  belongs_to_collection: Collection | null;
+  origin_country: string[];
 
   // append_to_response
   account_states?: AccountStates;

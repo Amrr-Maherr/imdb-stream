@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { DollarSign } from "lucide-react";
+import { DollarSign, TrendingUp, Flag, Globe, ShieldCheck } from "lucide-react";
 import { MovieRating } from "./movie-rating";
 import { slugify } from "@/lib/slugify";
 
@@ -15,9 +15,12 @@ type MovieSidebarProps = {
   originalTitle: string;
   title: string;
   productionCompanies: { id: number; name: string; logo_path: string | null }[];
+  productionCountries: { iso_3166_1: string; name: string }[];
   keywords: { id: number; name: string }[];
   translationsCount: number;
   spokenLanguagesCount: number;
+  originCountry: string[];
+  adult: boolean;
 };
 
 function formatCurrency(amount: number) {
@@ -42,9 +45,12 @@ export function MovieSidebar({
   originalTitle,
   title,
   productionCompanies,
+  productionCountries,
   keywords,
   translationsCount,
   spokenLanguagesCount,
+  originCountry,
+  adult,
 }: MovieSidebarProps) {
   return (
     <aside className="space-y-8">
@@ -59,17 +65,23 @@ export function MovieSidebar({
 
       {/* Movie Facts */}
       <div>
-        <h3 className="text-sm font-bold text-foreground uppercase tracking-wide mb-3">Facts</h3>
+        <h3 className="text-sm font-bold text-foreground uppercase tracking-wide mb-3">
+          Facts
+        </h3>
         <div className="space-y-3">
           {status && (
             <div>
-              <h4 className="text-xs font-semibold text-muted-foreground uppercase">Status</h4>
+              <h4 className="text-xs font-semibold text-muted-foreground uppercase">
+                Status
+              </h4>
               <p className="text-sm text-foreground mt-0.5">{status}</p>
             </div>
           )}
           {releaseDate && (
             <div>
-              <h4 className="text-xs font-semibold text-muted-foreground uppercase">Release Date</h4>
+              <h4 className="text-xs font-semibold text-muted-foreground uppercase">
+                Release Date
+              </h4>
               <p className="text-sm text-foreground mt-0.5">
                 {new Date(releaseDate).toLocaleDateString("en-US", {
                   year: "numeric",
@@ -81,13 +93,19 @@ export function MovieSidebar({
           )}
           {originalLanguage && (
             <div>
-              <h4 className="text-xs font-semibold text-muted-foreground uppercase">Original Language</h4>
-              <p className="text-sm text-foreground mt-0.5 uppercase">{originalLanguage}</p>
+              <h4 className="text-xs font-semibold text-muted-foreground uppercase">
+                Original Language
+              </h4>
+              <p className="text-sm text-foreground mt-0.5 uppercase">
+                {originalLanguage}
+              </p>
             </div>
           )}
           {budget > 0 && (
             <div>
-              <h4 className="text-xs font-semibold text-muted-foreground uppercase">Budget</h4>
+              <h4 className="text-xs font-semibold text-muted-foreground uppercase">
+                Budget
+              </h4>
               <p className="text-sm text-foreground mt-0.5 flex items-center gap-1">
                 <DollarSign className="size-3.5" />
                 {formatCurrency(budget)}
@@ -96,22 +114,39 @@ export function MovieSidebar({
           )}
           {revenue > 0 && (
             <div>
-              <h4 className="text-xs font-semibold text-muted-foreground uppercase">Revenue</h4>
+              <h4 className="text-xs font-semibold text-muted-foreground uppercase">
+                Revenue
+              </h4>
               <p className="text-sm text-foreground mt-0.5 flex items-center gap-1">
                 <DollarSign className="size-3.5" />
                 {formatCurrency(revenue)}
               </p>
             </div>
           )}
+          {budget > 0 && revenue > 0 && (
+            <div>
+              <h4 className="text-xs font-semibold text-muted-foreground uppercase">
+                Profit
+              </h4>
+              <p className="text-sm text-foreground mt-0.5 flex items-center gap-1">
+                <TrendingUp className="size-3.5" />
+                {formatCurrency(revenue - budget)}
+              </p>
+            </div>
+          )}
           {originalTitle !== title && (
             <div>
-              <h4 className="text-xs font-semibold text-muted-foreground uppercase">Original Title</h4>
+              <h4 className="text-xs font-semibold text-muted-foreground uppercase">
+                Original Title
+              </h4>
               <p className="text-sm text-foreground mt-0.5">{originalTitle}</p>
             </div>
           )}
           {productionCompanies.length > 0 && (
             <div>
-              <h4 className="text-xs font-semibold text-muted-foreground uppercase">Production</h4>
+              <h4 className="text-xs font-semibold text-muted-foreground uppercase">
+                Production
+              </h4>
               <div className="text-sm text-foreground mt-0.5 space-y-0.5">
                 {productionCompanies.map((c) => (
                   <Link
@@ -125,8 +160,43 @@ export function MovieSidebar({
               </div>
             </div>
           )}
+          {productionCountries?.length > 0 && (
+            <div>
+              <h4 className="text-xs font-semibold text-muted-foreground uppercase">
+                Production Countries
+              </h4>
+              <p className="text-sm text-foreground mt-0.5 flex items-center gap-1">
+                <Globe className="size-3.5" />
+                {productionCountries.map((pc) => pc.name).join(", ")}
+              </p>
+            </div>
+          )}
+          {originCountry?.length > 0 && (
+            <div>
+              <h4 className="text-xs font-semibold text-muted-foreground uppercase">
+                Origin Country
+              </h4>
+              <p className="text-sm text-foreground mt-0.5 flex items-center gap-1">
+                <Flag className="size-3.5" />
+                {originCountry.join(", ")}
+              </p>
+            </div>
+          )}
+          {adult && (
+            <div>
+              <h4 className="text-xs font-semibold text-muted-foreground uppercase">
+                Adult
+              </h4>
+              <p className="text-sm text-foreground mt-0.5 flex items-center gap-1">
+                <ShieldCheck className="size-3.5" />
+                Yes
+              </p>
+            </div>
+          )}
           <div>
-            <h4 className="text-xs font-semibold text-muted-foreground uppercase">Languages</h4>
+            <h4 className="text-xs font-semibold text-muted-foreground uppercase">
+              Languages
+            </h4>
             <p className="text-sm text-foreground mt-0.5">
               {spokenLanguagesCount} spoken · {translationsCount} translations
             </p>
@@ -137,7 +207,9 @@ export function MovieSidebar({
       {/* Keywords */}
       {keywords.length > 0 && (
         <div>
-          <h3 className="text-sm font-bold text-foreground uppercase tracking-wide mb-3">Keywords</h3>
+          <h3 className="text-sm font-bold text-foreground uppercase tracking-wide mb-3">
+            Keywords
+          </h3>
           <div className="flex flex-wrap gap-1.5">
             {keywords.map((kw) => (
               <span

@@ -8,15 +8,16 @@ const TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p";
 type MoviePhotosProps = {
   backdrops: { file_path: string }[];
   posters: { file_path: string }[];
+  logos?: { file_path: string }[];
 };
 
-export function MoviePhotos({ backdrops, posters }: MoviePhotosProps) {
-  const all = [...backdrops, ...posters];
+export function MoviePhotos({ backdrops, posters, logos }: MoviePhotosProps) {
+  const all = [...backdrops, ...posters, ...(logos ?? [])];
   if (all.length === 0) return null;
 
   return (
     <section>
-      <h2 className="text-xl font-bold text-foreground mb-4">Photos</h2>
+      <h2 className="text-xl font-bold text-foreground mb-4">Photos{logos && logos.length > 0 ? " & Logos" : ""}</h2>
       <Slider
         slidesPerView={3}
         slidesMobilePerView={1.5}
