@@ -57,7 +57,7 @@ export function HeroBanner({ movies }: HeroBannerProps) {
       <div className="absolute inset-0 dark:bg-gradient-to-t dark:from-background dark:via-background/60 dark:to-transparent" />
       <div className="absolute inset-0 dark:bg-gradient-to-r dark:from-background/80 dark:via-transparent dark:to-transparent" />
 
-      <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative h-full mx-auto app-container">
         <div className="flex h-full flex-col justify-end pb-20 md:pb-32 lg:pb-40 max-w-2xl">
           <div className="space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-700">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight tracking-tight">
