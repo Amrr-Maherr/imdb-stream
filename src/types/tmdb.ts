@@ -323,6 +323,7 @@ export type TMDBTVDetails = {
   external_ids?: TVExternalIds;
   images?: MovieImages;
   keywords?: { results: Keyword[] };
+  lists?: { results: List[] };
   recommendations?: TMDBResponse<TMDBTV>;
   reviews?: { results: Review[]; page: number; total_pages: number; total_results: number };
   similar?: TMDBResponse<TMDBTV>;

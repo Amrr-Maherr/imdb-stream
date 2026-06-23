@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Monitor } from "lucide-react";
+import { Monitor, Flag, Globe, ShieldCheck } from "lucide-react";
 import { MovieRating } from "@/components/movie/movie-rating";
 import { slugify } from "@/lib/slugify";
 
@@ -18,10 +18,15 @@ type TvSidebarProps = {
   networks: { id: number; name: string; logo_path: string | null }[];
   createdBy: string[];
   productionCompanies: { id: number; name: string; logo_path: string | null }[];
+  productionCountries: { iso_3166_1: string; name: string }[];
   keywords: { id: number; name: string }[];
   languages: string[];
   translationsCount: number;
   spokenLanguagesCount: number;
+  originalName: string;
+  name: string;
+  inProduction: boolean;
+  originCountry: string[];
 };
 
 export function TvSidebar({
@@ -39,10 +44,15 @@ export function TvSidebar({
   networks,
   createdBy,
   productionCompanies,
+  productionCountries,
   keywords,
   languages,
   translationsCount,
   spokenLanguagesCount,
+  originalName,
+  name,
+  inProduction,
+  originCountry,
 }: TvSidebarProps) {
   return (
     <aside className="space-y-8">
@@ -57,23 +67,31 @@ export function TvSidebar({
 
       {/* TV Facts */}
       <div>
-        <h3 className="text-sm font-bold text-foreground uppercase tracking-wide mb-3">Facts</h3>
+        <h3 className="text-sm font-bold text-foreground uppercase tracking-wide mb-3">
+          Facts
+        </h3>
         <div className="space-y-3">
           {status && (
             <div>
-              <h4 className="text-xs font-semibold text-muted-foreground uppercase">Status</h4>
+              <h4 className="text-xs font-semibold text-muted-foreground uppercase">
+                Status
+              </h4>
               <p className="text-sm text-foreground mt-0.5">{status}</p>
             </div>
           )}
           {type && (
             <div>
-              <h4 className="text-xs font-semibold text-muted-foreground uppercase">Type</h4>
+              <h4 className="text-xs font-semibold text-muted-foreground uppercase">
+                Type
+              </h4>
               <p className="text-sm text-foreground mt-0.5">{type}</p>
             </div>
           )}
           {firstAirDate && (
             <div>
-              <h4 className="text-xs font-semibold text-muted-foreground uppercase">First Air Date</h4>
+              <h4 className="text-xs font-semibold text-muted-foreground uppercase">
+                First Air Date
+              </h4>
               <p className="text-sm text-foreground mt-0.5">
                 {new Date(firstAirDate).toLocaleDateString("en-US", {
                   year: "numeric",
@@ -85,7 +103,9 @@ export function TvSidebar({
           )}
           {lastAirDate && (
             <div>
-              <h4 className="text-xs font-semibold text-muted-foreground uppercase">Last Air Date</h4>
+              <h4 className="text-xs font-semibold text-muted-foreground uppercase">
+                Last Air Date
+              </h4>
               <p className="text-sm text-foreground mt-0.5">
                 {new Date(lastAirDate).toLocaleDateString("en-US", {
                   year: "numeric",
@@ -97,31 +117,60 @@ export function TvSidebar({
           )}
           {numberOfSeasons > 0 && (
             <div>
-              <h4 className="text-xs font-semibold text-muted-foreground uppercase">Seasons</h4>
-              <p className="text-sm text-foreground mt-0.5">{numberOfSeasons}</p>
+              <h4 className="text-xs font-semibold text-muted-foreground uppercase">
+                Seasons
+              </h4>
+              <p className="text-sm text-foreground mt-0.5">
+                {numberOfSeasons}
+              </p>
             </div>
           )}
           {numberOfEpisodes > 0 && (
             <div>
-              <h4 className="text-xs font-semibold text-muted-foreground uppercase">Episodes</h4>
-              <p className="text-sm text-foreground mt-0.5">{numberOfEpisodes}</p>
+              <h4 className="text-xs font-semibold text-muted-foreground uppercase">
+                Episodes
+              </h4>
+              <p className="text-sm text-foreground mt-0.5">
+                {numberOfEpisodes}
+              </p>
             </div>
           )}
           {episodeRuntime.length > 0 && (
             <div>
-              <h4 className="text-xs font-semibold text-muted-foreground uppercase">Episode Runtime</h4>
-              <p className="text-sm text-foreground mt-0.5">{episodeRuntime[0]} min</p>
+              <h4 className="text-xs font-semibold text-muted-foreground uppercase">
+                Episode Runtime
+              </h4>
+              <p className="text-sm text-foreground mt-0.5">
+                {episodeRuntime[0]} min
+              </p>
             </div>
           )}
           {originalLanguage && (
             <div>
-              <h4 className="text-xs font-semibold text-muted-foreground uppercase">Original Language</h4>
-              <p className="text-sm text-foreground mt-0.5 uppercase">{originalLanguage}</p>
+              <h4 className="text-xs font-semibold text-muted-foreground uppercase">
+                Original Language
+              </h4>
+              <p className="text-sm text-foreground mt-0.5 uppercase">
+                {originalLanguage}
+              </p>
+            </div>
+          )}
+          {inProduction && (
+            <div>
+              <h4 className="text-xs font-semibold text-muted-foreground uppercase">
+                In Production
+              </h4>
+              <p className="text-sm text-foreground mt-0.5 flex items-center gap-1">
+                <ShieldCheck className="size-3.5" />
+                Yes
+              </p>
             </div>
           )}
           {createdBy.length > 0 && (
             <div>
-              <h4 className="text-xs font-semibold text-muted-foreground uppercase">Created by</h4>
+              <h4 className="text-xs font-semibold text-muted-foreground uppercase">
+                Created by
+              </h4>
               <div className="text-sm text-foreground mt-0.5 space-y-0.5">
                 {createdBy.map((name) => (
                   <p key={name}>{name}</p>
@@ -129,9 +178,41 @@ export function TvSidebar({
               </div>
             </div>
           )}
+          {originalName !== name && (
+            <div>
+              <h4 className="text-xs font-semibold text-muted-foreground uppercase">
+                Original Name
+              </h4>
+              <p className="text-sm text-foreground mt-0.5">{originalName}</p>
+            </div>
+          )}
+          {originCountry?.length > 0 && (
+            <div>
+              <h4 className="text-xs font-semibold text-muted-foreground uppercase">
+                Origin Country
+              </h4>
+              <p className="text-sm text-foreground mt-0.5 flex items-center gap-1">
+                <Flag className="size-3.5" />
+                {originCountry.join(", ")}
+              </p>
+            </div>
+          )}
+          {productionCountries?.length > 0 && (
+            <div>
+              <h4 className="text-xs font-semibold text-muted-foreground uppercase">
+                Production Countries
+              </h4>
+              <p className="text-sm text-foreground mt-0.5 flex items-center gap-1">
+                <Globe className="size-3.5" />
+                {productionCountries.map((pc) => pc.name).join(", ")}
+              </p>
+            </div>
+          )}
           {networks.length > 0 && (
             <div>
-              <h4 className="text-xs font-semibold text-muted-foreground uppercase">Network</h4>
+              <h4 className="text-xs font-semibold text-muted-foreground uppercase">
+                Network
+              </h4>
               <div className="text-sm text-foreground mt-0.5">
                 {networks.map((n) => (
                   <Link
@@ -148,7 +229,9 @@ export function TvSidebar({
           )}
           {productionCompanies.length > 0 && (
             <div>
-              <h4 className="text-xs font-semibold text-muted-foreground uppercase">Production</h4>
+              <h4 className="text-xs font-semibold text-muted-foreground uppercase">
+                Production
+              </h4>
               <div className="text-sm text-foreground mt-0.5 space-y-0.5">
                 {productionCompanies.map((c) => (
                   <Link
@@ -163,7 +246,9 @@ export function TvSidebar({
             </div>
           )}
           <div>
-            <h4 className="text-xs font-semibold text-muted-foreground uppercase">Languages</h4>
+            <h4 className="text-xs font-semibold text-muted-foreground uppercase">
+              Languages
+            </h4>
             <p className="text-sm text-foreground mt-0.5">
               {spokenLanguagesCount} spoken · {translationsCount} translations
             </p>
@@ -174,7 +259,9 @@ export function TvSidebar({
       {/* Keywords */}
       {keywords.length > 0 && (
         <div>
-          <h3 className="text-sm font-bold text-foreground uppercase tracking-wide mb-3">Keywords</h3>
+          <h3 className="text-sm font-bold text-foreground uppercase tracking-wide mb-3">
+            Keywords
+          </h3>
           <div className="flex flex-wrap gap-1.5">
             {keywords.map((kw) => (
               <span
