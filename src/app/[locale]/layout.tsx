@@ -7,6 +7,7 @@ import { notFound } from "next/navigation";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import Header from "@/components/layout/header/Header";
 import Footer from "@/components/layout/footer/Footer";
+import ReduxProvider from "@/provider/rtkProvider/reduxProvider";
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700", "900"],
@@ -43,20 +44,22 @@ export default async function RootLayout({
       className={`${roboto.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <NextIntlClientProvider messages={messages}>
-            <div className="flex min-h-full flex-col">
-              <Header />
-              <main className="flex-1">{children}</main>
-              <Footer />
-            </div>
-          </NextIntlClientProvider>
-        </ThemeProvider>
+        <ReduxProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <NextIntlClientProvider messages={messages}>
+              <div className="flex min-h-full flex-col">
+                <Header />
+                <main className="flex-1">{children}</main>
+                <Footer />
+              </div>
+            </NextIntlClientProvider>
+          </ThemeProvider>
+        </ReduxProvider>
       </body>
     </html>
   );
