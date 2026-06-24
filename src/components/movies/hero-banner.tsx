@@ -1,9 +1,8 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight, Info, Play, Star } from "lucide-react";
+import { Info, Play, Star } from "lucide-react";
 import type { TMDBMovie } from "@/types/tmdb";
 import { slugify } from "@/lib/slugify";
 
@@ -14,21 +13,7 @@ type HeroBannerProps = {
 };
 
 export function HeroBanner({ movies }: HeroBannerProps) {
-  const [current, setCurrent] = useState(0);
-  const movie = movies[current];
-
-  const next = useCallback(() => {
-    setCurrent((prev) => (prev + 1) % movies.length);
-  }, [movies.length]);
-
-  const prev = useCallback(() => {
-    setCurrent((prev) => (prev - 1 + movies.length) % movies.length);
-  }, [movies.length]);
-
-  useEffect(() => {
-    const timer = setInterval(next, 6000);
-    return () => clearInterval(timer);
-  }, [next]);
+  const movie = movies[0];
 
   if (!movie) return null;
 
@@ -37,29 +22,21 @@ export function HeroBanner({ movies }: HeroBannerProps) {
 
   return (
     <section className="relative w-full aspect-[4/3] sm:aspect-[16/9] lg:aspect-[21/9] max-h-[900px] overflow-hidden">
-      {movies.map((m, i) => (
-        <div
-          key={m.id}
-          className="absolute inset-0 transition-opacity duration-700 ease-in-out"
-          style={{ opacity: i === current ? 1 : 0 }}
-        >
-          <Image
-            src={`${TMDB_IMAGE_BASE}/original${m.backdrop_path}`}
-            alt={m.title}
-            fill
-            className="object-cover"
-            priority={i === 0}
-            sizes="100vw"
-          />
-        </div>
-      ))}
+      <Image
+        src={`${TMDB_IMAGE_BASE}/original${movie.backdrop_path}`}
+        alt={movie.title}
+        fill
+        className="object-cover"
+        priority
+        sizes="100vw"
+      />
 
       <div className="absolute inset-0 dark:bg-gradient-to-t dark:from-background dark:via-background/60 dark:to-transparent" />
       <div className="absolute inset-0 dark:bg-gradient-to-r dark:from-background/80 dark:via-transparent dark:to-transparent" />
 
       <div className="relative h-full mx-auto app-container">
         <div className="flex h-full flex-col justify-end pb-20 md:pb-32 lg:pb-40 max-w-2xl">
-          <div className="space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-700">
+          <div className="space-y-4">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight tracking-tight">
               {movie.title}
             </h1>
@@ -96,37 +73,6 @@ export function HeroBanner({ movies }: HeroBannerProps) {
             </div>
           </div>
         </div>
-      </div>
-
-      <div className="absolute bottom-8 right-4 sm:right-8 lg:right-12 flex items-center gap-3">
-        <button
-          onClick={prev}
-          aria-label="Previous movie"
-          className="flex size-10 items-center justify-center rounded-full border border-white/20 bg-black/30 text-white hover:bg-white/20 transition-all"
-        >
-          <ChevronLeft className="size-5" />
-        </button>
-        <div className="flex items-center gap-2">
-          {movies.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setCurrent(i)}
-              aria-label={`Go to slide ${i + 1}`}
-              className={`h-1.5 rounded-full transition-all duration-300 ${
-                i === current
-                  ? "w-8 bg-brand"
-                  : "w-1.5 bg-white/40 hover:bg-white/60"
-              }`}
-            />
-          ))}
-        </div>
-        <button
-          onClick={next}
-          aria-label="Next movie"
-          className="flex size-10 items-center justify-center rounded-full border border-white/20 bg-black/30 text-white hover:bg-white/20 transition-all"
-        >
-          <ChevronRight className="size-5" />
-        </button>
       </div>
     </section>
   );
