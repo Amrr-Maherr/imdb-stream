@@ -11,13 +11,17 @@ import UserMenu from "./UserMenu";
 import LanguageSwitcher from "@/components/ui/language-switcher";
 import ThemeToggle from "@/components/ui/theme-toggle";
 import { Button } from "@/components/ui/button";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 export default function Header() {
   const t = useTranslations("Header");
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-
+  const isAuthenticated = useSelector(
+    (state: RootState) => state.auth.isAuthenticated,
+  );
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -48,14 +52,23 @@ export default function Header() {
             <ThemeToggle />
           </div>
 
-          <Link
-            href="/auth/signin"
-            className="hidden md:inline-flex items-center justify-center h-8 px-3 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors rounded-lg"
-          >
-            {t("signIn")}
-          </Link>
+          {isAuthenticated ? (
+            <Link
+              href="/auth/signin"
+              className="hidden md:inline-flex items-center justify-center h-8 px-3 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors rounded-lg"
+            >
+              logout
+            </Link>
+          ) : (
+            <Link
+              href="/auth/signin"
+              className="hidden md:inline-flex items-center justify-center h-8 px-3 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors rounded-lg"
+            >
+              {t("signIn")}
+            </Link>
+          )}
 
-          <UserMenu />
+          {isAuthenticated && <UserMenu />}
 
           <Button
             variant="ghost"
