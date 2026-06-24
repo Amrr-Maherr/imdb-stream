@@ -18,6 +18,7 @@ import {
   Award,
   ChevronRight,
 } from "lucide-react";
+import { ProfileSkeleton } from "@/components/skeletons";
 
 type UserData = {
   user: {
@@ -70,7 +71,9 @@ export default function ProfilePage() {
     const joined = new Date(Number(timestamp));
     const now = new Date();
     const years = now.getFullYear() - joined.getFullYear();
-    return years > 0 ? `${years} ${years === 1 ? "year" : "years"}` : "< 1 year";
+    return years > 0
+      ? `${years} ${years === 1 ? "year" : "years"}`
+      : "< 1 year";
   };
 
   const providerIcon = (providerId: string) => {
@@ -88,11 +91,7 @@ export default function ProfilePage() {
   };
 
   if (loading) {
-    return (
-      <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center">
-        <div className="size-8 rounded-full border-2 border-brand border-t-transparent animate-spin" />
-      </div>
-    );
+    return <ProfileSkeleton />;
   }
 
   if (!userData) {
@@ -117,7 +116,7 @@ export default function ProfilePage() {
   const { user } = userData;
 
   return (
-    <div className="app-container py-12">
+    <div className="app-container pt-20 pb-12">
       {/* Profile Header — IMDb style */}
       <div className="flex flex-col items-center gap-6 sm:flex-row sm:items-start sm:gap-8">
         <div className="relative size-24 shrink-0 overflow-hidden rounded-full bg-muted ring-2 ring-border sm:size-28">

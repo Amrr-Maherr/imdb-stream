@@ -53,19 +53,23 @@ export default function Header() {
           </div>
 
           {isAuthenticated ? (
-            <Link
-              href="/auth/signin"
-              className="hidden md:inline-flex items-center justify-center h-8 px-3 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors rounded-lg"
+            <Button
+              asChild
+              variant="outline"
+              size="sm"
+              className="hidden md:inline-flex"
             >
-              logout
-            </Link>
+              <Link href="/auth/signin">{t("signOut")}</Link>
+            </Button>
           ) : (
-            <Link
-              href="/auth/signin"
-              className="hidden md:inline-flex items-center justify-center h-8 px-3 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors rounded-lg"
+            <Button
+              asChild
+              variant="outline"
+              size="sm"
+              className="hidden md:inline-flex"
             >
-              {t("signIn")}
-            </Link>
+              <Link href="/auth/signin">{t("signIn")}</Link>
+            </Button>
           )}
 
           {isAuthenticated && <UserMenu />}
@@ -90,12 +94,9 @@ export default function Header() {
         <div className="app-container space-y-4 border-t border-border bg-background py-4 md:hidden">
           <NavLinks mobile />
           <div className="flex flex-col gap-2 border-t border-border pt-4">
-            <Link
-              href="/auth/signin"
-              className="flex items-center justify-center h-9 px-4 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors rounded-lg border border-border"
-            >
-              {t("signIn")}
-            </Link>
+            <Button asChild variant="outline" className="w-full">
+              <Link href="/auth/signin">{t("signIn")}</Link>
+            </Button>
             <div className="flex items-center gap-2">
               <LanguageSwitcher />
               <ThemeToggle />

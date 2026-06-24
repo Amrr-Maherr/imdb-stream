@@ -79,7 +79,9 @@ export function Slider({
   );
 
   const slides = Children.map(children, (child, index) => (
-    <SwiperSlide key={index}>{child}</SwiperSlide>
+    <SwiperSlide key={index} className="h-full">
+      {child}
+    </SwiperSlide>
   ));
 
   const autoplayConfig =
@@ -90,16 +92,23 @@ export function Slider({
         : undefined;
 
   const paginationConfig =
-    pagination === true ? { clickable: true } : pagination ? { ...pagination, clickable: true } : false;
+    pagination === true
+      ? { clickable: true }
+      : pagination
+        ? { ...pagination, clickable: true }
+        : false;
 
   const modules = [FreeMode, EffectFade, EffectCoverflow];
   if (autoplay) modules.push(Autoplay);
   if (navigation) modules.push(Navigation);
   if (pagination) modules.push(Pagination);
 
+  const containerClassName = [className, "h-full"].filter(Boolean).join(" ");
+
   return (
-    <div className={className}>
+    <div className={containerClassName}>
       <Swiper
+        className="h-full"
         modules={modules}
         slidesPerView={activeSlidesPerView}
         spaceBetween={spaceBetween}
