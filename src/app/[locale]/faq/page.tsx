@@ -1,7 +1,5 @@
-import Image from "next/image"
-import { Link } from "@/i18n/navigation"
 import { getTranslations } from "next-intl/server"
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
+import { FaqClient } from "./FaqClient"
 
 interface Props {
   params: Promise<{ locale: string }>
@@ -13,45 +11,50 @@ export async function generateMetadata({ params }: Props) {
   return { title: t("title") }
 }
 
+const categoryItems: Record<string, string[]> = {
+  account: ["q1", "q2", "q3"],
+  ratings: ["q4", "q5", "q6"],
+  content: ["q7", "q8", "q9"],
+  technical: ["q10", "q11"],
+  privacy: ["q12"],
+}
+
 export default async function FaqPage() {
   const t = await getTranslations("Faq")
-  return (
-    <div className="flex min-h-[calc(100vh-4rem)] flex-col items-center bg-background px-4 py-16">
-      <div className="w-full max-w-2xl">
-        <div className="mb-8 flex flex-col items-center gap-4">
-          <Link href="/">
-            <Image
-              src="/logo.svg"
-              alt="IMDb"
-              width={100}
-              height={50}
-              className="h-10 w-auto"
-              priority
-            />
-          </Link>
-        </div>
 
-        <Card className="border-border/50 shadow-lg">
-          <CardHeader>
-            <CardTitle>{t("title")}</CardTitle>
-            <CardDescription>{t("description")}</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="space-y-2">
-              <h3 className="text-base font-semibold text-foreground">{t("section1.heading")}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{t("section1.body")}</p>
-            </div>
-            <div className="space-y-2">
-              <h3 className="text-base font-semibold text-foreground">{t("section2.heading")}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{t("section2.body")}</p>
-            </div>
-            <div className="space-y-2">
-              <h3 className="text-base font-semibold text-foreground">{t("section3.heading")}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{t("section3.body")}</p>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+  return (
+    <div className="min-h-screen bg-background">
+      <section className="relative overflow-hidden bg-gradient-to-b from-brand/10 via-brand/5 to-background py-20 md:py-28">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,oklch(0.79_0.175_88/0.15),transparent_70%)]" />
+        <div className="app-container relative">
+          <div className="mx-auto max-w-2xl text-center">
+            <h1 className="text-4xl font-bold tracking-tight text-foreground md:text-5xl">
+              {t("hero.title")}
+            </h1>
+            <p className="mt-4 text-lg text-muted-foreground">
+              {t("hero.subtitle")}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="app-container py-12 md:py-16">
+        <div className="mx-auto max-w-3xl">
+          <FaqClient
+            items={t.raw("items") as Record<string, { q: string; a: string }>}
+            categories={{
+              all: t("categories.all"),
+              account: t("categories.account"),
+              ratings: t("categories.ratings"),
+              content: t("categories.content"),
+              technical: t("categories.technical"),
+              privacy: t("categories.privacy"),
+            }}
+            categoryItems={categoryItems}
+            searchPlaceholder={t("hero.searchPlaceholder")}
+          />
+        </div>
+      </section>
     </div>
   )
 }

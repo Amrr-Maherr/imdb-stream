@@ -13,11 +13,13 @@ export default function FooterLinks() {
         { href: "/about", label: t("aboutLinks.about") },
         { href: "/careers", label: t("aboutLinks.careers") },
         { href: "/press", label: t("aboutLinks.press") },
+        { href: "/guidelines", label: t("aboutLinks.guidelines") },
       ],
     },
     {
       title: t("help"),
       links: [
+        { href: "/help", label: t("helpLinks.helpCenter") },
         { href: "/faq", label: t("helpLinks.faq") },
         { href: "/contact", label: t("helpLinks.contact") },
         { href: "/feedback", label: t("helpLinks.feedback") },
@@ -29,6 +31,7 @@ export default function FooterLinks() {
         { href: "/terms", label: t("legalLinks.terms") },
         { href: "/privacy", label: t("legalLinks.privacy") },
         { href: "/cookies", label: t("legalLinks.cookies") },
+        { href: "/subscription", label: t("legalLinks.subscription") },
       ],
     },
     {
