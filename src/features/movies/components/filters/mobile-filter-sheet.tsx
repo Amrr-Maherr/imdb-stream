@@ -1,6 +1,6 @@
 "use client"
 
-import { SlidersHorizontal } from "lucide-react"
+import { RotateCcw, SlidersHorizontal } from "lucide-react"
 import { Button } from "@/shared/components/ui/button"
 import {
   Sheet,
@@ -15,8 +15,11 @@ import { CountryDropdown } from "./country-dropdown"
 import { SortSelect } from "./sort-select"
 import { YearSelect } from "./year-select"
 import { RatingSelect } from "./rating-select"
+import { useResetFilters } from "@/shared/hooks/useResetFilters"
 
 function MobileFilterSheet() {
+  const { hasFilters, handleReset } = useResetFilters()
+
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -54,6 +57,17 @@ function MobileFilterSheet() {
             <span className="text-xs font-medium text-muted-foreground">Sort By</span>
             <SortSelect />
           </div>
+          {hasFilters && (
+            <Button
+              variant="outline"
+              size="default"
+              onClick={handleReset}
+              className="w-full gap-2"
+            >
+              <RotateCcw className="size-4" />
+              Reset Filters
+            </Button>
+          )}
         </div>
       </SheetContent>
     </Sheet>
