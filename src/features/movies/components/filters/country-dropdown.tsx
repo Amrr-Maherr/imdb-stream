@@ -1,42 +1,31 @@
 "use client"
 
-import { Globe, ChevronDown } from "lucide-react"
-import { Button } from "@/shared/components/ui/button"
+import { MapPin } from "lucide-react"
 import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/shared/components/ui/dropdown-menu"
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/shared/components/ui/select"
 import { COUNTRIES, MOCK_COUNTRY } from "./constants"
 
 function CountryDropdown() {
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="sm" className="gap-1.5">
-          <Globe className="size-3.5" />
-          Country
-          {MOCK_COUNTRY && (
-            <span className="flex size-4 items-center justify-center rounded-full bg-brand text-[10px] font-bold text-brand-foreground">
-              1
-            </span>
-          )}
-          <ChevronDown className="size-3 text-muted-foreground" />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="start" className="w-48">
-        <DropdownMenuLabel>Country</DropdownMenuLabel>
-        <DropdownMenuSeparator />
+    <Select defaultValue={MOCK_COUNTRY}>
+      <SelectTrigger className="h-8 min-w-[8.5rem] text-xs">
+        <MapPin className="size-3.5 shrink-0 text-muted-foreground" />
+        <SelectValue placeholder="Country" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectItem value="any">All Countries</SelectItem>
         {COUNTRIES.map((country) => (
-          <DropdownMenuCheckboxItem key={country} checked={country === MOCK_COUNTRY}>
+          <SelectItem key={country} value={country}>
             {country}
-          </DropdownMenuCheckboxItem>
+          </SelectItem>
         ))}
-      </DropdownMenuContent>
-    </DropdownMenu>
+      </SelectContent>
+    </Select>
   )
 }
 

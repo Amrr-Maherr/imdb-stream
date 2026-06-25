@@ -10,13 +10,13 @@ import {
 import { SORT_OPTIONS, MOCK_SORT } from "./constants"
 
 function SortSelect() {
-  const active = SORT_OPTIONS.find((o) => o.label === MOCK_SORT)
+  const active = SORT_OPTIONS.find((o) => o.value === MOCK_SORT)
   const Icon = active?.icon ?? SORT_OPTIONS[0].icon
 
   return (
-    <Select defaultValue="popularity">
-      <SelectTrigger className="h-8 w-36 text-xs">
-        <Icon className="size-3.5 text-muted-foreground" />
+    <Select defaultValue={MOCK_SORT}>
+      <SelectTrigger className="h-8 min-w-[8.5rem] text-xs">
+        <Icon className="size-3.5 shrink-0 text-muted-foreground" />
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
@@ -24,8 +24,10 @@ function SortSelect() {
           const OptIcon = opt.icon
           return (
             <SelectItem key={opt.value} value={opt.value}>
-              <OptIcon className="size-3.5" />
-              {opt.label}
+              <span className="flex items-center gap-2">
+                <OptIcon className="size-3.5" />
+                {opt.label}
+              </span>
             </SelectItem>
           )
         })}

@@ -1,45 +1,36 @@
 "use client"
 
-import { Globe, ChevronDown } from "lucide-react"
-import { Button } from "@/shared/components/ui/button"
+import { Globe } from "lucide-react"
 import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/shared/components/ui/dropdown-menu"
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/shared/components/ui/select"
 import { LANGUAGES, MOCK_LANGUAGE, LANGUAGE_ICONS } from "./constants"
 
 function LanguageDropdown() {
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="sm" className="gap-1.5">
-          <Globe className="size-3.5" />
-          Language
-          {MOCK_LANGUAGE && (
-            <span className="flex size-4 items-center justify-center rounded-full bg-brand text-[10px] font-bold text-brand-foreground">
-              1
-            </span>
-          )}
-          <ChevronDown className="size-3 text-muted-foreground" />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="start" className="w-44">
-        <DropdownMenuLabel>Language</DropdownMenuLabel>
-        <DropdownMenuSeparator />
+    <Select defaultValue={MOCK_LANGUAGE}>
+      <SelectTrigger className="h-8 min-w-[8.5rem] text-xs">
+        <Globe className="size-3.5 shrink-0 text-muted-foreground" />
+        <SelectValue placeholder="Language" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectItem value="any">All Languages</SelectItem>
         {LANGUAGES.map((lang) => (
-          <DropdownMenuCheckboxItem key={lang} checked={lang === MOCK_LANGUAGE}>
-            <span className="flex size-5 items-center justify-center rounded-sm border border-border bg-muted text-[10px] font-medium text-muted-foreground">
-              {LANGUAGE_ICONS[lang]}
+          <SelectItem key={lang} value={lang}>
+            <span className="flex items-center gap-2">
+              <span className="flex size-4 items-center justify-center rounded-[2px] border border-border bg-muted text-[9px] font-medium text-muted-foreground">
+                {LANGUAGE_ICONS[lang]}
+              </span>
+              {lang}
             </span>
-            {lang}
-          </DropdownMenuCheckboxItem>
+          </SelectItem>
         ))}
-      </DropdownMenuContent>
-    </DropdownMenu>
+      </SelectContent>
+    </Select>
   )
 }
 

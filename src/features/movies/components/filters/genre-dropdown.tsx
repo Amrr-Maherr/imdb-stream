@@ -1,40 +1,31 @@
 "use client"
 
-import { Filter, ChevronDown } from "lucide-react"
-import { Button } from "@/shared/components/ui/button"
+import { Film } from "lucide-react"
 import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/shared/components/ui/dropdown-menu"
-import { GENRES, MOCK_GENRES } from "./constants"
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/shared/components/ui/select"
+import { GENRES, MOCK_GENRE } from "./constants"
 
 function GenreDropdown() {
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="sm" className="gap-1.5">
-          <Filter className="size-3.5" />
-          Genre
-          <span className="flex size-4 items-center justify-center rounded-full bg-brand text-[10px] font-bold text-brand-foreground">
-            {MOCK_GENRES.length}
-          </span>
-          <ChevronDown className="size-3 text-muted-foreground" />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="start" className="w-48">
-        <DropdownMenuLabel>Genre</DropdownMenuLabel>
-        <DropdownMenuSeparator />
+    <Select defaultValue={MOCK_GENRE}>
+      <SelectTrigger className="h-8 min-w-[8.5rem] text-xs">
+        <Film className="size-3.5 shrink-0 text-muted-foreground" />
+        <SelectValue placeholder="Genre" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectItem value="any">All Genres</SelectItem>
         {GENRES.map((genre) => (
-          <DropdownMenuCheckboxItem key={genre} checked={MOCK_GENRES.includes(genre)}>
+          <SelectItem key={genre} value={genre}>
             {genre}
-          </DropdownMenuCheckboxItem>
+          </SelectItem>
         ))}
-      </DropdownMenuContent>
-    </DropdownMenu>
+      </SelectContent>
+    </Select>
   )
 }
 
