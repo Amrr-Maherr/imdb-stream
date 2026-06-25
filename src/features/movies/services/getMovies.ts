@@ -13,6 +13,7 @@ export type MovieFilters = {
     | "primary_release_date.desc"
     | "revenue.desc";
     include_adult?: boolean;
+
 };
 
 export default async function GetMovies({
