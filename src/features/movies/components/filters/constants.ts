@@ -1,35 +1,50 @@
 import { Sparkles, Star, Calendar, TrendingUp, type LucideIcon } from "lucide-react"
 
-export const GENRES = [
-  "Action",
-  "Adventure",
-  "Comedy",
-  "Drama",
-  "Horror",
-  "Sci-Fi",
-  "Thriller",
-  "Animation",
-  "Romance",
-  "Mystery",
-  "Fantasy",
-  "Documentary",
-  "Crime",
-  "War",
-  "Music",
-  "History",
+export type GenreOption = { value: string; label: string }
+
+export const GENRES: GenreOption[] = [
+  { value: "28", label: "Action" },
+  { value: "12", label: "Adventure" },
+  { value: "35", label: "Comedy" },
+  { value: "18", label: "Drama" },
+  { value: "27", label: "Horror" },
+  { value: "878", label: "Sci-Fi" },
+  { value: "53", label: "Thriller" },
+  { value: "16", label: "Animation" },
+  { value: "10749", label: "Romance" },
+  { value: "9648", label: "Mystery" },
+  { value: "14", label: "Fantasy" },
+  { value: "99", label: "Documentary" },
+  { value: "80", label: "Crime" },
+  { value: "10752", label: "War" },
+  { value: "10402", label: "Music" },
+  { value: "36", label: "History" },
 ]
 
-export const LANGUAGES = ["English", "Arabic", "Japanese", "Korean", "French", "Spanish", "German", "Hindi"]
+export type LanguageOption = { value: string; label: string; short: string }
 
-export const COUNTRIES = [
-  "United States",
-  "United Kingdom",
-  "South Korea",
-  "Japan",
-  "France",
-  "Germany",
-  "India",
-  "Egypt",
+export const LANGUAGES: LanguageOption[] = [
+  { value: "en", label: "English", short: "EN" },
+  { value: "ar", label: "Arabic", short: "AR" },
+  { value: "ja", label: "Japanese", short: "JA" },
+  { value: "ko", label: "Korean", short: "KO" },
+  { value: "fr", label: "French", short: "FR" },
+  { value: "es", label: "Spanish", short: "ES" },
+  { value: "de", label: "German", short: "DE" },
+  { value: "hi", label: "Hindi", short: "HI" },
+]
+
+export type CountryOption = { value: string; label: string }
+
+export const COUNTRIES: CountryOption[] = [
+  { value: "US", label: "United States" },
+  { value: "GB", label: "United Kingdom" },
+  { value: "KR", label: "South Korea" },
+  { value: "JP", label: "Japan" },
+  { value: "FR", label: "France" },
+  { value: "DE", label: "Germany" },
+  { value: "IN", label: "India" },
+  { value: "EG", label: "Egypt" },
 ]
 
 export interface SortOption {
@@ -59,20 +74,12 @@ export const RATING_OPTIONS = [
   { value: "10", label: "10" },
 ]
 
-export const MOCK_GENRE = "Action"
-export const MOCK_LANGUAGE = "English"
-export const MOCK_COUNTRY = "United States"
-export const MOCK_SORT = "popularity.desc"
-export const MOCK_YEAR = "2024"
-export const MOCK_RATING = "7"
-
-export const LANGUAGE_ICONS: Record<string, string> = {
-  English: "EN",
-  Arabic: "AR",
-  Japanese: "JA",
-  Korean: "KO",
-  French: "FR",
-  Spanish: "ES",
-  German: "DE",
-  Hindi: "HI",
-}
+export const PARAM_KEYS = {
+  genre: "with_genres",
+  language: "with_original_language",
+  year: "primary_release_year",
+  rating: "vote_average_gte",
+  country: "region",
+  sort: "sort_by",
+  page: "page",
+} as const
