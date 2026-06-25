@@ -1,10 +1,10 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { AlertCircle } from "lucide-react";
-import { fetchApi } from "@/services/api/fetchApi";
-import type { TMDBPersonDetails } from "@/types/tmdb";
-import { PersonHero } from "@/components/person/person-hero";
-import { PersonMainContent } from "@/components/person/person-main-content";
-import { PersonSidebarColumn } from "@/components/person/person-sidebar-column";
+import { fetchApi } from "@/shared/services/fetchApi";
+import type { TMDBPersonDetails } from "@/shared/types/tmdb";
+import { PersonHero } from "@/features/person/components/person-hero";
+import { PersonMainContent } from "@/features/person/components/person-main-content";
+import { PersonSidebarColumn } from "@/features/person/components/person-sidebar-column";
 
 interface Props {
   params: Promise<{ locale: string; slug: string; id: string }>;

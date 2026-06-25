@@ -1,4 +1,4 @@
-import { SectionSkeleton } from "@/components/skeletons";
+import { SectionSkeleton } from "@/shared/components/skeletons";
 
 export default function PeopleLoading() {
   return (

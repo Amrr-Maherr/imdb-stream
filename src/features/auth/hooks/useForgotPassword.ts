@@ -1,7 +1,7 @@
 "use client";
 
 import { sendPasswordResetEmail } from "firebase/auth";
-import { auth } from "@/lib/firebase";
+import { auth } from "@/features/auth/services/firebase";
 import { useState } from "react";
 
 type ForgotPasswordData = {

@@ -1,7 +1,7 @@
 "use client"
 
 import { Clock } from "lucide-react"
-import { Input } from "@/components/ui/input"
+import { Input } from "@/shared/components/ui/input"
 import { MOCK_RUNTIME_MIN, MOCK_RUNTIME_MAX } from "./constants"
 
 function RuntimeRange() {

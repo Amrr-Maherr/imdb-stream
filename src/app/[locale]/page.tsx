@@ -1,5 +1,5 @@
-import { HeroSection } from "@/components/movies/hero-section";
-import { HomeSections } from "@/components/movies/home-sections";
+import { HeroSection } from "@/features/movies/components/listing/hero-section";
+import { HomeSections } from "@/features/movies/components/listing/home-sections";
 
 export default function Home() {
   return (

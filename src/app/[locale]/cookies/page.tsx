@@ -1,6 +1,6 @@
-import { getTranslations } from "next-intl/server"
+﻿import { getTranslations } from "next-intl/server"
 import { Shield, Settings, BarChart3, Megaphone, Cookie, Info } from "lucide-react"
-import { Card, CardContent } from "@/components/ui/card"
+import { Card, CardContent } from "@/shared/components/ui/card"
 
 interface Props {
   params: Promise<{ locale: string }>

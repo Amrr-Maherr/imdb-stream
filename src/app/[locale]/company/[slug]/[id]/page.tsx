@@ -1,18 +1,18 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { AlertCircle } from "lucide-react";
-import { fetchApi } from "@/services/api/fetchApi";
+import { fetchApi } from "@/shared/services/fetchApi";
 import type {
   TMDBCompanyDetails,
   TMDBCompanyMovie,
   TMDBResponse,
   ExternalIds,
   Image,
-} from "@/types/tmdb";
-import { ProductionCompanyHero } from "@/components/company/production-company-hero";
-import { ProductionCompanyOverview } from "@/components/company/production-company-overview";
-import { ProductionCompanyPortfolio } from "@/components/company/production-company-portfolio";
-import { ProductionCompanyMedia } from "@/components/company/production-company-media";
-import { ProductionCompanyLinks } from "@/components/company/production-company-links";
+} from "@/shared/types/tmdb";
+import { ProductionCompanyHero } from "@/features/company/components/production-company-hero";
+import { ProductionCompanyOverview } from "@/features/company/components/production-company-overview";
+import { ProductionCompanyPortfolio } from "@/features/company/components/production-company-portfolio";
+import { ProductionCompanyMedia } from "@/features/company/components/production-company-media";
+import { ProductionCompanyLinks } from "@/features/company/components/production-company-links";
 
 interface Props {
   params: Promise<{ locale: string; slug: string; id: string }>;

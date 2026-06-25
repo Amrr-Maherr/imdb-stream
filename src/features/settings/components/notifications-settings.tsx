@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { Bell, Mail, Smartphone, Megaphone } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Switch } from "@/components/ui/switch";
+import { Card, CardContent, CardHeader, CardTitle } from "@/shared/components/ui/card";
+import { Switch } from "@/shared/components/ui/switch";
 
 export function NotificationsSettings() {
   const [emailNotifs, setEmailNotifs] = useState(true);

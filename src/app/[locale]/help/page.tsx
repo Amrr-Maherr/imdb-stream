@@ -1,8 +1,8 @@
-import { getTranslations } from "next-intl/server"
+﻿import { getTranslations } from "next-intl/server"
 import { Link } from "@/i18n/navigation"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
+import { Button } from "@/shared/components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/shared/components/ui/card"
+import { Input } from "@/shared/components/ui/input"
 import { Search, User, CreditCard, Shield, Wrench, Star, Compass, ThumbsUp, Tv, Lock } from "lucide-react"
 
 interface Props {

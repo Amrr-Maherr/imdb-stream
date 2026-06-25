@@ -8,9 +8,9 @@ import {
   LogOut,
   Trash2,
 } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Switch } from "@/components/ui/switch";
-import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/shared/components/ui/card";
+import { Switch } from "@/shared/components/ui/switch";
+import { Button } from "@/shared/components/ui/button";
 
 export function PrivacySettings() {
   const [watchHistoryVisible, setWatchHistoryVisible] = useState(true);

@@ -1,7 +1,7 @@
 "use client"
 
 import { Star } from "lucide-react"
-import { Input } from "@/components/ui/input"
+import { Input } from "@/shared/components/ui/input"
 import { MOCK_MIN_RATING } from "./constants"
 
 function RatingInput() {

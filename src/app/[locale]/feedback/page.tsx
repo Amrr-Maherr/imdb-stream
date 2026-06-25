@@ -1,7 +1,7 @@
-import Image from "next/image"
+﻿import Image from "next/image"
 import { Link } from "@/i18n/navigation"
 import { getTranslations } from "next-intl/server"
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/shared/components/ui/card"
 
 interface Props {
   params: Promise<{ locale: string }>

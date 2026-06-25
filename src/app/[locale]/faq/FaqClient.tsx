@@ -1,7 +1,7 @@
-"use client"
+﻿"use client"
 
 import { useState } from "react"
-import { FaqAccordion } from "@/components/ui/faq-accordion"
+import { FaqAccordion } from "@/shared/components/ui/faq-accordion"
 
 interface FaqItem {
   q: string

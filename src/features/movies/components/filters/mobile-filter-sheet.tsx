@@ -11,16 +11,16 @@ import {
   Gauge,
   Settings2,
 } from "lucide-react"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { Label } from "@/components/ui/label"
+import { Input } from "@/shared/components/ui/input"
+import { Button } from "@/shared/components/ui/button"
+import { Label } from "@/shared/components/ui/label"
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from "@/shared/components/ui/select"
 import {
   Sheet,
   SheetContent,
@@ -28,8 +28,8 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet"
-import { cn } from "@/lib/utils"
+} from "@/shared/components/ui/sheet"
+import { cn } from "@/shared/utils/utils"
 import {
   GENRES,
   LANGUAGES,

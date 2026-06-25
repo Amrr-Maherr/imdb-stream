@@ -4,10 +4,10 @@ import "./globals.css";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { ThemeProvider } from "@/components/theme/theme-provider";
-import Header from "@/components/layout/header/Header";
-import Footer from "@/components/layout/footer/Footer";
-import ReduxProvider from "@/provider/rtkProvider/reduxProvider";
+import { ThemeProvider } from "@/shared/components/theme/theme-provider";
+import Header from "@/shared/components/layout/Header";
+import Footer from "@/shared/components/layout/Footer";
+import ReduxProvider from "@/shared/provider/reduxProvider";
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700", "900"],

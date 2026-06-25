@@ -1,11 +1,11 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { AlertCircle } from "lucide-react";
-import { fetchApi } from "@/services/api/fetchApi";
-import type { TMDBMovieDetails } from "@/types/tmdb";
-import { MovieHero } from "@/components/movie/movie-hero";
-import { MovieCollection } from "@/components/movie/movie-collection";
-import { MovieMainContent } from "@/components/movie/movie-main-content";
-import { MovieSidebarColumn } from "@/components/movie/movie-sidebar-column";
+import { fetchApi } from "@/shared/services/fetchApi";
+import type { TMDBMovieDetails } from "@/shared/types/tmdb";
+import { MovieHero } from "@/features/movies/components/detail/movie-hero";
+import { MovieCollection } from "@/features/movies/components/detail/movie-collection";
+import { MovieMainContent } from "@/features/movies/components/detail/movie-main-content";
+import { MovieSidebarColumn } from "@/features/movies/components/detail/movie-sidebar-column";
 
 interface Props {
   params: Promise<{ locale: string; slug: string; id: string }>;

@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import { Play, Subtitles, Volume2, Monitor } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Switch } from "@/components/ui/switch";
-import { cn } from "@/lib/utils";
+import { Card, CardContent, CardHeader, CardTitle } from "@/shared/components/ui/card";
+import { Switch } from "@/shared/components/ui/switch";
+import { cn } from "@/shared/utils/utils";
 
 const qualityOptions = ["Auto", "1080p", "720p", "480p", "360p"];
 

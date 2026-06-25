@@ -1,6 +1,6 @@
-import { getTranslations } from "next-intl/server"
-import { AuthLayout } from "@/components/auth/auth-layout"
-import { AuthProviders } from "@/components/auth/auth-providers"
+﻿import { getTranslations } from "next-intl/server"
+import { AuthLayout } from "@/features/auth/components/auth-layout"
+import { AuthProviders } from "@/features/auth/components/auth-providers"
 
 interface Props {
   params: Promise<{ locale: string }>

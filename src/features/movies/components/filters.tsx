@@ -17,18 +17,18 @@ import {
   BookOpen,
   Hash,
 } from "lucide-react";
-import { Input } from "@/components/ui/input";
-import { Button, buttonVariants } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
+import { Input } from "@/shared/components/ui/input";
+import { Button, buttonVariants } from "@/shared/components/ui/button";
+import { Label } from "@/shared/components/ui/label";
+import { Badge } from "@/shared/components/ui/badge";
+import { Separator } from "@/shared/components/ui/separator";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from "@/shared/components/ui/select";
 import {
   Sheet,
   SheetContent,
@@ -36,7 +36,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet";
+} from "@/shared/components/ui/sheet";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -44,10 +44,10 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { cn } from "@/lib/utils";
+} from "@/shared/components/ui/dropdown-menu";
+import { cn } from "@/shared/utils/utils";
 
-/* ─── Mock data ─────────────────────────────────────────── */
+/* --- Mock data ------------------------------------------ */
 
 const GENRES = [
   "Action",
@@ -111,7 +111,7 @@ const CONTENT_TYPE_ICONS: Record<string, typeof Film> = {
   documentary: BookOpen,
 };
 
-/* ─── Mock active filters (UI display only) ─────────────── */
+/* --- Mock active filters (UI display only) -------------- */
 
 const MOCK_GENRES = ["Action", "Sci-Fi"];
 const MOCK_LANGUAGE = "English";
@@ -125,7 +125,7 @@ const MOCK_RUNTIME_MAX = 180;
 const MOCK_CONTENT_TYPE = "movie";
 const MOCK_ACTIVE_COUNT = 6;
 
-/* ─── Icons ─────────────────────────────────────────────── */
+/* --- Icons ---------------------------------------------- */
 
 const languageIcons: Record<string, string> = {
   English: "EN",
@@ -138,7 +138,7 @@ const languageIcons: Record<string, string> = {
   Hindi: "HI",
 };
 
-/* ─── Sub-components ────────────────────────────────────── */
+/* --- Sub-components ------------------------------------- */
 
 function GenreDropdown() {
   return (
@@ -419,12 +419,12 @@ function SearchInput() {
   );
 }
 
-/* ─── Main component ────────────────────────────────────── */
+/* --- Main component ------------------------------------- */
 
 function MoviesFilters() {
   return (
     <div className="space-y-4 w-full" data-slot="movies-filters">
-      {/* ── Desktop / Tablet ─────────────────────────────── */}
+      {/* -- Desktop / Tablet --------------------------------- */}
       <div className="hidden md:block">
         <div className="sticky top-0 z-30 border-b border-border bg-background/80 backdrop-blur-xl">
           <div className="app-container py-3">
@@ -511,7 +511,7 @@ function MoviesFilters() {
         </div>
       </div>
 
-      {/* ── Mobile ────────────────────────────────────────── */}
+      {/* -- Mobile ------------------------------------------ */}
       <div className="md:hidden">
         <div className="sticky top-0 z-30 border-b border-border bg-background/80 backdrop-blur-xl">
           <div className="app-container py-2">
@@ -842,7 +842,7 @@ function MoviesFilters() {
   );
 }
 
-/* ─── Skeleton ──────────────────────────────────────────── */
+/* --- Skeleton ------------------------------------------- */
 
 function MoviesFiltersSkeleton() {
   return (
@@ -900,7 +900,7 @@ function MoviesFiltersSkeleton() {
   );
 }
 
-/* ─── Empty state ───────────────────────────────────────── */
+/* --- Empty state ---------------------------------------- */
 
 function MoviesFiltersEmpty() {
   return (
@@ -928,7 +928,7 @@ function MoviesFiltersEmpty() {
   );
 }
 
-/* ─── Loading state ─────────────────────────────────────── */
+/* --- Loading state -------------------------------------- */
 
 function MoviesFiltersLoading() {
   return (

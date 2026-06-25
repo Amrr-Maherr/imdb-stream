@@ -1,7 +1,7 @@
 import { getTranslations } from "next-intl/server"
 import { FileText, CheckCircle, ChevronRight } from "lucide-react"
-import { cn } from "@/lib/utils"
-import { AnimatedSection } from "@/components/ui/animated-section"
+import { cn } from "@/shared/utils/utils"
+import { AnimatedSection } from "@/shared/components/ui/animated-section"
 
 interface Props {
   params: Promise<{ locale: string }>

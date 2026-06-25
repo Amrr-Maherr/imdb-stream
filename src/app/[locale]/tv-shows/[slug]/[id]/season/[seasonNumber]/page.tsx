@@ -1,10 +1,10 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { AlertCircle } from "lucide-react";
-import { fetchApi } from "@/services/api/fetchApi";
-import type { TVSeasonDetails, TMDBTVDetails } from "@/types/tmdb";
-import { SeasonHero } from "@/components/season/season-hero";
-import { SeasonMainContent } from "@/components/season/season-main-content";
-import { SeasonSidebarColumn } from "@/components/season/season-sidebar-column";
+import { fetchApi } from "@/shared/services/fetchApi";
+import type { TVSeasonDetails, TMDBTVDetails } from "@/shared/types/tmdb";
+import { SeasonHero } from "@/features/tv/components/season/season-hero";
+import { SeasonMainContent } from "@/features/tv/components/season/season-main-content";
+import { SeasonSidebarColumn } from "@/features/tv/components/season/season-sidebar-column";
 
 interface Props {
   params: Promise<{ locale: string; slug: string; id: string; seasonNumber: string }>;

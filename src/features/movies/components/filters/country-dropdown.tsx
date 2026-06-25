@@ -1,7 +1,7 @@
 "use client"
 
 import { Globe, ChevronDown } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/shared/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -9,7 +9,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/shared/components/ui/dropdown-menu"
 import { COUNTRIES, MOCK_COUNTRY } from "./constants"
 
 function CountryDropdown() {

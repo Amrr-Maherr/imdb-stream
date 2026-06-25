@@ -1,6 +1,6 @@
 "use client"
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/shared/utils/utils"
 import { CONTENT_TYPES, MOCK_CONTENT_TYPE } from "./constants"
 
 function ContentTypeGroup() {

@@ -1,7 +1,7 @@
-import { getTranslations } from "next-intl/server"
+﻿import { getTranslations } from "next-intl/server"
 import { Link } from "@/i18n/navigation"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
+import { Button } from "@/shared/components/ui/button"
+import { Card, CardContent } from "@/shared/components/ui/card"
 import {
   Heart,
   MessageSquare,

@@ -1,7 +1,7 @@
-import Image from "next/image"
+﻿import Image from "next/image"
 import { Link } from "@/i18n/navigation"
 import { getTranslations } from "next-intl/server"
-import { SignUpForm } from "@/components/auth/sign-up-form"
+import { SignUpForm } from "@/features/auth/components/sign-up-form"
 
 interface Props {
   params: Promise<{ locale: string }>

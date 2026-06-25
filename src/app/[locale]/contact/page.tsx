@@ -1,10 +1,10 @@
-import { getTranslations } from "next-intl/server"
+﻿import { getTranslations } from "next-intl/server"
 import { Link } from "@/i18n/navigation"
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { AnimatedSection } from "@/components/ui/animated-section"
+import { Card, CardContent } from "@/shared/components/ui/card"
+import { Button } from "@/shared/components/ui/button"
+import { Input } from "@/shared/components/ui/input"
+import { Label } from "@/shared/components/ui/label"
+import { AnimatedSection } from "@/shared/components/ui/animated-section"
 import { Mail, MessageCircle, Phone, Share2 } from "lucide-react"
 
 interface Props {

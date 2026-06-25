@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 import { Palette, Sun, Moon, Monitor, Globe, Languages } from "lucide-react";
-import { useTheme } from "@/components/theme/theme-provider";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { useTheme } from "@/shared/components/theme/theme-provider";
+import { Card, CardContent, CardHeader, CardTitle } from "@/shared/components/ui/card";
+import { Button } from "@/shared/components/ui/button";
+import { cn } from "@/shared/utils/utils";
 
 const themeOptions = [
   { value: "light" as const, label: "Light", icon: Sun },

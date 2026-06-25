@@ -1,8 +1,8 @@
 import { getTranslations } from "next-intl/server"
 import { Link } from "@/i18n/navigation"
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { AnimatedSection } from "@/components/ui/animated-section"
+import { Card, CardContent } from "@/shared/components/ui/card"
+import { Button } from "@/shared/components/ui/button"
+import { AnimatedSection } from "@/shared/components/ui/animated-section"
 import { Film, Sparkles, Users, Monitor } from "lucide-react"
 
 interface Props {

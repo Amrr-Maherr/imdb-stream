@@ -1,8 +1,8 @@
 "use client"
 
 import { Search, X } from "lucide-react"
-import { Input } from "@/components/ui/input"
-import { cn } from "@/lib/utils"
+import { Input } from "@/shared/components/ui/input"
+import { cn } from "@/shared/utils/utils"
 
 interface SearchInputProps {
   variant?: "desktop" | "mobile"

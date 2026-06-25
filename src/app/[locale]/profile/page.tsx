@@ -18,7 +18,7 @@ import {
   Award,
   ChevronRight,
 } from "lucide-react";
-import { ProfileSkeleton } from "@/components/skeletons";
+import { ProfileSkeleton } from "@/shared/components/skeletons";
 
 type UserData = {
   user: {

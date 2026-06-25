@@ -1,6 +1,6 @@
 "use client"
 
-import { Input } from "@/components/ui/input"
+import { Input } from "@/shared/components/ui/input"
 import { MOCK_YEAR_FROM, MOCK_YEAR_TO } from "./constants"
 
 function YearRange() {
