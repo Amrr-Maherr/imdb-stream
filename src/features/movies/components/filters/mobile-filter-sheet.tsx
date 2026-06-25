@@ -15,6 +15,7 @@ import { CountryDropdown } from "./country-dropdown"
 import { SortSelect } from "./sort-select"
 import { YearSelect } from "./year-select"
 import { RatingSelect } from "./rating-select"
+import { AdultToggle } from "./adult-toggle"
 import { useResetFilters } from "@/shared/hooks/useResetFilters"
 
 function MobileFilterSheet() {
@@ -56,6 +57,10 @@ function MobileFilterSheet() {
           <div className="space-y-1.5">
             <span className="text-xs font-medium text-muted-foreground">Sort By</span>
             <SortSelect />
+          </div>
+          <div className="space-y-1.5">
+            <span className="text-xs font-medium text-muted-foreground">Adult Content</span>
+            <AdultToggle />
           </div>
           {hasFilters && (
             <Button

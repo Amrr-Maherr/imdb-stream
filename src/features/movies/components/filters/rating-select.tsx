@@ -29,7 +29,7 @@ function RatingSelect() {
 
   return (
     <Select value={value} onValueChange={handleChange}>
-      <SelectTrigger className="h-8 min-w-[7.5rem] text-xs">
+      <SelectTrigger className="h-9 min-w-[8.5rem] text-xs">
         <Star className="size-3.5 shrink-0 text-amber-500" />
         <SelectValue placeholder="Rating" />
       </SelectTrigger>

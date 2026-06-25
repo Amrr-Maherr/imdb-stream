@@ -82,4 +82,5 @@ export const PARAM_KEYS = {
   country: "region",
   sort: "sort_by",
   page: "page",
+  adult: "include_adult",
 } as const

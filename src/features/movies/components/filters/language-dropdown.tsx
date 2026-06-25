@@ -29,7 +29,7 @@ function LanguageDropdown() {
 
   return (
     <Select value={value} onValueChange={handleChange}>
-      <SelectTrigger className="h-8 min-w-[8.5rem] text-xs">
+      <SelectTrigger className="h-9 min-w-[8.5rem] text-xs">
         <Globe className="size-3.5 shrink-0 text-muted-foreground" />
         <SelectValue placeholder="Language" />
       </SelectTrigger>

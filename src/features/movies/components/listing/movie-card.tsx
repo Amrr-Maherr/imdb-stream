@@ -10,9 +10,10 @@ type MovieCardProps = {
   movie: TMDBMovie;
   genreMap?: Record<number, string>;
   showRank?: number;
+  adultContentVisible?: boolean;
 };
 
-export function MovieCard({ movie, genreMap, showRank }: MovieCardProps) {
+export function MovieCard({ movie, genreMap, showRank, adultContentVisible }: MovieCardProps) {
   const year = movie.release_date?.slice(0, 4);
   const vote = movie.vote_average.toFixed(1);
   const genres = movie.genre_ids
@@ -42,6 +43,13 @@ export function MovieCard({ movie, genreMap, showRank }: MovieCardProps) {
         ) : (
           <div className="flex h-full items-center justify-center text-muted-foreground text-sm p-2 text-center">
             {movie.title}
+          </div>
+        )}
+        {movie.adult && !adultContentVisible && (
+          <div className="absolute inset-0 backdrop-blur-md bg-background/40 flex items-center justify-center z-20">
+            <span className="text-xs font-bold text-foreground/70 bg-background/60 px-2 py-0.5 rounded">
+              18+
+            </span>
           </div>
         )}
         {genres && genres.length > 0 && (

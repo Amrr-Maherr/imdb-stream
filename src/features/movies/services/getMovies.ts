@@ -12,6 +12,7 @@ export type MovieFilters = {
     | "vote_average.desc"
     | "primary_release_date.desc"
     | "revenue.desc";
+    include_adult?: boolean;
 };
 
 export default async function GetMovies({
@@ -22,6 +23,7 @@ export default async function GetMovies({
     vote_average_gte,
     region,
     sort_by = "popularity.desc",
+    include_adult,
 }: MovieFilters) {
     try {
         const response = await axios.get(
@@ -29,7 +31,7 @@ export default async function GetMovies({
             {
                 params: {
                     api_key: process.env.NEXT_PUBLIC_TMDB_API_KEY,
-                    include_adult: false,
+                    include_adult: include_adult ?? false,
 
                     page,
                     with_genres,
