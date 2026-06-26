@@ -1,6 +1,9 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Heart, List } from "lucide-react";
+import { ChevronDown, ChevronUp, Heart, List } from "lucide-react";
 import { Card, CardContent } from "@/shared/components/ui/card";
 import { slugify } from "@/shared/utils/slugify";
 
@@ -19,13 +22,19 @@ type MovieListsProps = {
 };
 
 const TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p";
+const DISPLAY_LIMIT = 4;
 
 export function MovieLists({ lists }: MovieListsProps) {
+  const [expanded, setExpanded] = useState(false);
   if (lists.length === 0) return null;
 
+  const visible = expanded ? lists : lists.slice(0, DISPLAY_LIMIT);
+  const hasMore = lists.length > DISPLAY_LIMIT;
+
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-      {lists.map((list) => (
+    <div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        {visible.map((list) => (
         <Link
           key={list.id}
           href={`/list/${slugify(list.name)}/${list.id}`}
@@ -76,6 +85,19 @@ export function MovieLists({ lists }: MovieListsProps) {
           </Card>
         </Link>
       ))}
+      </div>
+      {hasMore && (
+        <button
+          onClick={() => setExpanded(!expanded)}
+          className="inline-flex items-center gap-1 mt-3 text-sm font-medium text-brand hover:text-brand/80 transition-colors"
+        >
+          {expanded ? (
+            <>Show Less <ChevronUp className="size-3.5" /></>
+          ) : (
+            <>Show More ({lists.length - DISPLAY_LIMIT} more) <ChevronDown className="size-3.5" /></>
+          )}
+        </button>
+      )}
     </div>
   );
 }

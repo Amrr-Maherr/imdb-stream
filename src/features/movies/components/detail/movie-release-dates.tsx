@@ -1,4 +1,7 @@
-import { Globe, CalendarDays, Clock } from "lucide-react";
+"use client";
+
+import { useState } from "react";
+import { ChevronDown, ChevronUp, Globe, CalendarDays } from "lucide-react";
 import { Card, CardContent } from "@/shared/components/ui/card";
 
 type ReleaseDateItem = {
@@ -18,6 +21,8 @@ type ReleaseDatesResult = {
 type MovieReleaseDatesProps = {
   releaseDates: ReleaseDatesResult[];
 };
+
+const DISPLAY_LIMIT = 4;
 
 function getCountryName(code: string) {
   try {
@@ -55,11 +60,16 @@ const TYPE_VARIANTS: Record<number, string> = {
 };
 
 export function MovieReleaseDates({ releaseDates }: MovieReleaseDatesProps) {
+  const [expanded, setExpanded] = useState(false);
   if (releaseDates.length === 0) return null;
 
+  const visible = expanded ? releaseDates : releaseDates.slice(0, DISPLAY_LIMIT);
+  const hasMore = releaseDates.length > DISPLAY_LIMIT;
+
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-      {releaseDates.map((r) => (
+    <div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        {visible.map((r) => (
         <Card key={r.iso_3166_1}>
           <CardContent className="p-4">
             <div className="flex items-center gap-2 mb-3 pb-2 border-b border-border">
@@ -103,6 +113,19 @@ export function MovieReleaseDates({ releaseDates }: MovieReleaseDatesProps) {
           </CardContent>
         </Card>
       ))}
+      </div>
+      {hasMore && (
+        <button
+          onClick={() => setExpanded(!expanded)}
+          className="inline-flex items-center gap-1 mt-3 text-sm font-medium text-brand hover:text-brand/80 transition-colors"
+        >
+          {expanded ? (
+            <>Show Less <ChevronUp className="size-3.5" /></>
+          ) : (
+            <>Show More ({releaseDates.length - DISPLAY_LIMIT} more) <ChevronDown className="size-3.5" /></>
+          )}
+        </button>
+      )}
     </div>
   );
 }
