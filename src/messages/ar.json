@@ -120,6 +120,15 @@
   "People": {
     "title": "الأشخاص"
   },
+  "ListItem": {
+    "notFound": "العنصر غير موجود",
+    "notFoundDescription": "لم نتمكن من العثور على العنصر الذي تبحث عنه. قد لا يكون موجودًا أو حدث خطأ أثناء تحميله.",
+    "invalidMediaType": "نوع الوسائط غير صالح",
+    "invalidMediaTypeDescription": "نوع الوسائط \"{mediaType}\" غير مدعوم.",
+    "goHome": "العودة إلى الرئيسية",
+    "movies": "الأفلام",
+    "tvShows": "المسلسلات"
+  },
   "About": {
     "title": "معلومات عنا",
     "description": "اكتشف قصة IMDb",
@@ -787,5 +796,20 @@
       "instagram": "انستغرام"
     },
     "copyright": "© {year} IMDb. جميع الحقوق محفوظة."
+  },
+  "Collection": {
+    "title": "مجموعة",
+    "overview": "نظرة عامة",
+    "statistics": "إحصائيات",
+    "titles": "العناوين",
+    "releaseRange": "نطاق الإصدار",
+    "averageRating": "متوسط التقييم",
+    "collectionTimeline": "الجدول الزمني للمجموعة",
+    "titlesInCollection": "العناوين في هذه المجموعة",
+    "titlesCount": "{count} عنوان",
+    "notFound": "المجموعة غير موجودة",
+    "notFoundDescription": "لم نتمكن من العثور على المجموعة التي تبحث عنها. قد لا تكون موجودة أو حدث خطأ في تحميلها.",
+    "collectionEmpty": "لا توجد عناوين في هذه المجموعة بعد.",
+    "loading": "جارٍ تحميل المجموعة..."
   }
 }
