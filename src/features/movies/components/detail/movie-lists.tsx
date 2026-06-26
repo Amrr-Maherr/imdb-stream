@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Heart, List } from "lucide-react";
 import { Card, CardContent } from "@/shared/components/ui/card";
+import { slugify } from "@/shared/utils/slugify";
 
 type MovieList = {
   id: number;
@@ -25,7 +26,11 @@ export function MovieLists({ lists }: MovieListsProps) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
       {lists.map((list) => (
-        <Link key={list.id} href={`/list/${list.id}`} className="group block">
+        <Link
+          key={list.id}
+          href={`/list/${slugify(list.name)}/${list.id}`}
+          className="group block"
+        >
           <Card className="h-full transition-colors group-hover:bg-muted">
             <CardContent className="p-4">
               <div className="flex items-start gap-3">

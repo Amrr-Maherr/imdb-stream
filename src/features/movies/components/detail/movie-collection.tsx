@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Film } from "lucide-react";
+import { slugify } from "@/shared/utils/slugify";
 
 const TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p";
 
@@ -53,7 +54,7 @@ export function MovieCollection({ collection }: MovieCollectionProps) {
             {collection.name}
           </p>
           <Link
-            href={`/collection/${collection.id}`}
+            href={`/collection/${slugify(collection.name)}/${collection.id}`}
             className="mt-1 inline-flex items-center gap-1 text-sm font-medium text-brand hover:underline"
           >
             View collection

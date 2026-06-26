@@ -187,6 +187,33 @@ export type Collection = {
   backdrop_path: string | null;
 };
 
+export type CollectionPart = {
+  id: number;
+  title: string;
+  overview: string;
+  poster_path: string | null;
+  backdrop_path: string | null;
+  release_date: string;
+  vote_average: number;
+  vote_count: number;
+  genre_ids: number[];
+  original_language: string;
+  original_title: string;
+  popularity: number;
+  adult: boolean;
+  video: boolean;
+  media_type?: string;
+};
+
+export type TMDBCollectionDetails = {
+  id: number;
+  name: string;
+  overview: string;
+  poster_path: string | null;
+  backdrop_path: string | null;
+  parts: CollectionPart[];
+};
+
 export type TMDBMovieDetails = {
   id: number;
   title: string;
