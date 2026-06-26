@@ -8,7 +8,6 @@ import { MovieMainContent } from "@/features/movies/components/detail/movie-main
 import { MovieSidebarColumn } from "@/features/movies/components/detail/movie-sidebar-column";
 import { TvMainContent } from "@/features/tv/components/detail/tv-main-content";
 import { TvSidebarColumn } from "@/features/tv/components/detail/tv-sidebar-column";
-import { Breadcrumb } from "@/shared/components/ui/breadcrumb";
 
 interface Props {
   params: Promise<{ locale: string; mediaType: string; slug: string; id: string }>;
@@ -145,13 +144,6 @@ async function MovieContent({ id }: { id: string }) {
       />
 
       <div className="w-full mx-auto app-container mt-8 md:mt-10 pb-16 space-y-8">
-        <Breadcrumb
-          items={[
-            { label: "Movies", href: "/movies" },
-            { label: movie.title },
-          ]}
-        />
-
         {movie.belongs_to_collection && (
           <MovieCollection collection={movie.belongs_to_collection} />
         )}
@@ -223,13 +215,6 @@ async function TvContent({ id, slug }: { id: string; slug: string }) {
       />
 
       <div className="w-full mx-auto app-container mt-8 md:mt-10 pb-16 space-y-8">
-        <Breadcrumb
-          items={[
-            { label: "TV Shows", href: "/tv-shows" },
-            { label: show.name },
-          ]}
-        />
-
         <div className="flex flex-col lg:flex-row gap-10 lg:gap-12">
           <TvMainContent show={show} slug={slug} creators={creators} />
           <TvSidebarColumn show={show} creators={creators} />
