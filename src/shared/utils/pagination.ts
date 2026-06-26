@@ -11,13 +11,12 @@ export function getPageNumbers(current: number, total: number) {
 
   let prev: number | null = null;
   for (const page of range) {
-    if (prev !== null && typeof page === "number" && page - prev !== 1) {
+    if (typeof page !== "number") continue;
+    if (prev !== null && page - prev !== 1) {
       rangeWithDots.push("ellipsis");
     }
     rangeWithDots.push(page);
-    if (typeof page === "number") {
-      prev = page;
-    }
+    prev = page;
   }
 
   return rangeWithDots;

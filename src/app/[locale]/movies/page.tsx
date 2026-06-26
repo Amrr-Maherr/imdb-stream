@@ -5,6 +5,7 @@ import {
 import { MovieCard } from "@/features/movies/components/listing/movie-card";
 import GetMovies from "@/features/movies/services/getMovies";
 import { PaginationDemo } from "@/shared/components/pagination";
+import type { TMDBMovie } from "@/shared/types/tmdb";
 import { getTranslations } from "next-intl/server";
 
 interface Props {
@@ -32,12 +33,14 @@ export default async function MoviesPage({
   const data = await GetMovies({
     page: searchParams.page ? Number(searchParams.page) : undefined,
     with_genres: searchParams.with_genres as string | undefined,
-    with_original_language: searchParams.with_original_language as string | undefined,
+    with_original_language: searchParams.with_original_language as
+      | string
+      | undefined,
     primary_release_year: searchParams.primary_release_year
       ? Number(searchParams.primary_release_year)
       : undefined,
     region: searchParams.region as string | undefined,
-    sort_by: (searchParams.sort_by ?? undefined) as
+    sort_by: searchParams.sort_by as
       | "popularity.desc"
       | "vote_average.desc"
       | "primary_release_date.desc"
@@ -85,7 +88,7 @@ export default async function MoviesPage({
 
         <section>
           <div className="flex flex-wrap justify-between gap-3 md:gap-4">
-            {data?.results?.map((movie: any) => (
+            {data?.results?.map((movie: TMDBMovie) => (
               <MovieCard
                 key={movie.id}
                 movie={movie}
