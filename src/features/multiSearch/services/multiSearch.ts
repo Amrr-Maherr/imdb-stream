@@ -9,7 +9,7 @@ export default async function MultiSearch({ query }: MultiSearchProps) {
                 query,
                 language: "en-US",
                 page: 1,
-                include_adult: false,
+                include_adult: true,
                 api_key: process.env.NEXT_PUBLIC_TMDB_API_KEY,
             }
         })
