@@ -6,6 +6,7 @@ import { useState } from "react";
 import { getAuth } from "firebase/auth";
 import toast from "react-hot-toast";
 import { useAddToFavorite } from "../../hooks/useAddToFavorite";
+import { useAddToWatchlist } from "../../hooks/usetAddToWatchlist";
 
 type Movie = {
   id: number;
@@ -35,6 +36,7 @@ export function MovieActions({
   const [favorited, setFavorited] = useState(false);
 
   const { loading: favoriteLoading, addToFavorite } = useAddToFavorite();
+  const { loading: watchlistLoading, addToWatchlist } = useAddToWatchlist();
 
   const auth = getAuth();
   const user = auth.currentUser;
@@ -66,8 +68,23 @@ export function MovieActions({
 
       {/* Watchlist */}
       <button
-        onClick={() => setInWatchlist((p) => !p)}
-        className={`inline-flex items-center gap-2 rounded-lg border px-4 py-2.5 text-sm font-semibold transition-all ${
+        disabled={watchlistLoading}
+        onClick={async () => {
+          if (!user) {
+            toast.error("Please login first.");
+            return;
+          }
+
+          const result = await addToWatchlist(movie, user);
+
+          if (result.success) {
+            setInWatchlist(true);
+            toast.success("Added to watchlist!");
+          } else {
+            toast.error("Failed to add to watchlist.");
+          }
+        }}
+        className={`inline-flex items-center gap-2 rounded-lg border px-4 py-2.5 text-sm font-semibold transition-all disabled:cursor-not-allowed disabled:opacity-70 ${
           inWatchlist
             ? "border-brand bg-brand/10 text-brand"
             : overlay
@@ -75,9 +92,18 @@ export function MovieActions({
               : "border-border bg-background text-foreground hover:bg-muted"
         }`}
       >
-        <ListPlus className="size-4" />
+        {watchlistLoading ? (
+          <Loader2 className="size-4 animate-spin" />
+        ) : (
+          <ListPlus className="size-4" />
+        )}
+
         <span className="hidden sm:inline">
-          {inWatchlist ? "In Watchlist" : "Watchlist"}
+          {watchlistLoading
+            ? "Adding..."
+            : inWatchlist
+              ? "In Watchlist"
+              : "Watchlist"}
         </span>
       </button>
 

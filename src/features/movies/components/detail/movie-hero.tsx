@@ -91,6 +91,7 @@ export function MovieHero({
   trailerKey,
   imdbId,
   homepage,
+  movie,
 }: MovieHeroProps) {
   const playerRef = useRef<YTPlayer | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -248,6 +249,7 @@ export function MovieHero({
               homepage={homepage}
               title={title}
               overlay
+              movie={movie}
             />
           </div>
         </div>
