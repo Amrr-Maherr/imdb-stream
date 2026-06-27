@@ -46,6 +46,7 @@ src/
 │   │   ├── contact/              # Contact page
 │   │   ├── cookies/              # Cookies policy
 │   │   ├── faq/                  # FAQ page
+│   │   ├── favorites/            # Favorites page (Firestore)
 │   │   ├── feedback/             # Feedback page
 │   │   ├── guidelines/           # Community guidelines
 │   │   ├── help/                 # Help center
@@ -59,7 +60,7 @@ src/
 │   │   ├── subscription/         # Subscription/pricing page
 │   │   ├── terms/                # Terms of service
 │   │   ├── tv-shows/             # TV shows listing + detail + season + episode pages
-│   │   └── watchlist/            # Watchlist page (placeholder)
+│   │   └── watchlist/            # Watchlist page (Firestore)
 │   └── favicon.ico
 │
 ├── features/                     # Feature-based modules
@@ -114,6 +115,14 @@ src/
 │   │   ├── hooks/                # (empty)
 │   │   ├── services/             # (empty)
 │   │   └── types/                # (empty)
+│   │
+│   ├── favorites/                # Favorites feature
+│   │   ├── components/           # Favorites grid
+│   │   └── hooks/                # Firestore fetch, delete all
+│   │
+│   ├── watchlist/                # Watchlist feature
+│   │   ├── components/           # Watchlist grid
+│   │   └── hooks/                # Firestore fetch, delete all
 │   │
 │   └── episode/                  # (empty - reserved)
 │       └── components/           # (empty)
@@ -319,6 +328,32 @@ Sections: Account, Preferences, Playback, Notifications, Privacy & Security, App
 | **Components** | Inline page components |
 
 Three tiers: Free, Pro, Enterprise with feature comparison table.
+
+### Favorites
+
+| Aspect | Details |
+|--------|---------|
+| **Purpose** | View and manage user's favorite movies and TV shows |
+| **Pages** | `/favorites` |
+| **Components** | `FavoritesList` — renders grid of MovieCard/TvCard with delete all button |
+| **Hooks** | `useFavorites` — fetches from `users/{userId}/favorites` via `getDocs`, provides `deleteAll` via `writeBatch` |
+| **Services** | `mapper.ts` — shared `toTMDBMovie`/`toTMDBTV` mappers for partial stored data |
+| **API** | Firebase Firestore (collection group: `users/{userId}/favorites`) |
+
+Reads `userId` from `localStorage` (`user_data`), fetches favorites from Firestore, and renders them using the existing `MovieCard` and `TvCard` components. Supports deleting all favorites at once via a batch write.
+
+### Watchlist
+
+| Aspect | Details |
+|--------|---------|
+| **Purpose** | View and manage user's watchlist items |
+| **Pages** | `/watchlist` |
+| **Components** | `WatchlistList` — renders grid of MovieCard/TvCard with delete all button |
+| **Hooks** | `useWatchlist` — fetches from `users/{userId}/watchlist` via `getDocs`, provides `deleteAll` via `writeBatch` |
+| **Services** | `mapper.ts` — shared `toTMDBMovie`/`toTMDBTV` mappers for partial stored data |
+| **API** | Firebase Firestore (collection group: `users/{userId}/watchlist`) |
+
+Same pattern as favorites: reads `userId` from localStorage, fetches the watchlist collection from Firestore, and renders items using `MovieCard`/`TvCard`. Includes a "Delete All" button that batch-deletes all documents.
 
 ### Static Pages
 
@@ -766,8 +801,7 @@ export function ClientComponent({ data }: { data: SomeType }) {
 ## Future Improvements
 
 1. **Complete TV Shows listing page** — Currently a placeholder; needs filter components and search functionality similar to Movies page
-2. **Watchlist & Favorites** — Placeholder pages; need Firebase Firestore integration
-3. **Search functionality** — `SearchBar` component exists but doesn't navigate to results; needs a search results page
+2. **Search functionality** — `SearchBar` component exists but doesn't navigate to results; needs a search results page
 4. **Add missing type safety** — Some components use `any` types (movies listing page)
 5. **Unit tests** — Jest is installed but no tests written
 6. **Prettier configuration** — No formatter configured
@@ -798,8 +832,8 @@ export function ClientComponent({ data }: { data: SomeType }) {
 | Company Detail | ✅ Complete | `src/app/[locale]/company/[slug]/[id]/page.tsx`, `features/company/components/` | Production company profile |
 | User Settings | ✅ Complete | `src/app/[locale]/settings/page.tsx`, `features/settings/` | Account, preferences, playback, notifications, privacy |
 | User Profile | ⚠️ Partial | `src/app/[locale]/profile/page.tsx` | Reads from localStorage, edit features not fully implemented |
-| Watchlist | ⚠️ Placeholder | `src/app/[locale]/watchlist/page.tsx` | "Coming in future update" |
-| Favorites | ⚠️ Placeholder | `src/app/[locale]/favorites/page.tsx` | "Coming in future update" |
+| Watchlist | ✅ Complete | `src/app/[locale]/watchlist/page.tsx`, `features/watchlist/` | Reads userId from localStorage, fetches Firestore collection, renders MovieCard/TvCard, delete all |
+| Favorites | ✅ Complete | `src/app/[locale]/favorites/page.tsx`, `features/favorites/` | Reads userId from localStorage, fetches Firestore collection, renders MovieCard/TvCard, delete all |
 | Subscription | ✅ Complete | `src/app/[locale]/subscription/page.tsx` | Pricing page with tier comparison |
 | About | ✅ Complete | `src/app/[locale]/about/page.tsx` | Company story, mission, timeline |
 | Careers | ✅ Complete | `src/app/[locale]/careers/page.tsx` | Job listings and culture |
@@ -868,4 +902,4 @@ Key architectural highlights:
 - **Design token system**: Complete OKLCH-based design system with light/dark mode
 - **Multiple auth providers**: Email/password, Google, phone (SMS), and anonymous login via Firebase
 
-The project is production-ready for content browsing but has placeholder pages for watchlists, favorites, and TV show search that require backend integration (Firebase Firestore) for full functionality.
+The project is production-ready for content browsing with Firebase Firestore integration for favorites and watchlist features.
