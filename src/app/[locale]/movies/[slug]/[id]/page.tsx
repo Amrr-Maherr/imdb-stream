@@ -89,6 +89,7 @@ export default async function MoviePage({ params }: Props) {
         trailerKey={trailers[0]?.key ?? null}
         imdbId={movie.external_ids?.imdb_id ?? null}
         homepage={movie.homepage || null}
+        movie={movie}
       />
 
       <div className="w-full mx-auto app-container mt-8 md:mt-10 pb-16 space-y-8">

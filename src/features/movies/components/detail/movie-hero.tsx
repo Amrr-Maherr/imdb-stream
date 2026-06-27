@@ -18,6 +18,13 @@ import { MovieBackground } from "./movie-background";
 
 type Genre = { id: number; name: string };
 
+type Movie = {
+  id: number;
+  title: string;
+  poster_path: string | null;
+  media_type?: string;
+};
+
 type MovieHeroProps = {
   backdropPath: string | null;
   title: string;
@@ -32,6 +39,7 @@ type MovieHeroProps = {
   trailerKey: string | null;
   imdbId: string | null;
   homepage: string | null;
+  movie: Movie;
 };
 
 declare global {
@@ -83,6 +91,7 @@ export function MovieHero({
   trailerKey,
   imdbId,
   homepage,
+  movie,
 }: MovieHeroProps) {
   const playerRef = useRef<YTPlayer | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -240,6 +249,7 @@ export function MovieHero({
               homepage={homepage}
               title={title}
               overlay
+              movie={movie}
             />
           </div>
         </div>
