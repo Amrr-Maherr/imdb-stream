@@ -141,6 +141,7 @@ async function MovieContent({ id }: { id: string }) {
         trailerKey={trailers[0]?.key ?? null}
         imdbId={movie.external_ids?.imdb_id ?? null}
         homepage={movie.homepage || null}
+        movie={movie}
       />
 
       <div className="w-full mx-auto app-container mt-8 md:mt-10 pb-16 space-y-8">
@@ -212,6 +213,7 @@ async function TvContent({ id, slug }: { id: string; slug: string }) {
         trailerKey={trailers[0]?.key ?? null}
         imdbId={show.external_ids?.imdb_id ?? null}
         homepage={show.homepage || null}
+        movie={{ ...show, title: show.name }}
       />
 
       <div className="w-full mx-auto app-container mt-8 md:mt-10 pb-16 space-y-8">

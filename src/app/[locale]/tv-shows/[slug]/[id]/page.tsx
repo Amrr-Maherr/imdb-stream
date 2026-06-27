@@ -90,6 +90,7 @@ export default async function TvShowPage({ params }: Props) {
         trailerKey={trailers[0]?.key ?? null}
         imdbId={show.external_ids?.imdb_id ?? null}
         homepage={show.homepage || null}
+        movie={{ ...show, title: show.name }}
       />
 
       <div className="w-full mx-auto app-container mt-8 md:mt-10 pb-16 space-y-8">

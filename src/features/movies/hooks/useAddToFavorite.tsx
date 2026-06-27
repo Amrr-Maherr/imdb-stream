@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { db } from "@/lib/firebase";
 import { doc, setDoc } from "firebase/firestore";
@@ -5,7 +7,7 @@ import { doc, setDoc } from "firebase/firestore";
 export function useAddToFavorite() {
   const [loading, setLoading] = useState(false);
 
-  const addToFavorite = async (movie, user) => {
+  const addToFavorite = async (movie: any, user: any) => {
     setLoading(true);
 
     try {
