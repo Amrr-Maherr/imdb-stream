@@ -7,6 +7,7 @@ import { notFound } from "next/navigation";
 import { ThemeProvider } from "@/shared/components/theme/theme-provider";
 import Header from "@/shared/components/layout/Header";
 import Footer from "@/shared/components/layout/Footer";
+import ToasterProvider from "@/shared/components/ToasterProvider";
 import ReduxProvider from "@/shared/provider/reduxProvider";
 
 const roboto = Roboto({
@@ -52,6 +53,7 @@ export default async function RootLayout({
             disableTransitionOnChange
           >
             <NextIntlClientProvider messages={messages}>
+              <ToasterProvider />
               <div className="flex min-h-full flex-col">
                 <Header />
                 <main className="flex-1">{children}</main>

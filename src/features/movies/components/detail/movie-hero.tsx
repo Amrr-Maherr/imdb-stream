@@ -18,6 +18,13 @@ import { MovieBackground } from "./movie-background";
 
 type Genre = { id: number; name: string };
 
+type Movie = {
+  id: number;
+  title: string;
+  poster_path: string | null;
+  media_type?: string;
+};
+
 type MovieHeroProps = {
   backdropPath: string | null;
   title: string;
@@ -32,6 +39,7 @@ type MovieHeroProps = {
   trailerKey: string | null;
   imdbId: string | null;
   homepage: string | null;
+  movie: Movie;
 };
 
 declare global {
