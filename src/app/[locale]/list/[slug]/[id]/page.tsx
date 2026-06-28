@@ -1,7 +1,5 @@
-import Link from "next/link";
-import { getTranslations } from "next-intl/server";
-import { AlertCircle } from "lucide-react";
 import { fetchApi } from "@/shared/services/fetchApi";
+import { ErrorState } from "@/shared/components/error-state";
 import { ListHero } from "@/features/list/components/list-hero";
 import { ListMainContent } from "@/features/list/components/list-main-content";
 import { ListSidebar } from "@/features/list/components/list-sidebar";
@@ -53,29 +51,19 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default async function ListPage({ params }: Props) {
-  const { id, locale } = await params;
-  const t = await getTranslations({ locale, namespace: "Collection" });
+  const { id } = await params;
 
   let list: TMDBListDetails;
   try {
     list = await getList(id);
   } catch {
     return (
-      <div className="flex flex-1 flex-col items-center justify-center bg-background p-8">
-        <div className="flex flex-col items-center gap-4 text-center max-w-md">
-          <AlertCircle className="size-12 text-muted-foreground" />
-          <h1 className="text-2xl font-bold text-foreground">List not found</h1>
-          <p className="text-muted-foreground">
-            We couldn&apos;t find the list you&apos;re looking for.
-          </p>
-          <Link
-            href="/"
-            className="mt-2 inline-flex items-center gap-2 rounded-lg bg-foreground px-5 py-2.5 text-sm font-semibold text-background hover:bg-foreground/90 transition-all"
-          >
-            Go Home
-          </Link>
-        </div>
-      </div>
+      <ErrorState
+        title="List not found"
+        description="We couldn't find the list you're looking for."
+        actionLabel="Go Home"
+        actionHref="/"
+      />
     );
   }
 

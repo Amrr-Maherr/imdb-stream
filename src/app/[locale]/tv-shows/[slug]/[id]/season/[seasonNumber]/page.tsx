@@ -1,6 +1,5 @@
-﻿import Link from "next/link";
-import { AlertCircle } from "lucide-react";
-import { fetchApi } from "@/shared/services/fetchApi";
+﻿import { fetchApi } from "@/shared/services/fetchApi";
+import { ErrorState } from "@/shared/components/error-state";
 import type { TVSeasonDetails, TMDBTVDetails } from "@/shared/types/tmdb";
 import { SeasonHero } from "@/features/tv/components/season/season-hero";
 import { SeasonMainContent } from "@/features/tv/components/season/season-main-content";
@@ -48,18 +47,11 @@ export default async function SeasonPage({ params }: Props) {
     ]);
   } catch {
     return (
-      <div className="flex flex-1 flex-col items-center justify-center bg-background p-8">
-        <div className="flex flex-col items-center gap-4 text-center max-w-md">
-          <AlertCircle className="size-12 text-muted-foreground" />
-          <h1 className="text-2xl font-bold text-foreground">Season not found</h1>
-          <Link
-            href={`/tv-shows/${slug}/${id}`}
-            className="mt-2 inline-flex items-center gap-2 rounded-lg bg-foreground px-5 py-2.5 text-sm font-semibold text-background hover:bg-foreground/90 transition-all"
-          >
-            Back to TV Show
-          </Link>
-        </div>
-      </div>
+      <ErrorState
+        title="Season not found"
+        actionLabel="Back to TV Show"
+        actionHref={`/tv-shows/${slug}/${id}`}
+      />
     );
   }
 

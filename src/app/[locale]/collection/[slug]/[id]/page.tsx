@@ -1,7 +1,6 @@
-import Link from "next/link";
 import { getTranslations } from "next-intl/server";
-import { AlertCircle } from "lucide-react";
 import { fetchApi } from "@/shared/services/fetchApi";
+import { ErrorState } from "@/shared/components/error-state";
 import type { TMDBCollectionDetails } from "@/shared/types/tmdb";
 import { CollectionHero } from "@/features/collection/components/collection-hero";
 import { CollectionMainContent } from "@/features/collection/components/collection-main-content";
@@ -40,21 +39,12 @@ export default async function CollectionPage({ params }: Props) {
     collection = await getCollection(id);
   } catch {
     return (
-      <div className="flex flex-1 flex-col items-center justify-center bg-background p-8">
-        <div className="flex flex-col items-center gap-4 text-center max-w-md">
-          <AlertCircle className="size-12 text-muted-foreground" />
-          <h1 className="text-2xl font-bold text-foreground">
-            {t("notFound")}
-          </h1>
-          <p className="text-muted-foreground">{t("notFoundDescription")}</p>
-          <Link
-            href="/"
-            className="mt-2 inline-flex items-center gap-2 rounded-lg bg-foreground px-5 py-2.5 text-sm font-semibold text-background hover:bg-foreground/90 transition-all"
-          >
-            Go Home
-          </Link>
-        </div>
-      </div>
+      <ErrorState
+        title={t("notFound")}
+        description={t("notFoundDescription")}
+        actionLabel="Go Home"
+        actionHref="/"
+      />
     );
   }
 

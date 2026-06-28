@@ -1,6 +1,5 @@
-﻿import Link from "next/link";
-import { AlertCircle } from "lucide-react";
-import { fetchApi } from "@/shared/services/fetchApi";
+﻿import { fetchApi } from "@/shared/services/fetchApi";
+import { ErrorState } from "@/shared/components/error-state";
 import type { TMDBMovieDetails } from "@/shared/types/tmdb";
 import { MovieHero } from "@/features/movies/components/detail/movie-hero";
 import { MovieCollection } from "@/features/movies/components/detail/movie-collection";
@@ -12,9 +11,20 @@ interface Props {
 }
 
 const APPEND_PARAMS = [
-  "account_states", "alternative_titles", "credits", "external_ids",
-  "images", "keywords", "lists", "recommendations", "release_dates",
-  "reviews", "similar", "translations", "videos", "watch/providers",
+  "account_states",
+  "alternative_titles",
+  "credits",
+  "external_ids",
+  "images",
+  "keywords",
+  "lists",
+  "recommendations",
+  "release_dates",
+  "reviews",
+  "similar",
+  "translations",
+  "videos",
+  "watch/providers",
 ].join(",");
 
 async function getMovie(id: string) {
@@ -45,32 +55,27 @@ export default async function MoviePage({ params }: Props) {
     movie = await getMovie(id);
   } catch {
     return (
-      <div className="flex flex-1 flex-col items-center justify-center bg-background p-8">
-        <div className="flex flex-col items-center gap-4 text-center max-w-md">
-          <AlertCircle className="size-12 text-muted-foreground" />
-          <h1 className="text-2xl font-bold text-foreground">Movie not found</h1>
-          <p className="text-muted-foreground">
-            We couldn&apos;t find the movie you&apos;re looking for. It may not
-            exist or there was an error loading it.
-          </p>
-          <Link
-            href="/"
-            className="mt-2 inline-flex items-center gap-2 rounded-lg bg-foreground px-5 py-2.5 text-sm font-semibold text-background hover:bg-foreground/90 transition-all"
-          >
-            Go Home
-          </Link>
-        </div>
-      </div>
+      <ErrorState
+        title="Movie not found"
+        description="We couldn't find the movie you're looking for. It may not exist or there was an error loading it."
+        actionLabel="Go Home"
+        actionHref="/"
+      />
     );
   }
 
   const year = movie.release_date?.slice(0, 4) ?? "";
   const trailers = (movie.videos?.results ?? []).filter(
-    (v) => v.site === "YouTube" && (v.type === "Trailer" || v.type === "Teaser"),
+    (v) =>
+      v.site === "YouTube" && (v.type === "Trailer" || v.type === "Teaser"),
   );
   const director = movie.credits?.crew?.find((c) => c.job === "Director");
-  const writers = (movie.credits?.crew ?? []).filter((c) => c.department === "Writing");
-  const usRelease = (movie.release_dates?.results ?? []).find((r) => r.iso_3166_1 === "US");
+  const writers = (movie.credits?.crew ?? []).filter(
+    (c) => c.department === "Writing",
+  );
+  const usRelease = (movie.release_dates?.results ?? []).find(
+    (r) => r.iso_3166_1 === "US",
+  );
   const certification = usRelease?.release_dates?.[0]?.certification ?? "";
 
   return (

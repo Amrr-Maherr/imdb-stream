@@ -1,6 +1,5 @@
-﻿import Link from "next/link";
-import { AlertCircle } from "lucide-react";
-import { fetchApi } from "@/shared/services/fetchApi";
+﻿import { fetchApi } from "@/shared/services/fetchApi";
+import { ErrorState } from "@/shared/components/error-state";
 import type { TMDBEpisodeDetails, TVSeasonDetails } from "@/shared/types/tmdb";
 import { EpisodeHero } from "@/features/tv/components/episode/episode-hero";
 import { EpisodeMainContent } from "@/features/tv/components/episode/episode-main-content";
@@ -49,18 +48,11 @@ export default async function EpisodePage({ params }: Props) {
     ]);
   } catch {
     return (
-      <div className="flex flex-1 flex-col items-center justify-center bg-background p-8">
-        <div className="flex flex-col items-center gap-4 text-center max-w-md">
-          <AlertCircle className="size-12 text-muted-foreground" />
-          <h1 className="text-2xl font-bold text-foreground">Episode not found</h1>
-          <Link
-            href={`/tv-shows/${slug}/${id}/season/${seasonNumber}`}
-            className="mt-2 inline-flex items-center gap-2 rounded-lg bg-foreground px-5 py-2.5 text-sm font-semibold text-background hover:bg-foreground/90 transition-all"
-          >
-            Back to Season
-          </Link>
-        </div>
-      </div>
+      <ErrorState
+        title="Episode not found"
+        actionLabel="Back to Season"
+        actionHref={`/tv-shows/${slug}/${id}/season/${seasonNumber}`}
+      />
     );
   }
 

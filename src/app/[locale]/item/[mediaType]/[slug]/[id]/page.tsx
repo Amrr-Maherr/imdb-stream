@@ -1,6 +1,5 @@
-import Link from "next/link";
-import { AlertCircle } from "lucide-react";
 import { fetchApi } from "@/shared/services/fetchApi";
+import { ErrorState } from "@/shared/components/error-state";
 import type { TMDBMovieDetails, TMDBTVDetails } from "@/shared/types/tmdb";
 import { MovieHero } from "@/features/movies/components/detail/movie-hero";
 import { MovieCollection } from "@/features/movies/components/detail/movie-collection";
@@ -73,21 +72,12 @@ export default async function ListItemPage({ params }: Props) {
   }
 
   return (
-    <div className="flex flex-1 flex-col items-center justify-center bg-background p-8">
-      <div className="flex flex-col items-center gap-4 text-center max-w-md">
-        <AlertCircle className="size-12 text-muted-foreground" />
-        <h1 className="text-2xl font-bold text-foreground">Invalid media type</h1>
-        <p className="text-muted-foreground">
-          The media type &ldquo;{mediaType}&rdquo; is not supported.
-        </p>
-        <Link
-          href="/"
-          className="mt-2 inline-flex items-center gap-2 rounded-lg bg-foreground px-5 py-2.5 text-sm font-semibold text-background hover:bg-foreground/90 transition-all"
-        >
-          Go Home
-        </Link>
-      </div>
-    </div>
+    <ErrorState
+      title="Invalid media type"
+      description={`The media type "${mediaType}" is not supported.`}
+      actionLabel="Go Home"
+      actionHref="/"
+    />
   );
 }
 
@@ -97,22 +87,12 @@ async function MovieContent({ id }: { id: string }) {
     movie = await getMovie(id);
   } catch {
     return (
-      <div className="flex flex-1 flex-col items-center justify-center bg-background p-8">
-        <div className="flex flex-col items-center gap-4 text-center max-w-md">
-          <AlertCircle className="size-12 text-muted-foreground" />
-          <h1 className="text-2xl font-bold text-foreground">Movie not found</h1>
-          <p className="text-muted-foreground">
-            We couldn&apos;t find the movie you&apos;re looking for. It may not
-            exist or there was an error loading it.
-          </p>
-          <Link
-            href="/"
-            className="mt-2 inline-flex items-center gap-2 rounded-lg bg-foreground px-5 py-2.5 text-sm font-semibold text-background hover:bg-foreground/90 transition-all"
-          >
-            Go Home
-          </Link>
-        </div>
-      </div>
+      <ErrorState
+        title="Movie not found"
+        description="We couldn't find the movie you're looking for. It may not exist or there was an error loading it."
+        actionLabel="Go Home"
+        actionHref="/"
+      />
     );
   }
 
@@ -168,21 +148,12 @@ async function TvContent({ id, slug }: { id: string; slug: string }) {
     show = await getTvShow(id);
   } catch {
     return (
-      <div className="flex flex-1 flex-col items-center justify-center bg-background p-8">
-        <div className="flex flex-col items-center gap-4 text-center max-w-md">
-          <AlertCircle className="size-12 text-muted-foreground" />
-          <h1 className="text-2xl font-bold text-foreground">TV Show not found</h1>
-          <p className="text-muted-foreground">
-            We couldn&apos;t find the TV show you&apos;re looking for.
-          </p>
-          <Link
-            href="/"
-            className="mt-2 inline-flex items-center gap-2 rounded-lg bg-foreground px-5 py-2.5 text-sm font-semibold text-background hover:bg-foreground/90 transition-all"
-          >
-            Go Home
-          </Link>
-        </div>
-      </div>
+      <ErrorState
+        title="TV Show not found"
+        description="We couldn't find the TV show you're looking for."
+        actionLabel="Go Home"
+        actionHref="/"
+      />
     );
   }
 
