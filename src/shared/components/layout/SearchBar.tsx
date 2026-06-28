@@ -75,7 +75,7 @@ export default function SearchBar({
             placeholder="Search"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="h-7 w-64 bg-transparent text-sm text-foreground outline-none placeholder:text-muted-foreground md:w-[500px]"
+            className="h-7 w-full bg-transparent text-sm text-foreground outline-none placeholder:text-muted-foreground md:w-[500px]"
             autoFocus
           />
 
