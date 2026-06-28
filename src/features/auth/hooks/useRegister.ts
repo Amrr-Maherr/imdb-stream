@@ -4,7 +4,7 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "@/features/auth/services/firebase";
 import { useState } from "react";
 import { useRouter } from "@/i18n/navigation";
-import storeUserData from "./saveUserToLocalStorage";
+
 
 type RegisterData = {
     name: string;
@@ -29,7 +29,6 @@ export default function useRegister() {
             });
 
             if (response) {
-                storeUserData(response)
                 router.push("/");
             }
 

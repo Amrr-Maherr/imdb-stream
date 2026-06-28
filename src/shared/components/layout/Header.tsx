@@ -11,22 +11,18 @@ import UserMenu from "./UserMenu";
 import LanguageSwitcher from "@/shared/components/ui/language-switcher";
 import ThemeToggle from "@/shared/components/ui/theme-toggle";
 import { Button } from "@/shared/components/ui/button";
-import { useSelector } from "react-redux";
-import { RootState } from "@/shared/store/store";
-
+import { useAuth } from "@/shared/provider/authProvider";
 export default function Header() {
   const t = useTranslations("Header");
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-  const isAuthenticated = useSelector(
-    (state: RootState) => state.auth.isAuthenticated,
-  );
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+  const { user, loading, logout } = useAuth();
 
   return (
     <header
@@ -52,27 +48,30 @@ export default function Header() {
             <ThemeToggle />
           </div>
 
-          {isAuthenticated ? (
-            <Button
-              asChild
-              variant="outline"
-              size="sm"
-              className="hidden md:inline-flex"
-            >
-              <Link href="/auth/signin">{t("signOut")}</Link>
-            </Button>
-          ) : (
-            <Button
-              asChild
-              variant="outline"
-              size="sm"
-              className="hidden md:inline-flex"
-            >
-              <Link href="/auth/signin">{t("signIn")}</Link>
-            </Button>
-          )}
+          {!loading &&
+            (user ? (
+              <>
+                <Button
+                  onClick={logout}
+                  variant="outline"
+                  size="sm"
+                  className="hidden md:inline-flex"
+                >
+                  {t("signOut")}
+                </Button>
 
-          {isAuthenticated && <UserMenu />}
+                <UserMenu />
+              </>
+            ) : (
+              <Button
+                asChild
+                variant="outline"
+                size="sm"
+                className="hidden md:inline-flex"
+              >
+                <Link href="/auth/signin">{t("signIn")}</Link>
+              </Button>
+            ))}
 
           <Button
             variant="ghost"

@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -19,47 +18,13 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { ProfileSkeleton } from "@/shared/components/skeletons";
-
-type UserData = {
-  user: {
-    uid: string;
-    email: string;
-    emailVerified: boolean;
-    displayName: string;
-    isAnonymous: boolean;
-    photoURL: string;
-    providerData: {
-      providerId: string;
-      uid: string;
-      displayName: string;
-      email: string;
-      phoneNumber: string | null;
-      photoURL: string;
-    }[];
-    createdAt: string;
-    lastLoginAt: string;
-  };
-  operationType: string;
-};
+import { useAuth } from "@/shared/provider/authProvider";
 
 export default function ProfilePage() {
-  const [userData, setUserData] = useState<UserData | null>(null);
-  const [loading, setLoading] = useState(true);
+  const { user, loading } = useAuth();
 
-  useEffect(() => {
-    const stored = localStorage.getItem("user_data");
-    if (stored) {
-      try {
-        setUserData(JSON.parse(stored));
-      } catch {
-        setUserData(null);
-      }
-    }
-    setLoading(false);
-  }, []);
-
-  const formatDate = (timestamp: string) => {
-    const date = new Date(Number(timestamp));
+  const formatDate = (dateStr: string) => {
+    const date = new Date(dateStr);
     return date.toLocaleDateString("en-US", {
       year: "numeric",
       month: "long",
@@ -67,8 +32,8 @@ export default function ProfilePage() {
     });
   };
 
-  const getYearsSince = (timestamp: string) => {
-    const joined = new Date(Number(timestamp));
+  const getYearsSince = (dateStr: string) => {
+    const joined = new Date(dateStr);
     const now = new Date();
     const years = now.getFullYear() - joined.getFullYear();
     return years > 0
@@ -94,7 +59,7 @@ export default function ProfilePage() {
     return <ProfileSkeleton />;
   }
 
-  if (!userData) {
+  if (!user) {
     return (
       <div className="flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center gap-4 px-4">
         <User className="size-12 text-muted-foreground" />
@@ -112,8 +77,6 @@ export default function ProfilePage() {
       </div>
     );
   }
-
-  const { user } = userData;
 
   return (
     <div className="app-container pt-20 pb-12">
@@ -141,7 +104,7 @@ export default function ProfilePage() {
           </h1>
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <Calendar className="size-3.5" />
-            <span>Joined {formatDate(user.createdAt)}</span>
+            <span>Joined {formatDate(user.metadata.creationTime ?? "")}</span>
           </div>
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <Mail className="size-3.5" />
@@ -153,7 +116,7 @@ export default function ProfilePage() {
           <div className="mt-1 flex items-center gap-2">
             <span className="inline-flex items-center gap-1 rounded-full bg-brand/10 px-3 py-0.5 text-xs font-semibold text-brand">
               <Award className="size-3" />
-              IMDb Member {getYearsSince(user.createdAt)}
+              IMDb Member {getYearsSince(user.metadata.creationTime ?? "")}
             </span>
             {user.emailVerified && (
               <span className="inline-flex items-center gap-1 rounded-full bg-green-500/10 px-3 py-0.5 text-xs font-medium text-green-600 dark:text-green-400">
@@ -170,12 +133,12 @@ export default function ProfilePage() {
         <StatCard
           icon={Calendar}
           label="Member since"
-          value={formatDate(user.createdAt).split(",")[0]}
+          value={formatDate(user.metadata.creationTime ?? "").split(",")[0]}
         />
         <StatCard
           icon={Clock}
           label="Last login"
-          value={formatDate(user.lastLoginAt).split(",")[0]}
+          value={formatDate(user.metadata.lastSignInTime ?? "").split(",")[0]}
         />
         <StatCard
           icon={Shield}
@@ -231,7 +194,7 @@ export default function ProfilePage() {
         </h2>
         <div className="mt-4 divide-y divide-border rounded-xl border border-border bg-card">
           <DetailRow label="User ID" value={user.uid} mono />
-          <DetailRow label="Email" value={user.email} />
+          <DetailRow label="Email" value={user.email ?? ""} />
           <DetailRow
             label="Email verified"
             value={user.emailVerified ? "Yes" : "No"}
@@ -246,7 +209,7 @@ export default function ProfilePage() {
           />
           <DetailRow
             label="Sign-in method"
-            value={userData.operationType}
+            value={user.providerData[0]?.providerId || "unknown"}
             capitalize
           />
         </div>

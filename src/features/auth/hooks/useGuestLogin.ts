@@ -4,7 +4,7 @@ import { signInAnonymously } from "firebase/auth";
 import { auth } from "@/features/auth/services/firebase";
 import { useState } from "react";
 import { useRouter } from "@/i18n/navigation";
-import storeUserData from "./saveUserToLocalStorage";
+
 
 export default function useGuestLogin() {
     const router = useRouter();
@@ -18,7 +18,6 @@ export default function useGuestLogin() {
         try {
             const result = await signInAnonymously(auth);
             if (result) {
-                storeUserData(result)
                 router.push("/");
             }
             return result;

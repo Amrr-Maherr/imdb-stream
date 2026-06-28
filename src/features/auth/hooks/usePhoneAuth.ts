@@ -8,7 +8,7 @@ import {
 import { auth } from "@/features/auth/services/firebase";
 import { useState } from "react";
 import { useRouter } from "@/i18n/navigation";
-import storeUserData from "./saveUserToLocalStorage";
+
 
 export type Step = "phone" | "otp";
 
@@ -69,7 +69,6 @@ export default function usePhoneAuth() {
     try {
       const response = await confirmationResult.confirm(otp);
       if (response) {
-        storeUserData(response)
         router.push("/");
       }
       return true;

@@ -8,7 +8,7 @@ import { ThemeProvider } from "@/shared/components/theme/theme-provider";
 import Header from "@/shared/components/layout/Header";
 import Footer from "@/shared/components/layout/Footer";
 import ToasterProvider from "@/shared/components/ToasterProvider";
-import ReduxProvider from "@/shared/provider/reduxProvider";
+import { AuthProvider } from "@/shared/provider/authProvider";
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700", "900"],
@@ -45,23 +45,23 @@ export default async function RootLayout({
       className={`${roboto.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <ReduxProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <NextIntlClientProvider messages={messages}>
-              <ToasterProvider />
-              <div className="flex min-h-full flex-col">
-                <Header />
-                <main className="flex-1">{children}</main>
-                <Footer />
-              </div>
-            </NextIntlClientProvider>
-          </ThemeProvider>
-        </ReduxProvider>
+        <AuthProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <NextIntlClientProvider messages={messages}>
+                <ToasterProvider />
+                <div className="flex min-h-full flex-col">
+                  <Header />
+                  <main className="flex-1">{children}</main>
+                  <Footer />
+                </div>
+              </NextIntlClientProvider>
+            </ThemeProvider>
+        </AuthProvider>
       </body>
     </html>
   );

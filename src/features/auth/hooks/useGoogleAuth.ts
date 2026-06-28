@@ -4,7 +4,7 @@ import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { auth } from "@/features/auth/services/firebase";
 import { useState } from "react";
 import { useRouter } from "@/i18n/navigation";
-import storeUserData from "./saveUserToLocalStorage";
+
 
 export default function useGoogleAuth() {
     const router = useRouter();
@@ -19,7 +19,6 @@ export default function useGoogleAuth() {
             const provider = new GoogleAuthProvider();
             const response = await signInWithPopup(auth, provider);
             if (response) {
-                storeUserData(response)
                 router.push("/");
             }
             return response;

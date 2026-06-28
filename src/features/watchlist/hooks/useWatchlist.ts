@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { db } from "@/lib/firebase";
 import { collection, getDocs, doc, writeBatch } from "firebase/firestore";
 import type { StoredMovie } from "@/features/movies/services/mapper";
+import { useAuth } from "@/shared/provider/authProvider";
 
 type WatchlistItem = {
   id: string;
@@ -12,31 +13,21 @@ type WatchlistItem = {
 };
 
 export function useWatchlist() {
+  const { user } = useAuth();
   const [watchlist, setWatchlist] = useState<WatchlistItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [deleting, setDeleting] = useState(false);
 
-  const getUserId = (): string | null => {
-    try {
-      const stored = localStorage.getItem("user_data");
-      if (!stored) return null;
-      return JSON.parse(stored)?.user?.uid ?? null;
-    } catch {
-      return null;
-    }
-  };
-
   useEffect(() => {
     const fetchWatchlist = async () => {
       try {
-        const userId = getUserId();
-        if (!userId) {
+        if (!user) {
           setLoading(false);
           return;
         }
 
         const snapshot = await getDocs(
-          collection(db, "users", userId, "watchlist"),
+          collection(db, "users", user.uid, "watchlist"),
         );
         const items = snapshot.docs.map((doc) => ({
           id: doc.id,
@@ -52,17 +43,16 @@ export function useWatchlist() {
     };
 
     fetchWatchlist();
-  }, []);
+  }, [user]);
 
   const deleteAll = async () => {
-    const userId = getUserId();
-    if (!userId || watchlist.length === 0) return;
+    if (!user || watchlist.length === 0) return;
 
     setDeleting(true);
     try {
       const batch = writeBatch(db);
       watchlist.forEach((item) => {
-        batch.delete(doc(db, "users", userId, "watchlist", item.id));
+        batch.delete(doc(db, "users", user!.uid, "watchlist", item.id));
       });
       await batch.commit();
       setWatchlist([]);

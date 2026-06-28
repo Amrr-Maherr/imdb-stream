@@ -9,16 +9,7 @@ import { useState } from "react";
 import useLogin from "@/features/auth/hooks/useLogin";
 import AuthStatusMessage from "@/features/auth/components/AuthStatusMessage";
 import { useRouter } from "next/navigation";
-import { useDispatch, useSelector } from "react-redux";
-import type { RootState } from "@/shared/store/store";
-import { setAuthenticated } from "@/features/auth/store/authSlice";
 export function EmailPasswordAuth() {
-  // Read authentication status from Redux store
-  const isAuthenticated = useSelector(
-    (state: RootState) => state.auth.isAuthenticated,
-  );
-  const dispatch = useDispatch();
-  console.log(isAuthenticated);
   // Custom hook that handles Firebase login and returns any auth error
   const { login, firebaseError } = useLogin();
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
@@ -42,7 +33,6 @@ export function EmailPasswordAuth() {
       const result = await login(data);
       console.log(result?.user);
       if (result?.user) {
-        dispatch(setAuthenticated(true));
         setSuccessMessage("Welcome back! You've signed in successfully.");
         reset();
         router.push("/");

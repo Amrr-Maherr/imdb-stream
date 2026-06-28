@@ -4,7 +4,6 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/features/auth/services/firebase";
 import { useState } from "react";
 import { useRouter } from "@/i18n/navigation";
-import storeUserData from "./saveUserToLocalStorage";
 // login data types
 type LoginData = {
     email: string;
@@ -24,7 +23,6 @@ export default function useLogin() {
                 data.password
             );
             if (response) {
-                storeUserData(response)
                 router.push("/");
             } else {
                 return;
