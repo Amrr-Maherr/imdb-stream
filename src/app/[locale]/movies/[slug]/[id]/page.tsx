@@ -5,6 +5,7 @@ import { MovieHero } from "@/features/movies/components/detail/movie-hero";
 import { MovieCollection } from "@/features/movies/components/detail/movie-collection";
 import { MovieMainContent } from "@/features/movies/components/detail/movie-main-content";
 import { MovieSidebarColumn } from "@/features/movies/components/detail/movie-sidebar-column";
+import NotFound from "@/app/[locale]/not-found";
 
 interface Props {
   params: Promise<{ locale: string; slug: string; id: string }>;
@@ -54,14 +55,7 @@ export default async function MoviePage({ params }: Props) {
   try {
     movie = await getMovie(id);
   } catch {
-    return (
-      <ErrorState
-        title="Movie not found"
-        description="We couldn't find the movie you're looking for. It may not exist or there was an error loading it."
-        actionLabel="Go Home"
-        actionHref="/"
-      />
-    );
+    return NotFound();
   }
 
   const year = movie.release_date?.slice(0, 4) ?? "";
