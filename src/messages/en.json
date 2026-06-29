@@ -10,7 +10,9 @@
       "tvShows": "TV Shows",
       "people": "People",
       "profile": "Profile",
-      "settings": "Settings"
+      "settings": "Settings",
+      "watchlist": "Watchlist",
+      "favorites": "Favorites"
     },
     "signIn": "Sign In",
     "signOut": "Sign Out"

@@ -1,6 +1,6 @@
 "use client";
 
-import { User, Settings, LogOut } from "lucide-react";
+import { Bookmark, Heart, LogOut, Settings, User } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
 import { Button } from "@/shared/components/ui/button";
@@ -34,6 +34,15 @@ export default function UserMenu() {
         <DropdownMenuItem onClick={() => router.push("/settings")}>
           <Settings className="size-4" />
           {t("nav.settings")}
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem onClick={() => router.push("/watchlist")}>
+          <Bookmark className="size-4" />
+          {t("nav.watchlist")}
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => router.push("/favorites")}>
+          <Heart className="size-4" />
+          {t("nav.favorites")}
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem variant="destructive">
