@@ -1,6 +1,6 @@
 {
-  "name": "SmartStream",
-  "short_name": "SmartStream",
+  "name": "IMDB-Stream",
+  "short_name": "IMDBStream",
   "icons": [
     {
       "src": "/appstore-images/android/launchericon-192x192.png",
