@@ -9,6 +9,7 @@ import Header from "@/shared/components/layout/Header";
 import Footer from "@/shared/components/layout/Footer";
 import ToasterProvider from "@/shared/components/ToasterProvider";
 import { AuthProvider } from "@/shared/provider/authProvider";
+import { SerwistProvider } from "@serwist/turbopack/react";
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700", "900"],
@@ -20,6 +21,7 @@ export const metadata: Metadata = {
   title: "IMDb",
   description: "Movies, TV shows, and entertainment discovery platform.",
   icons: [{ rel: "icon", url: "/logo.svg", type: "image/svg+xml" }],
+  manifest: "/manifest.json",
 };
 
 export default async function RootLayout({
@@ -38,12 +40,19 @@ export default async function RootLayout({
   const messages = await getMessages();
 
   return (
-    <html
-      lang={locale}
-      dir={locale === "ar" ? "rtl" : "ltr"}
-      suppressHydrationWarning
-      className={`${roboto.variable} h-full antialiased`}
-    >
+      <html
+        lang={locale}
+        dir={locale === "ar" ? "rtl" : "ltr"}
+        suppressHydrationWarning
+        className={`${roboto.variable} h-full antialiased`}
+      >
+        <head>
+          <meta name="theme-color" content="#D4A843" />
+          <meta name="apple-mobile-web-app-capable" content="yes" />
+          <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+          <link rel="apple-touch-icon" href="/appstore-images/ios/192.png" />
+          <link rel="apple-touch-icon" sizes="180x180" href="/appstore-images/ios/180.png" />
+        </head>
       <body className="min-h-full flex flex-col">
         <AuthProvider>
             <ThemeProvider
@@ -53,12 +62,14 @@ export default async function RootLayout({
               disableTransitionOnChange
             >
               <NextIntlClientProvider messages={messages}>
-                <ToasterProvider />
-                <div className="flex min-h-full flex-col">
-                  <Header />
-                  <main className="flex-1">{children}</main>
-                  <Footer />
-                </div>
+                <SerwistProvider swUrl="/serwist/sw.js">
+                  <ToasterProvider />
+                  <div className="flex min-h-full flex-col">
+                    <Header />
+                    <main className="flex-1">{children}</main>
+                    <Footer />
+                  </div>
+                </SerwistProvider>
               </NextIntlClientProvider>
             </ThemeProvider>
         </AuthProvider>
