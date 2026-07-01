@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Palette, Sun, Moon, Monitor, Globe, Languages } from "lucide-react";
-import { useTheme } from "@/shared/components/theme/theme-provider";
+import { useTheme } from "next-themes";
 import { Card, CardContent, CardHeader, CardTitle } from "@/shared/components/ui/card";
 import { Button } from "@/shared/components/ui/button";
 import { cn } from "@/shared/utils/utils";
