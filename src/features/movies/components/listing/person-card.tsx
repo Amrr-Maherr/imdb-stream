@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { TrendingUp } from "lucide-react";
 import type { TMDBPerson } from "@/shared/types/tmdb";
+import { cn } from "@/shared/utils/utils";
 import { slugify } from "@/shared/utils/slugify";
 
 const TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p";
@@ -11,7 +12,7 @@ type PersonCardProps = {
   featured?: boolean;
 };
 
-export function PersonCard({ person, featured }: PersonCardProps) {
+export function PersonCard({ person, featured, className }: PersonCardProps & { className?: string }) {
   const knownFor = person.known_for
     ?.slice(0, 2)
     .map((item) => ("title" in item ? item.title : item.name))
@@ -19,10 +20,10 @@ export function PersonCard({ person, featured }: PersonCardProps) {
 
   if (featured) {
     return (
-      <Link
-        href={`/people/${slugify(person.name)}/${person.id}`}
-        className="group flex-shrink-0 w-[200px] sm:w-[240px]"
-      >
+    <Link
+      href={`/people/${slugify(person.name)}/${person.id}`}
+      className={cn("group flex-shrink-0 w-[200px] sm:w-[240px]", className)}
+    >
         <div className="relative aspect-[1/1] w-full overflow-hidden rounded-xl bg-muted">
           {person.profile_path ? (
             <Image
@@ -62,7 +63,7 @@ export function PersonCard({ person, featured }: PersonCardProps) {
   return (
     <Link
       href={`/people/${slugify(person.name)}/${person.id}`}
-      className="group flex-shrink-0 w-[140px] sm:w-[160px]"
+      className={cn("group flex-shrink-0 w-[140px] sm:w-[160px]", className)}
     >
       <div className="relative aspect-[1/1] w-full overflow-hidden rounded-full bg-muted">
         {person.profile_path ? (

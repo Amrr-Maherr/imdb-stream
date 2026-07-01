@@ -55,9 +55,9 @@ export default async function PeoplePage({
         )}
 
         <section>
-          <div className="flex flex-wrap justify-center gap-4 md:gap-6">
+          <div className="grid grid-cols-3 justify-items-center gap-4 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8 md:gap-6">
             {data?.results?.map((person: any) => (
-              <PersonCard key={person.id} person={person} />
+              <PersonCard key={person.id} person={person} className="w-full" />
             ))}
           </div>
         </section>
