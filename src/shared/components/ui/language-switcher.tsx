@@ -1,7 +1,7 @@
 "use client";
 
 import { useLocale } from "next-intl";
-import { usePathname, useRouter } from "@/i18n/navigation";
+import { usePathname } from "next/navigation";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { ChevronDown } from "lucide-react";
 
@@ -15,11 +15,11 @@ const languages: Record<string, string> = {
 
 export default function LanguageSwitcher() {
   const locale = useLocale();
-  const pathname = usePathname();
-  const router = useRouter();
+  const fullPath = usePathname();
 
   const switchLang = (nextLocale: string) => {
-    router.push(pathname, { locale: nextLocale });
+    const pathWithoutLocale = fullPath.replace(/^\/[a-z]{2}(?:\/|$)/, "/") || "/";
+    window.location.href = `/${nextLocale}${pathWithoutLocale}`;
   };
 
   return (
