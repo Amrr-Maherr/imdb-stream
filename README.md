@@ -12,7 +12,7 @@ An IMDb-inspired movie and TV show discovery platform built with Next.js. Browse
 | **Language** | TypeScript 5 |
 | **Styling** | Tailwind CSS v4 + `tw-animate-css` |
 | **UI Primitives** | shadcn/ui (radix-nova style) + Radix UI |
-| **State Management** | Redux Toolkit + React Redux |
+| **State Management** | URL search params + React Context (auth) |
 | **Internationalization** | next-intl (English / Arabic) |
 | **Authentication** | Firebase Auth (email/password, Google, phone, anonymous) |
 | **Data Fetching** | Native `fetch` (Server Components) + Axios (client) |
@@ -21,7 +21,10 @@ An IMDb-inspired movie and TV show discovery platform built with Next.js. Browse
 | **Animations** | Motion (Framer Motion) |
 | **Forms** | react-hook-form |
 | **Icons** | Lucide React |
+| **Toasts** | react-hot-toast |
 | **Phone Input** | react-phone-number-input |
+| **Theme** | next-themes |
+| **PWA / Service Worker** | Serwist |
 | **CSS Utilities** | clsx, tailwind-merge, class-variance-authority |
 | **Fonts** | Roboto (Google Fonts via `next/font`) |
 | **Linting** | ESLint 9 (flat config) with `eslint-config-next` |
@@ -37,11 +40,14 @@ src/
 │   ├── [locale]/                 # Localized routes (en, ar)
 │   │   ├── layout.tsx            # Root layout (Header, Footer, providers)
 │   │   ├── page.tsx              # Home page
+│   │   ├── loading.tsx           # Root loading state
+│   │   ├── not-found.tsx         # 404 page
 │   │   ├── globals.css           # Global styles, design tokens, Tailwind config
 │   │   ├── about/                # About page
 │   │   ├── auth/                 # Auth pages (signin, signup, forgot-password, reset-password, phone)
+│   │   ├── bookmarks/            # Bookmarks page
 │   │   ├── careers/              # Careers page
-│   │   ├── collection/           # Movie collection detail page
+│   │   ├── collection/           # Movie collection detail page (has [slug]/)
 │   │   ├── company/              # Production company detail page
 │   │   ├── contact/              # Contact page
 │   │   ├── cookies/              # Cookies policy
@@ -50,12 +56,13 @@ src/
 │   │   ├── feedback/             # Feedback page
 │   │   ├── guidelines/           # Community guidelines
 │   │   ├── help/                 # Help center
+│   │   ├── item/                 # Universal detail route: [mediaType]/[slug]/[id]
+│   │   ├── list/                 # User lists (has [slug]/[id]/)
 │   │   ├── movies/               # Movies listing + detail pages
-│   │   ├── people/               # People listing (placeholder) + detail
+│   │   ├── people/               # People listing (grid) + detail
 │   │   ├── press/                # Press page
 │   │   ├── privacy/              # Privacy policy
 │   │   ├── profile/              # User profile
-│   │   ├── search/               # Search page (placeholder)
 │   │   ├── settings/             # User settings
 │   │   ├── subscription/         # Subscription/pricing page
 │   │   ├── terms/                # Terms of service
@@ -65,36 +72,29 @@ src/
 │
 ├── features/                     # Feature-based modules
 │   ├── auth/                     # Authentication feature
-│   │   ├── components/           # Auth UI (forms, layouts, providers)
+│   │   ├── components/           # Auth UI (auth-providers, forms, layouts)
 │   │   ├── hooks/                # Auth hooks (login, register, Google, phone, guest, etc.)
-│   │   ├── services/             # Firebase initialization
-│   │   └── store/                # Redux auth slice
+│   │   └── services/             # Firebase Auth re-exports from lib
 │   │
 │   ├── movies/                   # Movies feature
 │   │   ├── components/
 │   │   │   ├── listing/          # Home page sections, cards, hero banner
 │   │   │   ├── detail/           # Movie detail components (hero, info, cast, etc.)
 │   │   │   └── filters/          # Movie search filters (genre, language, year, etc.)
+│   │   ├── hooks/                # Movie-specific hooks (useAddToWatchlist)
 │   │   └── services/             # Axios-based TMDB movie fetch
 │   │
-│   ├── tv/                       # TV show detail components
+│   ├── tv/                       # TV show detail + listing components
 │   │   ├── components/
 │   │   │   ├── detail/           # TV show detail (header, seasons, sidebar)
-│   │   │   ├── season/           # Season detail pages
-│   │   │   └── episode/          # Episode detail pages
-│   │   └── services/             # (empty)
+│   │   │   ├── episode/          # Episode detail components
+│   │   │   ├── filters/          # TV listing filters (genre, year, etc.)
+│   │   │   └── season/           # Season detail components
+│   │   └── services/             # Axios-based TMDB TV fetch (getTvShows)
 │   │
-│   ├── tv-shows/                 # TV shows listing feature
-│   │   ├── components/
-│   │   │   ├── listing/          # (empty - placeholder)
-│   │   │   └── filters/          # (empty - placeholder)
-│   │   ├── constants/            # (empty)
-│   │   ├── hooks/                # (empty)
-│   │   ├── services/             # (empty)
-│   │   └── types/                # (empty)
-│   │
-│   ├── person/                   # Person/actor detail components
-│   │   └── components/           # Person hero, credits, photos, sidebar
+│   ├── person/                   # Person/actor feature
+│   │   ├── components/           # Person hero, credits, photos, sidebar
+│   │   └── services/             # Axios-based TMDB people fetch (getPeople)
 │   │
 │   ├── collection/               # Movie collection components
 │   │   └── components/           # Collection hero, content, sidebar
@@ -102,55 +102,51 @@ src/
 │   ├── company/                  # Production company components
 │   │   └── components/           # Company hero, overview, portfolio, media, links
 │   │
+│   ├── multiSearch/              # Global search feature
+│   │   ├── components/           # SearchDropdown, SearchResultItem
+│   │   └── services/             # TMDB multi-search endpoint
+│   │
 │   ├── settings/                 # User settings feature
-│   │   ├── components/           # Settings sections (account, preferences, playback, etc.)
-│   │   ├── hooks/                # (empty)
-│   │   └── settings-page.tsx     # Settings page orchestrator
-│   │
-│   ├── home/                     # (empty - reserved)
-│   │   ├── components/           # (empty)
-│   │   └── hooks/                # (empty)
-│   │
-│   ├── profile/                  # (empty - reserved)
-│   │   ├── hooks/                # (empty)
-│   │   ├── services/             # (empty)
-│   │   └── types/                # (empty)
+│   │   └── components/           # Settings sections (account, preferences, playback, etc.)
 │   │
 │   ├── favorites/                # Favorites feature
-│   │   ├── components/           # Favorites grid
+│   │   ├── components/           # Favorites grid with shared EmptyState + DeleteAllButton
 │   │   └── hooks/                # Firestore fetch, delete all
 │   │
 │   ├── watchlist/                # Watchlist feature
-│   │   ├── components/           # Watchlist grid
+│   │   ├── components/           # Watchlist grid with shared EmptyState + DeleteAllButton
 │   │   └── hooks/                # Firestore fetch, delete all
 │   │
-│   └── episode/                  # (empty - reserved)
-│       └── components/           # (empty)
+│   └── episode/                  # (empty - removed; episode UI lives in tv/)
+│
+├── lib/                          # Infrastructure / initialization
+│   └── firebase.ts               # Firebase app initialization
 │
 ├── shared/                       # Shared resources
 │   ├── components/
 │   │   ├── layout/               # Header, Footer, NavLinks, SearchBar, UserMenu, Logo, Copyright
 │   │   ├── ui/                   # shadcn/ui components (Button, Card, Input, Select, etc.)
-│   │   ├── skeletons/            # Loading skeletons for movies, TV, people, grids
+│   │   ├── skeletons/            # Loading skeletons for movies, TV, people, sections, grids
 │   │   ├── pagination/           # PaginationDemo component
-│   │   └── theme/                # Custom ThemeProvider (light/dark/system)
+│   │   └── theme/                # next-themes ThemeProvider wrapper
+│   │   ├── delete-all-button.tsx # Shared "Delete All" button
+│   │   ├── empty-state.tsx       # Shared empty state with animation
+│   │   ├── error-state.tsx       # Shared error/not-found state
+│   │   ├── lazy-section.tsx      # Lazy-loaded section wrapper
+│   │   └── ToasterProvider.tsx   # react-hot-toast provider
 │   │
 │   ├── hooks/                    # Shared hooks
 │   │   ├── useChangePage.ts      # URL-based pagination hook
 │   │   └── useResetFilters.ts    # Filter reset hook
 │   │
+│   ├── provider/                 # React providers
+│   │   └── authProvider.tsx      # Firebase Auth context provider
+│   │
 │   ├── services/                 # Shared API services
 │   │   └── fetchApi.ts           # Generic TMDB fetch function (Server Components)
 │   │
-│   ├── store/                    # Redux store configuration
-│   │   └── store.ts              # Configured store with auth reducer
-│   │
-│   ├── provider/                 # React providers
-│   │   └── reduxProvider.tsx     # Redux Provider wrapper
-│   │
 │   ├── types/                    # TypeScript type definitions
-│   │   ├── tmdb.ts               # Complete TMDB API type definitions
-│   │   └── index.tsx             # (empty barrel)
+│   │   └── tmdb.ts               # Complete TMDB API type definitions
 │   │
 │   └── utils/                    # Utility functions
 │       ├── utils.ts              # cn() class merging utility
@@ -188,7 +184,7 @@ SmartStream uses Next.js App Router with a **hybrid rendering architecture**:
 │  │ • Data fetching  │      │ • Interactivity      │  │
 │  │ • SEO metadata   │      │ • Event handlers     │  │
 │  │ • Initial render │      │ • State/effects      │  │
-│  │ • Skeleton UI    │      │ • Animations         │  │
+│  │ • Loading UI     │      │ • Animations         │  │
 │  └──────┬───────────┘      └──────────┬───────────┘  │
 │         │                             │              │
 │         ▼                             ▼              │
@@ -204,17 +200,19 @@ SmartStream uses Next.js App Router with a **hybrid rendering architecture**:
 
 ### Key Architectural Decisions
 
-1. **Feature-based folder structure** — Each feature (auth, movies, tv, etc.) encapsulates its own components, hooks, services, and state, keeping the codebase modular and scalable.
+1. **Feature-based folder structure** — Each feature (auth, movies, tv, etc.) encapsulates its own components, hooks, and services, keeping the codebase modular and scalable.
 
 2. **Server Components for data fetching** — TMDB data is fetched in Server Components using `fetchApi()` and passed as props to Client Components, improving performance and SEO.
 
 3. **Client Components only when needed** — Interactive elements (forms, animations, carousels, theme toggle) use the `"use client"` directive. Static content remains as Server Components.
 
-4. **Centralized API layer** — `fetchApi()` in `shared/services` provides a consistent interface for all TMDB API calls with caching and revalidation support.
+4. **Centralized API layer** — `fetchApi()` in `shared/services` provides a consistent interface for all TMDB API calls with caching and revalidation support. Client-side listing pages use Axios with URL search params.
 
 5. **Internationalization-first routing** — All routes are under `[locale]` with next-intl handling locale detection, redirection, and message loading.
 
 6. **Design token system** — All visual properties are CSS variables using OKLCH color space, enabling seamless light/dark mode switching.
+
+7. **auth via React Context** — Firebase Auth state is managed through a React Context provider (`AuthProvider`), not a global state library.
 
 ---
 
@@ -227,14 +225,14 @@ SmartStream uses Next.js App Router with a **hybrid rendering architecture**:
 | **Purpose** | User registration, login, and account management |
 | **Pages** | `/auth/signin`, `/auth/signup`, `/auth/forgot-password`, `/auth/phone`, `/auth/reset-password` |
 | **Components** | `SignInForm`, `SignUpForm`, `ForgotPasswordForm`, `ResetPasswordForm`, `PhoneAuth`, `GoogleAuth`, `GuestAuth`, `EmailPasswordAuth`, `AuthProviders`, `AuthLayout`, `AuthDivider`, `AuthStatusMessage` |
-| **Services** | `firebase.ts` — Firebase app initialization with config from env vars |
-| **Hooks** | `useLogin`, `useRegister`, `useGoogleAuth`, `usePhoneAuth`, `useGuestLogin`, `useForgotPassword`, `useResetPassword`, `saveUserToLocalStorage` |
-| **State** | Redux `authSlice` — stores `isAuthenticated` boolean |
+| **Services** | `lib/firebase.ts` — Firebase app initialization with config from env vars; `features/auth/services/firebase.ts` re-exports auth SDK |
+| **Hooks** | `useLogin`, `useRegister`, `useGoogleAuth`, `usePhoneAuth`, `useGuestLogin`, `useForgotPassword`, `useResetPassword` |
+| **State** | React Context (`AuthProvider`) — provides `user` object and `loading` state |
 | **API** | Firebase Auth SDK (no custom backend) |
 
 **Auth Flow:**
 ```
-User → Auth Page → Firebase SDK → Store user in localStorage → Update Redux state → Redirect to home
+User → Auth Page → Firebase SDK → AuthContext → Components consume useAuth()
 ```
 
 Authentication methods:
@@ -242,8 +240,6 @@ Authentication methods:
 - Google OAuth (popup)
 - Phone number (OTP via SMS with reCAPTCHA)
 - Anonymous/guest login
-
-User data is stored in `localStorage` under the key `user_data`. The `authSlice` Redux reducer tracks only the `isAuthenticated` boolean flag.
 
 ### Home Page
 
@@ -275,7 +271,7 @@ The home page displays multiple curated sections:
 | **Components** | `DesktopFilters`, `MobileBar`, `MovieCard`, `PaginationDemo` |
 | **Services** | `GetMovies` — Axios-based TMDB discover endpoint with filter params |
 | **Hooks** | `useChangePage`, `useResetFilters` |
-| **State** | URL search params (no Redux) |
+| **State** | URL search params |
 
 Filters: Genre, Language, Year, Rating, Country, Sort (popularity, rating, release date, revenue), Adult content toggle.
 
@@ -284,7 +280,7 @@ Filters: Genre, Language, Year, Rating, Country, Sort (popularity, rating, relea
 | Aspect | Details |
 |--------|---------|
 | **Purpose** | Comprehensive movie information page |
-| **Pages** | `/movies/[slug]/[id]` |
+| **Pages** | `/item/movie/[slug]/[id]` |
 | **Components** | `MovieHero`, `MovieInfo`, `MovieActions`, `MovieBackground`, `MovieCollection`, `MovieMainContent`, `MovieSidebarColumn`, `MovieCast`, `MovieCrew`, `MovieReviews`, `MovieVideos`, `MovieRating`, `MoviePhotos`, `MovieOverview`, `MovieProductionCompanies`, `MovieReleaseDates`, `MovieAlternativeTitles`, `MovieExternalLinks`, `MovieWatchProviders`, `MovieLists`, `RelatedMovies`, `FullCastSlider`, `CastCard`, `CrewCard`, `FadeIn`, `GenreTags`, `MovieDetailSkeleton` |
 | **Services** | `fetchApi` with `append_to_response` (14 included endpoints) |
 
@@ -295,19 +291,45 @@ The movie detail page fetches the movie with all related data in a single TMDB A
 | Aspect | Details |
 |--------|---------|
 | **Purpose** | TV show detail, season, and episode pages |
-| **Pages** | `/tv-shows/[slug]/[id]`, season, episode |
+| **Pages** | `/item/tv/[slug]/[id]`, `/item/tv/[...]/season/[seasonNumber]`, `/item/tv/[...]/episode/[episodeNumber]` |
 | **Components** | `TvMainContent`, `TvSidebarColumn`, `TvSeasons`, `TvContentRatings`, `SeasonCard`, `RelatedTvShows`, `TvDetailSkeleton` |
 | **Services** | `fetchApi` with `append_to_response` (13 endpoints) |
 
 Supports TV show details, season overview with episode lists, and individual episode detail pages.
 
+### TV Shows Listing
+
+| Aspect | Details |
+|--------|---------|
+| **Purpose** | Browse and filter TV show catalog |
+| **Pages** | `/tv-shows` |
+| **Components** | `DesktopFilters`, `MobileBar`, `TvCard`, `PaginationDemo` |
+| **Services** | `GetTvShows` — Axios-based TMDB discover endpoint with filter params |
+| **Hooks** | `useChangePage`, `useResetFilters` |
+
+Filters: Genre, Language, Year, Rating, Country, Sort (popularity, rating, first air date), Status (returning, ended), Type (scripted, reality, etc.).
+
 ### People/Actors
 
 | Aspect | Details |
 |--------|---------|
-| **Purpose** | Actor/crew member biography and filmography |
-| **Pages** | `/people/[slug]/[id]` |
-| **Components** | `PersonHero`, `PersonMainContent`, `PersonSidebarColumn`, `PersonCredits`, `PersonKnownFor`, `PersonPhotos`, `BiographySection`, `CareerStats`, `PersonDetailSkeleton` |
+| **Purpose** | Browse actor/crew directory and view biographies |
+| **Pages** | `/people` (grid listing), `/people/[slug]/[id]` (detail) |
+| **Components** | **Listing:** `PersonCard`, `PaginationDemo` **Detail:** `PersonHero`, `PersonMainContent`, `PersonSidebarColumn`, `PersonCredits`, `PersonKnownFor`, `PersonPhotos`, `BiographySection`, `CareerStats`, `PersonDetailSkeleton` |
+| **Services** | `GetPeople` — Axios-based TMDB popular people endpoint with pagination |
+
+The people listing page displays a responsive CSS grid (`grid-cols-3` through `xl:grid-cols-8`) of person cards with thumbnail photos and names.
+
+### Search
+
+| Aspect | Details |
+|--------|---------|
+| **Purpose** | Global search across movies, TV shows, and people |
+| **Components** | `SearchBar` (header), `SearchDropdown`, `SearchResultItem` |
+| **Services** | `multiSearch` — TMDB `/3/search/multi` endpoint |
+| **State** | Component-local state with debounced input |
+
+The search bar in the header expands on click, queries the TMDB multi-search endpoint with a debounced input, and displays results in a dropdown panel. Results link directly to the corresponding detail page via `/item/[mediaType]/[slug]/[id]`.
 
 ### Settings
 
@@ -317,7 +339,7 @@ Supports TV show details, season overview with episode lists, and individual epi
 | **Pages** | `/settings` |
 | **Components** | `SettingsLayout`, `AccountSettings`, `PreferencesSettings`, `PlaybackSettings`, `NotificationsSettings`, `PrivacySettings`, `AppSettings` |
 
-Sections: Account, Preferences, Playback, Notifications, Privacy & Security, App Info.
+Sections: Account, Preferences (theme, language), Playback, Notifications, Privacy & Security, App Info.
 
 ### Subscription / Pricing
 
@@ -335,12 +357,12 @@ Three tiers: Free, Pro, Enterprise with feature comparison table.
 |--------|---------|
 | **Purpose** | View and manage user's favorite movies and TV shows |
 | **Pages** | `/favorites` |
-| **Components** | `FavoritesList` — renders grid of MovieCard/TvCard with delete all button |
+| **Components** | `FavoritesList` — renders grid of MovieCard/TvCard with shared `DeleteAllButton` and `EmptyState` |
 | **Hooks** | `useFavorites` — fetches from `users/{userId}/favorites` via `getDocs`, provides `deleteAll` via `writeBatch` |
 | **Services** | `mapper.ts` — shared `toTMDBMovie`/`toTMDBTV` mappers for partial stored data |
 | **API** | Firebase Firestore (collection group: `users/{userId}/favorites`) |
 
-Reads `userId` from `localStorage` (`user_data`), fetches favorites from Firestore, and renders them using the existing `MovieCard` and `TvCard` components. Supports deleting all favorites at once via a batch write.
+Uses `useAuth()` context to get user ID, fetches favorites from Firestore, and renders them using existing `MovieCard` and `TvCard` components. Includes a "Delete All" button that batch-deletes all documents.
 
 ### Watchlist
 
@@ -348,12 +370,12 @@ Reads `userId` from `localStorage` (`user_data`), fetches favorites from Firesto
 |--------|---------|
 | **Purpose** | View and manage user's watchlist items |
 | **Pages** | `/watchlist` |
-| **Components** | `WatchlistList` — renders grid of MovieCard/TvCard with delete all button |
+| **Components** | `WatchlistList` — renders grid of MovieCard/TvCard with shared `DeleteAllButton` and `EmptyState` |
 | **Hooks** | `useWatchlist` — fetches from `users/{userId}/watchlist` via `getDocs`, provides `deleteAll` via `writeBatch` |
 | **Services** | `mapper.ts` — shared `toTMDBMovie`/`toTMDBTV` mappers for partial stored data |
 | **API** | Firebase Firestore (collection group: `users/{userId}/watchlist`) |
 
-Same pattern as favorites: reads `userId` from localStorage, fetches the watchlist collection from Firestore, and renders items using `MovieCard`/`TvCard`. Includes a "Delete All" button that batch-deletes all documents.
+Same pattern as favorites: uses `useAuth()` to get user ID, fetches the watchlist collection from Firestore, and renders items using `MovieCard`/`TvCard`.
 
 ### Static Pages
 
@@ -370,46 +392,41 @@ Same pattern as favorites: reads `userId` from localStorage, fetches the watchli
 | `/press` | Press and media information |
 | `/privacy` | Privacy policy with sticky TOC |
 | `/terms` | Terms of service with sticky TOC |
+| `/bookmarks` | Bookmarks page |
 
 ---
 
 ## Routing
 
-```mermaid
-graph TD
-    Root["/ [locale]"] --> Home["/ (Home)"]
-    Root --> Auth["/auth/*"]
-    Root --> Movies["/movies"]
-    Root --> MovieDetail["/movies/[slug]/[id]"]
-    Root --> TvShows["/tv-shows"]
-    Root --> TvDetail["/tv-shows/[slug]/[id]"]
-    Root --> Season["/tv-shows/[slug]/[id]/season/[seasonNumber]"]
-    Root --> Episode["/tv-shows/[...]/episode/[episodeNumber]"]
-    Root --> People["/people"]
-    Root --> PersonDetail["/people/[slug]/[id]"]
-    Root --> Collection["/collection/[id]"]
-    Root --> Company["/company/[slug]/[id]"]
-    Root --> Settings["/settings"]
-    Root --> Profile["/profile"]
-    Root --> Watchlist["/watchlist"]
-    Root --> Static["/about, /contact, /faq, /help, ..."]
-
-    subgraph "Auth Routes"
-        Auth --> SignIn["/auth/signin"]
-        Auth --> SignUp["/auth/signup"]
-        Auth --> Forgot["/auth/forgot-password"]
-        Auth --> Phone["/auth/phone"]
-        Auth --> Reset["/auth/reset-password"]
-    end
-
-    subgraph "Detail Routes"
-        MovieDetail --> TVDetail
-        TVDetail --> Season
-        Season --> Episode
-    end
+```
+/ [locale]
+├── / (Home)
+├── /auth/signin
+├── /auth/signup
+├── /auth/forgot-password
+├── /auth/phone
+├── /auth/reset-password
+├── /movies
+├── /item/movie/[slug]/[id]
+├── /item/tv/[slug]/[id]
+├── /item/tv/[slug]/[id]/season/[seasonNumber]
+├── /item/tv/[slug]/[id]/season/[seasonNumber]/episode/[episodeNumber]
+├── /tv-shows
+├── /people
+├── /people/[slug]/[id]
+├── /collection/[slug]
+├── /company/[slug]/[id]
+├── /list/[slug]/[id]
+├── /favorites
+├── /watchlist
+├── /settings
+├── /profile
+├── /subscription
+├── /bookmarks
+└── /about, /contact, /faq, /help, /careers, /press, /privacy, /terms, /cookies, /guidelines, /feedback
 ```
 
-Locale prefix `[locale]` supports `en` (English) and `ar` (Arabic). The middleware in `src/proxy.ts` handles locale detection and redirection.
+Locale prefix `[locale]` supports `en` (English) and `ar` (Arabic). The middleware in `src/proxy.ts` handles locale detection and redirection. Each major route has a corresponding `loading.tsx` for Suspense fallback UI.
 
 ---
 
@@ -421,7 +438,7 @@ SmartStream uses **two data fetching approaches**:
 
 1. **Server Components** (`shared/services/fetchApi.ts`) — Uses native `fetch` with caching and revalidation for TMDB API calls in Server Components (home page, detail pages).
 
-2. **Client-side** (`features/movies/services/getMovies.ts`) — Uses Axios for the movies listing page with dynamic filter parameters from URL search params.
+2. **Client-side** (`features/*/services/`) — Uses Axios for listing pages with dynamic filter parameters from URL search params (movies, TV shows, people).
 
 ### Server Component Fetch (`fetchApi`)
 
@@ -448,7 +465,7 @@ export async function fetchApi<T = any>({
 }
 ```
 
-### Client-side Fetch (`GetMovies`)
+### Client-side Fetch (`GetMovies` / `GetTvShows` / `GetPeople`)
 
 ```typescript
 // src/features/movies/services/getMovies.ts
@@ -468,15 +485,15 @@ Browser/Client
     ├── Server Component (RSC) ──► fetchApi() ──► TMDB API ──► HTML response
     │     (home, detail pages)       (cached)
     │
-    └── Client Component ──► GetMovies() ──► TMDB API ──► JSON response
-          (movies listing)     (Axios, no cache)
+    └── Client Component ──► GetMovies/GetTvShows/GetPeople ──► TMDB API ──► JSON response
+          (listing pages)        (Axios, no cache)
 ```
 
 ### Error Handling
 
-- Server Components use try/catch blocks and render fallback UI (error states or `null`)
+- Server Components use try/catch blocks and render `ErrorState` or `null` fallback UI
 - `fetchApi` throws on non-OK responses
-- `GetMovies` logs errors and re-throws
+- Axios-based services log errors and re-throw
 - Firebase auth hooks wrap errors in try/catch and return `null` on failure
 
 ### Caching
@@ -504,7 +521,6 @@ Browser/Client
 | `Separator` | `shared/components/ui/separator.tsx` | Radix UI horizontal/vertical separator |
 | `DropdownMenu` | `shared/components/ui/dropdown-menu.tsx` | Full Radix dropdown with items, checkboxes, radio groups, submenus |
 | `Pagination` | `shared/components/ui/pagination.tsx` | Page navigation with previous/next/ellipsis |
-| `Breadcrumb` | `shared/components/ui/breadcrumb.tsx` | Navigation breadcrumb with home icon |
 | `ThemeToggle` | `shared/components/ui/theme-toggle.tsx` | Sun/Moon toggle with animation |
 | `LanguageSwitcher` | `shared/components/ui/language-switcher.tsx` | Dropdown to switch between English/Arabic |
 | `AnimatedSection` | `shared/components/ui/animated-section.tsx` | Scroll-triggered fade-in animation wrapper |
@@ -517,12 +533,20 @@ Browser/Client
 | `Header` | `shared/components/layout/Header.tsx` | Fixed top header with scroll effect, mobile menu, search, auth state |
 | `Footer` | `shared/components/layout/Footer.tsx` | Page footer with link columns and copyright |
 | `NavLinks` | `shared/components/layout/NavLinks.tsx` | Navigation links (Home, Movies, TV Shows, People) with active state |
-| `Logo` | `shared/components/layout/Logo.tsx` | IMDb logo linking to home |
-| `SearchBar` | `shared/components/layout/SearchBar.tsx` | Expandable search input |
+| `Logo` | `shared/components/layout/Logo.tsx` | SmartStream logo linking to home |
+| `SearchBar` | `shared/components/layout/SearchBar.tsx` | Expandable search input with dropdown results |
 | `UserMenu` | `shared/components/layout/UserMenu.tsx` | Dropdown menu for authenticated users |
 | `FooterLinks` | `shared/components/layout/FooterLinks.tsx` | Footer link columns (About, Help, Legal, Social) |
 | `FooterColumn` | `shared/components/layout/FooterColumn.tsx` | Single footer link column |
 | `Copyright` | `shared/components/layout/Copyright.tsx` | Dynamic year copyright notice |
+
+### Shared Domain Components
+
+| Component | File | Purpose |
+|-----------|------|---------|
+| `EmptyState` | `shared/components/empty-state.tsx` | Animated empty state with icon, title, description, CTA button |
+| `DeleteAllButton` | `shared/components/delete-all-button.tsx` | Destructive "Delete All" confirmation button |
+| `ErrorState` | `shared/components/error-state.tsx` | Error/not-found fallback with retry and home link |
 
 ### Skeleton Components
 
@@ -535,12 +559,12 @@ Browser/Client
 | `PersonCardSkeleton` | Loading placeholder for person cards |
 | `PersonRowSkeleton` | Loading placeholder for person rows |
 | `MediaGridSkeleton` | Generic grid skeleton |
-| `SectionSkeleton` | Section-level loading skeleton (accepts `type`, `itemCount`, `sectionCount`) |
+| `SectionSkeleton` | Section-level loading skeleton |
 | `ProfileSkeleton` | Profile page loading placeholder |
 
 ### Theme Provider
 
-A custom `ThemeProvider` (not `next-themes`) that manages light/dark/system theme modes with localStorage persistence and CSS class-based theming.
+Uses `next-themes` (`ThemeProvider` wrapper in `shared/components/theme/theme-provider.tsx`) managing light/dark/system theme modes with `class` strategy. Individual components use `useTheme` from `next-themes`.
 
 ---
 
@@ -567,7 +591,7 @@ A custom `ThemeProvider` (not `next-themes`) that manages light/dark/system them
 | `useGuestLogin()` | `features/auth/hooks/useGuestLogin.ts` | Firebase anonymous sign-in |
 | `useForgotPassword()` | `features/auth/hooks/useForgotPassword.ts` | Send password reset email |
 | `useResetPassword()` | `features/auth/hooks/useResetPassword.ts` | Confirm password reset with OOB code |
-| `saveUserToLocalStorage()` | `features/auth/hooks/saveUserToLocalStorage.ts` | Persists `UserCredential` to localStorage |
+| `useAuth()` | `shared/provider/authProvider.tsx` | Firebase Auth context consumer |
 
 ---
 
@@ -687,34 +711,31 @@ sequenceDiagram
     participant CC as Client Component
     participant TMDB as TMDB API
     participant FA as Firebase Auth
-    participant LS as localStorage
-    participant Redux as Redux Store
+    participant AC as AuthContext
 
-    Note over User,Redux: Page Load (Home/Detail)
+    Note over User,AC: Page Load (Home/Detail)
     User->>RSC: Navigate to page
     RSC->>TMDB: fetchApi(endpoint)
     TMDB-->>RSC: JSON response
     RSC-->>CC: Props (data)
     CC-->>User: Rendered UI
 
-    Note over User,Redux: Movie Listing (with filters)
+    Note over User,AC: Listing (with filters)
     User->>CC: Set filter (URL param)
     CC->>RSC: Server re-renders
-    RSC->>TMDB: GetMovies(filters)
+    RSC->>TMDB: Axios request
     TMDB-->>RSC: Filtered results
     RSC-->>User: Updated page
 
-    Note over User,Redux: Authentication
+    Note over User,AC: Authentication
     User->>CC: Submit credentials
     CC->>FA: Firebase Auth SDK
     FA-->>CC: UserCredential
-    CC->>LS: storeUserData()
-    CC->>Redux: dispatch(setAuthenticated(true))
+    CC->>AC: setUser(user)
     CC->>User: Redirect to home
 
-    Note over User,Redux: Theme & Language
+    Note over User,AC: Theme & Language
     User->>CC: Toggle theme/language
-    CC->>LS: Persist preference
     CC->>User: Update UI
 ```
 
@@ -737,8 +758,8 @@ sequenceDiagram
 ### Folder Organization
 
 - **Feature-based** — Each feature has its own folder under `src/features/`
-- **Feature sub-folders** — `components/`, `hooks/`, `services/`, `store/`, `types/`, `utils/`, `constants/`
-- **Shared code** — Under `src/shared/` organized by type: `components/`, `hooks/`, `services/`, `store/`, `types/`, `utils/`
+- **Feature sub-folders** — `components/`, `hooks/`, `services/` (no store/types unless needed)
+- **Shared code** — Under `src/shared/` organized by type: `components/`, `hooks/`, `services/`, `types/`, `utils/`
 - **Pages** — Mirror URL structure under `src/app/[locale]/`
 
 ### Component Structure
@@ -782,7 +803,7 @@ export function ClientComponent({ data }: { data: SomeType }) {
 
 ### TypeScript Patterns
 
-- `type` over `interface` for most definitions (Redux types use `type`)
+- `type` over `interface` for most definitions
 - Strict mode enabled
 - `any` occasionally used (types not fully strict in some places)
 - `as` casting used sparingly
@@ -800,17 +821,16 @@ export function ClientComponent({ data }: { data: SomeType }) {
 
 ## Future Improvements
 
-1. **Complete TV Shows listing page** — Currently a placeholder; needs filter components and search functionality similar to Movies page
-2. **Search functionality** — `SearchBar` component exists but doesn't navigate to results; needs a search results page
-4. **Add missing type safety** — Some components use `any` types (movies listing page)
-5. **Unit tests** — Jest is installed but no tests written
-6. **Prettier configuration** — No formatter configured
-7. **Zustand usage** — Installed but not used anywhere
-8. **React Query usage** — Installed but not used; could replace manual fetch/axios for client data fetching
-9. **Error boundaries** — Not implemented for Client Components
-10. **Accessibility audit** — Some interactive elements may need better ARIA attributes
-11. **Profile hooks/services/types** — Empty directories; profile page reads directly from localStorage
-12. **Firebase session persistence** — User data stored in localStorage is not validated on page load; auth state not restored on refresh
+1. **Add missing type safety** — Some components use `any` types (movies listing page)
+2. **Unit tests** — Jest is installed but no tests written
+3. **Prettier configuration** — No formatter configured
+4. **React Query / Zustand usage** — Both installed but unused; could simplify client data fetching and global state
+5. **Error boundaries** — Not implemented for Client Components
+6. **Accessibility audit** — Some interactive elements may need better ARIA attributes
+7. **Firebase session persistence** — Auth state is not validated on page load; user not restored on refresh without re-login
+8. **Profile page** — Reads directly from localStorage; needs proper hooks/services
+9. **Search results page** — Multi-search works in header dropdown but there's no dedicated search results page
+10. **Home page loading states** — Could benefit from Suspense boundaries around individual sections
 
 ---
 
@@ -820,35 +840,26 @@ export function ClientComponent({ data }: { data: SomeType }) {
 |---------|--------|------------|-------------|
 | Home Page | ✅ Complete | `src/app/[locale]/page.tsx`, `features/movies/components/listing/` | Content discovery with hero banner and curated rows |
 | Movies Listing | ✅ Complete | `src/app/[locale]/movies/page.tsx`, `features/movies/components/filters/` | Filterable movie catalog with pagination |
-| Movie Detail | ✅ Complete | `src/app/[locale]/movies/[slug]/[id]/page.tsx`, `features/movies/components/detail/` | Full movie details with cast, reviews, videos, etc. |
-| TV Shows Listing | ⚠️ Placeholder | `src/app/[locale]/tv-shows/page.tsx` | Static placeholder with title only |
-| TV Show Detail | ✅ Complete | `src/app/[locale]/tv-shows/[slug]/[id]/page.tsx`, `features/tv/components/detail/` | TV show details with seasons, ratings |
-| Season Detail | ✅ Complete | `src/app/[locale]/tv-shows/[...]/season/[seasonNumber]/page.tsx` | Season episode list |
-| Episode Detail | ✅ Complete | `src/app/[locale]/tv-shows/[...]/episode/[episodeNumber]/page.tsx` | Individual episode details |
-| People Directory | ⚠️ Placeholder | `src/app/[locale]/people/page.tsx` | Static placeholder |
+| Movie Detail | ✅ Complete | `src/app/[locale]/item/movie/[slug]/[id]/page.tsx`, `features/movies/components/detail/` | Full movie details with cast, reviews, videos, etc. |
+| TV Shows Listing | ✅ Complete | `src/app/[locale]/tv-shows/page.tsx`, `features/tv/components/filters/` | Filterable TV catalog with pagination |
+| TV Show Detail | ✅ Complete | `src/app/[locale]/item/tv/[slug]/[id]/page.tsx`, `features/tv/components/detail/` | TV show details with seasons, ratings |
+| Season Detail | ✅ Complete | `src/app/[locale]/item/tv/[...]/season/[seasonNumber]/page.tsx` | Season episode list |
+| Episode Detail | ✅ Complete | `src/app/[locale]/item/tv/[...]/episode/[episodeNumber]/page.tsx` | Individual episode details |
+| People Directory | ✅ Complete | `src/app/[locale]/people/page.tsx`, `features/person/services/` | Responsive grid of popular people with pagination |
 | Person Detail | ✅ Complete | `src/app/[locale]/people/[slug]/[id]/page.tsx`, `features/person/components/` | Actor/crew biography and filmography |
+| Search | ✅ Complete | `features/multiSearch/`, `shared/components/layout/SearchBar.tsx` | Header search dropdown with TMDB multi-search |
 | Authentication | ✅ Complete | `src/app/[locale]/auth/`, `features/auth/` | Firebase auth with email, Google, phone, guest modes |
-| Collection Detail | ✅ Complete | `src/app/[locale]/collection/[id]/page.tsx`, `features/collection/components/` | Movie collection/trilogy overview |
+| Collection Detail | ✅ Complete | `src/app/[locale]/collection/[slug]/page.tsx`, `features/collection/components/` | Movie collection/trilogy overview |
 | Company Detail | ✅ Complete | `src/app/[locale]/company/[slug]/[id]/page.tsx`, `features/company/components/` | Production company profile |
 | User Settings | ✅ Complete | `src/app/[locale]/settings/page.tsx`, `features/settings/` | Account, preferences, playback, notifications, privacy |
 | User Profile | ⚠️ Partial | `src/app/[locale]/profile/page.tsx` | Reads from localStorage, edit features not fully implemented |
-| Watchlist | ✅ Complete | `src/app/[locale]/watchlist/page.tsx`, `features/watchlist/` | Reads userId from localStorage, fetches Firestore collection, renders MovieCard/TvCard, delete all |
-| Favorites | ✅ Complete | `src/app/[locale]/favorites/page.tsx`, `features/favorites/` | Reads userId from localStorage, fetches Firestore collection, renders MovieCard/TvCard, delete all |
+| Watchlist | ✅ Complete | `src/app/[locale]/watchlist/page.tsx`, `features/watchlist/` | Firestore-backed collection with MovieCard/TvCard, delete all |
+| Favorites | ✅ Complete | `src/app/[locale]/favorites/page.tsx`, `features/favorites/` | Firestore-backed collection with MovieCard/TvCard, delete all |
 | Subscription | ✅ Complete | `src/app/[locale]/subscription/page.tsx` | Pricing page with tier comparison |
-| About | ✅ Complete | `src/app/[locale]/about/page.tsx` | Company story, mission, timeline |
-| Careers | ✅ Complete | `src/app/[locale]/careers/page.tsx` | Job listings and culture |
-| Contact | ✅ Complete | `src/app/[locale]/contact/page.tsx` | Contact form and methods |
-| FAQ | ✅ Complete | `src/app/[locale]/faq/page.tsx` | Searchable FAQ with categories |
-| Help Center | ✅ Complete | `src/app/[locale]/help/page.tsx` | Help topics and support |
-| Privacy Policy | ✅ Complete | `src/app/[locale]/privacy/page.tsx` | Animated privacy policy with TOC |
-| Terms of Service | ✅ Complete | `src/app/[locale]/terms/page.tsx` | Animated terms with TOC |
-| Cookies Policy | ✅ Complete | `src/app/[locale]/cookies/page.tsx` | Cookie categories and info |
-| Community Guidelines | ✅ Complete | `src/app/[locale]/guidelines/page.tsx` | Rules and enforcement |
-| Feedback | ✅ Complete | `src/app/[locale]/feedback/page.tsx` | Feedback submission |
-| Press | ✅ Complete | `src/app/[locale]/press/page.tsx` | Press/media info |
-| Search | ⚠️ Not Started | `src/app/[locale]/search/` | Empty directory |
-| Internationalization | ✅ Complete | `src/i18n/`, `src/messages/` | English (en) and Arabic (ar) |
-| Theme System | ✅ Complete | `src/shared/components/theme/`, `globals.css` | Light/dark/system with OKLCH tokens |
+| Static Pages | ✅ Complete | `src/app/[locale]/{about,careers,contact,cookies,faq,feedback,guidelines,help,press,privacy,terms,bookmarks}/` | Company info, legal, support pages |
+| Internationalization | ✅ Complete | `src/i18n/`, `src/messages/` | English (en) and Arabic (ar) with RTL support |
+| Theme System | ✅ Complete | `src/shared/components/theme/`, `globals.css` | Light/dark/system via next-themes with OKLCH tokens |
+| PWA / Service Worker | ✅ Complete | Serwist configuration | Offline support with precaching and runtime caching |
 
 ---
 
@@ -871,21 +882,20 @@ export function ClientComponent({ data }: { data: SomeType }) {
 | `motion` | ^12.40 | Framer Motion animations (successor to `framer-motion`) |
 | `swiper` | ^12.2 | Touch-enabled carousel/slider |
 | `next-intl` | ^4.13 | Internationalization (routing, messages, navigation) |
-| `next-themes` | ^0.4.6 | **Not used** — custom ThemeProvider implemented instead |
-| `@reduxjs/toolkit` | ^2.12 | Redux state management (auth slice) |
-| `react-redux` | ^9.3 | React bindings for Redux |
-| `firebase` | ^12.15 | Firebase Authentication SDK |
-| `axios` | ^1.18 | HTTP client for TMDB API (movies listing) |
-| `@tanstack/react-query` | ^5.101 | **Not used** — could replace manual data fetching |
+| `next-themes` | ^0.4.6 | Theme provider (light/dark/system) |
+| `firebase` | ^12.15 | Firebase Authentication SDK + Firestore |
+| `axios` | ^1.18 | HTTP client for TMDB API (client-side listing pages) |
 | `react-hook-form` | ^7.80 | Form validation (sign-up form) |
+| `react-hot-toast` | ^2.6 | Toast notification system |
 | `react-phone-number-input` | ^3.4 | Phone number input with country codes |
-| `react-player` | ^3.4 | **Not used** — YouTube IFrame API used directly in MovieHero |
-| `zustand` | ^5.0 | **Not used** — alternative state management (installed but Redux used instead) |
+| `@serwist/*` | ^9.5 | PWA / service worker (precaching, routing, strategies, expiration) |
 | `eslint` | ^9 | Linting |
 | `eslint-config-next` | 16.2.9 | Next.js ESLint configuration |
-| `jest` | ^30.4.2 | **Installed, not configured** |
+| `jest` | ^30.4.2 | Installed, not configured |
 | `babel-plugin-react-compiler` | 1.0.0 | React Compiler Babel plugin (enabled in next.config) |
-| `@types/*` | — | TypeScript type definitions |
+| `zustand` | ^5.0 | Installed, not currently used |
+| `@tanstack/react-query` | ^5.101 | Installed, not currently used |
+| `react-player` | ^3.4 | Installed, not currently used |
 
 ---
 
@@ -898,8 +908,9 @@ The application demonstrates a **hybrid rendering architecture** leveraging Next
 Key architectural highlights:
 - **Internationalization-first**: All routes are localized for English and Arabic with RTL support
 - **Server-rendered dynamic content**: TMDB data is fetched on the server with configurable caching
-- **Feature modules**: Each domain (auth, movies, tv, settings etc.) is self-contained
-- **Design token system**: Complete OKLCH-based design system with light/dark mode
-- **Multiple auth providers**: Email/password, Google, phone (SMS), and anonymous login via Firebase
+- **Feature modules**: Each domain (auth, movies, tv, settings, etc.) is self-contained
+- **Design token system**: Complete OKLCH-based design system with light/dark mode via next-themes
+- **Multiple auth providers**: Email/password, Google, phone (SMS), and anonymous login via Firebase Auth with React Context
+- **PWA ready**: Service worker via Serwist for offline support and caching
 
-The project is production-ready for content browsing with Firebase Firestore integration for favorites and watchlist features.
+The project is production-ready for content browsing with Firebase Firestore integration for favorites and watchlist features, full filtering and pagination on all listing pages, and a responsive grid-based people directory.
