@@ -78,7 +78,7 @@ export default function Header() {
             size="icon"
             className="md:hidden"
             onClick={() => setMobileMenuOpen((p) => !p)}
-            aria-label="Toggle menu"
+            aria-label={t("toggleMenu")}
           >
             {mobileMenuOpen ? (
               <X className="size-5" />

@@ -14,6 +14,9 @@
       "watchlist": "قائمة المشاهدة",
       "favorites": "المفضلة"
     },
+    "search": "بحث",
+    "closeSearch": "إغلاق البحث",
+    "toggleMenu": "تبديل القائمة",
     "signIn": "تسجيل الدخول",
     "signOut": "تسجيل الخروج"
   },
