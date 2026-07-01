@@ -6,7 +6,7 @@ import { useState } from "react";
 import { getAuth } from "firebase/auth";
 import toast from "react-hot-toast";
 import { useAddToFavorite } from "../../hooks/useAddToFavorite";
-import { useAddToWatchlist } from "../../hooks/usetAddToWatchlist";
+import { useAddToWatchlist } from "../../hooks/useAddToWatchlist";
 
 type Movie = {
   id: number;
