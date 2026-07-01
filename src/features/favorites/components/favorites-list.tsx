@@ -4,30 +4,29 @@ import { MovieCard } from "@/features/movies/components/listing/movie-card";
 import { TvCard } from "@/features/movies/components/listing/tv-card";
 import { toTMDBMovie, toTMDBTV } from "@/features/movies/services/mapper";
 import { useFavorites } from "../hooks/useFavorites";
+import { MediaGridSkeleton } from "@/shared/components/skeletons";
+import { EmptyState } from "@/shared/components/empty-state";
 
 export function FavoritesList() {
   const { favorites, loading, deleting, deleteAll } = useFavorites();
 
   if (loading) {
-    return (
-      <div className="app-container py-12">
-        <h1 className="text-2xl font-bold mb-6">Favorites</h1>
-        <p>Loading...</p>
-      </div>
-    );
+    return <MediaGridSkeleton />;
   }
 
-  if (favorites.length === 0) {
+  if (favorites.length !== 0) {
     return (
-      <div className="app-container py-12">
-        <h1 className="text-2xl font-bold mb-6">Favorites</h1>
-        <p className="text-sm text-muted-foreground">No favorites yet.</p>
-      </div>
+      <EmptyState
+        title="Your favorites list is empty"
+        description="Start building your collection by saving movies and TV shows you love."
+        actionLabel="Browse Movies & TV Shows"
+        actionHref="/"
+      />
     );
   }
 
   return (
-    <div className="app-container py-12">
+    <div className="app-container py-25">
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold">Favorites</h1>
         <button
