@@ -11,7 +11,7 @@ import { DeleteAllButton } from "@/shared/components/delete-all-button";
 export function WatchlistList() {
   const { watchlist, loading, deleting, deleteAll } = useWatchlist();
 
-  if (!loading) {
+  if (loading) {
     return <MediaGridSkeleton />;
   }
 

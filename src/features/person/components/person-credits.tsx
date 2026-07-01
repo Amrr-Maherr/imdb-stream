@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Star } from "lucide-react";
 import type { PersonCreditCast, PersonCreditCrew } from "@/shared/types/tmdb";
 import { slugify } from "@/shared/utils/slugify";
+import { EmptyState } from "@/shared/components/empty-state";
 
 const TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p";
 
@@ -85,7 +86,10 @@ export function PersonCredits({ cast, crew }: PersonCreditsProps) {
       ))}
 
       {cast.length === 0 && departments.size === 0 && (
-        <p className="text-muted-foreground">No credits available.</p>
+        <EmptyState
+          title="No credits available."
+          className="py-16"
+        />
       )}
     </section>
   );

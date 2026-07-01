@@ -1,8 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Star, Film, Tv } from "lucide-react";
+import { Star, Tv } from "lucide-react";
 import { slugify } from "@/shared/utils/slugify";
 import { FadeIn } from "@/features/movies/components/detail/fade-in";
+import { EmptyState } from "@/shared/components/empty-state";
 
 const TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p";
 
@@ -120,16 +121,11 @@ export function ListMainContent({
         </FadeIn>
       )}
 
-      {/* Empty state */}
       {items.length === 0 && (
-        <FadeIn>
-          <div className="flex flex-col items-center justify-center py-16 text-center">
-            <Film className="size-12 text-muted-foreground mb-4" />
-            <p className="text-muted-foreground">
-              This list is empty.
-            </p>
-          </div>
-        </FadeIn>
+        <EmptyState
+          title="This list is empty."
+          className="py-16"
+        />
       )}
     </div>
   );

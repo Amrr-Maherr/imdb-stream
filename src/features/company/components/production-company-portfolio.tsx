@@ -3,6 +3,7 @@
 import type { TMDBCompanyMovie, TMDBMovie } from "@/shared/types/tmdb";
 import { MovieCard } from "@/features/movies/components/listing/movie-card";
 import { MediaRow } from "@/features/movies/components/listing/media-row";
+import { EmptyState } from "@/shared/components/empty-state";
 
 type ProductionCompanyPortfolioProps = {
   movies: TMDBCompanyMovie[];
@@ -66,7 +67,10 @@ export function ProductionCompanyPortfolio({ movies }: ProductionCompanyPortfoli
     return (
       <section>
         <h2 className="text-xl font-bold text-foreground mb-6">Productions</h2>
-        <p className="text-muted-foreground">No productions available.</p>
+        <EmptyState
+          title="No productions available."
+          className="py-0"
+        />
       </section>
     );
   }
