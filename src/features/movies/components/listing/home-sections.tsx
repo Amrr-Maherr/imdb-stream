@@ -111,8 +111,8 @@ export async function HomeSections({ locale }: Props) {
       )}
 
       {/* ── Production Companies ── */}
-      <ProductionCompaniesSection />
-      <PlatformsSection />
+      <ProductionCompaniesSection locale={locale} />
+      <PlatformsSection locale={locale} />
 
       {/* ── Trending TV ── Standard carousel ── */}
       {trendingTv.length > 0 && (

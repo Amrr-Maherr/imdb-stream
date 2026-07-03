@@ -13,12 +13,13 @@ const PLATFORM_IDS = [
   18, 43, 49, 56, 62, 67, 68, 69, 70, 82, 84, 85, 172, 213, 352, 386, 753, 828, 10221,
 ];
 
-async function fetchByIds(ids: number[]): Promise<TMDBCompanyDetails[]> {
+async function fetchByIds(ids: number[], locale: string): Promise<TMDBCompanyDetails[]> {
   const results = await Promise.allSettled(
     ids.map((id) =>
       fetchApi<TMDBCompanyDetails>({
         endpoint: `company/${id}`,
         revalidate: 86400,
+        locale,
       }),
     ),
   );
@@ -28,10 +29,10 @@ async function fetchByIds(ids: number[]): Promise<TMDBCompanyDetails[]> {
     .filter((c) => c.name);
 }
 
-export async function ProductionCompaniesSection() {
+export async function ProductionCompaniesSection({ locale }: { locale: string }) {
   const { getTranslations } = await import("next-intl/server");
   const t = await getTranslations(COMPANY_NS);
-  const companies = await fetchByIds(STUDIO_IDS);
+  const companies = await fetchByIds(STUDIO_IDS, locale);
   if (companies.length === 0) return null;
 
   return (
@@ -61,10 +62,10 @@ export async function ProductionCompaniesSection() {
   );
 }
 
-export async function PlatformsSection() {
+export async function PlatformsSection({ locale }: { locale: string }) {
   const { getTranslations } = await import("next-intl/server");
   const t = await getTranslations(COMPANY_NS);
-  const platforms = await fetchByIds(PLATFORM_IDS);
+  const platforms = await fetchByIds(PLATFORM_IDS, locale);
   if (platforms.length === 0) return null;
 
   return (

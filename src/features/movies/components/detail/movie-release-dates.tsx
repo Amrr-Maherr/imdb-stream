@@ -42,7 +42,7 @@ function formatDate(dateStr: string) {
   });
 }
 
-function getTypeLabel(t: (key: string, opts?: Record<string, unknown>) => string, type: number): string {
+function getTypeLabel(t: (key: string, opts?: Record<string, string | number | Date>) => string, type: number): string {
   const labels: Record<number, string> = {
     1: t("premiere"),
     2: t("theatricalLimited"),
