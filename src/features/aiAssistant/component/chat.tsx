@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
 import { MessageCircle, Send, X } from "lucide-react";
 
 import { Button } from "@/shared/components/ui/button";
@@ -20,6 +21,12 @@ import {
 } from "@/components/ui/message";
 import { Bubble, BubbleContent } from "./bubble";
 import aiChat from "../services/aiChat";
+import { slugify } from "@/shared/utils/slugify";
+
+type RecData = {
+  message: string;
+  recommendations: { title: string; type: string; slug: string; id: number }[];
+};
 
 export function SheetDemo() {
   const [input, setInput] = React.useState("");
@@ -57,7 +64,7 @@ export function SheetDemo() {
           <div className="flex size-8 items-center justify-center rounded-full bg-brand text-sm font-semibold text-brand-foreground">
             AI
           </div>
-          <SheetTitle className="text-sm">ReelWise</SheetTitle>
+          <SheetTitle className="text-sm">IMDB-stream</SheetTitle>
           <SheetClose className="ring-offset-background focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 ms-auto rounded-full p-1 text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none disabled:pointer-events-none">
             <X className="size-4" />
             <span className="sr-only">Close</span>
@@ -65,22 +72,47 @@ export function SheetDemo() {
         </SheetHeader>
 
         <div className="flex-1 space-y-4 overflow-y-auto px-4 py-4">
-          {messages.map((msg, i) => (
-            <Message key={i} align={msg.role === "user" ? "end" : "start"}>
-              <MessageAvatar>
-                <div className="flex size-8 items-center justify-center rounded-full bg-muted text-xs font-medium">
-                  {msg.role === "user" ? "ME" : "AI"}
-                </div>
-              </MessageAvatar>
-              <MessageContent>
-                <Bubble
-                  variant={msg.role === "assistant" ? "muted" : undefined}
-                >
-                  <BubbleContent>{msg.content}</BubbleContent>
-                </Bubble>
-              </MessageContent>
-            </Message>
-          ))}
+          {messages.map((msg, i) => {
+            let rec: RecData | null = null;
+            if (msg.role === "assistant") {
+              try {
+                const parsed = JSON.parse(msg.content);
+                if (parsed?.message && Array.isArray(parsed?.recommendations)) rec = parsed;
+              } catch {}
+            }
+
+            return (
+              <Message key={i} align={msg.role === "user" ? "end" : "start"}>
+                <MessageAvatar>
+                  <div className="flex size-8 items-center justify-center rounded-full bg-muted text-xs font-medium">
+                    {msg.role === "user" ? "ME" : "AI"}
+                  </div>
+                </MessageAvatar>
+                <MessageContent>
+                  {rec ? (
+                    <Bubble variant="muted">
+                      <p className="text-sm">{rec.message}</p>
+                      <div className="mt-2 space-y-0.5">
+                        {rec.recommendations.map((item) => (
+                          <Link
+                            key={item.id}
+                            href={`/${item.type === "tv" ? "tv-shows" : "movies"}/${item.slug || slugify(item.title)}/${item.id}`}
+                            className="block text-sm hover:text-brand transition-colors"
+                          >
+                            {item.title}
+                          </Link>
+                        ))}
+                      </div>
+                    </Bubble>
+                  ) : (
+                    <Bubble variant={msg.role === "assistant" ? "muted" : undefined}>
+                      <BubbleContent>{msg.content}</BubbleContent>
+                    </Bubble>
+                  )}
+                </MessageContent>
+              </Message>
+            );
+          })}
         </div>
 
         <div className="border-border flex items-center gap-2 border-t p-3">

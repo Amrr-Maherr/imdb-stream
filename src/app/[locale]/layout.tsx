@@ -10,6 +10,7 @@ import Footer from "@/shared/components/layout/Footer";
 import ToasterProvider from "@/shared/components/ToasterProvider";
 import { AuthProvider } from "@/shared/provider/authProvider";
 import { SerwistProvider } from "@serwist/turbopack/react";
+import { SheetDemo } from "@/features/aiAssistant/component/chat";
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700", "900"],
@@ -40,38 +41,46 @@ export default async function RootLayout({
   const messages = await getMessages();
 
   return (
-      <html
-        lang={locale}
-        dir={locale === "ar" ? "rtl" : "ltr"}
-        suppressHydrationWarning
-        className={`${roboto.variable} h-full antialiased`}
-      >
-        <head>
-          <meta name="theme-color" content="#D4A843" />
-          <meta name="apple-mobile-web-app-capable" content="yes" />
-          <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-          <link rel="apple-touch-icon" href="/appstore-images/ios/192.png" />
-          <link rel="apple-touch-icon" sizes="180x180" href="/appstore-images/ios/180.png" />
-        </head>
+    <html
+      lang={locale}
+      dir={locale === "ar" ? "rtl" : "ltr"}
+      suppressHydrationWarning
+      className={`${roboto.variable} h-full antialiased`}
+    >
+      <head>
+        <meta name="theme-color" content="#D4A843" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta
+          name="apple-mobile-web-app-status-bar-style"
+          content="black-translucent"
+        />
+        <link rel="apple-touch-icon" href="/appstore-images/ios/192.png" />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/appstore-images/ios/180.png"
+        />
+      </head>
       <body className="min-h-full flex flex-col">
         <AuthProvider>
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="system"
-              enableSystem
-              disableTransitionOnChange
-            >
-              <NextIntlClientProvider messages={messages}>
-                <SerwistProvider swUrl="/serwist/sw.js">
-                  <ToasterProvider />
-                  <div className="flex min-h-full flex-col">
-                    <Header />
-                    <main className="flex-1">{children}</main>
-                    <Footer />
-                  </div>
-                </SerwistProvider>
-              </NextIntlClientProvider>
-            </ThemeProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <NextIntlClientProvider messages={messages}>
+              <SerwistProvider swUrl="/serwist/sw.js">
+                <ToasterProvider />
+                <div className="flex min-h-full flex-col">
+                  <Header />
+                  <main className="flex-1">{children}</main>
+                  <SheetDemo />
+                  <Footer />
+                </div>
+              </SerwistProvider>
+            </NextIntlClientProvider>
+          </ThemeProvider>
         </AuthProvider>
       </body>
     </html>
