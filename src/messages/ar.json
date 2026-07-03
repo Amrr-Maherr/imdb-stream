@@ -18,7 +18,8 @@
     "closeSearch": "إغلاق البحث",
     "toggleMenu": "تبديل القائمة",
     "signIn": "تسجيل الدخول",
-    "signOut": "تسجيل الخروج"
+    "signOut": "تسجيل الخروج",
+    "drawerTitle": "القائمة"
   },
   "Auth": {
     "signIn": {
@@ -66,7 +67,8 @@
       "sending": "جارٍ الإرسال...",
       "checkEmail": "تحقق من بريدك الإلكتروني",
       "sentDescription": "لقد أرسلنا رابط إعادة تعيين كلمة المرور إلى بريدك الإلكتروني. يرجى التحقق من صندوق الوارد.",
-      "backToSignIn": "العودة إلى تسجيل الدخول"
+      "backToSignIn": "العودة إلى تسجيل الدخول",
+      "emailRequired": "البريد الإلكتروني مطلوب"
     },
     "resetPassword": {
       "title": "إعادة تعيين كلمة المرور",
@@ -80,7 +82,13 @@
       "resetting": "جارٍ إعادة التعيين...",
       "success": "تم إعادة تعيين كلمة المرور بنجاح!",
       "backToSignIn": "العودة إلى تسجيل الدخول",
-      "invalidLink": "رابط إعادة التعيين غير صالح أو منتهي الصلاحية"
+      "invalidLink": "رابط إعادة التعيين غير صالح أو منتهي الصلاحية",
+      "passwordRequired": "كلمة المرور مطلوبة",
+      "showPassword": "إظهار كلمة المرور",
+      "hidePassword": "إخفاء كلمة المرور",
+      "passwordMismatch": "كلمات المرور غير متطابقة",
+      "confirmPasswordRequired": "يرجى تأكيد كلمة المرور",
+      "passwordMinLength": "كلمة المرور يجب أن تكون 6 أحرف على الأقل"
     },
     "phone": {
       "title": "الهاتف",
@@ -94,7 +102,9 @@
       "verifyOtp": "التحقق من الرمز",
       "verifyingOtp": "جارٍ التحقق...",
       "backToPhone": "العودة إلى إدخال رقم الهاتف",
-      "success": "تم تسجيل الدخول بنجاح!"
+      "success": "تم تسجيل الدخول بنجاح!",
+      "otpRequired": "رمز التحقق مطلوب",
+      "otpPattern": "الرمز يجب أن يكون 6 أرقام"
     }
   },
   "Profile": {
@@ -1294,11 +1304,22 @@
       "hd": "عالي الدقة",
       "captions": "الترجمة الافتراضية",
       "captionsDesc": "لغة الترجمة المفضلة للفيديو",
-      "off": "إيقاف"
+      "off": "إيقاف",
+      "english": "الإنجليزية",
+      "arabic": "العربية",
+      "french": "الفرنسية",
+      "spanish": "الإسبانية",
+      "german": "الألمانية",
+      "japanese": "اليابانية"
     },
     "preferences": {
       "heading": "التفضيلات",
       "description": "تخصيص تجربتك",
+      "light": "فاتح",
+      "dark": "داكن",
+      "system": "النظام",
+      "english": "الإنجليزية",
+      "arabic": "العربية",
       "languageRegion": "اللغة والمنطقة",
       "languageRegionDesc": "اختر لغتك المفضلة وإعدادات المنطقة",
       "contentLanguage": "لغة المحتوى",
@@ -1329,6 +1350,14 @@
     "companyNotFoundDesc": "لم نتمكن من العثور على شركة الإنتاج التي تبحث عنها.",
     "personNotFound": "الشخص غير موجود",
     "personNotFoundDesc": "لم نتمكن من العثور على الشخص الذي تبحث عنه.",
+    "seasonNotFound": "الموسم غير موجود",
+    "seasonNotFoundDesc": "لم نتمكن من العثور على الموسم الذي تبحث عنه.",
+    "episodeNotFound": "الحلقة غير موجودة",
+    "episodeNotFoundDesc": "لم نتمكن من العثور على الحلقة التي تبحث عنها.",
+    "collectionNotFound": "المجموعة غير موجودة",
+    "collectionNotFoundDesc": "لم نتمكن من العثور على المجموعة التي تبحث عنها.",
+    "backToTvShow": "العودة إلى المسلسل",
+    "backToSeason": "العودة إلى الموسم",
     "invalidMediaType": "نوع الوسائط غير صالح",
     "invalidMediaTypeDesc": "نوع الوسائط \"{mediaType}\" غير مدعوم."
   },
@@ -1387,6 +1416,42 @@
     "passwordPlaceholder": "أدخل كلمة المرور",
     "noAccount": "ليس لديك حساب؟",
     "yes": "نعم",
-    "no": "لا"
+    "no": "لا",
+    "siteName": "IMDb",
+    "deleting": "جارٍ الحذف...",
+    "deleteAll": "حذف الكل",
+    "english": "الإنجليزية",
+    "arabic": "العربية"
+  },
+  "Ui": {
+    "pagination": {
+      "ariaLabel": "ترقيم الصفحات",
+      "previous": "السابق",
+      "next": "التالي",
+      "goToPrevious": "الانتقال إلى الصفحة السابقة",
+      "goToNext": "الانتقال إلى الصفحة التالية",
+      "morePages": "المزيد من الصفحات"
+    },
+    "themeToggle": {
+      "toggleTheme": "تبديل السمة",
+      "switchToLight": "التبديل إلى الوضع النهاري",
+      "switchToDark": "التبديل إلى الوضع الليلي"
+    },
+    "faq": {
+      "searchPlaceholder": "بحث...",
+      "faqCategories": "تصنيفات الأسئلة الشائعة",
+      "noResultsFound": "لا توجد نتائج لـ \"{searchQuery}\"",
+      "clearSearch": "مسح البحث",
+      "frequentlyAskedQuestions": "الأسئلة الشائعة"
+    },
+    "sheet": {
+      "close": "إغلاق"
+    }
+  },
+  "AiChat": {
+    "openChat": "فتح الدردشة",
+    "close": "إغلاق",
+    "typeMessage": "اكتب رسالة...",
+    "sendMessage": "إرسال رسالة"
   }
 }

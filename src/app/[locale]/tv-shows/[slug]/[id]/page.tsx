@@ -1,3 +1,4 @@
+import { getTranslations } from "next-intl/server";
 import { fetchApi } from "@/shared/services/fetchApi";
 import { ErrorState } from "@/shared/components/error-state";
 import type { TMDBTVDetails } from "@/shared/types/tmdb";
@@ -33,12 +34,14 @@ export async function generateMetadata({ params }: Props) {
       description: show.tagline || show.overview?.slice(0, 160),
     };
   } catch {
-    return { title: "TV Show" };
+    const t = await getTranslations({ locale, namespace: "ErrorState" });
+    return { title: t("tvNotFound") };
   }
 }
 
 export default async function TvShowPage({ params }: Props) {
   const { id, slug, locale } = await params;
+  const t = await getTranslations({ locale, namespace: "ErrorState" });
 
   let show: TMDBTVDetails;
   try {
@@ -46,9 +49,9 @@ export default async function TvShowPage({ params }: Props) {
   } catch {
     return (
       <ErrorState
-        title="TV Show not found"
-        description="We couldn't find the TV show you're looking for."
-        actionLabel="Go Home"
+        title={t("tvNotFound")}
+        description={t("tvNotFoundDesc")}
+        actionLabel={t("goHome")}
         actionHref="/"
       />
     );

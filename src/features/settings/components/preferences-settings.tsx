@@ -9,14 +9,14 @@ import { Button } from "@/shared/components/ui/button";
 import { cn } from "@/shared/utils/utils";
 
 const themeOptions = [
-  { value: "light" as const, label: "Light", icon: Sun },
-  { value: "dark" as const, label: "Dark", icon: Moon },
-  { value: "system" as const, label: "System", icon: Monitor },
+  { value: "light" as const, labelKey: "light", icon: Sun },
+  { value: "dark" as const, labelKey: "dark", icon: Moon },
+  { value: "system" as const, labelKey: "system", icon: Monitor },
 ];
 
 const languages = [
-  { code: "en", label: "English" },
-  { code: "ar", label: "Arabic" },
+  { code: "en", labelKey: "english" },
+  { code: "ar", labelKey: "arabic" },
 ];
 
 export function PreferencesSettings() {
@@ -42,7 +42,7 @@ export function PreferencesSettings() {
         </CardHeader>
         <CardContent>
           <div className="flex gap-2">
-            {themeOptions.map(({ value, label, icon: Icon }) => (
+            {themeOptions.map(({ value, labelKey, icon: Icon }) => (
               <button
                 key={value}
                 onClick={() => setTheme(value)}
@@ -54,7 +54,7 @@ export function PreferencesSettings() {
                 )}
               >
                 <Icon className="size-4" />
-                {label}
+                {t(labelKey)}
               </button>
             ))}
           </div>
@@ -70,7 +70,7 @@ export function PreferencesSettings() {
         </CardHeader>
         <CardContent>
           <div className="flex flex-wrap gap-2">
-            {languages.map(({ code, label }) => (
+            {languages.map(({ code, labelKey }) => (
               <button
                 key={code}
                 onClick={() => setLanguage(code)}
@@ -82,7 +82,7 @@ export function PreferencesSettings() {
                 )}
               >
                 <Languages className="size-4" />
-                {label}
+                {t(labelKey)}
               </button>
             ))}
           </div>

@@ -27,13 +27,14 @@ export async function generateMetadata({ params }: Props) {
       description: collection.overview?.slice(0, 160),
     };
   } catch {
-    return { title: "Collection" };
+    const t = await getTranslations({ locale, namespace: "ErrorState" });
+    return { title: t("collectionNotFound") };
   }
 }
 
 export default async function CollectionPage({ params }: Props) {
   const { id, locale } = await params;
-  const t = await getTranslations({ locale, namespace: "Collection" });
+  const t = await getTranslations({ locale, namespace: "ErrorState" });
 
   let collection: TMDBCollectionDetails;
   try {
@@ -41,9 +42,9 @@ export default async function CollectionPage({ params }: Props) {
   } catch {
     return (
       <ErrorState
-        title={t("notFound")}
-        description={t("notFoundDescription")}
-        actionLabel="Go Home"
+        title={t("collectionNotFound")}
+        description={t("collectionNotFoundDesc")}
+        actionLabel={t("goHome")}
         actionHref="/"
       />
     );

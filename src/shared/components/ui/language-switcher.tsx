@@ -1,6 +1,6 @@
 "use client";
 
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useRouter, usePathname } from "@/i18n/routing";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { ChevronDown } from "lucide-react";
@@ -9,12 +9,13 @@ import { cn } from "@/shared/utils/utils";
 import { Button } from "./button";
 
 const languages: Record<string, string> = {
-  en: "English",
-  ar: "Arabic",
+  en: "english",
+  ar: "arabic",
 };
 
 export default function LanguageSwitcher() {
   const locale = useLocale();
+  const t = useTranslations("Common");
   const router = useRouter();
   const pathname = usePathname();
 
@@ -43,7 +44,7 @@ export default function LanguageSwitcher() {
             "data-[side=bottom]:slide-in-from-top-2 data-[side=top]:slide-in-from-bottom-2",
           )}
         >
-          {Object.entries(languages).map(([code, label]) => (
+          {Object.entries(languages).map(([code, key]) => (
             <DropdownMenu.Item
               key={code}
               onClick={() => switchLang(code)}
@@ -54,7 +55,7 @@ export default function LanguageSwitcher() {
                 code === locale && "bg-accent font-medium",
               )}
             >
-              {label}
+              {t(key)}
               {code === locale && (
                 <span className="ml-auto text-xs opacity-60">✓</span>
               )}

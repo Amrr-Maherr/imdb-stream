@@ -18,7 +18,8 @@
     "closeSearch": "Close search",
     "toggleMenu": "Toggle menu",
     "signIn": "Sign In",
-    "signOut": "Sign Out"
+    "signOut": "Sign Out",
+    "drawerTitle": "Menu"
   },
   "Auth": {
     "signIn": {
@@ -66,7 +67,8 @@
       "sending": "Sending...",
       "checkEmail": "Check your email",
       "sentDescription": "We've sent a password reset link to your email. Please check your inbox.",
-      "backToSignIn": "Back to Sign In"
+      "backToSignIn": "Back to Sign In",
+      "emailRequired": "Email is required"
     },
     "resetPassword": {
       "title": "Reset Password",
@@ -80,7 +82,13 @@
       "resetting": "Resetting...",
       "success": "Password reset successfully!",
       "backToSignIn": "Back to Sign In",
-      "invalidLink": "Invalid or expired reset link"
+      "invalidLink": "Invalid or expired reset link",
+      "passwordRequired": "Password is required",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
+      "passwordMismatch": "Passwords do not match",
+      "confirmPasswordRequired": "Please confirm your password",
+      "passwordMinLength": "Password must be at least 6 characters"
     },
     "phone": {
       "title": "Phone",
@@ -94,7 +102,9 @@
       "verifyOtp": "Verify OTP",
       "verifyingOtp": "Verifying...",
       "backToPhone": "Back to phone input",
-      "success": "Signed in successfully!"
+      "success": "Signed in successfully!",
+      "otpRequired": "Verification code is required",
+      "otpPattern": "Code must be 6 digits"
     }
   },
   "Profile": {
@@ -1352,11 +1362,22 @@
       "hd": "HD",
       "captions": "Default captions",
       "captionsDesc": "Preferred caption language for videos",
-      "off": "Off"
+      "off": "Off",
+      "english": "English",
+      "arabic": "Arabic",
+      "french": "French",
+      "spanish": "Spanish",
+      "german": "German",
+      "japanese": "Japanese"
     },
     "preferences": {
       "heading": "Preferences",
       "description": "Customize your experience",
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System",
+      "english": "English",
+      "arabic": "Arabic",
       "languageRegion": "Language & Region",
       "languageRegionDesc": "Choose your preferred language and region settings",
       "contentLanguage": "Content language",
@@ -1387,6 +1408,14 @@
     "companyNotFoundDesc": "We couldn't find the production company you're looking for.",
     "personNotFound": "Person not found",
     "personNotFoundDesc": "We couldn't find the person you're looking for.",
+    "seasonNotFound": "Season not found",
+    "seasonNotFoundDesc": "We couldn't find the season you're looking for.",
+    "episodeNotFound": "Episode not found",
+    "episodeNotFoundDesc": "We couldn't find the episode you're looking for.",
+    "collectionNotFound": "Collection not found",
+    "collectionNotFoundDesc": "We couldn't find the collection you're looking for.",
+    "backToTvShow": "Back to TV Show",
+    "backToSeason": "Back to Season",
     "invalidMediaType": "Invalid media type",
     "invalidMediaTypeDesc": "The media type \"{mediaType}\" is not supported."
   },
@@ -1445,6 +1474,42 @@
     "passwordPlaceholder": "Enter your password",
     "noAccount": "Don't have an account?",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "siteName": "IMDb",
+    "deleting": "Deleting...",
+    "deleteAll": "Delete All",
+    "english": "English",
+    "arabic": "Arabic"
+  },
+  "Ui": {
+    "pagination": {
+      "ariaLabel": "pagination",
+      "previous": "Previous",
+      "next": "Next",
+      "goToPrevious": "Go to previous page",
+      "goToNext": "Go to next page",
+      "morePages": "More pages"
+    },
+    "themeToggle": {
+      "toggleTheme": "Toggle theme",
+      "switchToLight": "Switch to light mode",
+      "switchToDark": "Switch to dark mode"
+    },
+    "faq": {
+      "searchPlaceholder": "Search...",
+      "faqCategories": "FAQ Categories",
+      "noResultsFound": "No results found for \"{searchQuery}\"",
+      "clearSearch": "Clear search",
+      "frequentlyAskedQuestions": "Frequently Asked Questions"
+    },
+    "sheet": {
+      "close": "Close"
+    }
+  },
+  "AiChat": {
+    "openChat": "Open chat",
+    "close": "Close",
+    "typeMessage": "Type a message...",
+    "sendMessage": "Send message"
   }
 }

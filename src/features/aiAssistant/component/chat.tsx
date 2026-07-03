@@ -3,6 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { MessageCircle, Send, X } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { Button } from "@/shared/components/ui/button";
 import {
@@ -29,6 +30,7 @@ type RecData = {
 };
 
 export function SheetDemo() {
+  const t = useTranslations("AiChat");
   const [input, setInput] = React.useState("");
   const [messages, setMessages] = React.useState<
     { role: string; content: string }[]
@@ -54,7 +56,7 @@ export function SheetDemo() {
           variant="default"
           size="icon"
           className="fixed bottom-6 end-6 z-50 size-12 rounded-full shadow-lg"
-          aria-label="Open chat"
+          aria-label={t("openChat")}
         >
           <MessageCircle className="size-5" />
         </Button>
@@ -67,7 +69,7 @@ export function SheetDemo() {
           <SheetTitle className="text-sm">IMDB-stream</SheetTitle>
           <SheetClose className="ring-offset-background focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 ms-auto rounded-full p-1 text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none disabled:pointer-events-none">
             <X className="size-4" />
-            <span className="sr-only">Close</span>
+            <span className="sr-only">{t("close")}</span>
           </SheetClose>
         </SheetHeader>
 
@@ -117,7 +119,7 @@ export function SheetDemo() {
 
         <div className="border-border flex items-center gap-2 border-t p-3">
           <Input
-            placeholder="Type a message..."
+            placeholder={t("typeMessage")}
             value={input}
             onChange={(e) => setInput(e.target.value)}
             className="flex-1"
@@ -127,7 +129,7 @@ export function SheetDemo() {
             size="icon"
             disabled={!input.trim()}
             onClick={handleSend}
-            aria-label="Send message"
+            aria-label={t("sendMessage")}
           >
             <Send className="size-4" />
           </Button>

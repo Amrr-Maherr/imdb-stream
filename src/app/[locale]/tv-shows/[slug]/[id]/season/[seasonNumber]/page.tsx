@@ -1,3 +1,4 @@
+import { getTranslations } from "next-intl/server";
 import { fetchApi } from "@/shared/services/fetchApi";
 import { ErrorState } from "@/shared/components/error-state";
 import type { TVSeasonDetails, TMDBTVDetails } from "@/shared/types/tmdb";
@@ -33,12 +34,14 @@ export async function generateMetadata({ params }: Props) {
     const season = await getSeason(id, seasonNumber, locale);
     return { title: `${season.name} · Season ${seasonNumber}` };
   } catch {
-    return { title: "Season" };
+    const t = await getTranslations({ locale, namespace: "ErrorState" });
+    return { title: t("seasonNotFound") };
   }
 }
 
 export default async function SeasonPage({ params }: Props) {
   const { id, seasonNumber, slug, locale } = await params;
+  const t = await getTranslations({ locale, namespace: "ErrorState" });
 
   let season: TVSeasonDetails;
   let tvShow: TMDBTVDetails | null = null;
@@ -50,8 +53,8 @@ export default async function SeasonPage({ params }: Props) {
   } catch {
     return (
       <ErrorState
-        title="Season not found"
-        actionLabel="Back to TV Show"
+        title={t("seasonNotFound")}
+        actionLabel={t("backToTvShow")}
         actionHref={`/tv-shows/${slug}/${id}`}
       />
     );

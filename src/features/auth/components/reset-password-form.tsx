@@ -108,10 +108,10 @@ export function ResetPasswordForm() {
                 className={`peer pe-9 ${errors.password ? "border-red-700" : ""}`}
                 autoComplete="new-password"
                 {...register("password", {
-                  required: "Password is required",
+                  required: t("passwordRequired"),
                   minLength: {
                     value: 6,
-                    message: "Password must be at least 6 characters",
+                    message: t("passwordMinLength"),
                   },
                 })}
               />
@@ -119,7 +119,7 @@ export function ResetPasswordForm() {
                 type="button"
                 onClick={() => setShowPassword((p) => !p)}
                 className="absolute inset-y-0 end-0 flex items-center justify-center pe-3 text-muted-foreground/80 hover:text-foreground transition-colors"
-                aria-label={showPassword ? "Hide password" : "Show password"}
+                aria-label={showPassword ? t("hidePassword") : t("showPassword")}
               >
                 {showPassword ? (
                   <EyeOff size={16} strokeWidth={2} aria-hidden="true" />
@@ -147,9 +147,9 @@ export function ResetPasswordForm() {
                 className={`peer pe-9 ${errors.confirmPassword ? "border-red-700" : ""}`}
                 autoComplete="new-password"
                 {...register("confirmPassword", {
-                  required: "Please confirm your password",
+                  required: t("confirmPasswordRequired"),
                   validate: (value) =>
-                    value === password || "Passwords do not match",
+                    value === password || t("passwordMismatch"),
                 })}
               />
               <div className="pointer-events-none absolute inset-y-0 end-0 flex items-center justify-center pe-3 text-muted-foreground/80 peer-disabled:opacity-50">

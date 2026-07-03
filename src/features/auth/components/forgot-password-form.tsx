@@ -74,7 +74,7 @@ export function ForgotPasswordForm() {
                 className={`peer pe-9 ${errors.email ? "border-red-700" : ""}`}
                 autoComplete="email"
                 {...register("email", {
-                  required: "Email is required",
+                  required: t("emailRequired"),
                 })}
               />
               <div className="pointer-events-none absolute inset-y-0 end-0 flex items-center justify-center pe-3 text-muted-foreground/80 peer-disabled:opacity-50">

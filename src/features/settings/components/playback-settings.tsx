@@ -9,21 +9,14 @@ import { cn } from "@/shared/utils/utils";
 
 const qualityOptions = ["Auto", "1080p", "720p", "480p", "360p"];
 
-const languages = [
-  "English",
-  "Arabic",
-  "French",
-  "Spanish",
-  "German",
-  "Japanese",
-];
+const languageKeys = ["english", "arabic", "french", "spanish", "german", "japanese"];
 
 export function PlaybackSettings() {
   const t = useTranslations("Settings.playback");
   const [autoPlay, setAutoPlay] = useState(true);
   const [subtitles, setSubtitles] = useState(true);
   const [quality, setQuality] = useState("Auto");
-  const [contentLang, setContentLang] = useState("English");
+  const [contentLang, setContentLang] = useState("english");
 
   return (
     <div className="space-y-6">
@@ -120,18 +113,18 @@ export function PlaybackSettings() {
         </CardHeader>
         <CardContent>
           <div className="flex flex-wrap gap-2">
-            {languages.map((lang) => (
+            {languageKeys.map((key) => (
               <button
-                key={lang}
-                onClick={() => setContentLang(lang)}
+                key={key}
+                onClick={() => setContentLang(key)}
                 className={cn(
                   "rounded-lg border px-3.5 py-2 text-sm font-medium transition-colors",
-                  contentLang === lang
+                  contentLang === key
                     ? "border-brand bg-brand/10 text-brand"
                     : "border-border bg-card text-muted-foreground hover:bg-muted hover:text-foreground",
                 )}
               >
-                {lang}
+                {t(key)}
               </button>
             ))}
           </div>

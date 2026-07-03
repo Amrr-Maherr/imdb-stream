@@ -1,3 +1,4 @@
+import { getTranslations } from "next-intl/server";
 import { fetchApi } from "@/shared/services/fetchApi";
 import { ErrorState } from "@/shared/components/error-state";
 import { ListHero } from "@/features/list/components/list-hero";
@@ -47,12 +48,15 @@ export async function generateMetadata({ params }: Props) {
       description: list.description?.slice(0, 160),
     };
   } catch {
-    return { title: "List" };
+    const t = await getTranslations({ locale, namespace: "ErrorState" });
+    return { title: t("listNotFound") };
   }
 }
 
 export default async function ListPage({ params }: Props) {
   const { id, locale } = await params;
+
+  const t = await getTranslations({ locale, namespace: "ErrorState" });
 
   let list: TMDBListDetails;
   try {
@@ -60,9 +64,9 @@ export default async function ListPage({ params }: Props) {
   } catch {
     return (
       <ErrorState
-        title="List not found"
-        description="We couldn't find the list you're looking for."
-        actionLabel="Go Home"
+        title={t("listNotFound")}
+        description={t("listNotFoundDesc")}
+        actionLabel={t("goHome")}
         actionHref="/"
       />
     );

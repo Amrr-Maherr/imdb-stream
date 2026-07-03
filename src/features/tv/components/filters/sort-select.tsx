@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   Select,
@@ -11,6 +12,7 @@ import {
 import { SORT_OPTIONS, PARAM_KEYS } from "./constants";
 
 function SortSelect() {
+  const t = useTranslations("Filters");
   const router = useRouter();
   const searchParams = useSearchParams();
   const value = searchParams.get(PARAM_KEYS.sort) ?? "popularity.desc";
@@ -33,11 +35,16 @@ function SortSelect() {
       <SelectContent>
         {SORT_OPTIONS.map((opt) => {
           const OptIcon = opt.icon;
+          const sortLabels: Record<string, string> = {
+            "popularity.desc": t("mostPopular"),
+            "vote_average.desc": t("highestRated"),
+            "first_air_date.desc": t("newestRelease"),
+          };
           return (
             <SelectItem key={opt.value} value={opt.value}>
               <span className="flex items-center gap-2">
                 <OptIcon className="size-3.5" />
-                {opt.label}
+                {sortLabels[opt.value]}
               </span>
             </SelectItem>
           );

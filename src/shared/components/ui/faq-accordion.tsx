@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { ChevronDown, Search } from "lucide-react"
+import { useTranslations } from "next-intl"
 import { cn } from "@/shared/utils/utils"
 import { Input } from "@/shared/components/ui/input"
 
@@ -26,9 +27,11 @@ export function FaqAccordion({
   activeCategory = "all",
   onCategoryChange,
   showSearch = true,
-  searchPlaceholder = "Search...",
+  searchPlaceholder: searchPlaceholderProp,
   className,
 }: FaqAccordionProps) {
+  const t = useTranslations("Ui")
+  const searchPlaceholder = searchPlaceholderProp ?? t("faq.searchPlaceholder")
   const [openItems, setOpenItems] = useState<Set<string>>(new Set())
   const [searchQuery, setSearchQuery] = useState("")
 
@@ -65,7 +68,7 @@ export function FaqAccordion({
       )}
 
       {categories && onCategoryChange && (
-        <div className="flex flex-wrap gap-2" role="tablist" aria-label="FAQ Categories">
+        <div className="flex flex-wrap gap-2" role="tablist" aria-label={t("faq.faqCategories")}>
           {Object.entries(categories).map(([key, label]) => (
             <button
               key={key}
@@ -88,16 +91,16 @@ export function FaqAccordion({
       {filteredItems.length === 0 ? (
         <div className="flex flex-col items-center gap-2 py-12 text-center">
           <Search className="size-8 text-muted-foreground/50" />
-          <p className="text-sm text-muted-foreground">No results found for &ldquo;{searchQuery}&rdquo;</p>
+          <p className="text-sm text-muted-foreground">{t("faq.noResultsFound", { searchQuery })}</p>
           <button
             onClick={() => setSearchQuery("")}
             className="text-sm text-brand hover:underline"
           >
-            Clear search
+            {t("faq.clearSearch")}
           </button>
         </div>
       ) : (
-        <div className="space-y-3" role="tablist" aria-label="Frequently Asked Questions">
+        <div className="space-y-3" role="tablist" aria-label={t("faq.frequentlyAskedQuestions")}>
           {filteredItems.map(([key, item]) => (
             <div
               key={key}

@@ -1,3 +1,4 @@
+import { getTranslations } from "next-intl/server";
 import { fetchApi } from "@/shared/services/fetchApi";
 import { ErrorState } from "@/shared/components/error-state";
 import type {
@@ -72,12 +73,15 @@ export async function generateMetadata({ params }: Props) {
       description: company.description?.slice(0, 160),
     };
   } catch {
-    return { title: "Company" };
+    const t = await getTranslations({ locale, namespace: "ErrorState" });
+    return { title: t("companyNotFound") };
   }
 }
 
 export default async function CompanyPage({ params }: Props) {
   const { id, locale } = await params;
+
+  const t = await getTranslations({ locale, namespace: "ErrorState" });
 
   let company: TMDBCompanyDetails;
   try {
@@ -85,9 +89,9 @@ export default async function CompanyPage({ params }: Props) {
   } catch {
     return (
       <ErrorState
-        title="Company not found"
-        description="We couldn't find the company you're looking for."
-        actionLabel="Go Home"
+        title={t("companyNotFound")}
+        description={t("companyNotFoundDesc")}
+        actionLabel={t("goHome")}
         actionHref="/"
       />
     );

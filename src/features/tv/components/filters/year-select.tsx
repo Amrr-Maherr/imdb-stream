@@ -1,6 +1,7 @@
 "use client";
 
 import { Calendar } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   Select,
@@ -12,6 +13,7 @@ import {
 import { PARAM_KEYS } from "./constants";
 
 function YearSelect() {
+  const t = useTranslations("Filters");
   const router = useRouter();
   const searchParams = useSearchParams();
   const value = searchParams.get(PARAM_KEYS.year) ?? "any";
@@ -36,10 +38,10 @@ function YearSelect() {
     <Select value={value} onValueChange={handleChange}>
       <SelectTrigger className="h-9 min-w-[8.5rem] text-xs">
         <Calendar className="size-3.5 shrink-0 text-muted-foreground" />
-        <SelectValue placeholder="Year" />
+        <SelectValue placeholder={t("year")} />
       </SelectTrigger>
       <SelectContent className="max-h-60">
-        <SelectItem value="any">All Years</SelectItem>
+        <SelectItem value="any">{t("allYears")}</SelectItem>
         {years.map((year) => (
           <SelectItem key={year} value={year}>
             {year}

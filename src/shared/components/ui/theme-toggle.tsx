@@ -4,12 +4,14 @@ import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { motion } from "framer-motion";
 import { Sun, Moon } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { Button } from "./button";
 
 export default function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const t = useTranslations("Ui");
 
   useEffect(() => {
     setMounted(true);
@@ -17,7 +19,7 @@ export default function ThemeToggle() {
 
   if (!mounted) {
     return (
-      <Button variant="outline" size="icon" disabled aria-label="Toggle theme">
+      <Button variant="outline" size="icon" disabled aria-label={t("themeToggle.toggleTheme")}>
         <div className="size-4" />
       </Button>
     );
@@ -30,7 +32,7 @@ export default function ThemeToggle() {
       variant="outline"
       size="icon"
       onClick={() => setTheme(isDark ? "light" : "dark")}
-      aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
+      aria-label={isDark ? t("themeToggle.switchToLight") : t("themeToggle.switchToDark")}
       className="relative overflow-hidden"
     >
       <motion.span

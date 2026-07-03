@@ -101,7 +101,7 @@ export default function Header() {
             <DrawerContent className="p-0">
               <DrawerHeader className="border-b border-border px-5 py-3.5">
                 <DrawerTitle className="text-base font-semibold">
-                  Menu
+                  {t("drawerTitle")}
                 </DrawerTitle>
               </DrawerHeader>
               <div className="space-y-4 px-5 py-4">

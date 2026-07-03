@@ -1,3 +1,4 @@
+import { getTranslations } from "next-intl/server";
 import { fetchApi } from "@/shared/services/fetchApi";
 import { ErrorState } from "@/shared/components/error-state";
 import type { TMDBMovieDetails } from "@/shared/types/tmdb";
@@ -45,7 +46,8 @@ export async function generateMetadata({ params }: Props) {
       description: movie.tagline || movie.overview?.slice(0, 160),
     };
   } catch {
-    return { title: "Movie" };
+    const t = await getTranslations({ locale, namespace: "ErrorState" });
+    return { title: t("movieNotFound") };
   }
 }
 

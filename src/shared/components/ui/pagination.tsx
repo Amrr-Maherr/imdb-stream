@@ -1,14 +1,18 @@
+"use client"
+
 import * as React from "react"
+import { useTranslations } from "next-intl"
 
 import { cn } from "@/shared/utils/utils"
 import { Button } from "@/shared/components/ui/button"
 import { ChevronLeftIcon, ChevronRightIcon, MoreHorizontalIcon } from "lucide-react"
 
 function Pagination({ className, ...props }: React.ComponentProps<"nav">) {
+  const t = useTranslations("Ui")
   return (
     <nav
       role="navigation"
-      aria-label="pagination"
+      aria-label={t("pagination.ariaLabel")}
       data-slot="pagination"
       className={cn("mx-auto flex w-full justify-center", className)}
       {...props}
@@ -63,12 +67,14 @@ function PaginationLink({
 
 function PaginationPrevious({
   className,
-  text = "Previous",
+  text: textProp,
   ...props
 }: React.ComponentProps<typeof PaginationLink> & { text?: string }) {
+  const t = useTranslations("Ui")
+  const text = textProp ?? t("pagination.previous")
   return (
     <PaginationLink
-      aria-label="Go to previous page"
+      aria-label={t("pagination.goToPrevious")}
       size="default"
       className={cn("ps-1.5!", className)}
       {...props}
@@ -81,12 +87,14 @@ function PaginationPrevious({
 
 function PaginationNext({
   className,
-  text = "Next",
+  text: textProp,
   ...props
 }: React.ComponentProps<typeof PaginationLink> & { text?: string }) {
+  const t = useTranslations("Ui")
+  const text = textProp ?? t("pagination.next")
   return (
     <PaginationLink
-      aria-label="Go to next page"
+      aria-label={t("pagination.goToNext")}
       size="default"
       className={cn("pe-1.5!", className)}
       {...props}
@@ -101,6 +109,7 @@ function PaginationEllipsis({
   className,
   ...props
 }: React.ComponentProps<"span">) {
+  const t = useTranslations("Ui")
   return (
     <span
       aria-hidden
@@ -113,7 +122,7 @@ function PaginationEllipsis({
     >
       <MoreHorizontalIcon
       />
-      <span className="sr-only">More pages</span>
+      <span className="sr-only">{t("pagination.morePages")}</span>
     </span>
   )
 }

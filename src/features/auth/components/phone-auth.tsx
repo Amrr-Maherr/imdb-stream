@@ -98,10 +98,10 @@ export function PhoneAuth() {
                 placeholder={t("otpPlaceholder")}
                 className={`text-center ${otpErrors.otp ? "border-red-700" : ""}`}
                 {...registerOtp("otp", {
-                  required: "Verification code is required",
+                  required: t("otpRequired"),
                   pattern: {
                     value: /^\d{6}$/,
-                    message: "Code must be 6 digits",
+                    message: t("otpPattern"),
                   },
                 })}
               />

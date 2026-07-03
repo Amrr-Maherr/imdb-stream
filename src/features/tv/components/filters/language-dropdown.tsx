@@ -1,6 +1,7 @@
 "use client";
 
 import { Globe } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   Select,
@@ -12,6 +13,7 @@ import {
 import { LANGUAGES, PARAM_KEYS } from "./constants";
 
 function LanguageDropdown() {
+  const t = useTranslations("Filters");
   const router = useRouter();
   const searchParams = useSearchParams();
   const value = searchParams.get(PARAM_KEYS.language) ?? "any";
@@ -31,10 +33,10 @@ function LanguageDropdown() {
     <Select value={value} onValueChange={handleChange}>
       <SelectTrigger className="h-9 min-w-[8.5rem] text-xs">
         <Globe className="size-3.5 shrink-0 text-muted-foreground" />
-        <SelectValue placeholder="Language" />
+        <SelectValue placeholder={t("language")} />
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value="any">All Languages</SelectItem>
+        <SelectItem value="any">{t("allLanguages")}</SelectItem>
         {LANGUAGES.map((lang) => (
           <SelectItem key={lang.value} value={lang.value}>
             <span className="flex items-center gap-2">

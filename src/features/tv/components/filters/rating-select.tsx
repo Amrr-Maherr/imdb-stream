@@ -1,6 +1,7 @@
 "use client";
 
 import { Star } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   Select,
@@ -12,6 +13,7 @@ import {
 import { RATING_OPTIONS, PARAM_KEYS } from "./constants";
 
 function RatingSelect() {
+  const t = useTranslations("Filters");
   const router = useRouter();
   const searchParams = useSearchParams();
   const value = searchParams.get(PARAM_KEYS.rating) ?? "any";
@@ -31,12 +33,12 @@ function RatingSelect() {
     <Select value={value} onValueChange={handleChange}>
       <SelectTrigger className="h-9 min-w-[8.5rem] text-xs">
         <Star className="size-3.5 shrink-0 text-amber-500" />
-        <SelectValue placeholder="Rating" />
+        <SelectValue placeholder={t("rating")} />
       </SelectTrigger>
       <SelectContent>
         {RATING_OPTIONS.map((opt) => (
           <SelectItem key={opt.value} value={opt.value}>
-            {opt.label}
+            {opt.value === "0" ? t("allRatings") : opt.label}
           </SelectItem>
         ))}
       </SelectContent>

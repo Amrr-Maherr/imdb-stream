@@ -50,9 +50,11 @@ function SheetContent({
   className,
   children,
   side = "right",
+  closeLabel = "Close",
   ...props
 }: React.ComponentProps<typeof DialogPrimitive.Content> & {
   side?: "top" | "bottom" | "left" | "right";
+  closeLabel?: string;
 }) {
   return (
     <SheetPortal>
@@ -76,7 +78,7 @@ function SheetContent({
         {children}
         <DialogPrimitive.Close className="ring-offset-background focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 absolute end-4 top-4 rounded-full p-1 text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none disabled:pointer-events-none">
           <XIcon className="size-4" />
-          <span className="sr-only">Close</span>
+          <span className="sr-only">{closeLabel}</span>
         </DialogPrimitive.Close>
       </DialogPrimitive.Content>
     </SheetPortal>
