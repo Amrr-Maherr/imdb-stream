@@ -106,6 +106,11 @@ src/
 │   │   ├── components/           # SearchDropdown, SearchResultItem
 │   │   └── services/             # TMDB multi-search endpoint
 │   │
+│   ├── aiAssistant/              # AI chat assistant feature
+│   │   ├── component/            # Chat sheet, bubble, marker components
+│   │   ├── prompts/              # System prompt for structured recommendations
+│   │   └── services/             # Groq API integration
+│   │
 │   ├── settings/                 # User settings feature
 │   │   └── components/           # Settings sections (account, preferences, playback, etc.)
 │   │
@@ -330,6 +335,31 @@ The people listing page displays a responsive CSS grid (`grid-cols-3` through `x
 | **State** | Component-local state with debounced input |
 
 The search bar in the header expands on click, queries the TMDB multi-search endpoint with a debounced input, and displays results in a dropdown panel. Results link directly to the corresponding detail page via `/item/[mediaType]/[slug]/[id]`.
+
+### AI Assistant
+
+| Aspect | Details |
+|--------|---------|
+| **Purpose** | In-app chat assistant for movie/TV recommendations and Q&A |
+| **Components** | `SheetDemo` (chat sheet), `Bubble`, `BubbleContent`, `Marker`, `MarkerContent` |
+| **Services** | `aiChat` — Groq API (openai/gpt-oss-120b) |
+| **Prompt** | Structured system prompt with recommendation output format |
+| **State** | Component-local state for messages, input, loading |
+
+The AI assistant opens as a slide-out sheet from the right side of the screen. It uses Groq's API to power a conversational assistant named **ReelWise** that helps users discover movies and TV shows.
+
+**Recommendation Flow:**
+```
+User types query → Groq API → Structured JSON response
+                                  ├── message (chat bubble text)
+                                  └── recommendations[]
+                                       ├── title, type, slug, id
+                                       └── rendered as clickable links
+                                          to /movies/[slug]/[id]
+                                          or /tv-shows/[slug]/[id]
+```
+
+When users ask for recommendations (e.g., "Recommend action movies"), the assistant returns a structured JSON object with a short conversational `message` and an array of `recommendations`, each containing `title`, `type` (`movie`/`tv`), `slug`, and `id`. Each recommendation is rendered as a clickable link that navigates directly to the corresponding detail page. For non-recommendation queries, the assistant responds with plain text in a standard chat bubble.
 
 ### Settings
 
@@ -612,6 +642,9 @@ NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=
 # TMDB API Configuration
 NEXT_PUBLIC_TMDB_API_KEY=
 TMDB_BASE_URL=https://api.themoviedb.org/3
+
+# Groq API Configuration (AI Assistant)
+NEXT_PUBLIC_GROQ_KEY=
 ```
 
 ### ESLint
@@ -848,6 +881,7 @@ export function ClientComponent({ data }: { data: SomeType }) {
 | People Directory | ✅ Complete | `src/app/[locale]/people/page.tsx`, `features/person/services/` | Responsive grid of popular people with pagination |
 | Person Detail | ✅ Complete | `src/app/[locale]/people/[slug]/[id]/page.tsx`, `features/person/components/` | Actor/crew biography and filmography |
 | Search | ✅ Complete | `features/multiSearch/`, `shared/components/layout/SearchBar.tsx` | Header search dropdown with TMDB multi-search |
+| AI Assistant | ✅ Complete | `features/aiAssistant/` | Chat sheet with Groq-powered recommendations and structured link output |
 | Authentication | ✅ Complete | `src/app/[locale]/auth/`, `features/auth/` | Firebase auth with email, Google, phone, guest modes |
 | Collection Detail | ✅ Complete | `src/app/[locale]/collection/[slug]/page.tsx`, `features/collection/components/` | Movie collection/trilogy overview |
 | Company Detail | ✅ Complete | `src/app/[locale]/company/[slug]/[id]/page.tsx`, `features/company/components/` | Production company profile |
