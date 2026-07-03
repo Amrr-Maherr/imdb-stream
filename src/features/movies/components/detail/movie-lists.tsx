@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -25,6 +26,7 @@ const TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p";
 const DISPLAY_LIMIT = 4;
 
 export function MovieLists({ lists }: MovieListsProps) {
+  const t = useTranslations("MovieDetail");
   const [expanded, setExpanded] = useState(false);
   if (lists.length === 0) return null;
 
@@ -92,9 +94,9 @@ export function MovieLists({ lists }: MovieListsProps) {
           className="inline-flex items-center gap-1 mt-3 text-sm font-medium text-brand hover:text-brand/80 transition-colors"
         >
           {expanded ? (
-            <>Show Less <ChevronUp className="size-3.5" /></>
+            <>{t("showLess")} <ChevronUp className="size-3.5" /></>
           ) : (
-            <>Show More ({lists.length - DISPLAY_LIMIT} more) <ChevronDown className="size-3.5" /></>
+            <>{t("showMore", { count: lists.length - DISPLAY_LIMIT })} <ChevronDown className="size-3.5" /></>
           )}
         </button>
       )}

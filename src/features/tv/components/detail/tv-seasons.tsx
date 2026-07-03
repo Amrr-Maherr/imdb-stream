@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { Slider } from "@/shared/components/ui/slider";
 import type { TVSeason } from "@/shared/types/tmdb";
 import { SeasonCard } from "./season-card";
@@ -11,12 +12,13 @@ type TvSeasonsProps = {
 };
 
 export function TvSeasons({ seasons, tvId, tvSlug }: TvSeasonsProps) {
+  const t = useTranslations("TvDetail");
   const valid = seasons.filter((s) => s.season_number > 0);
   if (valid.length === 0) return null;
 
   return (
     <section>
-      <h2 className="text-xl font-bold text-foreground mb-4">Seasons</h2>
+      <h2 className="text-xl font-bold text-foreground mb-4">{t("seasons")}</h2>
       <Slider
         slidesPerView={6}
         slidesMobilePerView={2.5}

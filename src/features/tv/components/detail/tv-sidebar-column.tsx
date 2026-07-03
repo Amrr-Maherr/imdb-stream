@@ -1,4 +1,7 @@
-﻿import type { TMDBTVDetails } from "@/shared/types/tmdb";
+﻿"use client";
+
+import type { TMDBTVDetails } from "@/shared/types/tmdb";
+import { useTranslations } from "next-intl";
 import { Tv } from "lucide-react";
 import { MovieWatchProviders } from "@/features/movies/components/detail/movie-watch-providers";
 import { FadeIn } from "@/features/movies/components/detail/fade-in";
@@ -10,6 +13,7 @@ type TvSidebarColumnProps = {
 };
 
 export function TvSidebarColumn({ show, creators }: TvSidebarColumnProps) {
+  const t = useTranslations("TvDetail");
   const watchProviders = show["watch/providers"] ?? null;
 
   return (
@@ -47,7 +51,7 @@ export function TvSidebarColumn({ show, creators }: TvSidebarColumnProps) {
           <div className="rounded-xl border border-border bg-card p-5">
             <div className="flex items-center gap-2 mb-4">
               <Tv className="size-4 text-muted-foreground" />
-              <h3 className="text-sm font-bold text-foreground uppercase tracking-wide">Watch</h3>
+              <h3 className="text-sm font-bold text-foreground uppercase tracking-wide">{t("watch")}</h3>
             </div>
             <MovieWatchProviders providers={watchProviders} />
           </div>

@@ -1,3 +1,4 @@
+import { getTranslations } from "next-intl/server";
 import { fetchApi } from "@/shared/services/fetchApi";
 import type { TMDBResponse, TMDBMovie, TMDBTV, TMDBPerson } from "@/shared/types/tmdb";
 import { MediaRow } from "./media-row";
@@ -40,6 +41,8 @@ async function fetchGenreMap(locale: string): Promise<Record<number, string>> {
 }
 
 export async function HomeSections({ locale }: Props) {
+  const t = await getTranslations({ locale, namespace: "HomePage" });
+
   const [
     popular,
     topRated,
@@ -67,7 +70,7 @@ export async function HomeSections({ locale }: Props) {
       {/* ── Popular Movies ── Pattern B: Featured Spotlight + Carousel ── */}
       {popular.length > 0 && (
         <FeaturedRow
-          title="Popular Movies"
+          title={t("popularMovies")}
           spotlight={popular[0]}
           genreMap={genreMap}
         >
@@ -80,8 +83,8 @@ export async function HomeSections({ locale }: Props) {
       {/* ── Top Rated Movies ── Pattern C: Premium Editorial ── */}
       {topRated.length > 0 && (
         <PremiumRow
-          title="Top Rated"
-          subtitle="The highest-rated movies of all time"
+          title={t("topRated")}
+          subtitle={t("topRatedDesc")}
           averageRating={
             topRated.length > 0
               ? topRated.reduce((s, m) => s + m.vote_average, 0) /
@@ -98,8 +101,8 @@ export async function HomeSections({ locale }: Props) {
       {/* ── Now Playing ── Pattern D: Banner Section ── */}
       {nowPlaying.length > 0 && (
         <BannerSection
-          title="Now Playing"
-          subtitle="Currently in theaters and recently released"
+          title={t("nowPlaying")}
+          subtitle={t("nowPlayingDesc")}
         >
           {nowPlaying.map((movie) => (
             <MovieCard key={movie.id} movie={movie} genreMap={genreMap} />
@@ -114,8 +117,8 @@ export async function HomeSections({ locale }: Props) {
       {/* ── Trending TV ── Standard carousel ── */}
       {trendingTv.length > 0 && (
         <MediaRow
-          title="Trending TV Shows"
-          subtitle="This week&apos;s most popular series"
+          title={t("trendingTv")}
+          subtitle={t("trendingTvDesc")}
           slidesPerView={5}
           slidesMobilePerView={2.5}
           spaceBetween={14}
@@ -129,8 +132,8 @@ export async function HomeSections({ locale }: Props) {
       {/* ── Popular TV ── Standard carousel with different config ── */}
       {popularTv.length > 0 && (
         <MediaRow
-          title="Popular TV"
-          subtitle="Most-watched series right now"
+          title={t("popularTv")}
+          subtitle={t("popularTvDesc")}
           slidesPerView={5}
           slidesMobilePerView={2.5}
           spaceBetween={14}
@@ -144,8 +147,8 @@ export async function HomeSections({ locale }: Props) {
       {/* ── Airing Today ── Pattern D: Banner Section ── */}
       {airingToday.length > 0 && (
         <BannerSection
-          title="Airing Today"
-          subtitle="New episodes and premieres airing today"
+          title={t("airingToday")}
+          subtitle={t("airingTodayDesc")}
         >
           {airingToday.map((tv) => (
             <TvCard key={tv.id} tv={tv} genreMap={genreMap} />
@@ -156,8 +159,8 @@ export async function HomeSections({ locale }: Props) {
       {/* ── Popular Actors ── Standard carousel ── */}
       {popularPeople.length > 0 && (
         <MediaRow
-          title="Popular Actors"
-          subtitle="Fan-favorite performers"
+          title={t("popularActors")}
+          subtitle={t("popularActorsDesc")}
           slidesPerView={6}
           slidesMobilePerView={3}
           spaceBetween={16}

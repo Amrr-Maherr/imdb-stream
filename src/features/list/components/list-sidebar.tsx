@@ -1,4 +1,7 @@
+"use client";
+
 import { List as ListIcon, Heart, Film, Tv, Star } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { FadeIn } from "@/features/movies/components/detail/fade-in";
 import { MovieRating } from "@/features/movies/components/detail/movie-rating";
 
@@ -29,6 +32,7 @@ export function ListSidebar({
   listType,
   items,
 }: ListSidebarProps) {
+  const t = useTranslations("List");
   const avgRating =
     items.length > 0
       ? items.reduce((sum, i) => sum + i.vote_average, 0) / items.length
@@ -42,13 +46,13 @@ export function ListSidebar({
       <FadeIn delay={0.05}>
         <div className="rounded-xl border border-border bg-card p-5">
           <h3 className="text-sm font-bold text-foreground uppercase tracking-wide mb-4">
-            Statistics
+            {t("statistics")}
           </h3>
           <div className="space-y-3">
             <div className="flex items-center gap-3">
               <Film className="size-4 text-muted-foreground shrink-0" />
               <div className="min-w-0">
-                <p className="text-xs text-muted-foreground">Items</p>
+                <p className="text-xs text-muted-foreground">{t("items")}</p>
                 <p className="text-sm text-foreground">{itemCount}</p>
               </div>
             </div>
@@ -56,7 +60,7 @@ export function ListSidebar({
               <div className="flex items-center gap-3">
                 <Heart className="size-4 text-muted-foreground shrink-0" />
                 <div className="min-w-0">
-                  <p className="text-xs text-muted-foreground">Favorites</p>
+                  <p className="text-xs text-muted-foreground">{t("favorites")}</p>
                   <p className="text-sm text-foreground">{favoriteCount}</p>
                 </div>
               </div>
@@ -65,7 +69,7 @@ export function ListSidebar({
               <div className="flex items-center gap-3">
                 <Star className="size-4 text-muted-foreground shrink-0" />
                 <div className="min-w-0">
-                  <p className="text-xs text-muted-foreground">Average Rating</p>
+                  <p className="text-xs text-muted-foreground">{t("averageRating")}</p>
                   <p className="text-sm text-foreground font-medium">
                     {avgRating.toFixed(1)}
                   </p>
@@ -96,12 +100,12 @@ export function ListSidebar({
       <FadeIn delay={0.05}>
         <div className="rounded-xl border border-border bg-card p-5">
           <h3 className="text-sm font-bold text-foreground uppercase tracking-wide mb-3">
-            Facts
+            {t("facts")}
           </h3>
           <div className="space-y-3">
             <div>
               <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                Type
+                {t("type")}
               </h4>
               <p className="text-sm text-foreground mt-0.5 capitalize">
                 {listType}
@@ -109,14 +113,14 @@ export function ListSidebar({
             </div>
             <div>
               <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                Content
+                {t("content")}
               </h4>
               <p className="text-sm text-foreground mt-0.5">
                 {hasMovies && hasTV
-                  ? "Mixed (Movies & TV)"
+                  ? t("mixedMoviesTv")
                   : hasMovies
-                    ? "Movies only"
-                    : "TV Shows only"}
+                    ? t("moviesOnly")
+                    : t("tvShowsOnly")}
               </p>
             </div>
           </div>

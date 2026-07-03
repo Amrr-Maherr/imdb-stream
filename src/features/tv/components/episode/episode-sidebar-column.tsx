@@ -1,5 +1,8 @@
-﻿import Image from "next/image";
+﻿"use client";
+
+import Image from "next/image";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { ChevronLeft, Hash, Film, Clock, Star } from "lucide-react";
 import type { TMDBEpisodeDetails, TVEpisode } from "@/shared/types/tmdb";
 import { FadeIn } from "@/features/movies/components/detail/fade-in";
@@ -24,6 +27,8 @@ export function EpisodeSidebarColumn({
   slug,
   tvId,
 }: EpisodeSidebarColumnProps) {
+  const t = useTranslations("TvDetail");
+  const tc = useTranslations("Common");
   const prevEp = seasonEpisodes.find((e) => e.episode_number === currentEpisodeNumber - 1) ?? null;
 
   const moreEpisodes = seasonEpisodes.filter(
@@ -35,20 +40,20 @@ export function EpisodeSidebarColumn({
       <FadeIn delay={0.05}>
         <div className="rounded-xl border border-border bg-card p-5">
           <h3 className="text-sm font-bold text-foreground uppercase tracking-wide mb-4">
-            Episode Info
+            {t("episodeInfo")}
           </h3>
           <div className="space-y-3">
             <div className="flex items-center gap-3">
               <Hash className="size-4 text-muted-foreground shrink-0" />
               <div className="min-w-0">
-                <p className="text-xs text-muted-foreground">Season</p>
+                <p className="text-xs text-muted-foreground">{t("season")}</p>
                 <p className="text-sm text-foreground">{seasonNumber}</p>
               </div>
             </div>
             <div className="flex items-center gap-3">
               <Film className="size-4 text-muted-foreground shrink-0" />
               <div className="min-w-0">
-                <p className="text-xs text-muted-foreground">Episode</p>
+                <p className="text-xs text-muted-foreground">{t("episode")}</p>
                 <p className="text-sm text-foreground">{ep.episode_number}</p>
               </div>
             </div>
@@ -56,8 +61,8 @@ export function EpisodeSidebarColumn({
               <div className="flex items-center gap-3">
                 <Clock className="size-4 text-muted-foreground shrink-0" />
                 <div className="min-w-0">
-                  <p className="text-xs text-muted-foreground">Runtime</p>
-                  <p className="text-sm text-foreground">{ep.runtime} min</p>
+                  <p className="text-xs text-muted-foreground">{t("episodeRuntime")}</p>
+                  <p className="text-sm text-foreground">{t("runtimeMin", { runtime: ep.runtime })}</p>
                 </div>
               </div>
             )}
@@ -65,7 +70,7 @@ export function EpisodeSidebarColumn({
               <div className="flex items-center gap-3">
                 <Hash className="size-4 text-muted-foreground shrink-0" />
                 <div className="min-w-0">
-                  <p className="text-xs text-muted-foreground">Production Code</p>
+                  <p className="text-xs text-muted-foreground">{t("productionCode")}</p>
                   <p className="text-sm text-foreground">{ep.production_code}</p>
                 </div>
               </div>
@@ -82,7 +87,7 @@ export function EpisodeSidebarColumn({
           >
             <ChevronLeft className="size-5 text-muted-foreground shrink-0" />
             <div className="min-w-0">
-              <p className="text-[10px] text-muted-foreground uppercase">Previous Episode</p>
+              <p className="text-[10px] text-muted-foreground uppercase">{t("previousEpisode")}</p>
               <p className="text-sm font-medium text-foreground truncate group-hover:text-brand transition-colors">
                 {prevEp.name}
               </p>
@@ -94,9 +99,9 @@ export function EpisodeSidebarColumn({
       {moreEpisodes.length > 0 && (
         <FadeIn delay={0.15}>
           <div>
-            <h3 className="text-sm font-bold text-foreground uppercase tracking-wide mb-4">
-              More Episodes
-            </h3>
+              <h3 className="text-sm font-bold text-foreground uppercase tracking-wide mb-4">
+                {t("moreEpisodes")}
+              </h3>
             <Slider
               slidesPerView={2}
               slidesMobilePerView={2}
@@ -122,7 +127,7 @@ export function EpisodeSidebarColumn({
                       />
                     ) : (
                       <div className="flex h-full items-center justify-center text-[10px] text-muted-foreground">
-                        No image
+                        {tc("noImage")}
                       </div>
                     )}
                     <div className="absolute top-1 left-1 rounded bg-black/70 px-1 py-0.5 text-[10px] font-medium text-white">

@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { Building2 } from "lucide-react";
 import type { TMDBCompanyDetails } from "@/shared/types/tmdb";
 import { slugify } from "@/shared/utils/slugify";
@@ -11,6 +14,7 @@ type CompanyCardProps = {
 };
 
 export function CompanyCard({ company }: CompanyCardProps) {
+  const t = useTranslations("Company");
   return (
     <Link
       href={`/company/${slugify(company.name)}/${company.id}`}
@@ -39,7 +43,7 @@ export function CompanyCard({ company }: CompanyCardProps) {
           {company.name}
         </h3>
         <p className="text-xs text-muted-foreground">
-          {company.origin_country || "Production Company"}
+          {company.origin_country || t("productionCompany")}
         </p>
         {company.description && (
           <p className="text-[10px] text-muted-foreground/50 line-clamp-1 leading-relaxed">

@@ -1,5 +1,8 @@
-﻿import Image from "next/image";
+﻿"use client";
+
+import Image from "next/image";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { Star, Play } from "lucide-react";
 import type { TVSeasonDetails } from "@/shared/types/tmdb";
 import { MovieCast } from "@/features/movies/components/detail/movie-cast";
@@ -22,6 +25,9 @@ export function SeasonMainContent({
   tvId,
   seasonNumber,
 }: SeasonMainContentProps) {
+  const t = useTranslations("TvDetail");
+  const tc = useTranslations("Common");
+  const tm = useTranslations("MovieDetail");
   const allCast = season.aggregate_credits?.cast ?? season.credits?.cast ?? [];
   const posters = season.images?.posters ?? [];
   const backdrops = season.images?.backdrops ?? [];
@@ -30,7 +36,7 @@ export function SeasonMainContent({
     <div className="flex-1 min-w-0 space-y-12">
       <FadeIn>
         <section>
-          <h2 className="text-xl font-bold text-foreground mb-6">Episodes</h2>
+          <h2 className="text-xl font-bold text-foreground mb-6">{t("episodes")}</h2>
           <div className="space-y-3">
             {season.episodes.map((episode) => (
               <Link
@@ -56,7 +62,7 @@ export function SeasonMainContent({
                     </>
                   ) : (
                     <div className="flex h-full items-center justify-center text-xs text-muted-foreground">
-                      No image
+                      {tc("noImage")}
                     </div>
                   )}
                   <div className="absolute top-1.5 left-1.5 rounded bg-black/70 px-1.5 py-0.5 text-[10px] font-medium text-white">
@@ -91,7 +97,7 @@ export function SeasonMainContent({
                     {episode.runtime != null && episode.runtime > 0 && (
                       <>
                         <span className="text-muted-foreground/50">·</span>
-                        <span>{episode.runtime} min</span>
+                        <span>{t("runtimeMin", { runtime: episode.runtime })}</span>
                       </>
                     )}
                   </div>
@@ -116,7 +122,7 @@ export function SeasonMainContent({
 
       {(posters.length > 0 || backdrops.length > 0) && (
         <FadeIn delay={0.15}>
-          <MovieSection title="Images" icon={null}>
+          <MovieSection title={tm("photos")} icon={null}>
             <Slider
               slidesPerView={3}
               slidesMobilePerView={1.5}

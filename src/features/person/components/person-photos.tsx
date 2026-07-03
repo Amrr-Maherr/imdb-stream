@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { Slider } from "@/shared/components/ui/slider";
 
 const TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p";
@@ -8,11 +11,12 @@ type PersonPhotosProps = {
 };
 
 export function PersonPhotos({ profiles }: PersonPhotosProps) {
+  const t = useTranslations("Person");
   if (profiles.length === 0) return null;
 
   return (
     <section>
-      <h2 className="text-xl font-bold text-foreground mb-4">Photos</h2>
+      <h2 className="text-xl font-bold text-foreground mb-4">{t("photos")}</h2>
       <Slider
         slidesPerView={4}
         slidesMobilePerView={2}
@@ -28,7 +32,7 @@ export function PersonPhotos({ profiles }: PersonPhotosProps) {
           >
             <Image
               src={`${TMDB_IMAGE_BASE}/w342${img?.file_path}`}
-              alt="Profile photo"
+              alt={t("profilePhoto")}
               fill
               className="object-cover"
               sizes="(max-width: 640px) 50vw, 25vw"

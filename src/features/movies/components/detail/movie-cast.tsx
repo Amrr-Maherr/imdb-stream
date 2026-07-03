@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { Slider } from "@/shared/components/ui/slider";
 import type { CastMember } from "@/shared/types/tmdb";
 import { CastCard } from "./cast-card";
@@ -9,6 +10,7 @@ type MovieCastProps = {
 };
 
 export function MovieCast({ cast }: MovieCastProps) {
+  const t = useTranslations("MovieDetail");
   const topCast = cast
     .filter((c) => c.known_for_department === "Acting")
 ;
@@ -16,7 +18,7 @@ export function MovieCast({ cast }: MovieCastProps) {
 
   return (
     <section>
-      <h2 className="text-xl font-bold text-foreground mb-4">Top Cast</h2>
+      <h2 className="text-xl font-bold text-foreground mb-4">{t("topCast")}</h2>
       <Slider
         slidesPerView={6}
         slidesMobilePerView={2.5}

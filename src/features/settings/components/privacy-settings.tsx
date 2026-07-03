@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import {
   Shield,
@@ -13,6 +14,7 @@ import { Switch } from "@/shared/components/ui/switch";
 import { Button } from "@/shared/components/ui/button";
 
 export function PrivacySettings() {
+  const t = useTranslations("Settings.privacy");
   const [watchHistoryVisible, setWatchHistoryVisible] = useState(true);
   const [dataCollection, setDataCollection] = useState(true);
 
@@ -20,10 +22,10 @@ export function PrivacySettings() {
     <div className="space-y-6">
       <div>
         <h2 className="text-lg font-bold text-foreground">
-          Privacy & Security
+          {t("heading")}
         </h2>
         <p className="text-sm text-muted-foreground mt-0.5">
-          Control your privacy and account security
+          {t("description")}
         </p>
       </div>
 
@@ -31,7 +33,7 @@ export function PrivacySettings() {
         <CardHeader>
           <CardTitle className="text-base flex items-center gap-2">
             <Eye className="size-4 text-brand" />
-            Visibility
+            {t("privacySettings")}
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-5">
@@ -41,10 +43,10 @@ export function PrivacySettings() {
                 htmlFor="watch-history"
                 className="text-sm font-medium text-foreground"
               >
-                Watch history visible
+                {t("activityVisibility")}
               </label>
               <p className="text-xs text-muted-foreground">
-                Allow others to see your recently watched titles
+                {t("activityVisibilityDesc")}
               </p>
             </div>
             <Switch
@@ -60,7 +62,7 @@ export function PrivacySettings() {
         <CardHeader>
           <CardTitle className="text-base flex items-center gap-2">
             <Database className="size-4 text-brand" />
-            Data & Analytics
+            {t("privacySettings")}
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-5">
@@ -70,10 +72,10 @@ export function PrivacySettings() {
                 htmlFor="data-collection"
                 className="text-sm font-medium text-foreground"
               >
-                Usage data collection
+                {t("profileVisibility")}
               </label>
               <p className="text-xs text-muted-foreground">
-                Help us improve by sharing anonymous usage data
+                {t("profileVisibilityDesc")}
               </p>
             </div>
             <Switch
@@ -89,7 +91,7 @@ export function PrivacySettings() {
         <CardHeader>
           <CardTitle className="text-base flex items-center gap-2">
             <Shield className="size-4 text-brand" />
-            Account Actions
+            {t("securitySettings")}
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-3">
@@ -99,15 +101,15 @@ export function PrivacySettings() {
             className="gap-2 text-destructive hover:text-destructive"
           >
             <LogOut className="size-3.5" />
-            Sign Out of All Devices
+            {t("sessions")}
           </Button>
           <div className="flex items-center justify-between rounded-lg border border-border px-4 py-3">
             <div>
               <p className="text-sm font-medium text-foreground">
-                Delete Account
+                {t("sessions")}
               </p>
               <p className="text-xs text-muted-foreground">
-                Permanently delete your account and all data
+                {t("sessionsDesc")}
               </p>
             </div>
             <Button variant="ghost" size="sm" className="gap-2 text-destructive">

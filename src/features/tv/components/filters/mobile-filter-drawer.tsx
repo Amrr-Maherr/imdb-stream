@@ -4,12 +4,12 @@ import { RotateCcw, SlidersHorizontal } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { Button } from "@/shared/components/ui/button"
 import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/shared/components/ui/sheet"
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/shared/components/ui/drawer"
 import { GenreDropdown } from "./genre-dropdown"
 import { LanguageDropdown } from "./language-dropdown"
 import { CountryDropdown } from "./country-dropdown"
@@ -19,22 +19,22 @@ import { RatingSelect } from "./rating-select"
 import { AdultToggle } from "./adult-toggle"
 import { useResetFilters } from "@/shared/hooks/useResetFilters"
 
-function MobileFilterSheet() {
+function MobileFilterDrawer() {
   const t = useTranslations("Filters")
   const { hasFilters, handleReset } = useResetFilters()
 
   return (
-    <Sheet>
-      <SheetTrigger asChild>
+    <Drawer>
+      <DrawerTrigger asChild>
         <Button variant="outline" size="default" className="w-full gap-2">
           <SlidersHorizontal className="size-4" />
           <span className="text-sm">{t("filters")}</span>
         </Button>
-      </SheetTrigger>
-      <SheetContent side="bottom" className="h-fit max-h-[70vh] p-0">
-        <SheetHeader className="border-b border-border px-5 py-3.5">
-          <SheetTitle className="text-base font-semibold">{t("filters")}</SheetTitle>
-        </SheetHeader>
+      </DrawerTrigger>
+      <DrawerContent className="h-fit max-h-[70vh] p-0">
+        <DrawerHeader className="border-b border-border px-5 py-3.5">
+          <DrawerTitle className="text-base font-semibold">{t("filters")}</DrawerTitle>
+        </DrawerHeader>
         <div className="space-y-5 overflow-y-auto px-5 py-5">
           <div className="space-y-1.5">
             <span className="text-xs font-medium text-muted-foreground">{t("genre")}</span>
@@ -76,9 +76,9 @@ function MobileFilterSheet() {
             </Button>
           )}
         </div>
-      </SheetContent>
-    </Sheet>
+      </DrawerContent>
+    </Drawer>
   )
 }
 
-export { MobileFilterSheet }
+export { MobileFilterDrawer }

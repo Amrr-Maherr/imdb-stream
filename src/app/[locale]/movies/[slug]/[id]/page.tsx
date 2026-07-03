@@ -5,7 +5,7 @@ import { MovieHero } from "@/features/movies/components/detail/movie-hero";
 import { MovieCollection } from "@/features/movies/components/detail/movie-collection";
 import { MovieMainContent } from "@/features/movies/components/detail/movie-main-content";
 import { MovieSidebarColumn } from "@/features/movies/components/detail/movie-sidebar-column";
-import NotFound from "@/app/[locale]/not-found";
+import NotFound from "@/app/[locale]/global-not-found";
 
 interface Props {
   params: Promise<{ locale: string; slug: string; id: string }>;

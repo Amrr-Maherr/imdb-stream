@@ -1,6 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { Star, TrendingUp, Languages } from "lucide-react";
+import { useTranslations } from "next-intl";
 import type { TMDBMovie } from "@/shared/types/tmdb";
 import { slugify } from "@/shared/utils/slugify";
 
@@ -14,6 +17,7 @@ type MovieCardProps = {
 };
 
 export function MovieCard({ movie, genreMap, showRank, adultContentVisible }: MovieCardProps) {
+  const t = useTranslations("Movies");
   const year = movie.release_date?.slice(0, 4);
   const vote = movie.vote_average.toFixed(1);
   const genres = movie.genre_ids
@@ -48,7 +52,7 @@ export function MovieCard({ movie, genreMap, showRank, adultContentVisible }: Mo
         {movie.adult && !adultContentVisible && (
           <div className="absolute inset-0 backdrop-blur-md bg-background/40 flex items-center justify-center z-20">
             <span className="text-xs font-bold text-foreground/70 bg-background/60 px-2 py-0.5 rounded">
-              18+
+              {t("adultBadge")}
             </span>
           </div>
         )}

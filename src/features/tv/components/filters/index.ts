@@ -5,5 +5,5 @@ export { CountryDropdown } from "./country-dropdown";
 export { SortSelect } from "./sort-select";
 export { YearSelect } from "./year-select";
 export { RatingSelect } from "./rating-select";
-export { MobileFilterSheet } from "./mobile-filter-sheet";
+export { MobileFilterDrawer } from "./mobile-filter-drawer";
 export { AdultToggle } from "./adult-toggle";

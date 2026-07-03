@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 import { Play } from "lucide-react";
@@ -47,12 +48,13 @@ type MovieVideosProps = {
 };
 
 export function MovieVideos({ videos }: MovieVideosProps) {
+  const t = useTranslations("MovieDetail");
   const youtubeVideos = videos.filter((v) => v.site === "YouTube");
   if (youtubeVideos.length === 0) return null;
 
   return (
     <section>
-      <h2 className="text-xl font-bold text-foreground mb-4">Videos</h2>
+      <h2 className="text-xl font-bold text-foreground mb-4">{t("videos")}</h2>
       <Slider
         slidesPerView={3}
         slidesMobilePerView={1.2}

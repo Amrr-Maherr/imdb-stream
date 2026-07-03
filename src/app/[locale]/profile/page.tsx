@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import {
   User,
   Mail,
@@ -21,6 +22,8 @@ import { ProfileSkeleton } from "@/features/profile/components/profile-skeleton"
 import { useAuth } from "@/shared/provider/authProvider";
 
 export default function ProfilePage() {
+  const t = useTranslations("Profile");
+  const tc = useTranslations("Common");
   const { user, loading } = useAuth();
 
   const formatDate = (dateStr: string) => {
@@ -36,9 +39,7 @@ export default function ProfilePage() {
     const joined = new Date(dateStr);
     const now = new Date();
     const years = now.getFullYear() - joined.getFullYear();
-    return years > 0
-      ? `${years} ${years === 1 ? "year" : "years"}`
-      : "< 1 year";
+    return years > 0 ? t("years", { count: years }) : t("lessThanYear");
   };
 
   const providerIcon = (providerId: string) => {
@@ -49,9 +50,9 @@ export default function ProfilePage() {
   };
 
   const providerLabel = (providerId: string) => {
-    if (providerId === "google.com") return "Google";
-    if (providerId === "password") return "Email & Password";
-    if (providerId === "phone") return "Phone";
+    if (providerId === "google.com") return t("providerGoogle");
+    if (providerId === "password") return t("providerEmail");
+    if (providerId === "phone") return t("providerPhone");
     return providerId;
   };
 
@@ -63,16 +64,16 @@ export default function ProfilePage() {
     return (
       <div className="flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center gap-4 px-4">
         <User className="size-12 text-muted-foreground" />
-        <h1 className="text-xl font-bold text-foreground">Not Signed In</h1>
+        <h1 className="text-xl font-bold text-foreground">{t("notSignedIn")}</h1>
         <p className="text-sm text-muted-foreground text-center max-w-sm">
-          Sign in to view your profile and manage your account.
+          {t("notSignedInDesc")}
         </p>
         <Link
           href="/auth/signin"
           className="inline-flex items-center gap-2 rounded-lg bg-brand px-6 py-2.5 text-sm font-semibold text-brand-foreground transition-opacity hover:opacity-90"
         >
           <LogIn className="size-4" />
-          Sign In
+          {t("signIn")}
         </Link>
       </div>
     );
@@ -80,13 +81,12 @@ export default function ProfilePage() {
 
   return (
     <div className="app-container pt-20 pb-12">
-      {/* Profile Header — IMDb style */}
       <div className="flex flex-col items-center gap-6 sm:flex-row sm:items-start sm:gap-8">
         <div className="relative size-24 shrink-0 overflow-hidden rounded-full bg-muted ring-2 ring-border sm:size-28">
           {user.photoURL ? (
             <Image
               src={user.photoURL}
-              alt={user.displayName || "Profile"}
+              alt={user.displayName || t("profileAlt")}
               fill
               className="object-cover"
               sizes="112px"
@@ -100,11 +100,11 @@ export default function ProfilePage() {
 
         <div className="flex flex-col items-center gap-2 sm:items-start sm:gap-1">
           <h1 className="text-2xl font-bold text-foreground sm:text-3xl">
-            {user.displayName || "User"}
+            {user.displayName || t("userLabel")}
           </h1>
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <Calendar className="size-3.5" />
-            <span>Joined {formatDate(user.metadata.creationTime ?? "")}</span>
+            <span>{t("joined", { date: formatDate(user.metadata.creationTime ?? "") })}</span>
           </div>
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <Mail className="size-3.5" />
@@ -116,48 +116,46 @@ export default function ProfilePage() {
           <div className="mt-1 flex items-center gap-2">
             <span className="inline-flex items-center gap-1 rounded-full bg-brand/10 px-3 py-0.5 text-xs font-semibold text-brand">
               <Award className="size-3" />
-              IMDb Member {getYearsSince(user.metadata.creationTime ?? "")}
+              {t("imdbMember", { years: getYearsSince(user.metadata.creationTime ?? "") })}
             </span>
             {user.emailVerified && (
               <span className="inline-flex items-center gap-1 rounded-full bg-green-500/10 px-3 py-0.5 text-xs font-medium text-green-600 dark:text-green-400">
                 <BadgeCheck className="size-3" />
-                Verified
+                {t("verified")}
               </span>
             )}
           </div>
         </div>
       </div>
 
-      {/* Stats Bar */}
       <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4">
         <StatCard
           icon={Calendar}
-          label="Member since"
+          label={t("memberSince")}
           value={formatDate(user.metadata.creationTime ?? "").split(",")[0]}
         />
         <StatCard
           icon={Clock}
-          label="Last login"
+          label={t("lastLogin")}
           value={formatDate(user.metadata.lastSignInTime ?? "").split(",")[0]}
         />
         <StatCard
           icon={Shield}
-          label="Account type"
-          value={user.isAnonymous ? "Anonymous" : "Registered"}
+          label={t("accountType")}
+          value={user.isAnonymous ? t("anonymous") : t("registered")}
         />
         <StatCard
           icon={Star}
-          label="Providers"
+          label={t("providers")}
           value={String(user.providerData?.length || 1)}
         />
       </div>
 
-      {/* Connected Accounts */}
       {user.providerData && user.providerData.length > 0 && (
         <section className="mt-12">
           <h2 className="flex items-center gap-2 text-lg font-bold text-foreground">
             <Shield className="size-5 text-brand" />
-            Connected Accounts
+            {t("connectedAccounts")}
           </h2>
           <div className="mt-4 space-y-2">
             {user.providerData.map((provider, i) => (
@@ -177,7 +175,7 @@ export default function ProfilePage() {
                   </p>
                 </div>
                 <span className="shrink-0 rounded-full bg-green-500/10 px-2.5 py-0.5 text-[11px] font-medium text-green-600 dark:text-green-400">
-                  Connected
+                  {t("connected")}
                 </span>
                 <ChevronRight className="size-4 text-muted-foreground/40" />
               </div>
@@ -186,29 +184,28 @@ export default function ProfilePage() {
         </section>
       )}
 
-      {/* Account Details */}
       <section className="mt-10">
         <h2 className="flex items-center gap-2 text-lg font-bold text-foreground">
           <User className="size-5 text-brand" />
-          Account Details
+          {t("accountDetails")}
         </h2>
         <div className="mt-4 divide-y divide-border rounded-xl border border-border bg-card">
-          <DetailRow label="User ID" value={user.uid} mono />
-          <DetailRow label="Email" value={user.email ?? ""} />
+          <DetailRow label={t("userId")} value={user.uid} mono />
+          <DetailRow label={t("email")} value={user.email ?? ""} />
           <DetailRow
-            label="Email verified"
-            value={user.emailVerified ? "Yes" : "No"}
+            label={t("emailVerified")}
+            value={user.emailVerified ? tc("yes") : tc("no")}
           />
           <DetailRow
-            label="Display name"
+            label={t("displayName")}
             value={user.displayName || "\u2014"}
           />
           <DetailRow
-            label="Anonymous"
-            value={user.isAnonymous ? "Yes" : "No"}
+            label={t("anonymousLabel")}
+            value={user.isAnonymous ? tc("yes") : tc("no")}
           />
           <DetailRow
-            label="Sign-in method"
+            label={t("signInMethod")}
             value={user.providerData[0]?.providerId || "unknown"}
             capitalize
           />

@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Play, Subtitles, Volume2, Monitor } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/shared/components/ui/card";
@@ -18,6 +19,7 @@ const languages = [
 ];
 
 export function PlaybackSettings() {
+  const t = useTranslations("Settings.playback");
   const [autoPlay, setAutoPlay] = useState(true);
   const [subtitles, setSubtitles] = useState(true);
   const [quality, setQuality] = useState("Auto");
@@ -26,9 +28,9 @@ export function PlaybackSettings() {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-lg font-bold text-foreground">Playback</h2>
+        <h2 className="text-lg font-bold text-foreground">{t("heading")}</h2>
         <p className="text-sm text-muted-foreground mt-0.5">
-          Control your viewing experience
+          {t("description")}
         </p>
       </div>
 
@@ -36,7 +38,7 @@ export function PlaybackSettings() {
         <CardHeader>
           <CardTitle className="text-base flex items-center gap-2">
             <Play className="size-4 text-brand" />
-            Playback Preferences
+            {t("playbackSettings")}
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-5">
@@ -46,10 +48,10 @@ export function PlaybackSettings() {
                 htmlFor="autoplay"
                 className="text-sm font-medium text-foreground"
               >
-                Auto-play next episode
+                {t("autoplay")}
               </label>
               <p className="text-xs text-muted-foreground">
-                Automatically play the next episode in a series
+                {t("autoplayDesc")}
               </p>
             </div>
             <Switch
@@ -64,10 +66,10 @@ export function PlaybackSettings() {
                 htmlFor="subtitles"
                 className="text-sm font-medium text-foreground"
               >
-                Subtitles
+                {t("captions")}
               </label>
               <p className="text-xs text-muted-foreground">
-                Show subtitles by default when available
+                {t("captionsDesc")}
               </p>
             </div>
             <Switch
@@ -83,7 +85,7 @@ export function PlaybackSettings() {
         <CardHeader>
           <CardTitle className="text-base flex items-center gap-2">
             <Monitor className="size-4 text-brand" />
-            Video Quality
+            {t("quality")}
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -99,12 +101,12 @@ export function PlaybackSettings() {
                     : "border-border bg-card text-muted-foreground hover:bg-muted hover:text-foreground",
                 )}
               >
-                {option}
+                {option === "Auto" ? t("auto") : option}
               </button>
             ))}
           </div>
           <p className="text-xs text-muted-foreground mt-3">
-            Higher quality uses more data. Auto adjusts based on your connection.
+            {t("qualityDesc")}
           </p>
         </CardContent>
       </Card>

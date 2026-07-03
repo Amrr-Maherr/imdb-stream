@@ -1,5 +1,6 @@
 import { fetchApi } from "@/shared/services/fetchApi";
 import { ErrorState } from "@/shared/components/error-state";
+import { getTranslations } from "next-intl/server";
 import type { TMDBMovieDetails, TMDBTVDetails } from "@/shared/types/tmdb";
 import { MovieHero } from "@/features/movies/components/detail/movie-hero";
 import { MovieCollection } from "@/features/movies/components/detail/movie-collection";
@@ -63,6 +64,7 @@ export async function generateMetadata({ params }: Props) {
 
 export default async function ListItemPage({ params }: Props) {
   const { mediaType, id, locale } = await params;
+  const t = await getTranslations({ locale, namespace: "ErrorState" });
 
   const { slug } = await params;
 
@@ -75,24 +77,25 @@ export default async function ListItemPage({ params }: Props) {
 
   return (
     <ErrorState
-      title="Invalid media type"
-      description={`The media type "${mediaType}" is not supported.`}
-      actionLabel="Go Home"
+      title={t("invalidMediaType")}
+      description={t("invalidMediaTypeDesc", { mediaType })}
+      actionLabel={t("goHome")}
       actionHref="/"
     />
   );
 }
 
 async function MovieContent({ id, locale }: { id: string; locale: string }) {
+  const t = await getTranslations({ locale, namespace: "ErrorState" });
   let movie: TMDBMovieDetails;
   try {
     movie = await getMovie(id, locale);
   } catch {
     return (
       <ErrorState
-        title="Movie not found"
-        description="We couldn't find the movie you're looking for. It may not exist or there was an error loading it."
-        actionLabel="Go Home"
+        title={t("movieNotFound")}
+        description={t("movieNotFoundDesc")}
+        actionLabel={t("goHome")}
         actionHref="/"
       />
     );
@@ -145,15 +148,16 @@ async function MovieContent({ id, locale }: { id: string; locale: string }) {
 }
 
 async function TvContent({ id, slug, locale }: { id: string; slug: string; locale: string }) {
+  const t = await getTranslations({ locale, namespace: "ErrorState" });
   let show: TMDBTVDetails;
   try {
     show = await getTvShow(id, locale);
   } catch {
     return (
       <ErrorState
-        title="TV Show not found"
-        description="We couldn't find the TV show you're looking for."
-        actionLabel="Go Home"
+        title={t("tvNotFound")}
+        description={t("tvNotFoundDesc")}
+        actionLabel={t("goHome")}
         actionHref="/"
       />
     );

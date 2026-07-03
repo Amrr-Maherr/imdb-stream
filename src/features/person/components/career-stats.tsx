@@ -1,4 +1,7 @@
-﻿import type { PersonCreditCast, PersonCreditCrew } from "@/shared/types/tmdb";
+﻿"use client";
+
+import type { PersonCreditCast, PersonCreditCrew } from "@/shared/types/tmdb";
+import { useTranslations } from "next-intl";
 import { Film, Tv, Clapperboard, PenLine, Monitor, Pencil } from "lucide-react";
 import { FadeIn } from "@/features/movies/components/detail/fade-in";
 
@@ -14,6 +17,7 @@ type StatItem = {
 };
 
 export function CareerStats({ cast, crew }: CareerStatsProps) {
+  const t = useTranslations("Person");
   const movies = cast.filter((c) => c.media_type === "movie").length +
     crew.filter((c) => c.media_type === "movie").length;
   const tvShows = cast.filter((c) => c.media_type === "tv").length +
@@ -24,9 +28,9 @@ export function CareerStats({ cast, crew }: CareerStatsProps) {
   const writing = crew.filter((c) => c.department === "Writing").length;
 
   const stats: StatItem[] = [
-    { label: "Movies", value: movies, icon: <Film className="size-4" /> },
-    { label: "TV Shows", value: tvShows, icon: <Tv className="size-4" /> },
-    { label: "Acting", value: acting, icon: <Clapperboard className="size-4" /> },
+    { label: t("movies"), value: movies, icon: <Film className="size-4" /> },
+    { label: t("tvShows"), value: tvShows, icon: <Tv className="size-4" /> },
+    { label: t("acting"), value: acting, icon: <Clapperboard className="size-4" /> },
     { label: "Directing", value: directing, icon: <Monitor className="size-4" /> },
     { label: "Producing", value: producing, icon: <PenLine className="size-4" /> },
     { label: "Writing", value: writing, icon: <Pencil className="size-4" /> },
@@ -38,7 +42,7 @@ export function CareerStats({ cast, crew }: CareerStatsProps) {
   return (
     <FadeIn>
       <section>
-        <h2 className="text-xl font-bold text-foreground mb-4">Career Statistics</h2>
+        <h2 className="text-xl font-bold text-foreground mb-4">{t("careerStatistics")}</h2>
         <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
           {stats.map((stat) => (
             <div

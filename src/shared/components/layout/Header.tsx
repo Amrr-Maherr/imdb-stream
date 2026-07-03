@@ -12,6 +12,13 @@ import LanguageSwitcher from "@/shared/components/ui/language-switcher";
 import ThemeToggle from "@/shared/components/ui/theme-toggle";
 import { Button } from "@/shared/components/ui/button";
 import { useAuth } from "@/shared/provider/authProvider";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/shared/components/ui/drawer";
 export default function Header() {
   const t = useTranslations("Header");
   const [scrolled, setScrolled] = useState(false);
@@ -73,36 +80,56 @@ export default function Header() {
               </Button>
             ))}
 
-          <Button
-            variant="ghost"
-            size="icon"
-            className="md:hidden"
-            onClick={() => setMobileMenuOpen((p) => !p)}
-            aria-label={t("toggleMenu")}
+          <Drawer
+            open={mobileMenuOpen}
+            onOpenChange={setMobileMenuOpen}
           >
-            {mobileMenuOpen ? (
-              <X className="size-5" />
-            ) : (
-              <Menu className="size-5" />
-            )}
-          </Button>
+            <DrawerTrigger asChild>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="md:hidden"
+                aria-label={t("toggleMenu")}
+              >
+                {mobileMenuOpen ? (
+                  <X className="size-5" />
+                ) : (
+                  <Menu className="size-5" />
+                )}
+              </Button>
+            </DrawerTrigger>
+            <DrawerContent className="p-0">
+              <DrawerHeader className="border-b border-border px-5 py-3.5">
+                <DrawerTitle className="text-base font-semibold">
+                  Menu
+                </DrawerTitle>
+              </DrawerHeader>
+              <div className="space-y-4 px-5 py-4">
+                <NavLinks mobile />
+                <div className="flex flex-col gap-2 border-t border-border pt-4">
+                  {user ? (
+                    <Button
+                      onClick={logout}
+                      variant="outline"
+                      className="w-full"
+                    >
+                      {t("signOut")}
+                    </Button>
+                  ) : (
+                    <Button asChild variant="outline" className="w-full">
+                      <Link href="/auth/signin">{t("signIn")}</Link>
+                    </Button>
+                  )}
+                  <div className="flex items-center gap-2">
+                    <LanguageSwitcher />
+                    <ThemeToggle />
+                  </div>
+                </div>
+              </div>
+            </DrawerContent>
+          </Drawer>
         </div>
       </div>
-
-      {mobileMenuOpen && (
-        <div className="app-container space-y-4 border-t border-border bg-background py-4 md:hidden">
-          <NavLinks mobile />
-          <div className="flex flex-col gap-2 border-t border-border pt-4">
-            <Button asChild variant="outline" className="w-full">
-              <Link href="/auth/signin">{t("signIn")}</Link>
-            </Button>
-            <div className="flex items-center gap-2">
-              <LanguageSwitcher />
-              <ThemeToggle />
-            </div>
-          </div>
-        </div>
-      )}
     </header>
   );
 }

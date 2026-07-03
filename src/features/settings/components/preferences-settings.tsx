@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Palette, Sun, Moon, Monitor, Globe, Languages } from "lucide-react";
 import { useTheme } from "next-themes";
@@ -19,15 +20,16 @@ const languages = [
 ];
 
 export function PreferencesSettings() {
+  const t = useTranslations("Settings.preferences");
   const { theme, setTheme } = useTheme();
   const [language, setLanguage] = useState("en");
 
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-lg font-bold text-foreground">Preferences</h2>
+        <h2 className="text-lg font-bold text-foreground">{t("heading")}</h2>
         <p className="text-sm text-muted-foreground mt-0.5">
-          Customize your experience
+          {t("description")}
         </p>
       </div>
 
@@ -63,7 +65,7 @@ export function PreferencesSettings() {
         <CardHeader>
           <CardTitle className="text-base flex items-center gap-2">
             <Globe className="size-4 text-brand" />
-            Language
+            {t("languageRegion")}
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -85,8 +87,7 @@ export function PreferencesSettings() {
             ))}
           </div>
           <p className="text-xs text-muted-foreground mt-3">
-            Language selection changes the interface language. Content language
-            can be set in Playback settings.
+            {t("languageRegionDesc")}
           </p>
         </CardContent>
       </Card>

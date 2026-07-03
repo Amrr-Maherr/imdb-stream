@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { Star } from "lucide-react";
 import { slugify } from "@/shared/utils/slugify";
 import { Slider } from "@/shared/components/ui/slider";
@@ -22,8 +25,8 @@ type PersonKnownForProps = {
   items: KnownForItem[];
 };
 
-function getTitle(item: KnownForItem) {
-  return item.title || item.name || "Unknown";
+function getTitle(item: KnownForItem, t: (key: string) => string) {
+  return item.title || item.name || t("unknown");
 }
 
 function getYear(item: KnownForItem) {
@@ -39,11 +42,12 @@ function getHref(item: KnownForItem) {
 }
 
 export function PersonKnownFor({ items }: PersonKnownForProps) {
+  const t = useTranslations("Person");
   if (items.length === 0) return null;
 
   return (
     <section>
-      <h2 className="text-xl font-bold text-foreground mb-4">Known For</h2>
+      <h2 className="text-xl font-bold text-foreground mb-4">{t("knownFor")}</h2>
       <Slider
         slidesPerView={6}
         slidesMobilePerView={2.5}
@@ -59,7 +63,7 @@ export function PersonKnownFor({ items }: PersonKnownForProps) {
 
           return (
             <Link
-              key={item.credit_id ?? `${item.id}-${getTitle(item)}`}
+              key={item.credit_id ?? `${item.id}-${getTitle(item, t)}`}
               href={href}
               className="group w-full"
             >
@@ -67,14 +71,14 @@ export function PersonKnownFor({ items }: PersonKnownForProps) {
                 {item.poster_path ? (
                   <Image
                     src={`${TMDB_IMAGE_BASE}/w342${item.poster_path}`}
-                    alt={getTitle(item)}
+                    alt={getTitle(item, t)}
                     fill
                     className="object-cover transition-transform duration-300 group-hover:scale-105"
                     sizes="160px"
                   />
                 ) : (
                   <div className="flex h-full items-center justify-center p-2 text-center text-xs text-muted-foreground">
-                    {getTitle(item)}
+                    {getTitle(item, t)}
                   </div>
                 )}
                 <div className="absolute top-1.5 right-1.5 flex items-center gap-0.5 rounded bg-black/60 px-1 py-0.5 text-[10px] text-white">
@@ -83,12 +87,12 @@ export function PersonKnownFor({ items }: PersonKnownForProps) {
                 </div>
               </div>
               <p className="mt-1.5 text-sm font-medium text-foreground truncate group-hover:text-brand transition-colors">
-                {getTitle(item)}
+                {getTitle(item, t)}
               </p>
               <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
                 {year && <span>{year}</span>}
                 <span className="rounded bg-muted px-1 py-0.5 uppercase text-[10px]">
-                  {item.media_type === "movie" ? "Movie" : "TV"}
+                  {item.media_type === "movie" ? t("movie") : t("tv")}
                 </span>
               </div>
             </Link>

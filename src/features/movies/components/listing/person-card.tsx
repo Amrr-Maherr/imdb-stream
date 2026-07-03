@@ -1,6 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { TrendingUp } from "lucide-react";
+import { useTranslations } from "next-intl";
 import type { TMDBPerson } from "@/shared/types/tmdb";
 import { cn } from "@/shared/utils/utils";
 import { slugify } from "@/shared/utils/slugify";
@@ -13,6 +16,7 @@ type PersonCardProps = {
 };
 
 export function PersonCard({ person, featured, className }: PersonCardProps & { className?: string }) {
+  const t = useTranslations("Person");
   const knownFor = person.known_for
     ?.slice(0, 2)
     .map((item) => ("title" in item ? item.title : item.name))
@@ -48,7 +52,7 @@ export function PersonCard({ person, featured, className }: PersonCardProps & { 
           </p>
           {knownFor && (
             <p className="text-xs text-muted-foreground/70 line-clamp-1">
-              Known for: {knownFor}
+              {t("knownForLabel")} {knownFor}
             </p>
           )}
           <div className="flex items-center justify-center gap-1 text-[11px] text-muted-foreground/50">

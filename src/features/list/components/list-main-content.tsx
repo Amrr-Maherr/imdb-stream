@@ -1,6 +1,9 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { Star, Tv } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { slugify } from "@/shared/utils/slugify";
 import { FadeIn } from "@/features/movies/components/detail/fade-in";
 import { EmptyState } from "@/shared/components/empty-state";
@@ -43,6 +46,7 @@ export function ListMainContent({
   description,
   items,
 }: ListMainContentProps) {
+  const t = useTranslations("List");
   const isMovie = items.every((item) => item.media_type === "movie");
   const isTV = items.every((item) => item.media_type === "tv");
 
@@ -52,7 +56,7 @@ export function ListMainContent({
       {description && (
         <FadeIn>
           <section>
-            <h2 className="text-xl font-bold text-foreground mb-3">About</h2>
+            <h2 className="text-xl font-bold text-foreground mb-3">{t("about")}</h2>
             <p className="text-muted-foreground leading-relaxed">{description}</p>
           </section>
         </FadeIn>
@@ -63,7 +67,7 @@ export function ListMainContent({
         <FadeIn delay={0.05}>
           <section>
             <h2 className="text-xl font-bold text-foreground mb-6">
-              {isMovie ? "Movies" : isTV ? "TV Shows" : "Titles"}
+              {isMovie ? t("movies") : isTV ? t("tvShows") : t("titles")}
               <span className="text-muted-foreground font-normal text-base ml-2">
                 ({items.length})
               </span>
@@ -123,7 +127,7 @@ export function ListMainContent({
 
       {items.length === 0 && (
         <EmptyState
-          title="This list is empty."
+          title={t("empty")}
           className="py-16"
         />
       )}

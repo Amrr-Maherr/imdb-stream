@@ -1,4 +1,7 @@
-﻿import Image from "next/image";
+﻿"use client";
+
+import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { Star, Calendar, Tv } from "lucide-react";
 import type { TVSeasonDetails } from "@/shared/types/tmdb";
 import { FadeIn } from "@/features/movies/components/detail/fade-in";
@@ -12,6 +15,7 @@ type SeasonHeroProps = {
 };
 
 export function SeasonHero({ season, backdropPath, tvName }: SeasonHeroProps) {
+  const t = useTranslations("TvDetail");
   return (
     <FadeIn>
       <section className="relative w-full aspect-[4/5] md:aspect-[16/9] lg:aspect-[21/9] overflow-hidden">
@@ -62,9 +66,9 @@ export function SeasonHero({ season, backdropPath, tvName }: SeasonHeroProps) {
                 <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-2 text-sm text-white/70">
                   <span className="inline-flex items-center gap-1">
                     <Calendar className="size-3.5" />
-                    {season.air_date?.slice(0, 4) ?? "TBA"}
+                    {season.air_date?.slice(0, 4) ?? t("tba")}
                   </span>
-                  <span>· {season.episodes.length} Episodes</span>
+                  <span>· {t("episodeCount", { count: season.episodes.length })}</span>
                   <span className="inline-flex items-center gap-1">
                     <Star className="size-3.5 fill-rating-star text-rating-star" />
                     <span className="text-white font-medium">{season.vote_average.toFixed(1)}</span>

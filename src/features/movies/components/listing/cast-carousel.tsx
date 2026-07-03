@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { Slider } from "@/shared/components/ui/slider";
 import type { CastMember } from "@/shared/types/tmdb";
 
@@ -11,11 +12,12 @@ type CastCarouselProps = {
 };
 
 export function CastCarousel({ cast }: CastCarouselProps) {
+  const t = useTranslations("MovieDetail");
   if (cast.length === 0) return null;
 
   return (
     <section>
-      <h2 className="text-2xl font-bold text-foreground mb-6">Top Cast</h2>
+      <h2 className="text-2xl font-bold text-foreground mb-6">{t("topCast")}</h2>
       <Slider
         slidesPerView={6}
         spaceBetween={6}

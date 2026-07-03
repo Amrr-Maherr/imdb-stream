@@ -1,6 +1,7 @@
 "use client";
 
 import type { TMDBCompanyMovie, TMDBMovie } from "@/shared/types/tmdb";
+import { useTranslations } from "next-intl";
 import { MovieCard } from "@/features/movies/components/listing/movie-card";
 import { MediaRow } from "@/features/movies/components/listing/media-row";
 import { EmptyState } from "@/shared/components/empty-state";
@@ -10,6 +11,7 @@ type ProductionCompanyPortfolioProps = {
 };
 
 export function ProductionCompanyPortfolio({ movies }: ProductionCompanyPortfolioProps) {
+  const t = useTranslations("Company");
   const popularWorks = [...movies]
     .sort((a, b) => b.popularity - a.popularity)
     .slice(0, 20);
@@ -28,8 +30,8 @@ export function ProductionCompanyPortfolio({ movies }: ProductionCompanyPortfoli
     ...(popularWorks.length > 0
       ? [
           {
-            title: "Popular Works",
-            subtitle: "Most popular productions",
+            title: t("popularWorks"),
+            subtitle: t("mostPopular"),
             slidesPerView: 5 as const,
             slidesMobilePerView: 2.5 as const,
             spaceBetween: 16 as const,
@@ -40,8 +42,8 @@ export function ProductionCompanyPortfolio({ movies }: ProductionCompanyPortfoli
     ...(recentWorks.length > 0
       ? [
           {
-            title: "Recent Works",
-            subtitle: "Latest releases",
+            title: t("recentWorks"),
+            subtitle: t("latestReleases"),
             slidesPerView: 4 as const,
             slidesMobilePerView: 2 as const,
             spaceBetween: 20 as const,
@@ -52,8 +54,8 @@ export function ProductionCompanyPortfolio({ movies }: ProductionCompanyPortfoli
     ...(topRated.length > 0
       ? [
           {
-            title: "Top Rated",
-            subtitle: "Highest rated productions",
+            title: t("topRated"),
+            subtitle: t("highestRated"),
             slidesPerView: 3.5 as const,
             slidesMobilePerView: 1.5 as const,
             spaceBetween: 24 as const,
@@ -66,9 +68,9 @@ export function ProductionCompanyPortfolio({ movies }: ProductionCompanyPortfoli
   if (sections.length === 0) {
     return (
       <section>
-        <h2 className="text-xl font-bold text-foreground mb-6">Productions</h2>
+        <h2 className="text-xl font-bold text-foreground mb-6">{t("productions")}</h2>
         <EmptyState
-          title="No productions available."
+          title={t("noProductions")}
           className="py-0"
         />
       </section>

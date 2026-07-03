@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { Star } from "lucide-react";
 import type { PersonCreditCast, PersonCreditCrew } from "@/shared/types/tmdb";
 import { slugify } from "@/shared/utils/slugify";
@@ -18,8 +21,8 @@ function getYear(item: { release_date?: string; first_air_date?: string }) {
   return date.slice(0, 4);
 }
 
-function getTitle(item: { title?: string; name?: string }) {
-  return item.title || item.name || "Unknown";
+function getTitle(item: { title?: string; name?: string }, t: (key: string) => string) {
+  return item.title || item.name || t("unknown");
 }
 
 function getHref(item: { media_type: string; id: number; title?: string; name?: string }) {
@@ -32,6 +35,7 @@ function getHref(item: { media_type: string; id: number; title?: string; name?: 
 type KnownForDepartment = string;
 
 export function PersonCredits({ cast, crew }: PersonCreditsProps) {
+  const t = useTranslations("Person");
   const departments = new Map<KnownForDepartment, PersonCreditCrew[]>();
   for (const c of crew) {
     const dept = c.department || "Other";
@@ -41,17 +45,17 @@ export function PersonCredits({ cast, crew }: PersonCreditsProps) {
 
   return (
     <section>
-      <h2 className="text-xl font-bold text-foreground mb-6">Filmography</h2>
+      <h2 className="text-xl font-bold text-foreground mb-6">{t("filmography")}</h2>
 
       {/* Acting */}
       {cast.length > 0 && (
         <div className="mb-10">
-          <h3 className="text-lg font-semibold text-foreground mb-4">Acting</h3>
+          <h3 className="text-lg font-semibold text-foreground mb-4">{t("acting")}</h3>
           <div className="space-y-1">
             {cast.map((credit) => (
               <CreditRow
                 key={`cast-${credit.credit_id}`}
-                title={getTitle(credit)}
+                title={getTitle(credit, t)}
                 year={getYear(credit)}
                 posterPath={credit.poster_path}
                 role={credit.character}
@@ -72,7 +76,7 @@ export function PersonCredits({ cast, crew }: PersonCreditsProps) {
             {credits.map((credit) => (
               <CreditRow
                 key={`crew-${credit.credit_id}`}
-                title={getTitle(credit)}
+                title={getTitle(credit, t)}
                 year={getYear(credit)}
                 posterPath={credit.poster_path}
                 role={credit.job}
@@ -87,7 +91,7 @@ export function PersonCredits({ cast, crew }: PersonCreditsProps) {
 
       {cast.length === 0 && departments.size === 0 && (
         <EmptyState
-          title="No credits available."
+          title={t("noCredits")}
           className="py-16"
         />
       )}
@@ -106,6 +110,7 @@ type CreditRowProps = {
 };
 
 function CreditRow({ title, year, posterPath, role, href, voteAverage, mediaType }: CreditRowProps) {
+  const t = useTranslations("Person");
   return (
     <Link
       href={href}
@@ -142,10 +147,10 @@ function CreditRow({ title, year, posterPath, role, href, voteAverage, mediaType
       <div className="flex items-center gap-3 flex-shrink-0 text-xs text-muted-foreground">
         <span>{year}</span>
         {mediaType === "movie" && (
-          <span className="rounded bg-muted px-1.5 py-0.5 uppercase">Movie</span>
+          <span className="rounded bg-muted px-1.5 py-0.5 uppercase">{t("movie")}</span>
         )}
         {mediaType === "tv" && (
-          <span className="rounded bg-muted px-1.5 py-0.5 uppercase">TV</span>
+          <span className="rounded bg-muted px-1.5 py-0.5 uppercase">{t("tv")}</span>
         )}
         <div className="flex items-center gap-0.5">
           <Star className="size-3 fill-yellow-400 text-yellow-400" />

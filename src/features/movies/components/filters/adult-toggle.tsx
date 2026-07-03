@@ -1,12 +1,14 @@
 "use client"
 
 import { Eye, EyeOff } from "lucide-react"
+import { useTranslations } from "next-intl"
 import { useRouter, useSearchParams } from "next/navigation"
 import { Switch } from "@/shared/components/ui/switch"
 import { Label } from "@/shared/components/ui/label"
 import { PARAM_KEYS } from "./constants"
 
 function AdultToggle() {
+  const t = useTranslations("Filters")
   const router = useRouter()
   const searchParams = useSearchParams()
   const checked = searchParams.get(PARAM_KEYS.adult) === "true"
@@ -31,7 +33,7 @@ function AdultToggle() {
         ) : (
           <EyeOff className="size-3.5 text-muted-foreground" />
         )}
-        Adult
+        {t("adult")}
       </Label>
     </div>
   )

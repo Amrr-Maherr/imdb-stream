@@ -1,4 +1,7 @@
+"use client";
+
 import { ExternalLink, Globe } from "lucide-react";
+import { useTranslations } from "next-intl";
 import type { ExternalIds } from "@/shared/types/tmdb";
 import { MovieSection } from "@/features/movies/components/detail/movie-section";
 import { Link2 } from "lucide-react";
@@ -10,27 +13,27 @@ type ProductionCompanyLinksProps = {
 
 const LINKS: {
   key: keyof ExternalIds;
-  label: string;
+  labelKey: string;
   href: (id: string) => string;
 }[] = [
   {
     key: "imdb_id",
-    label: "IMDb",
+    labelKey: "imdb",
     href: (id) => `https://www.imdb.com/company/${id}`,
   },
   {
     key: "facebook_id",
-    label: "Facebook",
+    labelKey: "facebook",
     href: (id) => `https://www.facebook.com/${id}`,
   },
   {
     key: "instagram_id",
-    label: "Instagram",
+    labelKey: "instagram",
     href: (id) => `https://www.instagram.com/${id}`,
   },
   {
     key: "twitter_id",
-    label: "X (Twitter)",
+    labelKey: "twitterX",
     href: (id) => `https://twitter.com/${id}`,
   },
 ];
@@ -39,6 +42,7 @@ export function ProductionCompanyLinks({
   homepage,
   externalIds,
 }: ProductionCompanyLinksProps) {
+  const t = useTranslations("Company");
   const socialLinks = externalIds
     ? LINKS.filter((link) => externalIds[link.key])
     : [];
@@ -46,7 +50,7 @@ export function ProductionCompanyLinks({
   if (!homepage && socialLinks.length === 0) return null;
 
   return (
-    <MovieSection title="External Links" icon={<Link2 className="size-5" />}>
+    <MovieSection title={t("externalLinks")} icon={<Link2 className="size-5" />}>
       <div className="flex flex-wrap gap-2">
         {homepage && (
           <a
@@ -56,7 +60,7 @@ export function ProductionCompanyLinks({
             className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-card px-3 py-2 text-sm font-medium text-foreground hover:bg-muted transition-colors"
           >
             <Globe className="size-3.5" />
-            Official Website
+            {t("officialWebsite")}
           </a>
         )}
         {socialLinks.map((link) => {
@@ -71,7 +75,7 @@ export function ProductionCompanyLinks({
               className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-card px-3 py-2 text-sm font-medium text-foreground hover:bg-muted transition-colors"
             >
               <ExternalLink className="size-3.5" />
-              {link.label}
+              {t(link.labelKey)}
             </a>
           );
         })}

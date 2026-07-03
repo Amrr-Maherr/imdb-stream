@@ -3,6 +3,8 @@ import type { TMDBCompanyDetails } from "@/shared/types/tmdb";
 import { MediaRow } from "@/features/movies/components/listing/media-row";
 import { CompanyCard } from "./company-card";
 
+const COMPANY_NS = "Company";
+
 const STUDIO_IDS = [
   1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 25, 33, 11725,
 ];
@@ -27,6 +29,8 @@ async function fetchByIds(ids: number[]): Promise<TMDBCompanyDetails[]> {
 }
 
 export async function ProductionCompaniesSection() {
+  const { getTranslations } = await import("next-intl/server");
+  const t = await getTranslations(COMPANY_NS);
   const companies = await fetchByIds(STUDIO_IDS);
   if (companies.length === 0) return null;
 
@@ -36,15 +40,15 @@ export async function ProductionCompaniesSection() {
         <div className="h-6 w-1 rounded-full bg-brand" />
         <div>
           <h2 className="text-2xl font-bold text-foreground">
-            Production Companies
+            {t("productionCompanies")}
           </h2>
           <p className="text-sm text-muted-foreground">
-            Major studios and production houses
+            {t("majorStudios")}
           </p>
         </div>
       </div>
       <MediaRow
-        title="Studios"
+        title={t("studios")}
         slidesPerView={5}
         slidesMobilePerView={2.5}
         spaceBetween={14}
@@ -58,6 +62,8 @@ export async function ProductionCompaniesSection() {
 }
 
 export async function PlatformsSection() {
+  const { getTranslations } = await import("next-intl/server");
+  const t = await getTranslations(COMPANY_NS);
   const platforms = await fetchByIds(PLATFORM_IDS);
   if (platforms.length === 0) return null;
 
@@ -66,14 +72,14 @@ export async function PlatformsSection() {
       <div className="flex items-center gap-3">
         <div className="h-6 w-1 rounded-full bg-brand" />
         <div>
-          <h2 className="text-2xl font-bold text-foreground">Platforms</h2>
+          <h2 className="text-2xl font-bold text-foreground">{t("platforms")}</h2>
           <p className="text-sm text-muted-foreground">
-            Networks and streaming services
+            {t("networksStreaming")}
           </p>
         </div>
       </div>
       <MediaRow
-        title="Networks & Streaming"
+        title={t("networksShort")}
         slidesPerView={5}
         slidesMobilePerView={2.5}
         spaceBetween={14}

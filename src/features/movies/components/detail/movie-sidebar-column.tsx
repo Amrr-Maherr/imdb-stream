@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import type { TMDBMovieDetails } from "@/shared/types/tmdb";
 import { Tv } from "lucide-react";
 import { MovieSidebar } from "./movie-sidebar";
@@ -9,6 +10,7 @@ type MovieSidebarColumnProps = {
 };
 
 export function MovieSidebarColumn({ movie }: MovieSidebarColumnProps) {
+  const t = useTranslations("MovieDetail");
   const watchProviders = movie["watch/providers"] ?? null;
 
   return (
@@ -40,7 +42,7 @@ export function MovieSidebarColumn({ movie }: MovieSidebarColumnProps) {
           <div className="rounded-xl border border-border bg-card p-5">
             <div className="flex items-center gap-2 mb-4">
               <Tv className="size-4 text-muted-foreground" />
-              <h3 className="text-sm font-bold text-foreground uppercase tracking-wide">Watch</h3>
+              <h3 className="text-sm font-bold text-foreground uppercase tracking-wide">{t("watch")}</h3>
             </div>
             <MovieWatchProviders providers={watchProviders} />
           </div>

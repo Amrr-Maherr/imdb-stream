@@ -1,5 +1,8 @@
+"use client";
+
 import { Phone } from "lucide-react"
 import Link from "next/link"
+import { useTranslations } from "next-intl"
 
 import { Button } from "@/shared/components/ui/button"
 import { EmailPasswordAuth } from "./email-password-auth"
@@ -8,6 +11,8 @@ import { GuestAuth } from "./guest-auth"
 import { AuthDivider } from "./auth-divider"
 
 export function AuthProviders() {
+  const tc = useTranslations("Common")
+
   return (
     <div className="space-y-4">
       <EmailPasswordAuth />
@@ -25,7 +30,7 @@ export function AuthProviders() {
           className="w-full gap-2"
         >
           <Phone size={16} strokeWidth={2} />
-          Continue with Phone
+          {tc("continueWithPhone")}
         </Button>
       </Link>
 

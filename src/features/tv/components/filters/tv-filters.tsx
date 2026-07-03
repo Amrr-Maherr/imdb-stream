@@ -1,6 +1,7 @@
 "use client";
 
 import { RotateCcw } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { GenreDropdown } from "./genre-dropdown";
 import { LanguageDropdown } from "./language-dropdown";
 import { CountryDropdown } from "./country-dropdown";
@@ -8,11 +9,12 @@ import { SortSelect } from "./sort-select";
 import { YearSelect } from "./year-select";
 import { RatingSelect } from "./rating-select";
 import { AdultToggle } from "./adult-toggle";
-import { MobileFilterSheet } from "./mobile-filter-sheet";
+import { MobileFilterDrawer } from "./mobile-filter-drawer";
 import { Button } from "@/shared/components/ui/button";
 import { useResetFilters } from "@/shared/hooks/useResetFilters";
 
 function DesktopFilters({ totalResults }: { totalResults?: number }) {
+  const t = useTranslations("Filters");
   const { hasFilters, handleReset } = useResetFilters();
 
   return (
@@ -20,15 +22,15 @@ function DesktopFilters({ totalResults }: { totalResults?: number }) {
       <div className="flex items-center justify-between mb-3">
         <div className="space-y-0.5">
           <h2 className="text-sm font-semibold text-foreground leading-none">
-            Filters
+            {t("filters")}
           </h2>
           <p className="text-xs text-muted-foreground">
-            Refine results using genres, ratings, languages, and more.
+            {t("description")}
           </p>
         </div>
         {totalResults !== undefined && (
           <span className="text-xs text-muted-foreground whitespace-nowrap ml-4">
-            {totalResults.toLocaleString()} results
+            {t("results", { count: totalResults })}
           </span>
         )}
       </div>
@@ -52,7 +54,7 @@ function DesktopFilters({ totalResults }: { totalResults?: number }) {
               className="gap-1.5 text-xs shrink-0"
             >
               <RotateCcw className="size-3.5" />
-              Clear Filters
+              {t("clearFilters")}
             </Button>
           )}
         </div>
@@ -65,7 +67,7 @@ function MobileBar() {
   return (
     <div className="sticky top-0 z-30 border-b border-border bg-background/80 backdrop-blur-xl">
       <div className="app-container py-2.5">
-        <MobileFilterSheet />
+        <MobileFilterDrawer />
       </div>
     </div>
   );

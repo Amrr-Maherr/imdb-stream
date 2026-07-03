@@ -1,6 +1,7 @@
 "use client";
 
 import { Star, Award } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { Slider } from "@/shared/components/ui/slider";
 
 type PremiumRowProps = {
@@ -16,6 +17,7 @@ export function PremiumRow({
   children,
   averageRating,
 }: PremiumRowProps) {
+  const t = useTranslations("Common");
   return (
     <section className="relative">
       <div className="flex items-end justify-between mb-4">
@@ -34,7 +36,7 @@ export function PremiumRow({
           <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-brand/10 text-brand text-sm font-semibold">
             <Star className="size-4 fill-brand text-brand" />
             <span>{averageRating.toFixed(1)}</span>
-            <span className="text-brand/60 text-xs font-normal">avg</span>
+            <span className="text-brand/60 text-xs font-normal">{t("avg")}</span>
           </div>
         )}
       </div>

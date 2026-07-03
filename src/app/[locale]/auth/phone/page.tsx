@@ -9,7 +9,7 @@ interface Props {
 export async function generateMetadata({ params }: Props) {
   const { locale } = await params
   const t = await getTranslations({ locale, namespace: "Auth" })
-  return { title: "Phone" }
+  return { title: t("phone.title") }
 }
 
 export default async function PhoneAuthPage() {

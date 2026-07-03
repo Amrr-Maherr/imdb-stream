@@ -1,4 +1,7 @@
-﻿import Link from "next/link";
+﻿"use client";
+
+import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { Monitor, Flag, Globe, ShieldCheck } from "lucide-react";
 import { MovieRating } from "@/features/movies/components/detail/movie-rating";
 import { slugify } from "@/shared/utils/slugify";
@@ -54,6 +57,9 @@ export function TvSidebar({
   inProduction,
   originCountry,
 }: TvSidebarProps) {
+  const t = useTranslations("TvDetail");
+  const tm = useTranslations("MovieDetail");
+  const tc = useTranslations("Common");
   return (
     <aside className="space-y-8">
       {/* Rating Card */}
@@ -68,13 +74,13 @@ export function TvSidebar({
       {/* TV Facts */}
       <div>
         <h3 className="text-sm font-bold text-foreground uppercase tracking-wide mb-3">
-          Facts
+          {tm("facts")}
         </h3>
         <div className="space-y-3">
           {status && (
             <div>
               <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                Status
+                {t("status")}
               </h4>
               <p className="text-sm text-foreground mt-0.5">{status}</p>
             </div>
@@ -82,7 +88,7 @@ export function TvSidebar({
           {type && (
             <div>
               <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                Type
+                {t("type")}
               </h4>
               <p className="text-sm text-foreground mt-0.5">{type}</p>
             </div>
@@ -90,7 +96,7 @@ export function TvSidebar({
           {firstAirDate && (
             <div>
               <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                First Air Date
+                {t("firstAirDate")}
               </h4>
               <p className="text-sm text-foreground mt-0.5">
                 {new Date(firstAirDate).toLocaleDateString("en-US", {
@@ -104,7 +110,7 @@ export function TvSidebar({
           {lastAirDate && (
             <div>
               <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                Last Air Date
+                {t("lastAirDate")}
               </h4>
               <p className="text-sm text-foreground mt-0.5">
                 {new Date(lastAirDate).toLocaleDateString("en-US", {
@@ -118,7 +124,7 @@ export function TvSidebar({
           {numberOfSeasons > 0 && (
             <div>
               <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                Seasons
+                {t("seasons")}
               </h4>
               <p className="text-sm text-foreground mt-0.5">
                 {numberOfSeasons}
@@ -128,7 +134,7 @@ export function TvSidebar({
           {numberOfEpisodes > 0 && (
             <div>
               <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                Episodes
+                {t("episodes")}
               </h4>
               <p className="text-sm text-foreground mt-0.5">
                 {numberOfEpisodes}
@@ -138,17 +144,17 @@ export function TvSidebar({
           {episodeRuntime.length > 0 && (
             <div>
               <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                Episode Runtime
+                {t("episodeRuntime")}
               </h4>
               <p className="text-sm text-foreground mt-0.5">
-                {episodeRuntime[0]} min
+                {t("runtimeMin", { runtime: episodeRuntime[0] })}
               </p>
             </div>
           )}
           {originalLanguage && (
             <div>
               <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                Original Language
+                {tm("originalLanguage")}
               </h4>
               <p className="text-sm text-foreground mt-0.5 uppercase">
                 {originalLanguage}
@@ -158,18 +164,18 @@ export function TvSidebar({
           {inProduction && (
             <div>
               <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                In Production
+                {t("inProduction")}
               </h4>
               <p className="text-sm text-foreground mt-0.5 flex items-center gap-1">
                 <ShieldCheck className="size-3.5" />
-                Yes
+                {tc("yes")}
               </p>
             </div>
           )}
           {createdBy.length > 0 && (
             <div>
               <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                Created by
+                {t("createdBy")}
               </h4>
               <div className="text-sm text-foreground mt-0.5 space-y-0.5">
                 {createdBy.map((name) => (
@@ -181,7 +187,7 @@ export function TvSidebar({
           {originalName !== name && (
             <div>
               <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                Original Name
+                {t("originalName")}
               </h4>
               <p className="text-sm text-foreground mt-0.5">{originalName}</p>
             </div>
@@ -189,7 +195,7 @@ export function TvSidebar({
           {originCountry?.length > 0 && (
             <div>
               <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                Origin Country
+                {tm("originCountry")}
               </h4>
               <p className="text-sm text-foreground mt-0.5 flex items-center gap-1">
                 <Flag className="size-3.5" />
@@ -200,7 +206,7 @@ export function TvSidebar({
           {productionCountries?.length > 0 && (
             <div>
               <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                Production Countries
+                {tm("productionCountries")}
               </h4>
               <p className="text-sm text-foreground mt-0.5 flex items-center gap-1">
                 <Globe className="size-3.5" />
@@ -211,7 +217,7 @@ export function TvSidebar({
           {networks.length > 0 && (
             <div>
               <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                Network
+                {t("network")}
               </h4>
               <div className="text-sm text-foreground mt-0.5">
                 {networks.map((n) => (
@@ -230,7 +236,7 @@ export function TvSidebar({
           {productionCompanies.length > 0 && (
             <div>
               <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                Production
+                {tm("production")}
               </h4>
               <div className="text-sm text-foreground mt-0.5 space-y-0.5">
                 {productionCompanies.map((c) => (
@@ -247,7 +253,7 @@ export function TvSidebar({
           )}
           <div>
             <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-              Languages
+              {tm("languages")}
             </h4>
             <p className="text-sm text-foreground mt-0.5">
               {spokenLanguagesCount} spoken · {translationsCount} translations
@@ -260,7 +266,7 @@ export function TvSidebar({
       {keywords.length > 0 && (
         <div>
           <h3 className="text-sm font-bold text-foreground uppercase tracking-wide mb-3">
-            Keywords
+            {tm("keywords")}
           </h3>
           <div className="flex flex-wrap gap-1.5">
             {keywords.map((kw) => (

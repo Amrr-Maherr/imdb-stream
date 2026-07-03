@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { Building2, ExternalLink, Globe, MapPin, Film } from "lucide-react";
 
 const TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p";
@@ -22,6 +25,7 @@ export function ProductionCompanyHero({
   homepage,
   totalProductions,
 }: ProductionCompanyHeroProps) {
+  const t = useTranslations("Company");
   return (
     <section className="bg-card border-b border-border">
       <div className="app-container py-8 md:py-12">
@@ -67,7 +71,7 @@ export function ProductionCompanyHero({
               {totalProductions > 0 && (
                 <span className="inline-flex items-center gap-1 rounded-full border border-border bg-background px-3 py-1 text-xs font-medium text-foreground">
                   <Film className="size-3" />
-                  {totalProductions} {totalProductions === 1 ? "Production" : "Productions"}
+                  {totalProductions} {totalProductions === 1 ? t("production") : t("productions")}
                 </span>
               )}
             </div>
@@ -81,7 +85,7 @@ export function ProductionCompanyHero({
                   className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-background px-4 py-2 text-sm font-medium text-foreground hover:bg-muted transition-all"
                 >
                   <ExternalLink className="size-4" />
-                  Website
+                  {t("website")}
                 </a>
               </div>
             )}

@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 import { Tv, ShoppingCart, CreditCard, Monitor, ExternalLink } from "lucide-react";
@@ -82,6 +83,7 @@ function ProviderSlider({
 }
 
 export function MovieWatchProviders({ providers }: MovieWatchProvidersProps) {
+  const t = useTranslations("MovieDetail");
   if (!providers) return null;
 
   const hasAny =
@@ -107,7 +109,7 @@ export function MovieWatchProviders({ providers }: MovieWatchProvidersProps) {
           className="inline-flex items-center gap-1 text-sm text-brand hover:underline"
         >
           <ExternalLink className="size-3.5" />
-          See all options
+          {t("seeAllOptions")}
         </Link>
       )}
     </div>

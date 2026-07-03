@@ -27,6 +27,7 @@ export default async function TvShowsPage({
     searchParamsPromise,
   ]);
   const { locale } = params;
+  const t = await getTranslations({ locale, namespace: "TvShows" });
 
   const includeAdult = searchParams.include_adult === "true";
 
@@ -61,10 +62,10 @@ export default async function TvShowsPage({
       <main className="app-container flex flex-1 flex-col py-8 md:py-12">
         <section className="mb-6 md:mb-8">
           <h1 className="text-3xl md:text-4xl font-bold text-foreground">
-            TV Shows
+            {t("title")}
           </h1>
           <p className="mt-1.5 text-sm md:text-base text-muted-foreground">
-            Explore thousands of TV shows and discover your next binge.
+            {t("description")}
           </p>
         </section>
 
@@ -78,10 +79,10 @@ export default async function TvShowsPage({
         {totalResults > 0 && (
           <div className="flex items-center justify-between mb-4 md:mb-5">
             <p className="text-sm text-muted-foreground">
-              Showing {totalResults.toLocaleString()} TV shows
+              {t("showing", { count: totalResults })}
             </p>
             <p className="text-xs text-muted-foreground/70">
-              Page {currentPage} of {totalPages.toLocaleString()}
+              {t("pageInfo", { current: currentPage, total: totalPages })}
             </p>
           </div>
         )}

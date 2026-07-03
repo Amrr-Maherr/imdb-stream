@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { Slider } from "@/shared/components/ui/slider";
 
@@ -12,13 +13,14 @@ type MoviePhotosProps = {
 };
 
 export function MoviePhotos({ backdrops, posters, logos }: MoviePhotosProps) {
+  const t = useTranslations("MovieDetail");
   const all = [...backdrops, ...posters, ...(logos ?? [])];
   if (all.length === 0) return null;
 
   return (
     <section>
       <h2 className="text-xl font-bold text-foreground mb-4">
-        Photos{logos && logos.length > 0 ? " & Logos" : ""}
+        {t(logos && logos.length > 0 ? "photosAndLogos" : "photos")}
       </h2>
       <Slider
         slidesPerView={3}
@@ -35,7 +37,7 @@ export function MoviePhotos({ backdrops, posters, logos }: MoviePhotosProps) {
           >
             <Image
               src={`${TMDB_IMAGE_BASE}/w780${img?.file_path}`}
-              alt={`Movie photo ${i + 1}`}
+              alt={t("photoAlt", { index: i + 1 })}
               fill
               className="object-cover"
               sizes="280px"

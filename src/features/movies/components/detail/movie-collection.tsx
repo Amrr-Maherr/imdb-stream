@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 import { Film } from "lucide-react";
@@ -17,6 +18,7 @@ type MovieCollectionProps = {
 };
 
 export function MovieCollection({ collection }: MovieCollectionProps) {
+  const t = useTranslations("Collection");
   return (
     <div className="relative overflow-hidden rounded-xl border border-border bg-card">
       <div className="absolute inset-0">
@@ -48,7 +50,7 @@ export function MovieCollection({ collection }: MovieCollectionProps) {
         </div>
         <div className="min-w-0">
           <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-            Part of
+            {t("partOf")}
           </p>
           <p className="text-lg font-bold text-foreground truncate">
             {collection.name}
@@ -57,7 +59,7 @@ export function MovieCollection({ collection }: MovieCollectionProps) {
             href={`/collection/${slugify(collection.name)}/${collection.id}`}
             className="mt-1 inline-flex items-center gap-1 text-sm font-medium text-brand hover:underline"
           >
-            View collection
+            {t("viewCollection")}
           </Link>
         </div>
       </div>

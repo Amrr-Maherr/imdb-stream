@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { ChevronDown, ChevronUp, Globe } from "lucide-react";
 
@@ -26,6 +27,7 @@ function getCountryName(code: string) {
 export function MovieAlternativeTitles({
   titles,
 }: MovieAlternativeTitlesProps) {
+  const t = useTranslations("MovieDetail");
   const [expanded, setExpanded] = useState(false);
   if (titles.length === 0) return null;
 
@@ -59,9 +61,9 @@ export function MovieAlternativeTitles({
           className="inline-flex items-center gap-1 mt-3 text-sm font-medium text-brand hover:text-brand/80 transition-colors"
         >
           {expanded ? (
-            <>Show Less <ChevronUp className="size-3.5" /></>
+            <>{t("showLess")} <ChevronUp className="size-3.5" /></>
           ) : (
-            <>Show More ({titles.length - DISPLAY_LIMIT} more) <ChevronDown className="size-3.5" /></>
+            <>{t("showMore", { count: titles.length - DISPLAY_LIMIT })} <ChevronDown className="size-3.5" /></>
           )}
         </button>
       )}

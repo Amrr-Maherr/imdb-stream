@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { Heart, ListPlus, Loader2, Play, Share2 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
@@ -32,6 +33,7 @@ export function MovieActions({
   overlay,
   movie,
 }: MovieActionsProps) {
+  const t = useTranslations("MovieDetail");
   const [inWatchlist, setInWatchlist] = useState(false);
   const [favorited, setFavorited] = useState(false);
 
@@ -48,7 +50,7 @@ export function MovieActions({
       await navigator.share({ title, url });
     } else {
       await navigator.clipboard.writeText(url);
-      alert("Link copied!");
+      alert(t("linkCopied"));
     }
   };
 
@@ -62,7 +64,7 @@ export function MovieActions({
           className="inline-flex items-center gap-2 rounded-lg bg-brand px-5 py-2.5 text-sm font-semibold text-brand-foreground hover:bg-brand/90"
         >
           <Play className="size-4 fill-current" />
-          Play Trailer
+          {t("playTrailer")}
         </Link>
       )}
 
@@ -71,7 +73,7 @@ export function MovieActions({
         disabled={watchlistLoading}
         onClick={async () => {
           if (!user) {
-            toast.error("Please login first.");
+            toast.error(t("loginRequired"));
             return;
           }
 
@@ -79,9 +81,9 @@ export function MovieActions({
 
           if (result.success) {
             setInWatchlist(true);
-            toast.success("Added to watchlist!");
+            toast.success(t("addedToWatchlist"));
           } else {
-            toast.error("Failed to add to watchlist.");
+            toast.error(t("failedWatchlist"));
           }
         }}
         className={`inline-flex items-center gap-2 rounded-lg border px-4 py-2.5 text-sm font-semibold transition-all disabled:cursor-not-allowed disabled:opacity-70 ${
@@ -100,10 +102,10 @@ export function MovieActions({
 
         <span className="hidden sm:inline">
           {watchlistLoading
-            ? "Adding..."
+            ? t("adding")
             : inWatchlist
-              ? "In Watchlist"
-              : "Watchlist"}
+              ? t("inWatchlist")
+              : t("watchlist")}
         </span>
       </button>
 
@@ -112,7 +114,7 @@ export function MovieActions({
         disabled={favoriteLoading}
         onClick={async () => {
           if (!user) {
-            toast.error("Please login first.");
+            toast.error(t("loginRequired"));
             return;
           }
 
@@ -120,9 +122,9 @@ export function MovieActions({
 
           if (result) {
             setFavorited(true);
-            toast.success("Added to favorites!");
+            toast.success(t("addedToFavorites"));
           } else {
-            toast.error("Failed to add to favorites.");
+            toast.error(t("failedFavorites"));
           }
         }}
         className={`inline-flex items-center gap-2 rounded-lg border px-4 py-2.5 text-sm font-semibold transition-all disabled:cursor-not-allowed disabled:opacity-70 ${
@@ -140,7 +142,7 @@ export function MovieActions({
         )}
 
         <span className="hidden sm:inline">
-          {favoriteLoading ? "Adding..." : favorited ? "Favorited" : "Favorite"}
+          {favoriteLoading ? t("adding") : favorited ? t("favorited") : t("favorite")}
         </span>
       </button>
 
@@ -153,7 +155,7 @@ export function MovieActions({
         }`}
       >
         <Share2 className="size-4" />
-        <span className="hidden sm:inline">Share</span>
+        <span className="hidden sm:inline">{t("share")}</span>
       </button>
 
       {homepage && (
@@ -167,7 +169,7 @@ export function MovieActions({
               : "border-border bg-background text-foreground hover:bg-muted"
           }`}
         >
-          Website
+          {t("website")}
         </Link>
       )}
 
@@ -182,7 +184,7 @@ export function MovieActions({
               : "border-border bg-background text-foreground hover:bg-muted"
           }`}
         >
-          IMDb
+          {t("imdb")}
         </Link>
       )}
     </div>

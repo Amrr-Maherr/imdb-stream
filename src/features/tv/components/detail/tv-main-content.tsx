@@ -1,4 +1,7 @@
-﻿import type { TMDBTVDetails } from "@/shared/types/tmdb";
+﻿"use client";
+
+import type { TMDBTVDetails } from "@/shared/types/tmdb";
+import { useTranslations } from "next-intl";
 import { Building, Users, MessageSquare, Languages, List, Link2 } from "lucide-react";
 import { MoviePoster } from "@/features/movies/components/detail/movie-poster";
 import { MovieOverview } from "@/features/movies/components/detail/movie-overview";
@@ -26,6 +29,7 @@ type TvMainContentProps = {
 };
 
 export function TvMainContent({ show, slug, creators }: TvMainContentProps) {
+  const t = useTranslations("TvDetail");
   const allCrew = show.aggregate_credits?.crew ?? show.credits?.crew ?? [];
   const allCast = show.aggregate_credits?.cast ?? show.credits?.cast ?? [];
   const reviews = show.reviews?.results ?? [];
@@ -58,7 +62,7 @@ export function TvMainContent({ show, slug, creators }: TvMainContentProps) {
 
       {show.production_companies && show.production_companies.length > 0 && (
         <FadeIn delay={0.05}>
-          <MovieSection title="Production Companies" icon={<Building className="size-5" />}>
+          <MovieSection title={t("productionCompanies")} icon={<Building className="size-5" />}>
             <MovieProductionCompanies companies={show.production_companies} />
           </MovieSection>
         </FadeIn>
@@ -66,7 +70,7 @@ export function TvMainContent({ show, slug, creators }: TvMainContentProps) {
 
       {allCrew.length > 0 && (
         <FadeIn delay={0.1}>
-          <MovieSection title="Series Crew" icon={<Users className="size-5" />}>
+          <MovieSection title={t("seriesCrew")} icon={<Users className="size-5" />}>
             <Slider
               slidesPerView={6}
               slidesMobilePerView={3}
@@ -97,7 +101,7 @@ export function TvMainContent({ show, slug, creators }: TvMainContentProps) {
 
       {allCast.length > 0 && (
         <FadeIn delay={0.18}>
-          <MovieSection title="Filmography">
+          <MovieSection title={t("filmography")}>
             <FullCastSlider cast={allCast} />
           </MovieSection>
         </FadeIn>
@@ -109,7 +113,7 @@ export function TvMainContent({ show, slug, creators }: TvMainContentProps) {
 
       {ratings.length > 0 && (
         <FadeIn delay={0.25}>
-          <MovieSection title="Content Ratings" icon={<Link2 className="size-5" />}>
+          <MovieSection title={t("contentRatings")} icon={<Link2 className="size-5" />}>
             <TvContentRatings ratings={ratings} />
           </MovieSection>
         </FadeIn>
@@ -129,23 +133,23 @@ export function TvMainContent({ show, slug, creators }: TvMainContentProps) {
 
       {reviews.length > 0 && (
         <FadeIn delay={0.35}>
-          <MovieSection title="Reviews" icon={<MessageSquare className="size-5" />}>
+          <MovieSection title={t("reviews")} icon={<MessageSquare className="size-5" />}>
             <MovieReviews reviews={reviews} />
           </MovieSection>
         </FadeIn>
       )}
 
       <FadeIn delay={0.4}>
-        <RelatedTvShows title="Recommendations" shows={show.recommendations?.results ?? []} />
+        <RelatedTvShows title={t("recommendations")} shows={show.recommendations?.results ?? []} />
       </FadeIn>
 
       <FadeIn delay={0.45}>
-        <RelatedTvShows title="Similar Shows" shows={show.similar?.results ?? []} />
+        <RelatedTvShows title={t("similarShows")} shows={show.similar?.results ?? []} />
       </FadeIn>
 
       {altTitles.length > 0 && (
         <FadeIn delay={0.5}>
-          <MovieSection title="Alternative Titles" icon={<Languages className="size-5" />}>
+          <MovieSection title={t("alternativeTitles")} icon={<Languages className="size-5" />}>
             <MovieAlternativeTitles titles={altTitles} />
           </MovieSection>
         </FadeIn>
@@ -153,14 +157,14 @@ export function TvMainContent({ show, slug, creators }: TvMainContentProps) {
 
       {lists.length > 0 && (
         <FadeIn delay={0.55}>
-          <MovieSection title="Lists" icon={<List className="size-5" />}>
+          <MovieSection title={t("lists")} icon={<List className="size-5" />}>
             <MovieLists lists={lists} />
           </MovieSection>
         </FadeIn>
       )}
 
       <FadeIn delay={0.6}>
-        <MovieSection title="External Links" icon={<Link2 className="size-5" />}>
+        <MovieSection title={t("externalLinks")} icon={<Link2 className="size-5" />}>
           <MovieExternalLinks ids={externalIds} homepage={show.homepage || null} />
         </MovieSection>
       </FadeIn>

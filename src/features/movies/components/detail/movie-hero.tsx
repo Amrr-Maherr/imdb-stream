@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState, useCallback } from "react";
 import {
   Play,
@@ -93,6 +94,8 @@ export function MovieHero({
   homepage,
   movie,
 }: MovieHeroProps) {
+  const t = useTranslations("MovieDetail");
+  const tc = useTranslations("Common");
   const playerRef = useRef<YTPlayer | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [playing, setPlaying] = useState(true);
@@ -225,7 +228,7 @@ export function MovieHero({
               {voteAverage.toFixed(1)}
             </span>
             <span className="text-sm text-white/60">
-              · {voteCount.toLocaleString()} votes
+              · {t("votes", { count: voteCount })}
             </span>
           </div>
 
@@ -262,7 +265,7 @@ export function MovieHero({
             <button
               onClick={togglePlay}
               className="flex size-9 items-center justify-center rounded-lg bg-white/10 text-white hover:bg-white/20 transition-colors"
-              aria-label={playing ? "Pause" : "Play"}
+              aria-label={playing ? tc("pause") : tc("play")}
             >
               {playing ? (
                 <Pause className="size-4" />
@@ -273,7 +276,7 @@ export function MovieHero({
             <button
               onClick={handleStop}
               className="flex size-9 items-center justify-center rounded-lg bg-white/10 text-white hover:bg-white/20 transition-colors"
-              aria-label="Stop"
+              aria-label={tc("stop")}
             >
               <Square className="size-3.5" />
             </button>
@@ -285,7 +288,7 @@ export function MovieHero({
                   ? "bg-white/10 text-white hover:bg-white/20"
                   : "bg-brand/30 text-brand hover:bg-brand/40"
               }`}
-              aria-label={muted ? "Unmute" : "Mute"}
+              aria-label={muted ? tc("unmute") : tc("mute")}
             >
               {muted ? (
                 <VolumeX className="size-4" />
@@ -300,14 +303,14 @@ export function MovieHero({
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand opacity-75" />
                   <span className="relative inline-flex size-2 rounded-full bg-brand" />
                 </span>
-                Playing
+                {tc("playing")}
               </span>
             )}
-            {!playing && <span className="text-xs text-white/60">Paused</span>}
+            {!playing && <span className="text-xs text-white/60">{tc("paused")}</span>}
             <button
               onClick={toggleFullscreen}
               className="flex size-9 items-center justify-center rounded-lg bg-white/10 text-white hover:bg-white/20 transition-colors"
-              aria-label={fullscreen ? "Exit fullscreen" : "Fullscreen"}
+              aria-label={fullscreen ? tc("exitFullscreen") : tc("fullscreen")}
             >
               {fullscreen ? (
                 <Minimize className="size-4" />

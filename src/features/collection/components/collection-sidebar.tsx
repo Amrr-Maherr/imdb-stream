@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Star,
   Layers,
@@ -5,6 +7,7 @@ import {
   BarChart3,
   TrendingUp,
 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import type { CollectionPart } from "@/shared/types/tmdb";
 import { FadeIn } from "@/features/movies/components/detail/fade-in";
 import { MovieRating } from "@/features/movies/components/detail/movie-rating";
@@ -32,6 +35,8 @@ export function CollectionSidebar({
   avgRating,
   parts,
 }: CollectionSidebarProps) {
+  const t = useTranslations("Collection");
+  const td = useTranslations("MovieDetail");
   const totalRevenue = parts.reduce((sum, p) => sum + (p as any).revenue || 0, 0);
   const totalBudget = parts.reduce((sum, p) => sum + (p as any).budget || 0, 0);
   const genres = parts.reduce((acc: string[], part) => {
@@ -44,13 +49,13 @@ export function CollectionSidebar({
       <FadeIn delay={0.05}>
         <div className="rounded-xl border border-border bg-card p-5">
           <h3 className="text-sm font-bold text-foreground uppercase tracking-wide mb-4">
-            Statistics
+            {t("statistics")}
           </h3>
           <div className="space-y-3">
             <div className="flex items-center gap-3">
               <Layers className="size-4 text-muted-foreground shrink-0" />
               <div className="min-w-0">
-                <p className="text-xs text-muted-foreground">Titles</p>
+                <p className="text-xs text-muted-foreground">{t("titles")}</p>
                 <p className="text-sm text-foreground">{partsCount}</p>
               </div>
             </div>
@@ -58,7 +63,7 @@ export function CollectionSidebar({
               <div className="flex items-center gap-3">
                 <Calendar className="size-4 text-muted-foreground shrink-0" />
                 <div className="min-w-0">
-                  <p className="text-xs text-muted-foreground">Release Range</p>
+                  <p className="text-xs text-muted-foreground">{t("releaseRange")}</p>
                   <p className="text-sm text-foreground">{releaseRange}</p>
                 </div>
               </div>
@@ -67,7 +72,7 @@ export function CollectionSidebar({
               <div className="flex items-center gap-3">
                 <Star className="size-4 text-muted-foreground shrink-0" />
                 <div className="min-w-0">
-                  <p className="text-xs text-muted-foreground">Average Rating</p>
+                  <p className="text-xs text-muted-foreground">{t("averageRating")}</p>
                   <p className="text-sm text-foreground font-medium">
                     {avgRating.toFixed(1)}
                   </p>
@@ -78,7 +83,7 @@ export function CollectionSidebar({
               <div className="flex items-center gap-3">
                 <BarChart3 className="size-4 text-muted-foreground shrink-0" />
                 <div className="min-w-0">
-                  <p className="text-xs text-muted-foreground">Popularity</p>
+                  <p className="text-xs text-muted-foreground">{t("popularity")}</p>
                   <p className="text-sm text-foreground">
                     {Math.round(
                       parts.reduce((sum, p) => sum + p.popularity, 0) /
@@ -112,14 +117,14 @@ export function CollectionSidebar({
         <FadeIn delay={0.15}>
           <div className="rounded-xl border border-border bg-card p-5">
             <h3 className="text-sm font-bold text-foreground uppercase tracking-wide mb-4">
-              Financials
+              {t("financials")}
             </h3>
             <div className="space-y-3">
               {totalBudget > 0 && (
                 <div className="flex items-center gap-3">
                   <BarChart3 className="size-4 text-muted-foreground shrink-0" />
                   <div className="min-w-0">
-                    <p className="text-xs text-muted-foreground">Total Budget</p>
+                    <p className="text-xs text-muted-foreground">{t("totalBudget")}</p>
                     <p className="text-sm text-foreground">
                       {formatCurrency(totalBudget)}
                     </p>
@@ -130,7 +135,7 @@ export function CollectionSidebar({
                 <div className="flex items-center gap-3">
                   <TrendingUp className="size-4 text-muted-foreground shrink-0" />
                   <div className="min-w-0">
-                    <p className="text-xs text-muted-foreground">Total Revenue</p>
+                    <p className="text-xs text-muted-foreground">{t("totalRevenue")}</p>
                     <p className="text-sm text-foreground">
                       {formatCurrency(totalRevenue)}
                     </p>
@@ -146,22 +151,22 @@ export function CollectionSidebar({
       <FadeIn delay={0.05}>
         <div className="rounded-xl border border-border bg-card p-5">
           <h3 className="text-sm font-bold text-foreground uppercase tracking-wide mb-3">
-            Facts
+            {td("facts")}
           </h3>
           <div className="space-y-3">
             {parts.length > 0 && (
               <div>
                 <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                  Type
+                  {t("type")}
                 </h4>
                 <p className="text-sm text-foreground mt-0.5">
-                  {parts.some((p) => isTV(p)) ? "Mixed" : "Movie Collection"}
+                  {parts.some((p) => isTV(p)) ? t("mixed") : t("movieCollection")}
                 </p>
               </div>
             )}
             <div>
               <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                Languages
+                {t("languages")}
               </h4>
               <div className="flex flex-wrap gap-1 mt-1">
                 {[

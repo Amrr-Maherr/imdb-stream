@@ -2,10 +2,12 @@
 
 import { useState } from "react";
 import { User, Loader2, Check } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { Button } from "@/shared/components/ui/button";
 import useGuestLogin from "@/features/auth/hooks/useGuestLogin";
 
 export function GuestAuth() {
+  const tc = useTranslations("Common");
   const { loginAsGuest, loading } = useGuestLogin();
 
   const [success, setSuccess] = useState(false);
@@ -33,17 +35,17 @@ export function GuestAuth() {
       {loading ? (
         <>
           <Loader2 size={16} className="animate-spin" />
-          Signing in...
+          {tc("signingIn")}
         </>
       ) : success ? (
         <>
           <Check size={16} />
-          Welcome!
+          {tc("welcome")}
         </>
       ) : (
         <>
           <User size={16} />
-          Continue as Guest
+          {tc("continueAsGuest")}
         </>
       )}
     </Button>

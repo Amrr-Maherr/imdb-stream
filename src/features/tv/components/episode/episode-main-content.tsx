@@ -1,4 +1,7 @@
-﻿import Image from "next/image";
+﻿"use client";
+
+import Image from "next/image";
+import { useTranslations } from "next-intl";
 import type { TMDBEpisodeDetails } from "@/shared/types/tmdb";
 import { Users, Film, Monitor, Link2 } from "lucide-react";
 import { MovieSection } from "@/features/movies/components/detail/movie-section";
@@ -54,6 +57,7 @@ function groupCrewByDepartment(crew: TMDBEpisodeDetails["crew"]) {
 }
 
 export function EpisodeMainContent({ ep }: EpisodeMainContentProps) {
+  const t = useTranslations("TvDetail");
   const stills = ep.images?.stills ?? [];
   const videos = ep.videos?.results ?? [];
   const director = getDirector(ep.crew);
@@ -83,14 +87,14 @@ export function EpisodeMainContent({ ep }: EpisodeMainContentProps) {
           <div className="flex flex-wrap gap-x-6 gap-y-1 mt-4 text-sm text-muted-foreground">
             {director && (
               <p>
-                <span className="font-medium text-foreground">Director:</span>{" "}
+                <span className="font-medium text-foreground">{t("director")}:</span>{" "}
                 {director.name}
               </p>
             )}
             {writers.length > 0 && (
               <p>
                 <span className="font-medium text-foreground">
-                  Writer{writers.length > 1 ? "s" : ""}:
+                  {writers.length > 1 ? t("writers") : t("writer")}:
                 </span>{" "}
                 {writers.map((w) => w.name).join(", ")}
               </p>
@@ -98,7 +102,7 @@ export function EpisodeMainContent({ ep }: EpisodeMainContentProps) {
             {producers.length > 0 && (
               <p>
                 <span className="font-medium text-foreground">
-                  Producer{producers.length > 1 ? "s" : ""}:
+                  {producers.length > 1 ? t("producers") : t("producer")}:
                 </span>{" "}
                 {producers.map((p) => p.name).join(", ")}
               </p>
@@ -109,7 +113,7 @@ export function EpisodeMainContent({ ep }: EpisodeMainContentProps) {
 
       {ep.guest_stars.length > 0 && (
         <FadeIn delay={0.05}>
-          <MovieSection title="Guest Stars" icon={<Users className="size-5" />}>
+          <MovieSection title={t("guestStars")} icon={<Users className="size-5" />}>
             <Slider
               slidesPerView={6}
               slidesMobilePerView={3}
@@ -134,7 +138,7 @@ export function EpisodeMainContent({ ep }: EpisodeMainContentProps) {
 
       {ep.crew.length > 0 && (
         <FadeIn delay={0.1}>
-          <MovieSection title="Crew" icon={<Monitor className="size-5" />}>
+          <MovieSection title={t("crew")} icon={<Monitor className="size-5" />}>
             {groupCrewByDepartment(ep.crew).map(([dept, members]) => (
               <div key={dept} className="mb-4 last:mb-0">
                 <h4 className="text-xs font-semibold text-muted-foreground uppercase mb-2">
@@ -165,7 +169,7 @@ export function EpisodeMainContent({ ep }: EpisodeMainContentProps) {
       {stills.length > 0 && (
         <FadeIn delay={0.2}>
           <MovieSection
-            title="Episode Images"
+            title={t("episodeImages")}
             icon={<Film className="size-5" />}
           >
             <Slider
@@ -198,7 +202,7 @@ export function EpisodeMainContent({ ep }: EpisodeMainContentProps) {
       {externalIds && (
         <FadeIn delay={0.25}>
           <MovieSection
-            title="External Links"
+            title={t("externalLinks")}
             icon={<Link2 className="size-5" />}
           >
             <MovieExternalLinks ids={externalIds} homepage={null} />

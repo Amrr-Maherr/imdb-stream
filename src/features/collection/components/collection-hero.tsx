@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import { Star, Layers } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { FadeIn } from "@/features/movies/components/detail/fade-in";
 
 const TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p";
@@ -21,6 +24,7 @@ export function CollectionHero({
   releaseRange,
   avgRating,
 }: CollectionHeroProps) {
+  const t = useTranslations("Collection");
   return (
     <FadeIn>
       <section className="relative w-full aspect-[4/5] md:aspect-[16/9] lg:aspect-[21/9] overflow-hidden">
@@ -62,7 +66,7 @@ export function CollectionHero({
               <div className="min-w-0">
                 <p className="text-sm font-medium text-white/60 flex items-center gap-2">
                   <Layers className="size-3.5" />
-                  Collection
+                  {t("title")}
                 </p>
                 <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white leading-tight mt-1">
                   {name}
@@ -71,7 +75,7 @@ export function CollectionHero({
                 <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-2 text-sm text-white/70">
                   <span className="inline-flex items-center gap-1">
                     <Layers className="size-3.5" />
-                    {partsCount} titles
+                    {t("titlesCount", { count: partsCount })}
                   </span>
                   {releaseRange && (
                     <>

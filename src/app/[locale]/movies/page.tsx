@@ -28,6 +28,7 @@ export default async function MoviesPage({
     searchParamsPromise,
   ]);
   const { locale } = params;
+  const t = await getTranslations({ locale, namespace: "Movies" });
 
   const includeAdult = searchParams.include_adult === "true";
 
@@ -63,10 +64,10 @@ export default async function MoviesPage({
       <main className="app-container flex flex-1 flex-col py-8 md:py-12">
         <section className="mb-6 md:mb-8">
           <h1 className="text-3xl md:text-4xl font-bold text-foreground">
-            Movies
+            {t("title")}
           </h1>
           <p className="mt-1.5 text-sm md:text-base text-muted-foreground">
-            Browse thousands of movies and discover new favorites.
+            {t("description")}
           </p>
         </section>
 
@@ -80,10 +81,10 @@ export default async function MoviesPage({
         {totalResults > 0 && (
           <div className="flex items-center justify-between mb-4 md:mb-5">
             <p className="text-sm text-muted-foreground">
-              Showing {totalResults.toLocaleString()} movies
+              {t("showing", { count: totalResults })}
             </p>
             <p className="text-xs text-muted-foreground/70">
-              Page {currentPage} of {totalPages.toLocaleString()}
+              {t("pageInfo", { current: currentPage, total: totalPages })}
             </p>
           </div>
         )}

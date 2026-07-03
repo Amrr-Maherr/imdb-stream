@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { ChevronDown, ChevronUp, Globe, CalendarDays } from "lucide-react";
 import { Card, CardContent } from "@/shared/components/ui/card";
@@ -41,14 +42,17 @@ function formatDate(dateStr: string) {
   });
 }
 
-const TYPE_LABELS: Record<number, string> = {
-  1: "Premiere",
-  2: "Theatrical (limited)",
-  3: "Theatrical",
-  4: "Digital",
-  5: "Physical",
-  6: "TV",
-};
+function getTypeLabel(t: (key: string, opts?: Record<string, unknown>) => string, type: number): string {
+  const labels: Record<number, string> = {
+    1: t("premiere"),
+    2: t("theatricalLimited"),
+    3: t("theatrical"),
+    4: t("digital"),
+    5: t("physical"),
+    6: t("tv"),
+  };
+  return labels[type] || t("typeLabel", { type });
+}
 
 const TYPE_VARIANTS: Record<number, string> = {
   1: "bg-muted text-muted-foreground",
@@ -60,6 +64,7 @@ const TYPE_VARIANTS: Record<number, string> = {
 };
 
 export function MovieReleaseDates({ releaseDates }: MovieReleaseDatesProps) {
+  const t = useTranslations("MovieDetail");
   const [expanded, setExpanded] = useState(false);
   if (releaseDates.length === 0) return null;
 
@@ -93,7 +98,7 @@ export function MovieReleaseDates({ releaseDates }: MovieReleaseDatesProps) {
                       <span
                         className={`inline-flex items-center rounded-full px-2 py-0.5 text-[11px] font-semibold leading-none ${TYPE_VARIANTS[rd.type] || "bg-muted text-muted-foreground"}`}
                       >
-                        {TYPE_LABELS[rd.type] || `Type ${rd.type}`}
+                        {getTypeLabel(t, rd.type)}
                       </span>
                       {rd.certification && (
                         <span className="inline-flex items-center rounded border border-border px-1.5 py-0.5 text-[11px] font-bold leading-none text-foreground">
@@ -120,9 +125,9 @@ export function MovieReleaseDates({ releaseDates }: MovieReleaseDatesProps) {
           className="inline-flex items-center gap-1 mt-3 text-sm font-medium text-brand hover:text-brand/80 transition-colors"
         >
           {expanded ? (
-            <>Show Less <ChevronUp className="size-3.5" /></>
+            <>{t("showLess")} <ChevronUp className="size-3.5" /></>
           ) : (
-            <>Show More ({releaseDates.length - DISPLAY_LIMIT} more) <ChevronDown className="size-3.5" /></>
+            <>{t("showMore", { count: releaseDates.length - DISPLAY_LIMIT })} <ChevronDown className="size-3.5" /></>
           )}
         </button>
       )}

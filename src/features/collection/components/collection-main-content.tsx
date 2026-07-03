@@ -1,6 +1,9 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { Star, Calendar, Film, Tv, Play } from "lucide-react";
+import { useTranslations } from "next-intl";
 import type { CollectionPart } from "@/shared/types/tmdb";
 import { slugify } from "@/shared/utils/slugify";
 import { FadeIn } from "@/features/movies/components/detail/fade-in";
@@ -40,13 +43,16 @@ export function CollectionMainContent({
   overview,
   parts,
 }: CollectionMainContentProps) {
+  const t = useTranslations("Collection");
+  const td = useTranslations("MovieDetail");
+  const tc = useTranslations("Common");
   return (
     <div className="flex-1 min-w-0 space-y-10">
       {/* Overview */}
       {overview && (
         <FadeIn>
           <section>
-            <h2 className="text-xl font-bold text-foreground mb-3">Storyline</h2>
+            <h2 className="text-xl font-bold text-foreground mb-3">{td("storyline")}</h2>
             <p className="text-muted-foreground leading-relaxed">{overview}</p>
           </section>
         </FadeIn>
@@ -57,7 +63,7 @@ export function CollectionMainContent({
         <FadeIn delay={0.05}>
           <section>
             <h2 className="text-xl font-bold text-foreground mb-6">
-              Collection Timeline
+              {t("collectionTimeline")}
             </h2>
             <div className="space-y-3">
               {parts.map((part, index) => {
@@ -90,7 +96,7 @@ export function CollectionMainContent({
                         </>
                       ) : (
                         <div className="flex h-full items-center justify-center text-xs text-muted-foreground">
-                          No image
+                          {tc("noImage")}
                         </div>
                       )}
                       <div className="absolute top-1.5 left-1.5 rounded bg-black/70 px-1.5 py-0.5 text-[10px] font-medium text-white">
@@ -145,7 +151,7 @@ export function CollectionMainContent({
         <FadeIn delay={0.1}>
           <section>
             <h2 className="text-xl font-bold text-foreground mb-6">
-              Titles in this Collection
+              {t("titlesInCollection")}
             </h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
               {parts.map((part, index) => {
@@ -210,7 +216,7 @@ export function CollectionMainContent({
 
       {parts.length === 0 && (
         <EmptyState
-          title="No titles in this collection yet."
+          title={t("collectionEmpty")}
           className="py-16"
         />
       )}

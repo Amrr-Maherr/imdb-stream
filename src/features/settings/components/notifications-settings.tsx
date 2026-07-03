@@ -1,11 +1,13 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Bell, Mail, Smartphone, Megaphone } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/shared/components/ui/card";
 import { Switch } from "@/shared/components/ui/switch";
 
 export function NotificationsSettings() {
+  const t = useTranslations("Settings.notifications");
   const [emailNotifs, setEmailNotifs] = useState(true);
   const [pushNotifs, setPushNotifs] = useState(false);
   const [marketing, setMarketing] = useState(false);
@@ -13,9 +15,9 @@ export function NotificationsSettings() {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-lg font-bold text-foreground">Notifications</h2>
+        <h2 className="text-lg font-bold text-foreground">{t("heading")}</h2>
         <p className="text-sm text-muted-foreground mt-0.5">
-          Choose what notifications you receive
+          {t("description")}
         </p>
       </div>
 
@@ -23,7 +25,7 @@ export function NotificationsSettings() {
         <CardHeader>
           <CardTitle className="text-base flex items-center gap-2">
             <Bell className="size-4 text-brand" />
-            Notification Preferences
+            {t("notificationPreferences")}
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-5">
@@ -35,10 +37,10 @@ export function NotificationsSettings() {
                   htmlFor="email-notifs"
                   className="text-sm font-medium text-foreground"
                 >
-                  Email notifications
+                  {t("emailNotifications")}
                 </label>
                 <p className="text-xs text-muted-foreground">
-                  Receive updates about your account and activity
+                  {t("emailDesc")}
                 </p>
               </div>
             </div>
@@ -57,10 +59,10 @@ export function NotificationsSettings() {
                   htmlFor="push-notifs"
                   className="text-sm font-medium text-foreground"
                 >
-                  Push notifications
+                  {t("pushNotifications")}
                 </label>
                 <p className="text-xs text-muted-foreground">
-                  Get notified about new releases and updates
+                  {t("pushDesc")}
                 </p>
               </div>
             </div>
@@ -79,10 +81,10 @@ export function NotificationsSettings() {
                   htmlFor="marketing"
                   className="text-sm font-medium text-foreground"
                 >
-                  Marketing
+                  {t("marketingEmails")}
                 </label>
                 <p className="text-xs text-muted-foreground">
-                  Receive promotional offers and recommendations
+                  {t("marketingDesc")}
                 </p>
               </div>
             </div>

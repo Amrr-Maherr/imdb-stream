@@ -36,7 +36,7 @@ export function SignUpForm() {
     try {
       const result = await registerUser(data)
       if (result?.user) {
-        setSuccessMessage("Your account has been created successfully.")
+        setSuccessMessage(t("success"))
         reset()
       }
     } catch (error: any) {
@@ -61,7 +61,7 @@ export function SignUpForm() {
                 placeholder={t("namePlaceholder")}
                 className={`peer pe-9 ${errors.name ? "border-red-700" : ""}`}
                 {...register("name", {
-                  required: "Name is required",
+                  required: t("nameRequired"),
                 })}
               />
               <div className="pointer-events-none absolute inset-y-0 end-0 flex items-center justify-center pe-3 text-muted-foreground/80 peer-disabled:opacity-50">
@@ -87,7 +87,7 @@ export function SignUpForm() {
                 className={`peer pe-9 ${errors.email ? "border-red-700" : ""}`}
                 autoComplete="email"
                 {...register("email", {
-                  required: "Email is required",
+                  required: t("emailRequired"),
                 })}
               />
               <div className="pointer-events-none absolute inset-y-0 end-0 flex items-center justify-center pe-3 text-muted-foreground/80 peer-disabled:opacity-50">
@@ -113,7 +113,7 @@ export function SignUpForm() {
                 className={`peer pe-9 ${errors.password ? "border-red-700" : ""}`}
                 autoComplete="new-password"
                 {...register("password", {
-                  required: "Password is required",
+                  required: t("passwordRequired"),
                 })}
               />
               <button

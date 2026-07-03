@@ -18,10 +18,12 @@ export default async function PeoplePage({
   params: paramsPromise,
   searchParams: searchParamsPromise,
 }: Props) {
-  const [, searchParams] = await Promise.all([
+  const [params, searchParams] = await Promise.all([
     paramsPromise,
     searchParamsPromise,
   ]);
+  const { locale } = params;
+  const t = await getTranslations({ locale, namespace: "People" });
 
   const data = await GetPeople({
     page: searchParams.page ? Number(searchParams.page) : undefined,
@@ -36,20 +38,20 @@ export default async function PeoplePage({
       <main className="app-container flex flex-1 flex-col py-8 md:py-12">
         <section className="mb-6 md:mb-8">
           <h1 className="text-3xl md:text-4xl font-bold text-foreground">
-            People
+            {t("title")}
           </h1>
           <p className="mt-1.5 text-sm md:text-base text-muted-foreground">
-            Discover popular actors, directors, and creators.
+            {t("description")}
           </p>
         </section>
 
         {totalResults > 0 && (
           <div className="flex items-center justify-between mb-4 md:mb-5">
             <p className="text-sm text-muted-foreground">
-              Showing {totalResults.toLocaleString()} people
+              {t("showing", { count: totalResults })}
             </p>
             <p className="text-xs text-muted-foreground/70">
-              Page {currentPage} of {totalPages.toLocaleString()}
+              {t("pageInfo", { current: currentPage, total: totalPages })}
             </p>
           </div>
         )}
