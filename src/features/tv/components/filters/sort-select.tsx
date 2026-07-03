@@ -19,6 +19,12 @@ function SortSelect() {
   const active = SORT_OPTIONS.find((o) => o.value === value);
   const Icon = active?.icon ?? SORT_OPTIONS[0].icon;
 
+  const sortLabels: Record<string, string> = {
+    "popularity.desc": t("mostPopular"),
+    "vote_average.desc": t("highestRated"),
+    "first_air_date.desc": t("newestRelease"),
+  };
+
   function handleChange(val: string) {
     const params = new URLSearchParams(searchParams);
     params.set(PARAM_KEYS.sort, val);
@@ -35,11 +41,6 @@ function SortSelect() {
       <SelectContent>
         {SORT_OPTIONS.map((opt) => {
           const OptIcon = opt.icon;
-          const sortLabels: Record<string, string> = {
-            "popularity.desc": t("mostPopular"),
-            "vote_average.desc": t("highestRated"),
-            "first_air_date.desc": t("newestRelease"),
-          };
           return (
             <SelectItem key={opt.value} value={opt.value}>
               <span className="flex items-center gap-2">

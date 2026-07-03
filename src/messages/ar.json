@@ -1154,7 +1154,17 @@
       "crime": "جريمة",
       "war": "حرب",
       "music": "موسيقى",
-      "history": "تاريخ"
+      "history": "تاريخ",
+      "actionAdventure": "أكشن ومغامرة",
+      "family": "عائلي",
+      "kids": "أطفال",
+      "news": "أخبار",
+      "reality": "واقع",
+      "sciFiFantasy": "خيال علمي وفانتازيا",
+      "soap": "مسلسلات",
+      "talk": "حوار",
+      "warPolitics": "حرب وسياسة",
+      "western": "غربي"
     },
     "sortOptions": {
       "popularityDesc": "الشعبية - تنازلياً",

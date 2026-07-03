@@ -43,7 +43,7 @@ function LanguageDropdown() {
               <span className="flex size-4 items-center justify-center rounded-[2px] border border-border bg-muted text-[9px] font-medium text-muted-foreground">
                 {lang.short}
               </span>
-              {lang.label}
+              {t(`languages.${lang.value}`)}
             </span>
           </SelectItem>
         ))}

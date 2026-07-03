@@ -1212,7 +1212,17 @@
       "crime": "Crime",
       "war": "War",
       "music": "Music",
-      "history": "History"
+      "history": "History",
+      "actionAdventure": "Action & Adventure",
+      "family": "Family",
+      "kids": "Kids",
+      "news": "News",
+      "reality": "Reality",
+      "sciFiFantasy": "Sci-Fi & Fantasy",
+      "soap": "Soap",
+      "talk": "Talk",
+      "warPolitics": "War & Politics",
+      "western": "Western"
     },
     "sortOptions": {
       "popularityDesc": "Popularity Descending",

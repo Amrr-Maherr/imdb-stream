@@ -39,7 +39,7 @@ function CountryDropdown() {
         <SelectItem value="any">{t("allCountries")}</SelectItem>
         {COUNTRIES.map((country) => (
           <SelectItem key={country.value} value={country.value}>
-            {country.label}
+            {t(`countries.${country.value}`)}
           </SelectItem>
         ))}
       </SelectContent>

@@ -18,6 +18,25 @@ function GenreDropdown() {
   const searchParams = useSearchParams();
   const value = searchParams.get(PARAM_KEYS.genre) ?? "any";
 
+  const genreLabels: Record<string, string> = {
+    "10759": t("genres.actionAdventure"),
+    "16": t("genres.animation"),
+    "35": t("genres.comedy"),
+    "80": t("genres.crime"),
+    "99": t("genres.documentary"),
+    "18": t("genres.drama"),
+    "10751": t("genres.family"),
+    "10762": t("genres.kids"),
+    "9648": t("genres.mystery"),
+    "10763": t("genres.news"),
+    "10764": t("genres.reality"),
+    "10765": t("genres.sciFiFantasy"),
+    "10766": t("genres.soap"),
+    "10767": t("genres.talk"),
+    "10768": t("genres.warPolitics"),
+    "37": t("genres.western"),
+  };
+
   function handleChange(val: string) {
     const params = new URLSearchParams(searchParams);
     if (val === "any") {
@@ -39,7 +58,7 @@ function GenreDropdown() {
         <SelectItem value="any">{t("allGenres")}</SelectItem>
         {GENRES.map((genre) => (
           <SelectItem key={genre.value} value={genre.value}>
-            {genre.label}
+            {genreLabels[genre.value]}
           </SelectItem>
         ))}
       </SelectContent>

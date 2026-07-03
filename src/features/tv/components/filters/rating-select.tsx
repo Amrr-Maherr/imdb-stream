@@ -29,6 +29,20 @@ function RatingSelect() {
     router.push(`?${params.toString()}`);
   }
 
+  const ratingLabels: Record<string, string> = {
+    "0": t("any"),
+    "1": t("rating1Plus"),
+    "2": t("rating2Plus"),
+    "3": t("rating3Plus"),
+    "4": t("rating4Plus"),
+    "5": t("rating5Plus"),
+    "6": t("rating6Plus"),
+    "7": t("rating7Plus"),
+    "8": t("rating8Plus"),
+    "9": t("rating9Plus"),
+    "10": t("rating10"),
+  };
+
   return (
     <Select value={value} onValueChange={handleChange}>
       <SelectTrigger className="h-9 min-w-[8.5rem] text-xs">
@@ -38,7 +52,7 @@ function RatingSelect() {
       <SelectContent>
         {RATING_OPTIONS.map((opt) => (
           <SelectItem key={opt.value} value={opt.value}>
-            {opt.value === "0" ? t("allRatings") : opt.label}
+            {ratingLabels[opt.value]}
           </SelectItem>
         ))}
       </SelectContent>
