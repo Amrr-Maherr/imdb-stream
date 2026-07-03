@@ -1,9 +1,5 @@
-import { SectionSkeleton } from "@/shared/components/skeletons";
+import { HomeSkeleton } from "@/features/movies/components/listing/home-skeleton";
 
-export default function MoviesLoading() {
-  return (
-    <div className="min-h-screen bg-background px-4 py-8 md:px-8">
-      <SectionSkeleton type="movie" itemCount={6} sectionCount={4} />
-    </div>
-  );
+export default function HomeLoading() {
+  return <HomeSkeleton />;
 }

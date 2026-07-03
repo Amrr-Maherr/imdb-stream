@@ -5,14 +5,14 @@ import { TvCard } from "@/features/movies/components/listing/tv-card";
 import { toTMDBMovie, toTMDBTV } from "@/features/movies/services/mapper";
 import { useWatchlist } from "../hooks/useWatchlist";
 import { EmptyState } from "@/shared/components/empty-state";
-import { MediaGridSkeleton } from "@/shared/components/skeletons";
 import { DeleteAllButton } from "@/shared/components/delete-all-button";
+import { WatchlistSkeleton } from "./watchlist-skeleton";
 
 export function WatchlistList() {
   const { watchlist, loading, deleting, deleteAll } = useWatchlist();
 
   if (loading) {
-    return <MediaGridSkeleton />;
+    return <WatchlistSkeleton />;
   }
 
   if (watchlist.length === 0) {

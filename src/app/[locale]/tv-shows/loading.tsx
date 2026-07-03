@@ -1,9 +1,5 @@
-import { SectionSkeleton } from "@/shared/components/skeletons";
+import { TvShowsListingSkeleton } from "@/features/tv/components/listing/tv-listing-skeleton";
 
 export default function TvShowsLoading() {
-  return (
-    <div className="min-h-screen bg-background px-4 py-8 md:px-8">
-      <SectionSkeleton type="tv" itemCount={6} sectionCount={4} />
-    </div>
-  );
+  return <TvShowsListingSkeleton />;
 }

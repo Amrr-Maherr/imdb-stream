@@ -1,4 +1,4 @@
-﻿import { fetchApi } from "@/shared/services/fetchApi";
+import { fetchApi } from "@/shared/services/fetchApi";
 import { ErrorState } from "@/shared/components/error-state";
 import type { TMDBTVDetails } from "@/shared/types/tmdb";
 import { MovieHero } from "@/features/movies/components/detail/movie-hero";
@@ -16,17 +16,18 @@ const APPEND_PARAMS = [
   "videos", "watch/providers",
 ].join(",");
 
-async function getTvShow(id: string) {
+async function getTvShow(id: string, locale: string) {
   return fetchApi<TMDBTVDetails>({
     endpoint: `tv/${id}?append_to_response=${APPEND_PARAMS}`,
     revalidate: 3600,
+    locale,
   });
 }
 
 export async function generateMetadata({ params }: Props) {
-  const { id } = await params;
+  const { id, locale } = await params;
   try {
-    const show = await getTvShow(id);
+    const show = await getTvShow(id, locale);
     return {
       title: show.name,
       description: show.tagline || show.overview?.slice(0, 160),
@@ -37,11 +38,11 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default async function TvShowPage({ params }: Props) {
-  const { id, slug } = await params;
+  const { id, slug, locale } = await params;
 
   let show: TMDBTVDetails;
   try {
-    show = await getTvShow(id);
+    show = await getTvShow(id, locale);
   } catch {
     return (
       <ErrorState

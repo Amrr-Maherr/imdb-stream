@@ -17,7 +17,7 @@ import {
   Award,
   ChevronRight,
 } from "lucide-react";
-import { ProfileSkeleton } from "@/shared/components/skeletons";
+import { ProfileSkeleton } from "@/features/profile/components/profile-skeleton";
 import { useAuth } from "@/shared/provider/authProvider";
 
 export default function ProfilePage() {

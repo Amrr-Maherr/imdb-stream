@@ -13,7 +13,7 @@ export type MovieFilters = {
     | "primary_release_date.desc"
     | "revenue.desc";
     include_adult?: boolean;
-
+    locale: string;
 };
 
 export default async function GetMovies({
@@ -25,6 +25,7 @@ export default async function GetMovies({
     region,
     sort_by = "popularity.desc",
     include_adult,
+    locale,
 }: MovieFilters) {
     try {
         const response = await axios.get(
@@ -42,8 +43,9 @@ export default async function GetMovies({
                     sort_by,
 
                     "vote_average.gte": vote_average_gte,
+                    language: locale,
                 },
-            }
+            },
         );
 
         return response.data;

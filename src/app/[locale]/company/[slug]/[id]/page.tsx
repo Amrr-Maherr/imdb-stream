@@ -1,4 +1,4 @@
-﻿import { fetchApi } from "@/shared/services/fetchApi";
+import { fetchApi } from "@/shared/services/fetchApi";
 import { ErrorState } from "@/shared/components/error-state";
 import type {
   TMDBCompanyDetails,
@@ -17,18 +17,20 @@ interface Props {
   params: Promise<{ locale: string; slug: string; id: string }>;
 }
 
-async function getCompany(id: string) {
+async function getCompany(id: string, locale: string) {
   return fetchApi<TMDBCompanyDetails>({
     endpoint: `company/${id}`,
     revalidate: 86400,
+    locale,
   });
 }
 
-async function getCompanyMovies(id: string): Promise<TMDBCompanyMovie[]> {
+async function getCompanyMovies(id: string, locale: string): Promise<TMDBCompanyMovie[]> {
   try {
     const data = await fetchApi<TMDBResponse<TMDBCompanyMovie>>({
       endpoint: `company/${id}/movies`,
       revalidate: 3600,
+      locale,
     });
     return data.results;
   } catch {
@@ -41,6 +43,7 @@ async function getCompanyExternalIds(id: string): Promise<ExternalIds | null> {
     return await fetchApi<ExternalIds>({
       endpoint: `company/${id}/external_ids`,
       revalidate: 86400,
+      locale: "en", // external ids don't need translation
     });
   } catch {
     return null;
@@ -52,6 +55,7 @@ async function getCompanyImages(id: string): Promise<Image[]> {
     const data = await fetchApi<{ id: number; logos: Image[] }>({
       endpoint: `company/${id}/images`,
       revalidate: 86400,
+      locale: "en", // images don't need translation
     });
     return data.logos;
   } catch {
@@ -60,9 +64,9 @@ async function getCompanyImages(id: string): Promise<Image[]> {
 }
 
 export async function generateMetadata({ params }: Props) {
-  const { id } = await params;
+  const { id, locale } = await params;
   try {
-    const company = await getCompany(id);
+    const company = await getCompany(id, locale);
     return {
       title: company.name,
       description: company.description?.slice(0, 160),
@@ -73,11 +77,11 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default async function CompanyPage({ params }: Props) {
-  const { id } = await params;
+  const { id, locale } = await params;
 
   let company: TMDBCompanyDetails;
   try {
-    company = await getCompany(id);
+    company = await getCompany(id, locale);
   } catch {
     return (
       <ErrorState
@@ -90,7 +94,7 @@ export default async function CompanyPage({ params }: Props) {
   }
 
   const [movies, externalIds, logos] = await Promise.all([
-    getCompanyMovies(id),
+    getCompanyMovies(id, locale),
     getCompanyExternalIds(id),
     getCompanyImages(id),
   ]);

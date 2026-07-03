@@ -1,4 +1,4 @@
-﻿import { fetchApi } from "@/shared/services/fetchApi";
+import { fetchApi } from "@/shared/services/fetchApi";
 import { ErrorState } from "@/shared/components/error-state";
 import type { TVSeasonDetails, TMDBTVDetails } from "@/shared/types/tmdb";
 import { SeasonHero } from "@/features/tv/components/season/season-hero";
@@ -11,24 +11,26 @@ interface Props {
 
 const SEASON_APPEND = "videos,images,external_ids,credits,aggregate_credits";
 
-async function getSeason(tvId: string, seasonNumber: string) {
+async function getSeason(tvId: string, seasonNumber: string, locale: string) {
   return fetchApi<TVSeasonDetails>({
     endpoint: `tv/${tvId}/season/${seasonNumber}?append_to_response=${SEASON_APPEND}`,
     revalidate: 3600,
+    locale,
   });
 }
 
-async function getTvShow(tvId: string) {
+async function getTvShow(tvId: string, locale: string) {
   return fetchApi<TMDBTVDetails>({
     endpoint: `tv/${tvId}`,
     revalidate: 3600,
+    locale,
   });
 }
 
 export async function generateMetadata({ params }: Props) {
-  const { id, seasonNumber } = await params;
+  const { id, seasonNumber, locale } = await params;
   try {
-    const season = await getSeason(id, seasonNumber);
+    const season = await getSeason(id, seasonNumber, locale);
     return { title: `${season.name} · Season ${seasonNumber}` };
   } catch {
     return { title: "Season" };
@@ -36,14 +38,14 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default async function SeasonPage({ params }: Props) {
-  const { id, seasonNumber, slug } = await params;
+  const { id, seasonNumber, slug, locale } = await params;
 
   let season: TVSeasonDetails;
   let tvShow: TMDBTVDetails | null = null;
   try {
     [season, tvShow] = await Promise.all([
-      getSeason(id, seasonNumber),
-      getTvShow(id).catch(() => null),
+      getSeason(id, seasonNumber, locale),
+      getTvShow(id, locale).catch(() => null),
     ]);
   } catch {
     return (

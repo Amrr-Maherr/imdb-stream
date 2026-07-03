@@ -10,17 +10,18 @@ interface Props {
   params: Promise<{ locale: string; slug: string; id: string }>;
 }
 
-async function getCollection(id: string) {
+async function getCollection(id: string, locale: string) {
   return fetchApi<TMDBCollectionDetails>({
     endpoint: `collection/${id}`,
     revalidate: 3600,
+    locale,
   });
 }
 
 export async function generateMetadata({ params }: Props) {
-  const { id } = await params;
+  const { id, locale } = await params;
   try {
-    const collection = await getCollection(id);
+    const collection = await getCollection(id, locale);
     return {
       title: collection.name,
       description: collection.overview?.slice(0, 160),
@@ -36,7 +37,7 @@ export default async function CollectionPage({ params }: Props) {
 
   let collection: TMDBCollectionDetails;
   try {
-    collection = await getCollection(id);
+    collection = await getCollection(id, locale);
   } catch {
     return (
       <ErrorState

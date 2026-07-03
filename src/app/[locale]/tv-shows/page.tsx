@@ -22,10 +22,11 @@ export default async function TvShowsPage({
   params: paramsPromise,
   searchParams: searchParamsPromise,
 }: Props) {
-  const [, searchParams] = await Promise.all([
+  const [params, searchParams] = await Promise.all([
     paramsPromise,
     searchParamsPromise,
   ]);
+  const { locale } = params;
 
   const includeAdult = searchParams.include_adult === "true";
 
@@ -48,6 +49,7 @@ export default async function TvShowsPage({
       ? Number(searchParams.vote_average_gte)
       : undefined,
     include_adult: includeAdult || undefined,
+    locale,
   });
 
   const currentPage = data?.page ?? 1;

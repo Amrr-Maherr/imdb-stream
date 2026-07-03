@@ -12,6 +12,7 @@ export type TvFilters = {
     | "vote_average.desc"
     | "first_air_date.desc";
   include_adult?: boolean;
+  locale: string;
 };
 
 export default async function GetTvShows({
@@ -23,6 +24,7 @@ export default async function GetTvShows({
   with_origin_country,
   sort_by = "popularity.desc",
   include_adult,
+  locale,
 }: TvFilters) {
   try {
     const response = await axios.get(
@@ -38,6 +40,7 @@ export default async function GetTvShows({
           with_origin_country,
           sort_by,
           "vote_average.gte": vote_average_gte,
+          language: locale,
         },
       },
     );

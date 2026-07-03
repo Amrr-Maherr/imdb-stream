@@ -30,17 +30,18 @@ type TMDBListDetails = {
   items: TMDBListItem[];
 };
 
-async function getList(id: string) {
+async function getList(id: string, locale: string) {
   return fetchApi<TMDBListDetails>({
     endpoint: `list/${id}`,
     revalidate: 3600,
+    locale,
   });
 }
 
 export async function generateMetadata({ params }: Props) {
-  const { id } = await params;
+  const { id, locale } = await params;
   try {
-    const list = await getList(id);
+    const list = await getList(id, locale);
     return {
       title: list.name,
       description: list.description?.slice(0, 160),
@@ -51,11 +52,11 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default async function ListPage({ params }: Props) {
-  const { id } = await params;
+  const { id, locale } = await params;
 
   let list: TMDBListDetails;
   try {
-    list = await getList(id);
+    list = await getList(id, locale);
   } catch {
     return (
       <ErrorState

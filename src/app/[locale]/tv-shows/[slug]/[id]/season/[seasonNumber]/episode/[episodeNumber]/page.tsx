@@ -1,4 +1,4 @@
-﻿import { fetchApi } from "@/shared/services/fetchApi";
+import { fetchApi } from "@/shared/services/fetchApi";
 import { ErrorState } from "@/shared/components/error-state";
 import type { TMDBEpisodeDetails, TVSeasonDetails } from "@/shared/types/tmdb";
 import { EpisodeHero } from "@/features/tv/components/episode/episode-hero";
@@ -12,24 +12,26 @@ interface Props {
 const EPISODE_APPEND = "videos,images,external_ids,credits";
 const SEASON_APPEND = "videos,images,external_ids,credits,aggregate_credits";
 
-async function getEpisode(tvId: string, seasonNumber: string, episodeNumber: string) {
+async function getEpisode(tvId: string, seasonNumber: string, episodeNumber: string, locale: string) {
   return fetchApi<TMDBEpisodeDetails>({
     endpoint: `tv/${tvId}/season/${seasonNumber}/episode/${episodeNumber}?append_to_response=${EPISODE_APPEND}`,
     revalidate: 3600,
+    locale,
   });
 }
 
-async function getSeason(tvId: string, seasonNumber: string) {
+async function getSeason(tvId: string, seasonNumber: string, locale: string) {
   return fetchApi<TVSeasonDetails>({
     endpoint: `tv/${tvId}/season/${seasonNumber}?append_to_response=${SEASON_APPEND}`,
     revalidate: 3600,
+    locale,
   });
 }
 
 export async function generateMetadata({ params }: Props) {
-  const { id, seasonNumber, episodeNumber } = await params;
+  const { id, seasonNumber, episodeNumber, locale } = await params;
   try {
-    const ep = await getEpisode(id, seasonNumber, episodeNumber);
+    const ep = await getEpisode(id, seasonNumber, episodeNumber, locale);
     return { title: `${ep.episode_number}. ${ep.name}` };
   } catch {
     return { title: "Episode" };
@@ -37,14 +39,14 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default async function EpisodePage({ params }: Props) {
-  const { id, seasonNumber, episodeNumber, slug } = await params;
+  const { id, seasonNumber, episodeNumber, slug, locale } = await params;
 
   let ep: TMDBEpisodeDetails;
   let season: TVSeasonDetails | null = null;
   try {
     [ep, season] = await Promise.all([
-      getEpisode(id, seasonNumber, episodeNumber),
-      getSeason(id, seasonNumber).catch(() => null),
+      getEpisode(id, seasonNumber, episodeNumber, locale),
+      getSeason(id, seasonNumber, locale).catch(() => null),
     ]);
   } catch {
     return (

@@ -25,31 +25,33 @@ const TV_APPEND = [
   "videos", "watch/providers",
 ].join(",");
 
-async function getMovie(id: string) {
+async function getMovie(id: string, locale: string) {
   return fetchApi<TMDBMovieDetails>({
     endpoint: `movie/${id}?append_to_response=${MOVIE_APPEND}`,
     revalidate: 3600,
+    locale,
   });
 }
 
-async function getTvShow(id: string) {
+async function getTvShow(id: string, locale: string) {
   return fetchApi<TMDBTVDetails>({
     endpoint: `tv/${id}?append_to_response=${TV_APPEND}`,
     revalidate: 3600,
+    locale,
   });
 }
 
 export async function generateMetadata({ params }: Props) {
-  const { mediaType, id } = await params;
+  const { mediaType, id, locale } = await params;
   try {
     if (mediaType === "movie") {
-      const movie = await getMovie(id);
+      const movie = await getMovie(id, locale);
       return {
         title: movie.title,
         description: movie.tagline || movie.overview?.slice(0, 160),
       };
     }
-    const show = await getTvShow(id);
+    const show = await getTvShow(id, locale);
     return {
       title: show.name,
       description: show.tagline || show.overview?.slice(0, 160),
@@ -60,15 +62,15 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default async function ListItemPage({ params }: Props) {
-  const { mediaType, id } = await params;
+  const { mediaType, id, locale } = await params;
 
   const { slug } = await params;
 
   if (mediaType === "movie") {
-    return <MovieContent id={id} />;
+    return <MovieContent id={id} locale={locale} />;
   }
   if (mediaType === "tv") {
-    return <TvContent id={id} slug={slug} />;
+    return <TvContent id={id} slug={slug} locale={locale} />;
   }
 
   return (
@@ -81,10 +83,10 @@ export default async function ListItemPage({ params }: Props) {
   );
 }
 
-async function MovieContent({ id }: { id: string }) {
+async function MovieContent({ id, locale }: { id: string; locale: string }) {
   let movie: TMDBMovieDetails;
   try {
-    movie = await getMovie(id);
+    movie = await getMovie(id, locale);
   } catch {
     return (
       <ErrorState
@@ -142,10 +144,10 @@ async function MovieContent({ id }: { id: string }) {
   );
 }
 
-async function TvContent({ id, slug }: { id: string; slug: string }) {
+async function TvContent({ id, slug, locale }: { id: string; slug: string; locale: string }) {
   let show: TMDBTVDetails;
   try {
-    show = await getTvShow(id);
+    show = await getTvShow(id, locale);
   } catch {
     return (
       <ErrorState

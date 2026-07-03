@@ -38,7 +38,7 @@ export default async function RootLayout({
     notFound();
   }
 
-  const messages = await getMessages();
+  const messages = await getMessages({ locale });
 
   return (
     <html
@@ -69,7 +69,7 @@ export default async function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <NextIntlClientProvider messages={messages}>
+            <NextIntlClientProvider messages={messages} locale={locale}>
               <SerwistProvider swUrl="/serwist/sw.js">
                 <ToasterProvider />
                 <div className="flex min-h-full flex-col">

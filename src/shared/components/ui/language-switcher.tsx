@@ -1,7 +1,7 @@
 "use client";
 
 import { useLocale } from "next-intl";
-import { usePathname } from "next/navigation";
+import { useRouter, usePathname } from "@/i18n/routing";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { ChevronDown } from "lucide-react";
 
@@ -15,11 +15,12 @@ const languages: Record<string, string> = {
 
 export default function LanguageSwitcher() {
   const locale = useLocale();
-  const fullPath = usePathname();
+  const router = useRouter();
+  const pathname = usePathname();
 
   const switchLang = (nextLocale: string) => {
-    const pathWithoutLocale = fullPath.replace(/^\/[a-z]{2}(?:\/|$)/, "/") || "/";
-    window.location.href = `/${nextLocale}${pathWithoutLocale}`;
+    router.replace(pathname, { locale: nextLocale });
+    // window.location.reload();
   };
 
   return (
@@ -39,7 +40,7 @@ export default function LanguageSwitcher() {
             "z-50 min-w-[8rem] overflow-hidden rounded-lg border bg-popover p-1 text-popover-foreground shadow-md",
             "data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95",
             "data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95",
-            "data-[side=bottom]:slide-in-from-top-2 data-[side=top]:slide-in-from-bottom-2"
+            "data-[side=bottom]:slide-in-from-top-2 data-[side=top]:slide-in-from-bottom-2",
           )}
         >
           {Object.entries(languages).map(([code, label]) => (
@@ -50,7 +51,7 @@ export default function LanguageSwitcher() {
                 "relative flex cursor-default select-none items-center rounded-md px-2 py-1.5 text-sm outline-none transition-colors",
                 "data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
                 "data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground",
-                code === locale && "bg-accent font-medium"
+                code === locale && "bg-accent font-medium",
               )}
             >
               {label}

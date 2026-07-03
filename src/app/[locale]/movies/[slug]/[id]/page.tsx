@@ -1,4 +1,4 @@
-﻿import { fetchApi } from "@/shared/services/fetchApi";
+import { fetchApi } from "@/shared/services/fetchApi";
 import { ErrorState } from "@/shared/components/error-state";
 import type { TMDBMovieDetails } from "@/shared/types/tmdb";
 import { MovieHero } from "@/features/movies/components/detail/movie-hero";
@@ -28,17 +28,18 @@ const APPEND_PARAMS = [
   "watch/providers",
 ].join(",");
 
-async function getMovie(id: string) {
+async function getMovie(id: string, locale: string) {
   return fetchApi<TMDBMovieDetails>({
     endpoint: `movie/${id}?append_to_response=${APPEND_PARAMS}`,
     revalidate: 3600,
+    locale,
   });
 }
 
 export async function generateMetadata({ params }: Props) {
-  const { id } = await params;
+  const { id, locale } = await params;
   try {
-    const movie = await getMovie(id);
+    const movie = await getMovie(id, locale);
     return {
       title: movie.title,
       description: movie.tagline || movie.overview?.slice(0, 160),
@@ -49,11 +50,11 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default async function MoviePage({ params }: Props) {
-  const { id } = await params;
+  const { id, locale } = await params;
 
   let movie: TMDBMovieDetails;
   try {
-    movie = await getMovie(id);
+    movie = await getMovie(id, locale);
   } catch {
     return NotFound();
   }

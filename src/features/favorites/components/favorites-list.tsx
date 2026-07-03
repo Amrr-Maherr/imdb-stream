@@ -4,15 +4,15 @@ import { MovieCard } from "@/features/movies/components/listing/movie-card";
 import { TvCard } from "@/features/movies/components/listing/tv-card";
 import { toTMDBMovie, toTMDBTV } from "@/features/movies/services/mapper";
 import { useFavorites } from "../hooks/useFavorites";
-import { MediaGridSkeleton } from "@/shared/components/skeletons";
 import { EmptyState } from "@/shared/components/empty-state";
 import { DeleteAllButton } from "@/shared/components/delete-all-button";
+import { FavoritesSkeleton } from "./favorites-skeleton";
 
 export function FavoritesList() {
   const { favorites, loading, deleting, deleteAll } = useFavorites();
 
   if (loading) {
-    return <MediaGridSkeleton />;
+    return <FavoritesSkeleton />;
   }
 
   if (favorites.length === 0) {

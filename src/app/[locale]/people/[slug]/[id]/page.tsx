@@ -1,4 +1,4 @@
-﻿import { fetchApi } from "@/shared/services/fetchApi";
+import { fetchApi } from "@/shared/services/fetchApi";
 import { ErrorState } from "@/shared/components/error-state";
 import type { TMDBPersonDetails } from "@/shared/types/tmdb";
 import { PersonHero } from "@/features/person/components/person-hero";
@@ -9,17 +9,18 @@ interface Props {
   params: Promise<{ locale: string; slug: string; id: string }>;
 }
 
-async function getPerson(id: string) {
+async function getPerson(id: string, locale: string) {
   return fetchApi<TMDBPersonDetails>({
     endpoint: `person/${id}?append_to_response=combined_credits,external_ids,images,tagged_images,translations`,
     revalidate: 3600,
+    locale,
   });
 }
 
 export async function generateMetadata({ params }: Props) {
-  const { id } = await params;
+  const { id, locale } = await params;
   try {
-    const person = await getPerson(id);
+    const person = await getPerson(id, locale);
     return {
       title: person.name,
       description: person.biography?.slice(0, 160),
@@ -30,11 +31,11 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default async function PersonPage({ params }: Props) {
-  const { id } = await params;
+  const { id, locale } = await params;
 
   let person: TMDBPersonDetails;
   try {
-    person = await getPerson(id);
+    person = await getPerson(id, locale);
   } catch {
     return (
       <ErrorState

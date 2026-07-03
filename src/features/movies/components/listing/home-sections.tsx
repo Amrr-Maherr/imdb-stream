@@ -12,16 +12,22 @@ import {
   PlatformsSection,
 } from "@/features/company/components/company-section";
 
-async function fetchGenreMap(): Promise<Record<number, string>> {
+interface Props {
+  locale: string;
+}
+
+async function fetchGenreMap(locale: string): Promise<Record<number, string>> {
   try {
     const [movieRes, tvRes] = await Promise.all([
       fetchApi<{ genres: { id: number; name: string }[] }>({
         endpoint: "genre/movie/list",
         revalidate: 86400,
+        locale,
       }),
       fetchApi<{ genres: { id: number; name: string }[] }>({
         endpoint: "genre/tv/list",
         revalidate: 86400,
+        locale,
       }),
     ]);
     const map: Record<number, string> = {};
@@ -33,7 +39,7 @@ async function fetchGenreMap(): Promise<Record<number, string>> {
   }
 }
 
-export async function HomeSections() {
+export async function HomeSections({ locale }: Props) {
   const [
     popular,
     topRated,
@@ -45,15 +51,15 @@ export async function HomeSections() {
     popularPeople,
     genreMap,
   ] = await Promise.all([
-    safeFetch<TMDBMovie>("movie/popular"),
-    safeFetch<TMDBMovie>("movie/top_rated"),
-    safeFetch<TMDBMovie>("movie/now_playing"),
-    safeFetch<TMDBTV>("trending/tv/week"),
-    safeFetch<TMDBTV>("tv/popular"),
-    safeFetch<TMDBTV>("tv/airing_today"),
-    safeFetch<TMDBPerson>("trending/person/week"),
-    safeFetch<TMDBPerson>("person/popular"),
-    fetchGenreMap(),
+    safeFetch<TMDBMovie>("movie/popular", locale),
+    safeFetch<TMDBMovie>("movie/top_rated", locale),
+    safeFetch<TMDBMovie>("movie/now_playing", locale),
+    safeFetch<TMDBTV>("trending/tv/week", locale),
+    safeFetch<TMDBTV>("tv/popular", locale),
+    safeFetch<TMDBTV>("tv/airing_today", locale),
+    safeFetch<TMDBPerson>("trending/person/week", locale),
+    safeFetch<TMDBPerson>("person/popular", locale),
+    fetchGenreMap(locale),
   ]);
 
   return (
@@ -165,11 +171,12 @@ export async function HomeSections() {
   );
 }
 
-async function safeFetch<T>(endpoint: string): Promise<T[]> {
+async function safeFetch<T>(endpoint: string, locale: string): Promise<T[]> {
   try {
     const data = await fetchApi<TMDBResponse<T>>({
       endpoint,
       revalidate: 3600,
+      locale,
     });
     return data.results;
   } catch {
