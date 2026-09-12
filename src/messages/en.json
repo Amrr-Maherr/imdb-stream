@@ -1149,6 +1149,7 @@
     "genre": "Genre",
     "originalLanguage": "Original Language",
     "releaseYear": "Release Year",
+    "rating": "Rating",
     "minimumRating": "Minimum Rating",
     "regionCountry": "Region / Country",
     "sortBy": "Sort By",
