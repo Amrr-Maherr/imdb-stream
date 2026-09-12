@@ -20,7 +20,7 @@ export function SeasonCard({ season, tvId, tvSlug }: SeasonCardProps) {
   return (
     <Link
       href={`/tv-shows/${tvSlug}/${tvId}/season/${season.season_number}`}
-      className="group flex-shrink-0 w-[160px] sm:w-[180px]"
+      className="group w-full"
     >
       <div className="relative aspect-[2/3] w-full overflow-hidden rounded-lg bg-muted">
         {season.poster_path ? (

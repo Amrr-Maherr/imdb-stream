@@ -30,7 +30,7 @@ export function PersonCard({
     return (
       <Link
         href={`/people/${slugify(person.name)}/${person.id}`}
-        className={cn('group flex-shrink-0 w-[200px] sm:w-[240px]', className)}
+        className={cn('group w-full', className)}
       >
         <div className="relative aspect-[1/1] w-full overflow-hidden rounded-xl bg-muted">
           {person.profile_path ? (
@@ -69,7 +69,7 @@ export function PersonCard({
   return (
     <Link
       href={`/people/${slugify(person.name)}/${person.id}`}
-      className={cn('group flex-shrink-0 w-[140px] sm:w-[160px]', className)}
+      className={cn('group w-full', className)}
     >
       <div className="relative aspect-[1/1] w-full overflow-hidden rounded-full bg-muted">
         {person.profile_path ? (

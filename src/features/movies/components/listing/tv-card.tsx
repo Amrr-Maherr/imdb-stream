@@ -23,7 +23,7 @@ export function TvCard({ tv, genreMap, showRank }: TvCardProps) {
   return (
     <Link
       href={`/tv-shows/${slugify(tv.name)}/${tv.id}`}
-      className="group flex-shrink-0 w-[160px] sm:w-[180px] relative"
+      className="group w-full relative"
     >
       {showRank && (
         <div className="absolute -top-1.5 -left-1.5 z-10 flex items-center justify-center size-7 rounded-full bg-brand text-brand-foreground text-xs font-bold shadow-md">

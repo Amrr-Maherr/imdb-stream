@@ -71,8 +71,8 @@ export default async function TvShowsPage({
         )}
 
         <section>
-          <div className="flex flex-wrap justify-start gap-3 md:gap-4">
-            {data?.results?.map((tv: any) => (
+          <div className="grid grid-cols-[repeat(auto-fill,minmax(160px,1fr))] gap-3 md:gap-4">
+            {data?.results?.map((tv: TMDBTV) => (
               <TvCard key={tv.id} tv={tv} />
             ))}
           </div>
