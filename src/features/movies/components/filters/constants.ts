@@ -1,5 +1,3 @@
-import { Sparkles, Star, Calendar, TrendingUp, type LucideIcon } from "lucide-react"
-
 export type GenreOption = { value: string; label: string }
 
 export const GENRES: GenreOption[] = [
@@ -50,14 +48,13 @@ export const COUNTRIES: CountryOption[] = [
 export interface SortOption {
   value: string
   label: string
-  icon: LucideIcon
 }
 
 export const SORT_OPTIONS: SortOption[] = [
-  { value: "popularity.desc", label: "Most Popular", icon: Sparkles },
-  { value: "vote_average.desc", label: "Highest Rated", icon: Star },
-  { value: "primary_release_date.desc", label: "Newest Release", icon: Calendar },
-  { value: "revenue.desc", label: "Highest Revenue", icon: TrendingUp },
+  { value: "popularity.desc", label: "Most Popular" },
+  { value: "vote_average.desc", label: "Highest Rated" },
+  { value: "primary_release_date.desc", label: "Newest Release" },
+  { value: "revenue.desc", label: "Highest Revenue" },
 ]
 
 export const RATING_OPTIONS = [

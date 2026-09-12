@@ -1,6 +1,5 @@
 "use client"
 
-import { Globe } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { useRouter, useSearchParams } from "next/navigation"
 import {
@@ -32,7 +31,6 @@ function LanguageDropdown() {
   return (
     <Select value={value} onValueChange={handleChange}>
       <SelectTrigger className="h-9 min-w-[8.5rem] text-xs">
-        <Globe className="size-3.5 shrink-0 text-muted-foreground" />
         <SelectValue placeholder={t("language")} />
       </SelectTrigger>
       <SelectContent>

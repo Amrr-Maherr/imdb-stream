@@ -22,6 +22,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "firebase": "^12.15.0",
+    "hookli": "^1.6.3",
     "lucide-react": "^1.21.0",
     "motion": "^12.40.0",
     "next": "16.2.9",
@@ -52,6 +53,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.9",
     "jest": "^30.4.2",
+    "prettier": "3.9.6",
     "serwist": "^9.5.11",
     "tailwindcss": "^4",
     "typescript": "^5"

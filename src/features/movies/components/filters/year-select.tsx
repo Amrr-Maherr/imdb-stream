@@ -1,6 +1,5 @@
 "use client"
 
-import { Calendar } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { useRouter, useSearchParams } from "next/navigation"
 import {
@@ -34,7 +33,6 @@ function YearSelect() {
   return (
     <Select value={value} onValueChange={handleChange}>
       <SelectTrigger className="h-9 min-w-[8.5rem] text-xs">
-        <Calendar className="size-3.5 shrink-0 text-muted-foreground" />
         <SelectValue placeholder={t("year")} />
       </SelectTrigger>
       <SelectContent className="max-h-60">

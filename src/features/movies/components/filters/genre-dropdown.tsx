@@ -1,6 +1,5 @@
 "use client"
 
-import { Film } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { useRouter, useSearchParams } from "next/navigation"
 import {
@@ -51,7 +50,6 @@ function GenreDropdown() {
   return (
     <Select value={value} onValueChange={handleChange}>
       <SelectTrigger className="h-9 min-w-[8.5rem] text-xs">
-        <Film className="size-3.5 shrink-0 text-muted-foreground" />
         <SelectValue placeholder={t("genre")} />
       </SelectTrigger>
       <SelectContent>

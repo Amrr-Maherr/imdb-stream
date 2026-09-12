@@ -1,6 +1,5 @@
 "use client"
 
-import { Star } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { useRouter, useSearchParams } from "next/navigation"
 import {
@@ -46,7 +45,6 @@ function RatingSelect() {
   return (
     <Select value={value} onValueChange={handleChange}>
       <SelectTrigger className="h-9 min-w-[8.5rem] text-xs">
-        <Star className="size-3.5 shrink-0 text-amber-500" />
         <SelectValue placeholder={t("rating")} />
       </SelectTrigger>
       <SelectContent>
