@@ -195,7 +195,7 @@ export function MovieHero({
   }, []);
 
   return (
-    <section className="relative w-full aspect-[4/5] md:aspect-[16/9] lg:aspect-[21/9] overflow-hidden">
+    <section className="relative w-full aspect-[4/5] md:aspect-[16/9] lg:aspect-[21/10] overflow-hidden">
       {/* Background layer – z-0 */}
       <div ref={containerRef} className="absolute inset-0">
         <MovieBackground
@@ -306,7 +306,9 @@ export function MovieHero({
                 {tc("playing")}
               </span>
             )}
-            {!playing && <span className="text-xs text-white/60">{tc("paused")}</span>}
+            {!playing && (
+              <span className="text-xs text-white/60">{tc("paused")}</span>
+            )}
             <button
               onClick={toggleFullscreen}
               className="flex size-9 items-center justify-center rounded-lg bg-white/10 text-white hover:bg-white/20 transition-colors"
