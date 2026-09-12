@@ -34,13 +34,13 @@ export default async function TvShowsPage({
   const data = await GetTvShows({
     page: searchParams.page ? Number(searchParams.page) : undefined,
     with_genres: searchParams.with_genres as string | undefined,
-    with_original_language:
-      searchParams.with_original_language as string | undefined,
+    with_original_language: searchParams.with_original_language as
+      | string
+      | undefined,
     first_air_date_year: searchParams.first_air_date_year
       ? Number(searchParams.first_air_date_year)
       : undefined,
-    with_origin_country:
-      searchParams.with_origin_country as string | undefined,
+    with_origin_country: searchParams.with_origin_country as string | undefined,
     sort_by: (searchParams.sort_by ?? undefined) as
       | "popularity.desc"
       | "vote_average.desc"
@@ -88,7 +88,7 @@ export default async function TvShowsPage({
         )}
 
         <section>
-          <div className="flex flex-wrap justify-between gap-3 md:gap-4">
+          <div className="flex flex-wrap justify-start gap-3 md:gap-4">
             {data?.results?.map((tv: any) => (
               <TvCard key={tv.id} tv={tv} />
             ))}
