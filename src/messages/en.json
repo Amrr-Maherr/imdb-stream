@@ -1637,6 +1637,16 @@
     "openChat": "Open chat",
     "close": "Close",
     "typeMessage": "Type a message...",
-    "sendMessage": "Send message"
+    "sendMessage": "Send message",
+    "subtitle": "AI movie & TV assistant",
+    "clearChat": "Clear chat",
+    "emptyTitle": "Hi, I'm your streaming guide",
+    "emptySubtitle": "Ask me anything about movies, TV series, actors, or trending titles.",
+    "suggestion1": "Recommend a sci-fi movie",
+    "suggestion2": "Best TV shows right now",
+    "suggestion3": "Trending this week",
+    "suggestion4": "Top rated action movies",
+    "thinking": "Thinking",
+    "error": "Sorry, something went wrong. Please try again."
   }
 }

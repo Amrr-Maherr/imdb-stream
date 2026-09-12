@@ -2,6 +2,7 @@ import { DesktopFilters, MobileBar } from '@/features/tv/components/filters/tv-f
 import { TvCard } from '@/features/movies/components/listing/tv-card';
 import GetTvShows from '@/features/tv/services/getTvShows';
 import { PaginationDemo } from '@/shared/components/pagination';
+import type { TMDBTV } from '@/shared/types/tmdb';
 import { getTranslations } from 'next-intl/server';
 
 interface Props {

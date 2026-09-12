@@ -15,12 +15,12 @@ export default async function aiChat({ param }: AiChatProps) {
         model: 'openai/gpt-oss-120b',
         messages: [
           {
-            role: 'user',
-            content: param,
-          },
-          {
             role: 'system',
             content: SYSTEM_PROMPT,
+          },
+          {
+            role: 'user',
+            content: param,
           },
         ],
         stream: false,
