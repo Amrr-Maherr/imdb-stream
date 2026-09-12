@@ -1,5 +1,5 @@
-import FooterLinks from "./FooterLinks";
-import Copyright from "./Copyright";
+import FooterLinks from './FooterLinks';
+import Copyright from './Copyright';
 
 export default function Footer() {
   return (

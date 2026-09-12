@@ -1,8 +1,8 @@
-import { useTranslations } from "next-intl";
-import Link from "next/link";
-import { DollarSign, TrendingUp, Flag, Globe, ShieldCheck } from "lucide-react";
-import { MovieRating } from "./movie-rating";
-import { slugify } from "@/shared/utils/slugify";
+import { useTranslations } from 'next-intl';
+import Link from 'next/link';
+import { DollarSign, TrendingUp, Flag, Globe, ShieldCheck } from 'lucide-react';
+import { MovieRating } from './movie-rating';
+import { slugify } from '@/shared/utils/slugify';
 
 type MovieSidebarProps = {
   voteAverage: number;
@@ -25,10 +25,10 @@ type MovieSidebarProps = {
 };
 
 function formatCurrency(amount: number) {
-  if (amount === 0) return "—";
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
+  if (amount === 0) return '—';
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   }).format(amount);
@@ -53,28 +53,24 @@ export function MovieSidebar({
   originCountry,
   adult,
 }: MovieSidebarProps) {
-  const t = useTranslations("MovieDetail");
+  const t = useTranslations('MovieDetail');
   return (
     <aside className="space-y-8">
       {/* Rating Card */}
       <div className="rounded-xl border border-border bg-card p-5">
-        <MovieRating
-          voteAverage={voteAverage}
-          voteCount={voteCount}
-          popularity={popularity}
-        />
+        <MovieRating voteAverage={voteAverage} voteCount={voteCount} popularity={popularity} />
       </div>
 
       {/* Movie Facts */}
       <div>
         <h3 className="text-sm font-bold text-foreground uppercase tracking-wide mb-3">
-          {t("facts")}
+          {t('facts')}
         </h3>
         <div className="space-y-3">
           {status && (
             <div>
               <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                {t("status")}
+                {t('status')}
               </h4>
               <p className="text-sm text-foreground mt-0.5">{status}</p>
             </div>
@@ -82,13 +78,13 @@ export function MovieSidebar({
           {releaseDate && (
             <div>
               <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                {t("releaseDate")}
+                {t('releaseDate')}
               </h4>
               <p className="text-sm text-foreground mt-0.5">
-                {new Date(releaseDate).toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
+                {new Date(releaseDate).toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
                 })}
               </p>
             </div>
@@ -96,17 +92,15 @@ export function MovieSidebar({
           {originalLanguage && (
             <div>
               <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                {t("originalLanguage")}
+                {t('originalLanguage')}
               </h4>
-              <p className="text-sm text-foreground mt-0.5 uppercase">
-                {originalLanguage}
-              </p>
+              <p className="text-sm text-foreground mt-0.5 uppercase">{originalLanguage}</p>
             </div>
           )}
           {budget > 0 && (
             <div>
               <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                {t("budget")}
+                {t('budget')}
               </h4>
               <p className="text-sm text-foreground mt-0.5 flex items-center gap-1">
                 <DollarSign className="size-3.5" />
@@ -117,7 +111,7 @@ export function MovieSidebar({
           {revenue > 0 && (
             <div>
               <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                {t("revenue")}
+                {t('revenue')}
               </h4>
               <p className="text-sm text-foreground mt-0.5 flex items-center gap-1">
                 <DollarSign className="size-3.5" />
@@ -128,7 +122,7 @@ export function MovieSidebar({
           {budget > 0 && revenue > 0 && (
             <div>
               <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                {t("profit")}
+                {t('profit')}
               </h4>
               <p className="text-sm text-foreground mt-0.5 flex items-center gap-1">
                 <TrendingUp className="size-3.5" />
@@ -139,7 +133,7 @@ export function MovieSidebar({
           {originalTitle !== title && (
             <div>
               <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                {t("originalTitle")}
+                {t('originalTitle')}
               </h4>
               <p className="text-sm text-foreground mt-0.5">{originalTitle}</p>
             </div>
@@ -147,7 +141,7 @@ export function MovieSidebar({
           {productionCompanies.length > 0 && (
             <div>
               <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                {t("production")}
+                {t('production')}
               </h4>
               <div className="text-sm text-foreground mt-0.5 space-y-0.5">
                 {productionCompanies.map((c) => (
@@ -165,42 +159,45 @@ export function MovieSidebar({
           {productionCountries?.length > 0 && (
             <div>
               <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                {t("productionCountries")}
+                {t('productionCountries')}
               </h4>
               <p className="text-sm text-foreground mt-0.5 flex items-center gap-1">
                 <Globe className="size-3.5" />
-                {productionCountries.map((pc) => pc.name).join(", ")}
+                {productionCountries.map((pc) => pc.name).join(', ')}
               </p>
             </div>
           )}
           {originCountry?.length > 0 && (
             <div>
               <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                {t("originCountry")}
+                {t('originCountry')}
               </h4>
               <p className="text-sm text-foreground mt-0.5 flex items-center gap-1">
                 <Flag className="size-3.5" />
-                {originCountry.join(", ")}
+                {originCountry.join(', ')}
               </p>
             </div>
           )}
           {adult && (
             <div>
               <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                {t("adult")}
+                {t('adult')}
               </h4>
               <p className="text-sm text-foreground mt-0.5 flex items-center gap-1">
                 <ShieldCheck className="size-3.5" />
-                {t("yes")}
+                {t('yes')}
               </p>
             </div>
           )}
           <div>
             <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-              {t("languages")}
+              {t('languages')}
             </h4>
             <p className="text-sm text-foreground mt-0.5">
-              {t("languagesCount", { count: spokenLanguagesCount, translations: translationsCount })}
+              {t('languagesCount', {
+                count: spokenLanguagesCount,
+                translations: translationsCount,
+              })}
             </p>
           </div>
         </div>
@@ -210,7 +207,7 @@ export function MovieSidebar({
       {keywords.length > 0 && (
         <div>
           <h3 className="text-sm font-bold text-foreground uppercase tracking-wide mb-3">
-            {t("keywords")}
+            {t('keywords')}
           </h3>
           <div className="flex flex-wrap gap-1.5">
             {keywords.map((kw) => (

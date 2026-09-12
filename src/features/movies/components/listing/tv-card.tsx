@@ -1,10 +1,10 @@
-import Image from "next/image";
-import Link from "next/link";
-import { Star, TrendingUp, Languages, Globe } from "lucide-react";
-import type { TMDBTV } from "@/shared/types/tmdb";
-import { slugify } from "@/shared/utils/slugify";
+import Image from 'next/image';
+import Link from 'next/link';
+import { Star, TrendingUp, Languages, Globe } from 'lucide-react';
+import type { TMDBTV } from '@/shared/types/tmdb';
+import { slugify } from '@/shared/utils/slugify';
 
-const TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p";
+const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p';
 
 type TvCardProps = {
   tv: TMDBTV;

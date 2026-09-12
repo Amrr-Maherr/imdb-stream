@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from 'next/navigation';
 
 export function useChangePage() {
   const router = useRouter();
@@ -8,7 +8,7 @@ export function useChangePage() {
 
   function changePage(newPage: number) {
     const params = new URLSearchParams(searchParams);
-    params.set("page", newPage.toString());
+    params.set('page', newPage.toString());
     router.push(`?${params.toString()}`);
   }
 

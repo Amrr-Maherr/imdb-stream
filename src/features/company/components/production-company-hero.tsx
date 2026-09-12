@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import { useTranslations } from "next-intl";
-import { Building2, ExternalLink, Globe, MapPin, Film } from "lucide-react";
+import Image from 'next/image';
+import { useTranslations } from 'next-intl';
+import { Building2, ExternalLink, Globe, MapPin, Film } from 'lucide-react';
 
-const TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p";
+const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p';
 
 type ProductionCompanyHeroProps = {
   name: string;
@@ -25,7 +25,7 @@ export function ProductionCompanyHero({
   homepage,
   totalProductions,
 }: ProductionCompanyHeroProps) {
-  const t = useTranslations("Company");
+  const t = useTranslations('Company');
   return (
     <section className="bg-card border-b border-border">
       <div className="app-container py-8 md:py-12">
@@ -51,9 +51,7 @@ export function ProductionCompanyHero({
           </div>
 
           <div className="flex-1 min-w-0">
-            <h1 className="text-3xl sm:text-4xl font-bold text-foreground leading-tight">
-              {name}
-            </h1>
+            <h1 className="text-3xl sm:text-4xl font-bold text-foreground leading-tight">{name}</h1>
 
             <div className="flex flex-wrap gap-2 mt-4">
               {originCountry && (
@@ -71,7 +69,7 @@ export function ProductionCompanyHero({
               {totalProductions > 0 && (
                 <span className="inline-flex items-center gap-1 rounded-full border border-border bg-background px-3 py-1 text-xs font-medium text-foreground">
                   <Film className="size-3" />
-                  {totalProductions} {totalProductions === 1 ? t("production") : t("productions")}
+                  {totalProductions} {totalProductions === 1 ? t('production') : t('productions')}
                 </span>
               )}
             </div>
@@ -85,16 +83,14 @@ export function ProductionCompanyHero({
                   className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-background px-4 py-2 text-sm font-medium text-foreground hover:bg-muted transition-all"
                 >
                   <ExternalLink className="size-4" />
-                  {t("website")}
+                  {t('website')}
                 </a>
               </div>
             )}
 
             {description && (
               <div className="mt-6">
-                <p className="text-muted-foreground leading-relaxed line-clamp-3">
-                  {description}
-                </p>
+                <p className="text-muted-foreground leading-relaxed line-clamp-3">{description}</p>
               </div>
             )}
           </div>

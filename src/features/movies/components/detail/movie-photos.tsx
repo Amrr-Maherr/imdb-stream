@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { useTranslations } from "next-intl";
-import Image from "next/image";
-import { Slider } from "@/shared/components/ui/slider";
+import { useTranslations } from 'next-intl';
+import Image from 'next/image';
+import { Slider } from '@/shared/components/ui/slider';
 
-const TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p";
+const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p';
 
 type MoviePhotosProps = {
   backdrops: { file_path: string }[];
@@ -13,14 +13,14 @@ type MoviePhotosProps = {
 };
 
 export function MoviePhotos({ backdrops, posters, logos }: MoviePhotosProps) {
-  const t = useTranslations("MovieDetail");
+  const t = useTranslations('MovieDetail');
   const all = [...backdrops, ...posters, ...(logos ?? [])];
   if (all.length === 0) return null;
 
   return (
     <section>
       <h2 className="text-xl font-bold text-foreground mb-4">
-        {t(logos && logos.length > 0 ? "photosAndLogos" : "photos")}
+        {t(logos && logos.length > 0 ? 'photosAndLogos' : 'photos')}
       </h2>
       <Slider
         slidesPerView={3}
@@ -37,7 +37,7 @@ export function MoviePhotos({ backdrops, posters, logos }: MoviePhotosProps) {
           >
             <Image
               src={`${TMDB_IMAGE_BASE}/w780${img?.file_path}`}
-              alt={t("photoAlt", { index: i + 1 })}
+              alt={t('photoAlt', { index: i + 1 })}
               fill
               className="object-cover"
               sizes="280px"

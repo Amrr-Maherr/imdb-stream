@@ -1,67 +1,67 @@
-"use client"
+'use client';
 
-import { useState } from "react"
-import { useTranslations } from "next-intl"
-import { Mail, User, Eye, EyeOff, Loader2 } from "lucide-react"
-import Link from "next/link"
-import { useForm, SubmitHandler } from "react-hook-form"
+import { useState } from 'react';
+import { useTranslations } from 'next-intl';
+import { Mail, User, Eye, EyeOff, Loader2 } from 'lucide-react';
+import Link from 'next/link';
+import { useForm, SubmitHandler } from 'react-hook-form';
 
-import { Button } from "@/shared/components/ui/button"
-import { Input } from "@/shared/components/ui/input"
-import { Label } from "@/shared/components/ui/label"
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/shared/components/ui/card"
-import useRegister from "@/features/auth/hooks/useRegister"
-import AuthStatusMessage from "@/features/auth/components/AuthStatusMessage"
+import { Button } from '@/shared/components/ui/button';
+import { Input } from '@/shared/components/ui/input';
+import { Label } from '@/shared/components/ui/label';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/shared/components/ui/card';
+import useRegister from '@/features/auth/hooks/useRegister';
+import AuthStatusMessage from '@/features/auth/components/AuthStatusMessage';
 
 export function SignUpForm() {
-  const t = useTranslations("Auth.signUp")
-  const { register: registerUser, firebaseError } = useRegister()
-  const [showPassword, setShowPassword] = useState(false)
-  const [successMessage, setSuccessMessage] = useState<string | null>(null)
+  const t = useTranslations('Auth.signUp');
+  const { register: registerUser, firebaseError } = useRegister();
+  const [showPassword, setShowPassword] = useState(false);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   type Inputs = {
-    name: string
-    email: string
-    password: string
-  }
+    name: string;
+    email: string;
+    password: string;
+  };
 
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
-  } = useForm<Inputs>()
+  } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
-      const result = await registerUser(data)
+      const result = await registerUser(data);
       if (result?.user) {
-        setSuccessMessage(t("success"))
-        reset()
+        setSuccessMessage(t('success'));
+        reset();
       }
     } catch (error: any) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   return (
     <Card className="border-border/50 shadow-lg">
       <CardHeader className="items-center text-center">
-        <CardTitle>{t("heading")}</CardTitle>
+        <CardTitle>{t('heading')}</CardTitle>
       </CardHeader>
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="name">{t("nameLabel")}</Label>
+            <Label htmlFor="name">{t('nameLabel')}</Label>
             <div className="relative">
               <Input
                 id="name"
                 type="text"
-                placeholder={t("namePlaceholder")}
-                className={`peer pe-9 ${errors.name ? "border-red-700" : ""}`}
-                {...register("name", {
-                  required: t("nameRequired"),
+                placeholder={t('namePlaceholder')}
+                className={`peer pe-9 ${errors.name ? 'border-red-700' : ''}`}
+                {...register('name', {
+                  required: t('nameRequired'),
                 })}
               />
               <div className="pointer-events-none absolute inset-y-0 end-0 flex items-center justify-center pe-3 text-muted-foreground/80 peer-disabled:opacity-50">
@@ -78,16 +78,16 @@ export function SignUpForm() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="email">{t("emailLabel")}</Label>
+            <Label htmlFor="email">{t('emailLabel')}</Label>
             <div className="relative">
               <Input
                 id="email"
                 type="email"
-                placeholder={t("emailPlaceholder")}
-                className={`peer pe-9 ${errors.email ? "border-red-700" : ""}`}
+                placeholder={t('emailPlaceholder')}
+                className={`peer pe-9 ${errors.email ? 'border-red-700' : ''}`}
                 autoComplete="email"
-                {...register("email", {
-                  required: t("emailRequired"),
+                {...register('email', {
+                  required: t('emailRequired'),
                 })}
               />
               <div className="pointer-events-none absolute inset-y-0 end-0 flex items-center justify-center pe-3 text-muted-foreground/80 peer-disabled:opacity-50">
@@ -104,23 +104,23 @@ export function SignUpForm() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="password">{t("passwordLabel")}</Label>
+            <Label htmlFor="password">{t('passwordLabel')}</Label>
             <div className="relative">
               <Input
                 id="password"
-                type={showPassword ? "text" : "password"}
-                placeholder={t("passwordPlaceholder")}
-                className={`peer pe-9 ${errors.password ? "border-red-700" : ""}`}
+                type={showPassword ? 'text' : 'password'}
+                placeholder={t('passwordPlaceholder')}
+                className={`peer pe-9 ${errors.password ? 'border-red-700' : ''}`}
                 autoComplete="new-password"
-                {...register("password", {
-                  required: t("passwordRequired"),
+                {...register('password', {
+                  required: t('passwordRequired'),
                 })}
               />
               <button
                 type="button"
                 onClick={() => setShowPassword((p) => !p)}
                 className="absolute inset-y-0 end-0 flex items-center justify-center pe-3 text-muted-foreground/80 hover:text-foreground transition-colors"
-                aria-label={showPassword ? t("hidePassword") : t("showPassword")}
+                aria-label={showPassword ? t('hidePassword') : t('showPassword')}
               >
                 {showPassword ? (
                   <EyeOff size={16} strokeWidth={2} aria-hidden="true" />
@@ -161,20 +161,20 @@ export function SignUpForm() {
             disabled={isSubmitting}
           >
             {isSubmitting && <Loader2 className="animate-spin" />}
-            {isSubmitting ? t("creating") : t("submit")}
+            {isSubmitting ? t('creating') : t('submit')}
           </Button>
 
           <p className="text-sm text-muted-foreground">
-            {t("hasAccount")}{" "}
+            {t('hasAccount')}{' '}
             <Link
               href="/auth/signin"
               className="text-brand hover:text-brand/80 font-medium transition-colors"
             >
-              {t("signIn")}
+              {t('signIn')}
             </Link>
           </p>
         </CardFooter>
       </form>
     </Card>
-  )
+  );
 }

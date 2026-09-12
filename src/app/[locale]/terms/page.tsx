@@ -1,37 +1,37 @@
-import { getTranslations } from "next-intl/server"
-import { FileText, CheckCircle, ChevronRight } from "lucide-react"
-import { cn } from "@/shared/utils/utils"
-import { AnimatedSection } from "@/shared/components/ui/animated-section"
+import { getTranslations } from 'next-intl/server';
+import { FileText, CheckCircle, ChevronRight } from 'lucide-react';
+import { cn } from '@/shared/utils/utils';
+import { AnimatedSection } from '@/shared/components/ui/animated-section';
 
 interface Props {
-  params: Promise<{ locale: string }>
+  params: Promise<{ locale: string }>;
 }
 
 export async function generateMetadata({ params }: Props) {
-  const { locale } = await params
-  const t = await getTranslations({ locale, namespace: "Terms" })
-  return { title: t("title"), description: t("description") }
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'Terms' });
+  return { title: t('title'), description: t('description') };
 }
 
 const sectionKeys = [
-  "acceptance",
-  "eligibility",
-  "account",
-  "content",
-  "conduct",
-  "ip",
-  "thirdParty",
-  "disclaimers",
-  "liability",
-  "termination",
-  "governing",
-  "contact",
-] as const
+  'acceptance',
+  'eligibility',
+  'account',
+  'content',
+  'conduct',
+  'ip',
+  'thirdParty',
+  'disclaimers',
+  'liability',
+  'termination',
+  'governing',
+  'contact',
+] as const;
 
-const itemSections = new Set(["conduct"])
+const itemSections = new Set(['conduct']);
 
 export default async function TermsPage() {
-  const t = await getTranslations("Terms")
+  const t = await getTranslations('Terms');
 
   return (
     <main>
@@ -43,13 +43,11 @@ export default async function TermsPage() {
               <FileText className="size-8 text-brand" />
             </div>
             <h1 className="text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl">
-              {t("hero.title")}
+              {t('hero.title')}
             </h1>
-            <p className="mt-2 text-sm font-medium text-brand">
-              {t("hero.subtitle")}
-            </p>
+            <p className="mt-2 text-sm font-medium text-brand">{t('hero.subtitle')}</p>
             <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground md:text-xl">
-              {t("hero.description")}
+              {t('hero.description')}
             </p>
           </AnimatedSection>
         </div>
@@ -68,8 +66,8 @@ export default async function TermsPage() {
                     key={key}
                     href={`#${key}`}
                     className={cn(
-                      "group flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground",
-                      i === 0 && "bg-muted/50 text-foreground"
+                      'group flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground',
+                      i === 0 && 'bg-muted/50 text-foreground'
                     )}
                   >
                     <ChevronRight className="size-3 shrink-0 opacity-0 transition-all group-hover:opacity-100" />
@@ -106,14 +104,17 @@ export default async function TermsPage() {
                         </h2>
                         {itemSections.has(key) ? (
                           <ul className="mt-4 space-y-3">
-                            {(
-                              t.raw(`sections.${key}.items`) as string[]
-                            ).map((item: string, idx: number) => (
-                              <li key={idx} className="flex items-start gap-3 text-muted-foreground leading-relaxed">
-                                <CheckCircle className="mt-0.5 size-4 shrink-0 text-brand" />
-                                <span>{item}</span>
-                              </li>
-                            ))}
+                            {(t.raw(`sections.${key}.items`) as string[]).map(
+                              (item: string, idx: number) => (
+                                <li
+                                  key={idx}
+                                  className="flex items-start gap-3 text-muted-foreground leading-relaxed"
+                                >
+                                  <CheckCircle className="mt-0.5 size-4 shrink-0 text-brand" />
+                                  <span>{item}</span>
+                                </li>
+                              )
+                            )}
                           </ul>
                         ) : (
                           <p className="mt-4 text-muted-foreground leading-relaxed">
@@ -127,12 +128,12 @@ export default async function TermsPage() {
               </div>
 
               <p className="mt-12 text-center text-xs text-muted-foreground">
-                {t("hero.subtitle")}
+                {t('hero.subtitle')}
               </p>
             </div>
           </div>
         </div>
       </section>
     </main>
-  )
+  );
 }

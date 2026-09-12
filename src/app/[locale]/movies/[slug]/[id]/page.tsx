@@ -1,33 +1,33 @@
-import { getTranslations } from "next-intl/server";
-import { fetchApi } from "@/shared/services/fetchApi";
-import { ErrorState } from "@/shared/components/error-state";
-import type { TMDBMovieDetails } from "@/shared/types/tmdb";
-import { MovieHero } from "@/features/movies/components/detail/movie-hero";
-import { MovieCollection } from "@/features/movies/components/detail/movie-collection";
-import { MovieMainContent } from "@/features/movies/components/detail/movie-main-content";
-import { MovieSidebarColumn } from "@/features/movies/components/detail/movie-sidebar-column";
-import NotFound from "@/app/[locale]/global-not-found";
+import { getTranslations } from 'next-intl/server';
+import { fetchApi } from '@/shared/services/fetchApi';
+import { ErrorState } from '@/shared/components/error-state';
+import type { TMDBMovieDetails } from '@/shared/types/tmdb';
+import { MovieHero } from '@/features/movies/components/detail/movie-hero';
+import { MovieCollection } from '@/features/movies/components/detail/movie-collection';
+import { MovieMainContent } from '@/features/movies/components/detail/movie-main-content';
+import { MovieSidebarColumn } from '@/features/movies/components/detail/movie-sidebar-column';
+import NotFound from '@/app/[locale]/global-not-found';
 
 interface Props {
   params: Promise<{ locale: string; slug: string; id: string }>;
 }
 
 const APPEND_PARAMS = [
-  "account_states",
-  "alternative_titles",
-  "credits",
-  "external_ids",
-  "images",
-  "keywords",
-  "lists",
-  "recommendations",
-  "release_dates",
-  "reviews",
-  "similar",
-  "translations",
-  "videos",
-  "watch/providers",
-].join(",");
+  'account_states',
+  'alternative_titles',
+  'credits',
+  'external_ids',
+  'images',
+  'keywords',
+  'lists',
+  'recommendations',
+  'release_dates',
+  'reviews',
+  'similar',
+  'translations',
+  'videos',
+  'watch/providers',
+].join(',');
 
 async function getMovie(id: string, locale: string) {
   return fetchApi<TMDBMovieDetails>({
@@ -46,8 +46,8 @@ export async function generateMetadata({ params }: Props) {
       description: movie.tagline || movie.overview?.slice(0, 160),
     };
   } catch {
-    const t = await getTranslations({ locale, namespace: "ErrorState" });
-    return { title: t("movieNotFound") };
+    const t = await getTranslations({ locale, namespace: 'ErrorState' });
+    return { title: t('movieNotFound') };
   }
 }
 
@@ -61,19 +61,14 @@ export default async function MoviePage({ params }: Props) {
     return NotFound();
   }
 
-  const year = movie.release_date?.slice(0, 4) ?? "";
+  const year = movie.release_date?.slice(0, 4) ?? '';
   const trailers = (movie.videos?.results ?? []).filter(
-    (v) =>
-      v.site === "YouTube" && (v.type === "Trailer" || v.type === "Teaser"),
+    (v) => v.site === 'YouTube' && (v.type === 'Trailer' || v.type === 'Teaser')
   );
-  const director = movie.credits?.crew?.find((c) => c.job === "Director");
-  const writers = (movie.credits?.crew ?? []).filter(
-    (c) => c.department === "Writing",
-  );
-  const usRelease = (movie.release_dates?.results ?? []).find(
-    (r) => r.iso_3166_1 === "US",
-  );
-  const certification = usRelease?.release_dates?.[0]?.certification ?? "";
+  const director = movie.credits?.crew?.find((c) => c.job === 'Director');
+  const writers = (movie.credits?.crew ?? []).filter((c) => c.department === 'Writing');
+  const usRelease = (movie.release_dates?.results ?? []).find((r) => r.iso_3166_1 === 'US');
+  const certification = usRelease?.release_dates?.[0]?.certification ?? '';
 
   return (
     <div className="flex flex-col flex-1 bg-background">

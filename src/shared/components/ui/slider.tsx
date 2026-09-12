@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { Children, useCallback, useRef } from "react";
-import type { Swiper as SwiperClass } from "swiper";
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Children, useCallback, useRef } from 'react';
+import type { Swiper as SwiperClass } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import {
   Autoplay,
   FreeMode,
@@ -10,31 +10,31 @@ import {
   Pagination,
   EffectFade,
   EffectCoverflow,
-} from "swiper/modules";
+} from 'swiper/modules';
 
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/free-mode";
-import "swiper/css/effect-fade";
-import "swiper/css/effect-coverflow";
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/free-mode';
+import 'swiper/css/effect-fade';
+import 'swiper/css/effect-coverflow';
 
 export interface SliderProps {
   children: React.ReactNode;
-  slidesPerView?: number | "auto";
+  slidesPerView?: number | 'auto';
   slidesMobilePerView?: number;
   spaceBetween?: number;
   loop?: boolean;
   autoplay?: boolean | { delay: number };
   navigation?: boolean;
-  pagination?: boolean | { type: "bullets" | "fraction" | "progressbar" };
-  breakpoints?: Record<number, Omit<SliderProps, "breakpoints">>;
-  direction?: "horizontal" | "vertical";
+  pagination?: boolean | { type: 'bullets' | 'fraction' | 'progressbar' };
+  breakpoints?: Record<number, Omit<SliderProps, 'breakpoints'>>;
+  direction?: 'horizontal' | 'vertical';
   speed?: number;
   centeredSlides?: boolean;
   freeMode?: boolean;
   grabCursor?: boolean;
-  effect?: "slide" | "fade" | "coverflow";
+  effect?: 'slide' | 'fade' | 'coverflow';
   className?: string;
   onSwiper?: (swiper: SwiperClass) => void;
   onSlideChange?: (swiper: SwiperClass) => void;
@@ -42,7 +42,7 @@ export interface SliderProps {
 
 export function Slider({
   children,
-  slidesPerView = "auto",
+  slidesPerView = 'auto',
   slidesMobilePerView,
   spaceBetween = 16,
   loop = false,
@@ -50,13 +50,13 @@ export function Slider({
   navigation = false,
   pagination = false,
   breakpoints,
-  direction = "horizontal",
+  direction = 'horizontal',
   speed = 400,
   centeredSlides = false,
   freeMode = false,
   grabCursor = true,
-  effect = "slide",
-  className = "",
+  effect = 'slide',
+  className = '',
   onSwiper,
   onSlideChange,
 }: SliderProps) {
@@ -75,7 +75,7 @@ export function Slider({
       swiperRef.current = swiper;
       onSwiper?.(swiper);
     },
-    [onSwiper],
+    [onSwiper]
   );
 
   const slides = Children.map(children, (child, index) => (
@@ -103,7 +103,7 @@ export function Slider({
   if (navigation) modules.push(Navigation);
   if (pagination) modules.push(Pagination);
 
-  const containerClassName = [className, "h-full"].filter(Boolean).join(" ");
+  const containerClassName = [className, 'h-full'].filter(Boolean).join(' ');
 
   return (
     <div className={containerClassName}>
@@ -122,7 +122,7 @@ export function Slider({
         centeredSlides={centeredSlides}
         freeMode={freeMode}
         grabCursor={grabCursor}
-        effect={effect === "slide" ? undefined : effect}
+        effect={effect === 'slide' ? undefined : effect}
         onSwiper={handleSwiper}
         onSlideChange={onSlideChange}
       >

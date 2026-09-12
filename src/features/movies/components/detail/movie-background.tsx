@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import Image from "next/image";
+import Image from 'next/image';
 
-const TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p";
+const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p';
 
 type MovieBackgroundProps = {
   trailerKey: string | null;
@@ -10,11 +10,7 @@ type MovieBackgroundProps = {
   title: string;
 };
 
-export function MovieBackground({
-  trailerKey,
-  backdropPath,
-  title,
-}: MovieBackgroundProps) {
+export function MovieBackground({ trailerKey, backdropPath, title }: MovieBackgroundProps) {
   if (!trailerKey) {
     return (
       <div className="relative w-full h-full">
@@ -39,10 +35,7 @@ export function MovieBackground({
 
   return (
     <div className="relative w-full h-full">
-      <div
-        id="youtube-player"
-        className="absolute inset-0 pointer-events-none !w-full !h-full"
-      />
+      <div id="youtube-player" className="absolute inset-0 pointer-events-none !w-full !h-full" />
       <div className="absolute inset-0 dark:bg-gradient-to-t dark:from-background dark:via-background/40 dark:to-transparent pointer-events-none" />
     </div>
   );

@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { db } from "@/lib/firebase";
-import { collection, getDocs, doc, writeBatch } from "firebase/firestore";
-import type { StoredMovie } from "@/features/movies/services/mapper";
-import { useAuth } from "@/shared/provider/authProvider";
+import { useEffect, useState } from 'react';
+import { db } from '@/lib/firebase';
+import { collection, getDocs, doc, writeBatch } from 'firebase/firestore';
+import type { StoredMovie } from '@/features/movies/services/mapper';
+import { useAuth } from '@/shared/provider/authProvider';
 
 type WatchlistItem = {
   id: string;
@@ -26,9 +26,7 @@ export function useWatchlist() {
           return;
         }
 
-        const snapshot = await getDocs(
-          collection(db, "users", user.uid, "watchlist"),
-        );
+        const snapshot = await getDocs(collection(db, 'users', user.uid, 'watchlist'));
         const items = snapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
@@ -36,7 +34,7 @@ export function useWatchlist() {
 
         setWatchlist(items);
       } catch {
-        console.error("Failed to fetch watchlist");
+        console.error('Failed to fetch watchlist');
       } finally {
         setLoading(false);
       }
@@ -52,12 +50,12 @@ export function useWatchlist() {
     try {
       const batch = writeBatch(db);
       watchlist.forEach((item) => {
-        batch.delete(doc(db, "users", user!.uid, "watchlist", item.id));
+        batch.delete(doc(db, 'users', user!.uid, 'watchlist', item.id));
       });
       await batch.commit();
       setWatchlist([]);
     } catch {
-      console.error("Failed to delete watchlist");
+      console.error('Failed to delete watchlist');
     } finally {
       setDeleting(false);
     }

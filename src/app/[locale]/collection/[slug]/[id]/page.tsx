@@ -1,10 +1,10 @@
-import { getTranslations } from "next-intl/server";
-import { fetchApi } from "@/shared/services/fetchApi";
-import { ErrorState } from "@/shared/components/error-state";
-import type { TMDBCollectionDetails } from "@/shared/types/tmdb";
-import { CollectionHero } from "@/features/collection/components/collection-hero";
-import { CollectionMainContent } from "@/features/collection/components/collection-main-content";
-import { CollectionSidebar } from "@/features/collection/components/collection-sidebar";
+import { getTranslations } from 'next-intl/server';
+import { fetchApi } from '@/shared/services/fetchApi';
+import { ErrorState } from '@/shared/components/error-state';
+import type { TMDBCollectionDetails } from '@/shared/types/tmdb';
+import { CollectionHero } from '@/features/collection/components/collection-hero';
+import { CollectionMainContent } from '@/features/collection/components/collection-main-content';
+import { CollectionSidebar } from '@/features/collection/components/collection-sidebar';
 
 interface Props {
   params: Promise<{ locale: string; slug: string; id: string }>;
@@ -27,14 +27,14 @@ export async function generateMetadata({ params }: Props) {
       description: collection.overview?.slice(0, 160),
     };
   } catch {
-    const t = await getTranslations({ locale, namespace: "ErrorState" });
-    return { title: t("collectionNotFound") };
+    const t = await getTranslations({ locale, namespace: 'ErrorState' });
+    return { title: t('collectionNotFound') };
   }
 }
 
 export default async function CollectionPage({ params }: Props) {
   const { id, locale } = await params;
-  const t = await getTranslations({ locale, namespace: "ErrorState" });
+  const t = await getTranslations({ locale, namespace: 'ErrorState' });
 
   let collection: TMDBCollectionDetails;
   try {
@@ -42,18 +42,16 @@ export default async function CollectionPage({ params }: Props) {
   } catch {
     return (
       <ErrorState
-        title={t("collectionNotFound")}
-        description={t("collectionNotFoundDesc")}
-        actionLabel={t("goHome")}
+        title={t('collectionNotFound')}
+        description={t('collectionNotFoundDesc')}
+        actionLabel={t('goHome')}
         actionHref="/"
       />
     );
   }
 
   const parts = collection.parts ?? [];
-  const years = parts
-    .map((p) => p.release_date?.slice(0, 4))
-    .filter(Boolean) as string[];
+  const years = parts.map((p) => p.release_date?.slice(0, 4)).filter(Boolean) as string[];
   const sortedYears = years.sort();
   const releaseRange =
     sortedYears.length > 0
@@ -62,9 +60,7 @@ export default async function CollectionPage({ params }: Props) {
         : `${sortedYears[0]} - ${sortedYears[sortedYears.length - 1]}`
       : null;
   const avgRating =
-    parts.length > 0
-      ? parts.reduce((sum, p) => sum + p.vote_average, 0) / parts.length
-      : 0;
+    parts.length > 0 ? parts.reduce((sum, p) => sum + p.vote_average, 0) / parts.length : 0;
 
   return (
     <div className="flex flex-col flex-1 bg-background">

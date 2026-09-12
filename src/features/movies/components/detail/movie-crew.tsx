@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { Slider } from "@/shared/components/ui/slider";
-import { CrewCard } from "./crew-card";
+import { Slider } from '@/shared/components/ui/slider';
+import { CrewCard } from './crew-card';
 
 type CrewMember = {
   id: number;
@@ -17,19 +17,19 @@ type MovieCrewSectionProps = {
 };
 
 const PRIORITY_JOBS = [
-  "Director",
-  "Screenplay",
-  "Writer",
-  "Story",
-  "Producer",
-  "Executive Producer",
-  "Director of Photography",
-  "Original Music Composer",
-  "Editor",
-  "Production Design",
-  "Art Director",
-  "Costume Design",
-  "Visual Effects Supervisor",
+  'Director',
+  'Screenplay',
+  'Writer',
+  'Story',
+  'Producer',
+  'Executive Producer',
+  'Director of Photography',
+  'Original Music Composer',
+  'Editor',
+  'Production Design',
+  'Art Director',
+  'Costume Design',
+  'Visual Effects Supervisor',
 ];
 
 function deduplicatedCrew(crew: CrewMember[]): CrewMember[] {

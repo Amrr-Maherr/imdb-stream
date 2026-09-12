@@ -1,45 +1,45 @@
-"use client";
+'use client';
 
-import { useTranslations } from "next-intl";
-import FooterColumn from "./FooterColumn";
+import { useTranslations } from 'next-intl';
+import FooterColumn from './FooterColumn';
 
 export default function FooterLinks() {
-  const t = useTranslations("Footer");
+  const t = useTranslations('Footer');
 
   const columns = [
     {
-      title: t("about"),
+      title: t('about'),
       links: [
-        { href: "/about", label: t("aboutLinks.about") },
-        { href: "/careers", label: t("aboutLinks.careers") },
-        { href: "/press", label: t("aboutLinks.press") },
-        { href: "/guidelines", label: t("aboutLinks.guidelines") },
+        { href: '/about', label: t('aboutLinks.about') },
+        { href: '/careers', label: t('aboutLinks.careers') },
+        { href: '/press', label: t('aboutLinks.press') },
+        { href: '/guidelines', label: t('aboutLinks.guidelines') },
       ],
     },
     {
-      title: t("help"),
+      title: t('help'),
       links: [
-        { href: "/help", label: t("helpLinks.helpCenter") },
-        { href: "/faq", label: t("helpLinks.faq") },
-        { href: "/contact", label: t("helpLinks.contact") },
-        { href: "/feedback", label: t("helpLinks.feedback") },
+        { href: '/help', label: t('helpLinks.helpCenter') },
+        { href: '/faq', label: t('helpLinks.faq') },
+        { href: '/contact', label: t('helpLinks.contact') },
+        { href: '/feedback', label: t('helpLinks.feedback') },
       ],
     },
     {
-      title: t("legal"),
+      title: t('legal'),
       links: [
-        { href: "/terms", label: t("legalLinks.terms") },
-        { href: "/privacy", label: t("legalLinks.privacy") },
-        { href: "/cookies", label: t("legalLinks.cookies") },
-        { href: "/subscription", label: t("legalLinks.subscription") },
+        { href: '/terms', label: t('legalLinks.terms') },
+        { href: '/privacy', label: t('legalLinks.privacy') },
+        { href: '/cookies', label: t('legalLinks.cookies') },
+        { href: '/subscription', label: t('legalLinks.subscription') },
       ],
     },
     {
-      title: t("social"),
+      title: t('social'),
       links: [
-        { href: "https://facebook.com", label: t("socialLinks.facebook") },
-        { href: "https://twitter.com", label: t("socialLinks.twitter") },
-        { href: "https://instagram.com", label: t("socialLinks.instagram") },
+        { href: 'https://facebook.com', label: t('socialLinks.facebook') },
+        { href: 'https://twitter.com', label: t('socialLinks.twitter') },
+        { href: 'https://instagram.com', label: t('socialLinks.instagram') },
       ],
     },
   ];

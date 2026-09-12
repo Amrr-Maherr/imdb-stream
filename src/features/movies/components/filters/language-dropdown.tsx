@@ -1,40 +1,40 @@
-"use client"
+'use client';
 
-import { useTranslations } from "next-intl"
-import { useRouter, useSearchParams } from "next/navigation"
+import { useTranslations } from 'next-intl';
+import { useRouter, useSearchParams } from 'next/navigation';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/shared/components/ui/select"
-import { LANGUAGES, PARAM_KEYS } from "./constants"
+} from '@/shared/components/ui/select';
+import { LANGUAGES, PARAM_KEYS } from './constants';
 
 function LanguageDropdown() {
-  const t = useTranslations("Filters")
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const value = searchParams.get(PARAM_KEYS.language) ?? "any"
+  const t = useTranslations('Filters');
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const value = searchParams.get(PARAM_KEYS.language) ?? 'any';
 
   function handleChange(val: string) {
-    const params = new URLSearchParams(searchParams)
-    if (val === "any") {
-      params.delete(PARAM_KEYS.language)
+    const params = new URLSearchParams(searchParams);
+    if (val === 'any') {
+      params.delete(PARAM_KEYS.language);
     } else {
-      params.set(PARAM_KEYS.language, val)
+      params.set(PARAM_KEYS.language, val);
     }
-    params.set(PARAM_KEYS.page, "1")
-    router.push(`?${params.toString()}`)
+    params.set(PARAM_KEYS.page, '1');
+    router.push(`?${params.toString()}`);
   }
 
   return (
     <Select value={value} onValueChange={handleChange}>
       <SelectTrigger className="h-9 min-w-[8.5rem] text-xs">
-        <SelectValue placeholder={t("language")} />
+        <SelectValue placeholder={t('language')} />
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value="any">{t("allLanguages")}</SelectItem>
+        <SelectItem value="any">{t('allLanguages')}</SelectItem>
         {LANGUAGES.map((lang) => (
           <SelectItem key={lang.value} value={lang.value}>
             <span className="flex items-center gap-2">
@@ -47,7 +47,7 @@ function LanguageDropdown() {
         ))}
       </SelectContent>
     </Select>
-  )
+  );
 }
 
-export { LanguageDropdown }
+export { LanguageDropdown };

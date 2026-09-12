@@ -1,26 +1,26 @@
-import { getTranslations } from "next-intl/server"
-import { FaqClient } from "./FaqClient"
+import { getTranslations } from 'next-intl/server';
+import { FaqClient } from './FaqClient';
 
 interface Props {
-  params: Promise<{ locale: string }>
+  params: Promise<{ locale: string }>;
 }
 
 export async function generateMetadata({ params }: Props) {
-  const { locale } = await params
-  const t = await getTranslations({ locale, namespace: "Faq" })
-  return { title: t("title") }
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'Faq' });
+  return { title: t('title') };
 }
 
 const categoryItems: Record<string, string[]> = {
-  account: ["q1", "q2", "q3"],
-  ratings: ["q4", "q5", "q6"],
-  content: ["q7", "q8", "q9"],
-  technical: ["q10", "q11"],
-  privacy: ["q12"],
-}
+  account: ['q1', 'q2', 'q3'],
+  ratings: ['q4', 'q5', 'q6'],
+  content: ['q7', 'q8', 'q9'],
+  technical: ['q10', 'q11'],
+  privacy: ['q12'],
+};
 
 export default async function FaqPage() {
-  const t = await getTranslations("Faq")
+  const t = await getTranslations('Faq');
 
   return (
     <div className="min-h-screen bg-background">
@@ -29,11 +29,9 @@ export default async function FaqPage() {
         <div className="app-container relative">
           <div className="mx-auto max-w-2xl text-center">
             <h1 className="text-4xl font-bold tracking-tight text-foreground md:text-5xl">
-              {t("hero.title")}
+              {t('hero.title')}
             </h1>
-            <p className="mt-4 text-lg text-muted-foreground">
-              {t("hero.subtitle")}
-            </p>
+            <p className="mt-4 text-lg text-muted-foreground">{t('hero.subtitle')}</p>
           </div>
         </div>
       </section>
@@ -41,20 +39,20 @@ export default async function FaqPage() {
       <section className="app-container py-12 md:py-16">
         <div className="mx-auto max-w-3xl">
           <FaqClient
-            items={t.raw("items") as Record<string, { q: string; a: string }>}
+            items={t.raw('items') as Record<string, { q: string; a: string }>}
             categories={{
-              all: t("categories.all"),
-              account: t("categories.account"),
-              ratings: t("categories.ratings"),
-              content: t("categories.content"),
-              technical: t("categories.technical"),
-              privacy: t("categories.privacy"),
+              all: t('categories.all'),
+              account: t('categories.account'),
+              ratings: t('categories.ratings'),
+              content: t('categories.content'),
+              technical: t('categories.technical'),
+              privacy: t('categories.privacy'),
             }}
             categoryItems={categoryItems}
-            searchPlaceholder={t("hero.searchPlaceholder")}
+            searchPlaceholder={t('hero.searchPlaceholder')}
           />
         </div>
       </section>
     </div>
-  )
+  );
 }

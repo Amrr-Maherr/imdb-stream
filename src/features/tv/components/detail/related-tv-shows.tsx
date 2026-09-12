@@ -1,8 +1,8 @@
-﻿"use client";
+﻿'use client';
 
-import { Slider } from "@/shared/components/ui/slider";
-import { TvCard } from "@/features/movies/components/listing/tv-card";
-import type { TMDBTV } from "@/shared/types/tmdb";
+import { Slider } from '@/shared/components/ui/slider';
+import { TvCard } from '@/features/movies/components/listing/tv-card';
+import type { TMDBTV } from '@/shared/types/tmdb';
 
 type RelatedTvShowsProps = {
   title: string;

@@ -1,34 +1,34 @@
-"use client"
+'use client';
 
-import { useTranslations } from "next-intl"
-import { useRouter, useSearchParams } from "next/navigation"
+import { useTranslations } from 'next-intl';
+import { useRouter, useSearchParams } from 'next/navigation';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/shared/components/ui/select"
-import { SORT_OPTIONS, PARAM_KEYS } from "./constants"
+} from '@/shared/components/ui/select';
+import { SORT_OPTIONS, PARAM_KEYS } from './constants';
 
 function SortSelect() {
-  const t = useTranslations("Filters")
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const value = searchParams.get(PARAM_KEYS.sort) ?? "popularity.desc"
+  const t = useTranslations('Filters');
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const value = searchParams.get(PARAM_KEYS.sort) ?? 'popularity.desc';
 
   const sortLabels: Record<string, string> = {
-    "popularity.desc": t("mostPopular"),
-    "vote_average.desc": t("highestRated"),
-    "primary_release_date.desc": t("newestRelease"),
-    "revenue.desc": t("highestRevenue"),
-  }
+    'popularity.desc': t('mostPopular'),
+    'vote_average.desc': t('highestRated'),
+    'primary_release_date.desc': t('newestRelease'),
+    'revenue.desc': t('highestRevenue'),
+  };
 
   function handleChange(val: string) {
-    const params = new URLSearchParams(searchParams)
-    params.set(PARAM_KEYS.sort, val)
-    params.set(PARAM_KEYS.page, "1")
-    router.push(`?${params.toString()}`)
+    const params = new URLSearchParams(searchParams);
+    params.set(PARAM_KEYS.sort, val);
+    params.set(PARAM_KEYS.page, '1');
+    router.push(`?${params.toString()}`);
   }
 
   return (
@@ -44,7 +44,7 @@ function SortSelect() {
         ))}
       </SelectContent>
     </Select>
-  )
+  );
 }
 
-export { SortSelect }
+export { SortSelect };

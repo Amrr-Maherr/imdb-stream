@@ -1,36 +1,34 @@
-"use client";
+'use client';
 
-import { useTranslations } from "next-intl";
-import { useState } from "react";
-import { Palette, Sun, Moon, Monitor, Globe, Languages } from "lucide-react";
-import { useTheme } from "next-themes";
-import { Card, CardContent, CardHeader, CardTitle } from "@/shared/components/ui/card";
-import { Button } from "@/shared/components/ui/button";
-import { cn } from "@/shared/utils/utils";
+import { useTranslations } from 'next-intl';
+import { useState } from 'react';
+import { Palette, Sun, Moon, Monitor, Globe, Languages } from 'lucide-react';
+import { useTheme } from 'next-themes';
+import { Card, CardContent, CardHeader, CardTitle } from '@/shared/components/ui/card';
+import { Button } from '@/shared/components/ui/button';
+import { cn } from '@/shared/utils/utils';
 
 const themeOptions = [
-  { value: "light" as const, labelKey: "light", icon: Sun },
-  { value: "dark" as const, labelKey: "dark", icon: Moon },
-  { value: "system" as const, labelKey: "system", icon: Monitor },
+  { value: 'light' as const, labelKey: 'light', icon: Sun },
+  { value: 'dark' as const, labelKey: 'dark', icon: Moon },
+  { value: 'system' as const, labelKey: 'system', icon: Monitor },
 ];
 
 const languages = [
-  { code: "en", labelKey: "english" },
-  { code: "ar", labelKey: "arabic" },
+  { code: 'en', labelKey: 'english' },
+  { code: 'ar', labelKey: 'arabic' },
 ];
 
 export function PreferencesSettings() {
-  const t = useTranslations("Settings.preferences");
+  const t = useTranslations('Settings.preferences');
   const { theme, setTheme } = useTheme();
-  const [language, setLanguage] = useState("en");
+  const [language, setLanguage] = useState('en');
 
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-lg font-bold text-foreground">{t("heading")}</h2>
-        <p className="text-sm text-muted-foreground mt-0.5">
-          {t("description")}
-        </p>
+        <h2 className="text-lg font-bold text-foreground">{t('heading')}</h2>
+        <p className="text-sm text-muted-foreground mt-0.5">{t('description')}</p>
       </div>
 
       <Card>
@@ -47,10 +45,10 @@ export function PreferencesSettings() {
                 key={value}
                 onClick={() => setTheme(value)}
                 className={cn(
-                  "flex flex-1 items-center justify-center gap-2 rounded-lg border px-4 py-3 text-sm font-medium transition-colors",
+                  'flex flex-1 items-center justify-center gap-2 rounded-lg border px-4 py-3 text-sm font-medium transition-colors',
                   theme === value
-                    ? "border-brand bg-brand/10 text-brand"
-                    : "border-border bg-card text-muted-foreground hover:bg-muted hover:text-foreground",
+                    ? 'border-brand bg-brand/10 text-brand'
+                    : 'border-border bg-card text-muted-foreground hover:bg-muted hover:text-foreground'
                 )}
               >
                 <Icon className="size-4" />
@@ -65,7 +63,7 @@ export function PreferencesSettings() {
         <CardHeader>
           <CardTitle className="text-base flex items-center gap-2">
             <Globe className="size-4 text-brand" />
-            {t("languageRegion")}
+            {t('languageRegion')}
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -75,10 +73,10 @@ export function PreferencesSettings() {
                 key={code}
                 onClick={() => setLanguage(code)}
                 className={cn(
-                  "flex items-center gap-2 rounded-lg border px-4 py-2.5 text-sm font-medium transition-colors",
+                  'flex items-center gap-2 rounded-lg border px-4 py-2.5 text-sm font-medium transition-colors',
                   language === code
-                    ? "border-brand bg-brand/10 text-brand"
-                    : "border-border bg-card text-muted-foreground hover:bg-muted hover:text-foreground",
+                    ? 'border-brand bg-brand/10 text-brand'
+                    : 'border-border bg-card text-muted-foreground hover:bg-muted hover:text-foreground'
                 )}
               >
                 <Languages className="size-4" />
@@ -86,9 +84,7 @@ export function PreferencesSettings() {
               </button>
             ))}
           </div>
-          <p className="text-xs text-muted-foreground mt-3">
-            {t("languageRegionDesc")}
-          </p>
+          <p className="text-xs text-muted-foreground mt-3">{t('languageRegionDesc')}</p>
         </CardContent>
       </Card>
     </div>

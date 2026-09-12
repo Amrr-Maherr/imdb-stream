@@ -1,9 +1,9 @@
-import Image from "next/image";
-import Link from "next/link";
-import { slugify } from "@/shared/utils/slugify";
-import { Slider } from "@/shared/components/ui/slider";
+import Image from 'next/image';
+import Link from 'next/link';
+import { slugify } from '@/shared/utils/slugify';
+import { Slider } from '@/shared/components/ui/slider';
 
-const TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p";
+const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p';
 
 type CastMember = {
   id: number;
@@ -55,9 +55,7 @@ export function FullCastSlider({ cast }: FullCastSliderProps) {
             <p className="text-sm font-medium text-foreground line-clamp-1 group-hover:text-brand transition-colors">
               {person.name}
             </p>
-            <p className="text-xs text-muted-foreground line-clamp-1">
-              {person.character}
-            </p>
+            <p className="text-xs text-muted-foreground line-clamp-1">{person.character}</p>
           </div>
         </Link>
       ))}

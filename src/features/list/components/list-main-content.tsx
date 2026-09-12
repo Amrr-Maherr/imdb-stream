@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import Image from "next/image";
-import { Star, Tv } from "lucide-react";
-import { useTranslations } from "next-intl";
-import { slugify } from "@/shared/utils/slugify";
-import { FadeIn } from "@/features/movies/components/detail/fade-in";
-import { EmptyState } from "@/shared/components/empty-state";
+import Link from 'next/link';
+import Image from 'next/image';
+import { Star, Tv } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import { slugify } from '@/shared/utils/slugify';
+import { FadeIn } from '@/features/movies/components/detail/fade-in';
+import { EmptyState } from '@/shared/components/empty-state';
 
-const TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p";
+const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p';
 
 type ListItem = {
   id: number;
@@ -29,26 +29,22 @@ type ListMainContentProps = {
 };
 
 function getTitle(item: ListItem): string {
-  return item.title || item.name || "Unknown";
+  return item.title || item.name || 'Unknown';
 }
 
 function getHref(item: ListItem): string {
   const title = getTitle(item);
   const slug = slugify(title);
-  if (item.media_type === "tv") {
+  if (item.media_type === 'tv') {
     return `/tv-shows/${slug}/${item.id}`;
   }
   return `/movies/${slug}/${item.id}`;
 }
 
-export function ListMainContent({
-  name,
-  description,
-  items,
-}: ListMainContentProps) {
-  const t = useTranslations("List");
-  const isMovie = items.every((item) => item.media_type === "movie");
-  const isTV = items.every((item) => item.media_type === "tv");
+export function ListMainContent({ name, description, items }: ListMainContentProps) {
+  const t = useTranslations('List');
+  const isMovie = items.every((item) => item.media_type === 'movie');
+  const isTV = items.every((item) => item.media_type === 'tv');
 
   return (
     <div className="flex-1 min-w-0 space-y-10">
@@ -56,7 +52,7 @@ export function ListMainContent({
       {description && (
         <FadeIn>
           <section>
-            <h2 className="text-xl font-bold text-foreground mb-3">{t("about")}</h2>
+            <h2 className="text-xl font-bold text-foreground mb-3">{t('about')}</h2>
             <p className="text-muted-foreground leading-relaxed">{description}</p>
           </section>
         </FadeIn>
@@ -67,7 +63,7 @@ export function ListMainContent({
         <FadeIn delay={0.05}>
           <section>
             <h2 className="text-xl font-bold text-foreground mb-6">
-              {isMovie ? t("movies") : isTV ? t("tvShows") : t("titles")}
+              {isMovie ? t('movies') : isTV ? t('tvShows') : t('titles')}
               <span className="text-muted-foreground font-normal text-base ml-2">
                 ({items.length})
               </span>
@@ -75,15 +71,11 @@ export function ListMainContent({
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
               {items.map((item) => {
                 const title = getTitle(item);
-                const year = (item.release_date || item.first_air_date || "").slice(0, 4);
+                const year = (item.release_date || item.first_air_date || '').slice(0, 4);
                 const href = getHref(item);
 
                 return (
-                  <Link
-                    key={item.id}
-                    href={href}
-                    className="group flex flex-col"
-                  >
+                  <Link key={item.id} href={href} className="group flex flex-col">
                     <div className="relative aspect-[2/3] w-full overflow-hidden rounded-lg bg-muted">
                       {item.poster_path ? (
                         <Image
@@ -125,12 +117,7 @@ export function ListMainContent({
         </FadeIn>
       )}
 
-      {items.length === 0 && (
-        <EmptyState
-          title={t("empty")}
-          className="py-16"
-        />
-      )}
+      {items.length === 0 && <EmptyState title={t('empty')} className="py-16" />}
     </div>
   );
 }

@@ -1,26 +1,20 @@
-"use client";
+'use client';
 
-import { Search, X } from "lucide-react";
-import { Button } from "@/shared/components/ui/button";
-import { useEffect, useState, useRef } from "react";
-import { useTranslations } from "next-intl";
-import MultiSearch from "@/features/multiSearch/services/multiSearch";
-import { SearchDropdown } from "@/features/multiSearch/components/SearchDropdown";
-import type { SearchResult } from "@/features/multiSearch/components/SearchResultItem";
+import { Search, X } from 'lucide-react';
+import { Button } from '@/shared/components/ui/button';
+import { useEffect, useState, useRef } from 'react';
+import { useTranslations } from 'next-intl';
+import MultiSearch from '@/features/multiSearch/services/multiSearch';
+import { SearchDropdown } from '@/features/multiSearch/components/SearchDropdown';
+import type { SearchResult } from '@/features/multiSearch/components/SearchResultItem';
 
-export default function SearchBar({
-  open,
-  onToggle,
-}: {
-  open: boolean;
-  onToggle: () => void;
-}) {
-  const t = useTranslations("Header");
+export default function SearchBar({ open, onToggle }: { open: boolean; onToggle: () => void }) {
+  const t = useTranslations('Header');
 
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
   const [results, setResults] = useState<SearchResult[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
-  const lastQueryRef = useRef("");
+  const lastQueryRef = useRef('');
 
   useEffect(() => {
     if (!open) return;
@@ -49,21 +43,18 @@ export default function SearchBar({
     if (!open) return;
 
     function handleClickOutside(e: MouseEvent) {
-      if (
-        containerRef.current &&
-        !containerRef.current.contains(e.target as Node)
-      ) {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
         onToggle();
       }
     }
 
     const timer = setTimeout(() => {
-      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener('mousedown', handleClickOutside);
     }, 0);
 
     return () => {
       clearTimeout(timer);
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [open, onToggle]);
 
@@ -75,7 +66,7 @@ export default function SearchBar({
 
           <input
             type="text"
-            placeholder={t("search")}
+            placeholder={t('search')}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="h-7 w-full bg-transparent text-sm text-foreground outline-none placeholder:text-muted-foreground md:w-[500px]"
@@ -85,7 +76,7 @@ export default function SearchBar({
           <button
             onClick={onToggle}
             className="text-muted-foreground transition-colors hover:text-foreground"
-            aria-label={t("closeSearch")}
+            aria-label={t('closeSearch')}
           >
             <X className="size-4" />
           </button>
@@ -97,7 +88,7 @@ export default function SearchBar({
   }
 
   return (
-    <Button variant="ghost" size="icon" onClick={onToggle} aria-label={t("search")}>
+    <Button variant="ghost" size="icon" onClick={onToggle} aria-label={t('search')}>
       <Search className="size-4" />
     </Button>
   );

@@ -1,4 +1,4 @@
-import { cn } from "@/shared/utils/utils";
+import { cn } from '@/shared/utils/utils';
 
 type MovieSectionProps = {
   title: string;
@@ -8,14 +8,9 @@ type MovieSectionProps = {
   defaultExpanded?: boolean;
 };
 
-export function MovieSection({
-  title,
-  icon,
-  children,
-  className,
-}: MovieSectionProps) {
+export function MovieSection({ title, icon, children, className }: MovieSectionProps) {
   return (
-    <section className={cn("space-y-4", className)}>
+    <section className={cn('space-y-4', className)}>
       <div className="flex items-center gap-2">
         {icon && <span className="text-muted-foreground">{icon}</span>}
         <h2 className="text-xl font-bold text-foreground">{title}</h2>

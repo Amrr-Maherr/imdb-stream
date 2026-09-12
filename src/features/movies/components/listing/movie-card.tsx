@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import Link from "next/link";
-import { Star, TrendingUp, Languages } from "lucide-react";
-import { useTranslations } from "next-intl";
-import type { TMDBMovie } from "@/shared/types/tmdb";
-import { slugify } from "@/shared/utils/slugify";
+import Image from 'next/image';
+import Link from 'next/link';
+import { Star, TrendingUp, Languages } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import type { TMDBMovie } from '@/shared/types/tmdb';
+import { slugify } from '@/shared/utils/slugify';
 
-const TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p";
+const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p';
 
 type MovieCardProps = {
   movie: TMDBMovie;
@@ -17,7 +17,7 @@ type MovieCardProps = {
 };
 
 export function MovieCard({ movie, genreMap, showRank, adultContentVisible }: MovieCardProps) {
-  const t = useTranslations("Movies");
+  const t = useTranslations('Movies');
   const year = movie.release_date?.slice(0, 4);
   const vote = movie.vote_average.toFixed(1);
   const genres = movie.genre_ids
@@ -28,7 +28,7 @@ export function MovieCard({ movie, genreMap, showRank, adultContentVisible }: Mo
   return (
     <Link
       href={`/movies/${slugify(movie.title)}/${movie.id}`}
-      className="group flex-shrink-0 w-[160px] sm:w-[180px] relative"
+      className="group w-full relative"
     >
       {showRank && (
         <div className="absolute -top-1.5 -left-1.5 z-10 flex items-center justify-center size-7 rounded-full bg-brand text-brand-foreground text-xs font-bold shadow-md">
@@ -52,7 +52,7 @@ export function MovieCard({ movie, genreMap, showRank, adultContentVisible }: Mo
         {movie.adult && !adultContentVisible && (
           <div className="absolute inset-0 backdrop-blur-md bg-background/40 flex items-center justify-center z-20">
             <span className="text-xs font-bold text-foreground/70 bg-background/60 px-2 py-0.5 rounded">
-              {t("adultBadge")}
+              {t('adultBadge')}
             </span>
           </div>
         )}

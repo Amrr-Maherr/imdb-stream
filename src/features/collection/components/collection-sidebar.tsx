@@ -1,16 +1,10 @@
-"use client";
+'use client';
 
-import {
-  Star,
-  Layers,
-  Calendar,
-  BarChart3,
-  TrendingUp,
-} from "lucide-react";
-import { useTranslations } from "next-intl";
-import type { CollectionPart } from "@/shared/types/tmdb";
-import { FadeIn } from "@/features/movies/components/detail/fade-in";
-import { MovieRating } from "@/features/movies/components/detail/movie-rating";
+import { Star, Layers, Calendar, BarChart3, TrendingUp } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import type { CollectionPart } from '@/shared/types/tmdb';
+import { FadeIn } from '@/features/movies/components/detail/fade-in';
+import { MovieRating } from '@/features/movies/components/detail/movie-rating';
 
 type CollectionSidebarProps = {
   partsCount: number;
@@ -20,10 +14,10 @@ type CollectionSidebarProps = {
 };
 
 function formatCurrency(amount: number) {
-  if (amount === 0) return "—";
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
+  if (amount === 0) return '—';
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   }).format(amount);
@@ -35,8 +29,8 @@ export function CollectionSidebar({
   avgRating,
   parts,
 }: CollectionSidebarProps) {
-  const t = useTranslations("Collection");
-  const td = useTranslations("MovieDetail");
+  const t = useTranslations('Collection');
+  const td = useTranslations('MovieDetail');
   const totalRevenue = parts.reduce((sum, p) => sum + (p as any).revenue || 0, 0);
   const totalBudget = parts.reduce((sum, p) => sum + (p as any).budget || 0, 0);
   const genres = parts.reduce((acc: string[], part) => {
@@ -49,13 +43,13 @@ export function CollectionSidebar({
       <FadeIn delay={0.05}>
         <div className="rounded-xl border border-border bg-card p-5">
           <h3 className="text-sm font-bold text-foreground uppercase tracking-wide mb-4">
-            {t("statistics")}
+            {t('statistics')}
           </h3>
           <div className="space-y-3">
             <div className="flex items-center gap-3">
               <Layers className="size-4 text-muted-foreground shrink-0" />
               <div className="min-w-0">
-                <p className="text-xs text-muted-foreground">{t("titles")}</p>
+                <p className="text-xs text-muted-foreground">{t('titles')}</p>
                 <p className="text-sm text-foreground">{partsCount}</p>
               </div>
             </div>
@@ -63,7 +57,7 @@ export function CollectionSidebar({
               <div className="flex items-center gap-3">
                 <Calendar className="size-4 text-muted-foreground shrink-0" />
                 <div className="min-w-0">
-                  <p className="text-xs text-muted-foreground">{t("releaseRange")}</p>
+                  <p className="text-xs text-muted-foreground">{t('releaseRange')}</p>
                   <p className="text-sm text-foreground">{releaseRange}</p>
                 </div>
               </div>
@@ -72,10 +66,8 @@ export function CollectionSidebar({
               <div className="flex items-center gap-3">
                 <Star className="size-4 text-muted-foreground shrink-0" />
                 <div className="min-w-0">
-                  <p className="text-xs text-muted-foreground">{t("averageRating")}</p>
-                  <p className="text-sm text-foreground font-medium">
-                    {avgRating.toFixed(1)}
-                  </p>
+                  <p className="text-xs text-muted-foreground">{t('averageRating')}</p>
+                  <p className="text-sm text-foreground font-medium">{avgRating.toFixed(1)}</p>
                 </div>
               </div>
             )}
@@ -83,12 +75,9 @@ export function CollectionSidebar({
               <div className="flex items-center gap-3">
                 <BarChart3 className="size-4 text-muted-foreground shrink-0" />
                 <div className="min-w-0">
-                  <p className="text-xs text-muted-foreground">{t("popularity")}</p>
+                  <p className="text-xs text-muted-foreground">{t('popularity')}</p>
                   <p className="text-sm text-foreground">
-                    {Math.round(
-                      parts.reduce((sum, p) => sum + p.popularity, 0) /
-                        partsCount,
-                    )}
+                    {Math.round(parts.reduce((sum, p) => sum + p.popularity, 0) / partsCount)}
                   </p>
                 </div>
               </div>
@@ -104,9 +93,7 @@ export function CollectionSidebar({
             <MovieRating
               voteAverage={avgRating}
               voteCount={parts.reduce((sum, p) => sum + p.vote_count, 0)}
-              popularity={Math.round(
-                parts.reduce((sum, p) => sum + p.popularity, 0) / partsCount,
-              )}
+              popularity={Math.round(parts.reduce((sum, p) => sum + p.popularity, 0) / partsCount)}
             />
           </div>
         </FadeIn>
@@ -117,17 +104,15 @@ export function CollectionSidebar({
         <FadeIn delay={0.15}>
           <div className="rounded-xl border border-border bg-card p-5">
             <h3 className="text-sm font-bold text-foreground uppercase tracking-wide mb-4">
-              {t("financials")}
+              {t('financials')}
             </h3>
             <div className="space-y-3">
               {totalBudget > 0 && (
                 <div className="flex items-center gap-3">
                   <BarChart3 className="size-4 text-muted-foreground shrink-0" />
                   <div className="min-w-0">
-                    <p className="text-xs text-muted-foreground">{t("totalBudget")}</p>
-                    <p className="text-sm text-foreground">
-                      {formatCurrency(totalBudget)}
-                    </p>
+                    <p className="text-xs text-muted-foreground">{t('totalBudget')}</p>
+                    <p className="text-sm text-foreground">{formatCurrency(totalBudget)}</p>
                   </div>
                 </div>
               )}
@@ -135,10 +120,8 @@ export function CollectionSidebar({
                 <div className="flex items-center gap-3">
                   <TrendingUp className="size-4 text-muted-foreground shrink-0" />
                   <div className="min-w-0">
-                    <p className="text-xs text-muted-foreground">{t("totalRevenue")}</p>
-                    <p className="text-sm text-foreground">
-                      {formatCurrency(totalRevenue)}
-                    </p>
+                    <p className="text-xs text-muted-foreground">{t('totalRevenue')}</p>
+                    <p className="text-sm text-foreground">{formatCurrency(totalRevenue)}</p>
                   </div>
                 </div>
               )}
@@ -151,29 +134,25 @@ export function CollectionSidebar({
       <FadeIn delay={0.05}>
         <div className="rounded-xl border border-border bg-card p-5">
           <h3 className="text-sm font-bold text-foreground uppercase tracking-wide mb-3">
-            {td("facts")}
+            {td('facts')}
           </h3>
           <div className="space-y-3">
             {parts.length > 0 && (
               <div>
                 <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                  {t("type")}
+                  {t('type')}
                 </h4>
                 <p className="text-sm text-foreground mt-0.5">
-                  {parts.some((p) => isTV(p)) ? t("mixed") : t("movieCollection")}
+                  {parts.some((p) => isTV(p)) ? t('mixed') : t('movieCollection')}
                 </p>
               </div>
             )}
             <div>
               <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                {t("languages")}
+                {t('languages')}
               </h4>
               <div className="flex flex-wrap gap-1 mt-1">
-                {[
-                  ...new Set(
-                    parts.map((p) => p.original_language).filter(Boolean),
-                  ),
-                ].map((lang) => (
+                {[...new Set(parts.map((p) => p.original_language).filter(Boolean))].map((lang) => (
                   <span
                     key={lang}
                     className="rounded bg-muted px-2 py-0.5 text-xs text-muted-foreground uppercase"
@@ -191,9 +170,5 @@ export function CollectionSidebar({
 }
 
 function isTV(part: CollectionPart): boolean {
-  return (
-    part.media_type === "tv" ||
-    part.original_title === undefined ||
-    !part.title
-  );
+  return part.media_type === 'tv' || part.original_title === undefined || !part.title;
 }

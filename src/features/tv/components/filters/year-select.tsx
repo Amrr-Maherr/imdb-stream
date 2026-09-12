@@ -1,36 +1,33 @@
-"use client";
+'use client';
 
-import { Calendar } from "lucide-react";
-import { useTranslations } from "next-intl";
-import { useRouter, useSearchParams } from "next/navigation";
+import { Calendar } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import { useRouter, useSearchParams } from 'next/navigation';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/shared/components/ui/select";
-import { PARAM_KEYS } from "./constants";
+} from '@/shared/components/ui/select';
+import { PARAM_KEYS } from './constants';
 
 function YearSelect() {
-  const t = useTranslations("Filters");
+  const t = useTranslations('Filters');
   const router = useRouter();
   const searchParams = useSearchParams();
-  const value = searchParams.get(PARAM_KEYS.year) ?? "any";
+  const value = searchParams.get(PARAM_KEYS.year) ?? 'any';
   const currentYear = new Date().getFullYear();
-  const years = Array.from(
-    { length: currentYear - 1899 },
-    (_, i) => String(currentYear - i),
-  );
+  const years = Array.from({ length: currentYear - 1899 }, (_, i) => String(currentYear - i));
 
   function handleChange(val: string) {
     const params = new URLSearchParams(searchParams);
-    if (val === "any") {
+    if (val === 'any') {
       params.delete(PARAM_KEYS.year);
     } else {
       params.set(PARAM_KEYS.year, val);
     }
-    params.set(PARAM_KEYS.page, "1");
+    params.set(PARAM_KEYS.page, '1');
     router.push(`?${params.toString()}`);
   }
 
@@ -38,10 +35,10 @@ function YearSelect() {
     <Select value={value} onValueChange={handleChange}>
       <SelectTrigger className="h-9 min-w-[8.5rem] text-xs">
         <Calendar className="size-3.5 shrink-0 text-muted-foreground" />
-        <SelectValue placeholder={t("year")} />
+        <SelectValue placeholder={t('year')} />
       </SelectTrigger>
       <SelectContent className="max-h-60">
-        <SelectItem value="any">{t("allYears")}</SelectItem>
+        <SelectItem value="any">{t('allYears')}</SelectItem>
         {years.map((year) => (
           <SelectItem key={year} value={year}>
             {year}

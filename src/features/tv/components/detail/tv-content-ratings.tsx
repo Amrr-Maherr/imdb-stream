@@ -1,5 +1,5 @@
-import { Globe, Monitor } from "lucide-react";
-import { Card, CardContent } from "@/shared/components/ui/card";
+import { Globe, Monitor } from 'lucide-react';
+import { Card, CardContent } from '@/shared/components/ui/card';
 
 type ContentRating = {
   iso_3166_1: string;
@@ -12,7 +12,7 @@ type TvContentRatingsProps = {
 
 function getCountryName(code: string) {
   try {
-    return new Intl.DisplayNames(["en"], { type: "region" }).of(code) || code;
+    return new Intl.DisplayNames(['en'], { type: 'region' }).of(code) || code;
   } catch {
     return code;
   }
@@ -31,9 +31,7 @@ export function TvContentRatings({ ratings }: TvContentRatingsProps) {
               <p className="text-xs text-muted-foreground truncate">
                 {getCountryName(r.iso_3166_1)}
               </p>
-              <p className="text-sm font-bold text-foreground">
-                {r.rating}
-              </p>
+              <p className="text-sm font-bold text-foreground">{r.rating}</p>
             </div>
           </CardContent>
         </Card>

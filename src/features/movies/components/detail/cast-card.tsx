@@ -1,6 +1,6 @@
-import Image from "next/image";
+import Image from 'next/image';
 
-const TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p";
+const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p';
 
 type CastCardProps = {
   name: string;

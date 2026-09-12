@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { List as ListIcon, Heart, Film, Tv, Star } from "lucide-react";
-import { useTranslations } from "next-intl";
-import { FadeIn } from "@/features/movies/components/detail/fade-in";
-import { MovieRating } from "@/features/movies/components/detail/movie-rating";
+import { List as ListIcon, Heart, Film, Tv, Star } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import { FadeIn } from '@/features/movies/components/detail/fade-in';
+import { MovieRating } from '@/features/movies/components/detail/movie-rating';
 
 type ListItem = {
   id: number;
@@ -26,19 +26,12 @@ type ListSidebarProps = {
   items: ListItem[];
 };
 
-export function ListSidebar({
-  itemCount,
-  favoriteCount,
-  listType,
-  items,
-}: ListSidebarProps) {
-  const t = useTranslations("List");
+export function ListSidebar({ itemCount, favoriteCount, listType, items }: ListSidebarProps) {
+  const t = useTranslations('List');
   const avgRating =
-    items.length > 0
-      ? items.reduce((sum, i) => sum + i.vote_average, 0) / items.length
-      : 0;
-  const hasMovies = items.some((i) => i.media_type === "movie");
-  const hasTV = items.some((i) => i.media_type === "tv");
+    items.length > 0 ? items.reduce((sum, i) => sum + i.vote_average, 0) / items.length : 0;
+  const hasMovies = items.some((i) => i.media_type === 'movie');
+  const hasTV = items.some((i) => i.media_type === 'tv');
 
   return (
     <div className="w-full lg:w-80 xl:w-96 flex-shrink-0 space-y-8">
@@ -46,13 +39,13 @@ export function ListSidebar({
       <FadeIn delay={0.05}>
         <div className="rounded-xl border border-border bg-card p-5">
           <h3 className="text-sm font-bold text-foreground uppercase tracking-wide mb-4">
-            {t("statistics")}
+            {t('statistics')}
           </h3>
           <div className="space-y-3">
             <div className="flex items-center gap-3">
               <Film className="size-4 text-muted-foreground shrink-0" />
               <div className="min-w-0">
-                <p className="text-xs text-muted-foreground">{t("items")}</p>
+                <p className="text-xs text-muted-foreground">{t('items')}</p>
                 <p className="text-sm text-foreground">{itemCount}</p>
               </div>
             </div>
@@ -60,7 +53,7 @@ export function ListSidebar({
               <div className="flex items-center gap-3">
                 <Heart className="size-4 text-muted-foreground shrink-0" />
                 <div className="min-w-0">
-                  <p className="text-xs text-muted-foreground">{t("favorites")}</p>
+                  <p className="text-xs text-muted-foreground">{t('favorites')}</p>
                   <p className="text-sm text-foreground">{favoriteCount}</p>
                 </div>
               </div>
@@ -69,10 +62,8 @@ export function ListSidebar({
               <div className="flex items-center gap-3">
                 <Star className="size-4 text-muted-foreground shrink-0" />
                 <div className="min-w-0">
-                  <p className="text-xs text-muted-foreground">{t("averageRating")}</p>
-                  <p className="text-sm text-foreground font-medium">
-                    {avgRating.toFixed(1)}
-                  </p>
+                  <p className="text-xs text-muted-foreground">{t('averageRating')}</p>
+                  <p className="text-sm text-foreground font-medium">{avgRating.toFixed(1)}</p>
                 </div>
               </div>
             )}
@@ -88,8 +79,7 @@ export function ListSidebar({
               voteAverage={avgRating}
               voteCount={items.length}
               popularity={Math.round(
-                items.reduce((sum, i) => sum + (i as any).popularity || 0, 0) /
-                  items.length,
+                items.reduce((sum, i) => sum + (i as any).popularity || 0, 0) / items.length
               )}
             />
           </div>
@@ -100,27 +90,23 @@ export function ListSidebar({
       <FadeIn delay={0.05}>
         <div className="rounded-xl border border-border bg-card p-5">
           <h3 className="text-sm font-bold text-foreground uppercase tracking-wide mb-3">
-            {t("facts")}
+            {t('facts')}
           </h3>
           <div className="space-y-3">
             <div>
-              <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                {t("type")}
-              </h4>
-              <p className="text-sm text-foreground mt-0.5 capitalize">
-                {listType}
-              </p>
+              <h4 className="text-xs font-semibold text-muted-foreground uppercase">{t('type')}</h4>
+              <p className="text-sm text-foreground mt-0.5 capitalize">{listType}</p>
             </div>
             <div>
               <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                {t("content")}
+                {t('content')}
               </h4>
               <p className="text-sm text-foreground mt-0.5">
                 {hasMovies && hasTV
-                  ? t("mixedMoviesTv")
+                  ? t('mixedMoviesTv')
                   : hasMovies
-                    ? t("moviesOnly")
-                    : t("tvShowsOnly")}
+                    ? t('moviesOnly')
+                    : t('tvShowsOnly')}
               </p>
             </div>
           </div>

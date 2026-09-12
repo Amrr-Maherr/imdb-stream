@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useRef, useEffect, useState, type ReactNode } from "react";
+import { useRef, useEffect, useState, type ReactNode } from 'react';
 
 interface LazySectionProps {
   children: ReactNode;
@@ -12,7 +12,7 @@ interface LazySectionProps {
 export function LazySection({
   children,
   fallback,
-  rootMargin = "300px",
+  rootMargin = '300px',
   className,
 }: LazySectionProps) {
   const ref = useRef<HTMLDivElement>(null);
@@ -29,7 +29,7 @@ export function LazySection({
           observer.disconnect();
         }
       },
-      { rootMargin },
+      { rootMargin }
     );
 
     observer.observe(element);

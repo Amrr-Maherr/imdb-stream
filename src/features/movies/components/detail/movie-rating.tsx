@@ -1,5 +1,5 @@
-import { useTranslations } from "next-intl";
-import { Star } from "lucide-react";
+import { useTranslations } from 'next-intl';
+import { Star } from 'lucide-react';
 
 type MovieRatingProps = {
   voteAverage: number;
@@ -8,7 +8,7 @@ type MovieRatingProps = {
 };
 
 export function MovieRating({ voteAverage, voteCount, popularity }: MovieRatingProps) {
-  const t = useTranslations("MovieDetail");
+  const t = useTranslations('MovieDetail');
   const score = Math.round(voteAverage * 10);
 
   return (
@@ -16,17 +16,19 @@ export function MovieRating({ voteAverage, voteCount, popularity }: MovieRatingP
       <div className="flex items-center gap-4">
         <div className="flex size-16 flex-col items-center justify-center rounded-full bg-brand text-brand-foreground">
           <span className="text-xl font-bold leading-none">{score}</span>
-          <span className="text-[10px] font-semibold leading-tight">{t("percent")}</span>
+          <span className="text-[10px] font-semibold leading-tight">{t('percent')}</span>
         </div>
         <div>
-          <p className="text-sm font-semibold text-foreground">{t("userScore")}</p>
-          <p className="text-xs text-muted-foreground">{t("votes", { count: voteCount })}</p>
+          <p className="text-sm font-semibold text-foreground">{t('userScore')}</p>
+          <p className="text-xs text-muted-foreground">{t('votes', { count: voteCount })}</p>
         </div>
       </div>
       <div className="flex items-center gap-1">
         <Star className="size-4 fill-rating-star text-rating-star" />
         <span className="text-sm font-medium text-foreground">{voteAverage.toFixed(1)}</span>
-        <span className="text-xs text-muted-foreground">{t("popularity", { count: popularity })}</span>
+        <span className="text-xs text-muted-foreground">
+          {t('popularity', { count: popularity })}
+        </span>
       </div>
       <div className="h-2 w-full rounded-full bg-muted overflow-hidden">
         <div

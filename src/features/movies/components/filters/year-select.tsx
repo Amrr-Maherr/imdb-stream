@@ -1,42 +1,42 @@
-"use client"
+'use client';
 
-import { useTranslations } from "next-intl"
-import { useRouter, useSearchParams } from "next/navigation"
+import { useTranslations } from 'next-intl';
+import { useRouter, useSearchParams } from 'next/navigation';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/shared/components/ui/select"
-import { PARAM_KEYS } from "./constants"
+} from '@/shared/components/ui/select';
+import { PARAM_KEYS } from './constants';
 
 function YearSelect() {
-  const t = useTranslations("Filters")
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const value = searchParams.get(PARAM_KEYS.year) ?? "any"
-  const currentYear = new Date().getFullYear()
-  const years = Array.from({ length: currentYear - 1899 }, (_, i) => String(currentYear - i))
+  const t = useTranslations('Filters');
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const value = searchParams.get(PARAM_KEYS.year) ?? 'any';
+  const currentYear = new Date().getFullYear();
+  const years = Array.from({ length: currentYear - 1899 }, (_, i) => String(currentYear - i));
 
   function handleChange(val: string) {
-    const params = new URLSearchParams(searchParams)
-    if (val === "any") {
-      params.delete(PARAM_KEYS.year)
+    const params = new URLSearchParams(searchParams);
+    if (val === 'any') {
+      params.delete(PARAM_KEYS.year);
     } else {
-      params.set(PARAM_KEYS.year, val)
+      params.set(PARAM_KEYS.year, val);
     }
-    params.set(PARAM_KEYS.page, "1")
-    router.push(`?${params.toString()}`)
+    params.set(PARAM_KEYS.page, '1');
+    router.push(`?${params.toString()}`);
   }
 
   return (
     <Select value={value} onValueChange={handleChange}>
       <SelectTrigger className="h-9 min-w-[8.5rem] text-xs">
-        <SelectValue placeholder={t("year")} />
+        <SelectValue placeholder={t('year')} />
       </SelectTrigger>
       <SelectContent className="max-h-60">
-        <SelectItem value="any">{t("allYears")}</SelectItem>
+        <SelectItem value="any">{t('allYears')}</SelectItem>
         {years.map((year) => (
           <SelectItem key={year} value={year}>
             {year}
@@ -44,7 +44,7 @@ function YearSelect() {
         ))}
       </SelectContent>
     </Select>
-  )
+  );
 }
 
-export { YearSelect }
+export { YearSelect };

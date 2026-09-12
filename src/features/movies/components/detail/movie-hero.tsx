@@ -1,21 +1,12 @@
-"use client";
+'use client';
 
-import { useTranslations } from "next-intl";
-import { useEffect, useRef, useState, useCallback } from "react";
-import {
-  Play,
-  Pause,
-  Volume2,
-  VolumeX,
-  Maximize,
-  Minimize,
-  Square,
-  Star,
-} from "lucide-react";
-import { MovieInfo } from "./movie-info";
-import { MovieActions } from "./movie-actions";
-import { GenreTags } from "./genre-tags";
-import { MovieBackground } from "./movie-background";
+import { useTranslations } from 'next-intl';
+import { useEffect, useRef, useState, useCallback } from 'react';
+import { Play, Pause, Volume2, VolumeX, Maximize, Minimize, Square, Star } from 'lucide-react';
+import { MovieInfo } from './movie-info';
+import { MovieActions } from './movie-actions';
+import { GenreTags } from './genre-tags';
+import { MovieBackground } from './movie-background';
 
 type Genre = { id: number; name: string };
 
@@ -57,7 +48,7 @@ declare global {
             onReady?: (event: { target: YTPlayer }) => void;
             onStateChange?: (event: { data: number }) => void;
           };
-        },
+        }
       ) => YTPlayer;
     };
     onYouTubeIframeAPIReady?: () => void;
@@ -94,8 +85,8 @@ export function MovieHero({
   homepage,
   movie,
 }: MovieHeroProps) {
-  const t = useTranslations("MovieDetail");
-  const tc = useTranslations("Common");
+  const t = useTranslations('MovieDetail');
+  const tc = useTranslations('Common');
   const playerRef = useRef<YTPlayer | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [playing, setPlaying] = useState(true);
@@ -110,10 +101,10 @@ export function MovieHero({
     const initPlayer = () => {
       if (!window.YT || playerReady.current) return;
       playerReady.current = true;
-      new window.YT.Player("youtube-player", {
+      new window.YT.Player('youtube-player', {
         videoId: trailerKey,
-        width: "100%",
-        height: "100%",
+        width: '100%',
+        height: '100%',
         playerVars: {
           autoplay: 1,
           mute: 1,
@@ -142,9 +133,9 @@ export function MovieHero({
     };
 
     if (!window.YT) {
-      const tag = document.createElement("script");
-      tag.src = "https://www.youtube.com/iframe_api";
-      const first = document.getElementsByTagName("script")[0];
+      const tag = document.createElement('script');
+      tag.src = 'https://www.youtube.com/iframe_api';
+      const first = document.getElementsByTagName('script')[0];
       first.parentNode?.insertBefore(tag, first);
       window.onYouTubeIframeAPIReady = initPlayer;
     } else {
@@ -190,19 +181,15 @@ export function MovieHero({
 
   useEffect(() => {
     const handler = () => setFullscreen(!!document.fullscreenElement);
-    document.addEventListener("fullscreenchange", handler);
-    return () => document.removeEventListener("fullscreenchange", handler);
+    document.addEventListener('fullscreenchange', handler);
+    return () => document.removeEventListener('fullscreenchange', handler);
   }, []);
 
   return (
     <section className="relative w-full aspect-[4/5] md:aspect-[16/9] lg:aspect-[21/10] overflow-hidden">
       {/* Background layer – z-0 */}
       <div ref={containerRef} className="absolute inset-0">
-        <MovieBackground
-          trailerKey={trailerKey}
-          backdropPath={backdropPath}
-          title={title}
-        />
+        <MovieBackground trailerKey={trailerKey} backdropPath={backdropPath} title={title} />
       </div>
 
       {/* Gradient overlays – z-10 */}
@@ -224,12 +211,8 @@ export function MovieHero({
           {/* Rating */}
           <div className="flex items-center gap-2 mt-3">
             <Star className="size-5 fill-rating-star text-rating-star" />
-            <span className="text-lg font-bold text-white">
-              {voteAverage.toFixed(1)}
-            </span>
-            <span className="text-sm text-white/60">
-              · {t("votes", { count: voteCount })}
-            </span>
+            <span className="text-lg font-bold text-white">{voteAverage.toFixed(1)}</span>
+            <span className="text-sm text-white/60">· {t('votes', { count: voteCount })}</span>
           </div>
 
           {/* Genres */}
@@ -265,18 +248,14 @@ export function MovieHero({
             <button
               onClick={togglePlay}
               className="flex size-9 items-center justify-center rounded-lg bg-white/10 text-white hover:bg-white/20 transition-colors"
-              aria-label={playing ? tc("pause") : tc("play")}
+              aria-label={playing ? tc('pause') : tc('play')}
             >
-              {playing ? (
-                <Pause className="size-4" />
-              ) : (
-                <Play className="size-4 ml-0.5" />
-              )}
+              {playing ? <Pause className="size-4" /> : <Play className="size-4 ml-0.5" />}
             </button>
             <button
               onClick={handleStop}
               className="flex size-9 items-center justify-center rounded-lg bg-white/10 text-white hover:bg-white/20 transition-colors"
-              aria-label={tc("stop")}
+              aria-label={tc('stop')}
             >
               <Square className="size-3.5" />
             </button>
@@ -285,16 +264,12 @@ export function MovieHero({
               onClick={toggleMute}
               className={`flex size-9 items-center justify-center rounded-lg transition-colors ${
                 muted
-                  ? "bg-white/10 text-white hover:bg-white/20"
-                  : "bg-brand/30 text-brand hover:bg-brand/40"
+                  ? 'bg-white/10 text-white hover:bg-white/20'
+                  : 'bg-brand/30 text-brand hover:bg-brand/40'
               }`}
-              aria-label={muted ? tc("unmute") : tc("mute")}
+              aria-label={muted ? tc('unmute') : tc('mute')}
             >
-              {muted ? (
-                <VolumeX className="size-4" />
-              ) : (
-                <Volume2 className="size-4" />
-              )}
+              {muted ? <VolumeX className="size-4" /> : <Volume2 className="size-4" />}
             </button>
             <div className="flex-1" />
             {playing && (
@@ -303,22 +278,16 @@ export function MovieHero({
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand opacity-75" />
                   <span className="relative inline-flex size-2 rounded-full bg-brand" />
                 </span>
-                {tc("playing")}
+                {tc('playing')}
               </span>
             )}
-            {!playing && (
-              <span className="text-xs text-white/60">{tc("paused")}</span>
-            )}
+            {!playing && <span className="text-xs text-white/60">{tc('paused')}</span>}
             <button
               onClick={toggleFullscreen}
               className="flex size-9 items-center justify-center rounded-lg bg-white/10 text-white hover:bg-white/20 transition-colors"
-              aria-label={fullscreen ? tc("exitFullscreen") : tc("fullscreen")}
+              aria-label={fullscreen ? tc('exitFullscreen') : tc('fullscreen')}
             >
-              {fullscreen ? (
-                <Minimize className="size-4" />
-              ) : (
-                <Maximize className="size-4" />
-              )}
+              {fullscreen ? <Minimize className="size-4" /> : <Maximize className="size-4" />}
             </button>
           </div>
         </div>

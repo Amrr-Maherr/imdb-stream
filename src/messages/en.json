@@ -448,18 +448,54 @@
       "privacy": "Privacy & Security"
     },
     "items": {
-      "q1": { "q": "How do I create an IMDb account?", "a": "Click 'Sign In' in the top navigation, then select 'Create your account'. Enter your name, email address, and a secure password. You can also sign up using your Google or Facebook account for faster registration." },
-      "q2": { "q": "How do I reset my password?", "a": "Click 'Sign In', then select 'Forgot password'. Enter your registered email address and we'll send you a password reset link. For security, the link expires after 1 hour." },
-      "q3": { "q": "How do I delete my account?", "a": "Go to your Profile settings and scroll to 'Account Management'. Click 'Delete Account' and follow the confirmation steps. Your data will be permanently removed within 30 days." },
-      "q4": { "q": "How does the rating system work?", "a": "You can rate any movie or TV show on a scale of 1 to 10 stars. Your personal ratings help us generate personalized recommendations. The overall rating displayed is a weighted average of all user ratings." },
-      "q5": { "q": "How do I write a review?", "a": "Navigate to any title's page, scroll to the reviews section, and click 'Write a Review'. Reviews must follow our Community Guidelines and be at least 50 characters long." },
-      "q6": { "q": "Can I edit or delete my review?", "a": "Yes. Go to your Profile page, find the review under 'My Reviews', and use the edit or delete options. You can edit a review within 30 days of posting." },
-      "q7": { "q": "How do I find something to watch?", "a": "Use the search bar at the top, browse by genre or category on the Home page, or check personalized recommendations based on your rating history. Our 'Watch Guide' curates trending content daily." },
-      "q8": { "q": "What streaming services are supported?", "a": "IMDb tracks availability across 200+ streaming services including Netflix, Prime Video, Disney+, Hulu, HBO Max, Apple TV+, and many regional platforms. Check a title's page to see where it's streaming." },
-      "q9": { "q": "How do I add to my watchlist?", "a": "Click the bookmark icon on any movie or TV show page, or use the 'Add to Watchlist' button. Access your watchlist from the profile menu or your profile page." },
-      "q10": { "q": "Why is the site loading slowly?", "a": "Try clearing your browser cache and cookies. Ensure your browser and operating system are up to date. Check your internet connection speed. If issues persist, try disabling browser extensions temporarily." },
-      "q11": { "q": "How do I report a bug?", "a": "Contact our support team through the Contact Us page with a detailed description of the issue, steps to reproduce it, your browser version, and any error messages. Screenshots are very helpful." },
-      "q12": { "q": "Is my personal information safe?", "a": "Yes. We use industry-standard encryption and security practices to protect your data. We never sell your personal information. See our Privacy Policy for complete details on how we handle your data." }
+      "q1": {
+        "q": "How do I create an IMDb account?",
+        "a": "Click 'Sign In' in the top navigation, then select 'Create your account'. Enter your name, email address, and a secure password. You can also sign up using your Google or Facebook account for faster registration."
+      },
+      "q2": {
+        "q": "How do I reset my password?",
+        "a": "Click 'Sign In', then select 'Forgot password'. Enter your registered email address and we'll send you a password reset link. For security, the link expires after 1 hour."
+      },
+      "q3": {
+        "q": "How do I delete my account?",
+        "a": "Go to your Profile settings and scroll to 'Account Management'. Click 'Delete Account' and follow the confirmation steps. Your data will be permanently removed within 30 days."
+      },
+      "q4": {
+        "q": "How does the rating system work?",
+        "a": "You can rate any movie or TV show on a scale of 1 to 10 stars. Your personal ratings help us generate personalized recommendations. The overall rating displayed is a weighted average of all user ratings."
+      },
+      "q5": {
+        "q": "How do I write a review?",
+        "a": "Navigate to any title's page, scroll to the reviews section, and click 'Write a Review'. Reviews must follow our Community Guidelines and be at least 50 characters long."
+      },
+      "q6": {
+        "q": "Can I edit or delete my review?",
+        "a": "Yes. Go to your Profile page, find the review under 'My Reviews', and use the edit or delete options. You can edit a review within 30 days of posting."
+      },
+      "q7": {
+        "q": "How do I find something to watch?",
+        "a": "Use the search bar at the top, browse by genre or category on the Home page, or check personalized recommendations based on your rating history. Our 'Watch Guide' curates trending content daily."
+      },
+      "q8": {
+        "q": "What streaming services are supported?",
+        "a": "IMDb tracks availability across 200+ streaming services including Netflix, Prime Video, Disney+, Hulu, HBO Max, Apple TV+, and many regional platforms. Check a title's page to see where it's streaming."
+      },
+      "q9": {
+        "q": "How do I add to my watchlist?",
+        "a": "Click the bookmark icon on any movie or TV show page, or use the 'Add to Watchlist' button. Access your watchlist from the profile menu or your profile page."
+      },
+      "q10": {
+        "q": "Why is the site loading slowly?",
+        "a": "Try clearing your browser cache and cookies. Ensure your browser and operating system are up to date. Check your internet connection speed. If issues persist, try disabling browser extensions temporarily."
+      },
+      "q11": {
+        "q": "How do I report a bug?",
+        "a": "Contact our support team through the Contact Us page with a detailed description of the issue, steps to reproduce it, your browser version, and any error messages. Screenshots are very helpful."
+      },
+      "q12": {
+        "q": "Is my personal information safe?",
+        "a": "Yes. We use industry-standard encryption and security practices to protect your data. We never sell your personal information. See our Privacy Policy for complete details on how we handle your data."
+      }
     }
   },
   "HelpCenter": {
@@ -592,11 +628,26 @@
     },
     "faq": {
       "heading": "Subscription FAQ",
-      "q1": { "q": "Can I switch plans at any time?", "a": "Yes, you can upgrade or downgrade your plan at any time. Upgrades take effect immediately, while downgrades apply at the start of your next billing cycle." },
-      "q2": { "q": "Is there a free trial for paid plans?", "a": "Yes, IMDb Pro includes a 7-day free trial. No credit card is required to start your trial. You can cancel anytime before the trial ends." },
-      "q3": { "q": "What payment methods do you accept?", "a": "We accept all major credit cards (Visa, Mastercard, American Express, Discover), PayPal, and Apple Pay. Enterprise plans also support invoicing and purchase orders." },
-      "q4": { "q": "Can I cancel my subscription?", "a": "Yes, you can cancel anytime from your account settings. Your access will continue until the end of the current billing period. No partial refunds are provided." },
-      "q5": { "q": "Is my data retained after cancellation?", "a": "Your ratings, reviews, and profile data are retained for 90 days after cancellation in case you reactivate. After 90 days, non-essential data may be anonymized or deleted." }
+      "q1": {
+        "q": "Can I switch plans at any time?",
+        "a": "Yes, you can upgrade or downgrade your plan at any time. Upgrades take effect immediately, while downgrades apply at the start of your next billing cycle."
+      },
+      "q2": {
+        "q": "Is there a free trial for paid plans?",
+        "a": "Yes, IMDb Pro includes a 7-day free trial. No credit card is required to start your trial. You can cancel anytime before the trial ends."
+      },
+      "q3": {
+        "q": "What payment methods do you accept?",
+        "a": "We accept all major credit cards (Visa, Mastercard, American Express, Discover), PayPal, and Apple Pay. Enterprise plans also support invoicing and purchase orders."
+      },
+      "q4": {
+        "q": "Can I cancel my subscription?",
+        "a": "Yes, you can cancel anytime from your account settings. Your access will continue until the end of the current billing period. No partial refunds are provided."
+      },
+      "q5": {
+        "q": "Is my data retained after cancellation?",
+        "a": "Your ratings, reviews, and profile data are retained for 90 days after cancellation in case you reactivate. After 90 days, non-essential data may be anonymized or deleted."
+      }
     },
     "cta": {
       "heading": "Start Your Journey Today",
@@ -657,16 +708,66 @@
       "newYork": "New York, NY",
       "london": "London, UK",
       "list": [
-        { "title": "Senior Software Engineer, Recommendations", "dept": "engineering", "loc": "seattle", "type": "fullTime" },
-        { "title": "Frontend Engineer, Web Platform", "dept": "engineering", "loc": "remote", "type": "fullTime" },
-        { "title": "Product Designer, Mobile Experience", "dept": "product", "loc": "losAngeles", "type": "fullTime" },
-        { "title": "Data Scientist, Content Intelligence", "dept": "data", "loc": "seattle", "type": "fullTime" },
-        { "title": "Marketing Manager, Global Campaigns", "dept": "marketing", "loc": "newYork", "type": "fullTime" },
-        { "title": "Content Editor, Metadata Operations", "dept": "content", "loc": "london", "type": "fullTime" },
-        { "title": "iOS Engineer, Mobile Apps", "dept": "engineering", "loc": "remote", "type": "fullTime" },
-        { "title": "Software Engineering Intern", "dept": "engineering", "loc": "seattle", "type": "internship" },
-        { "title": "UX Researcher, Discovery Products", "dept": "product", "loc": "losAngeles", "type": "fullTime" },
-        { "title": "ML Engineer, Personalization", "dept": "data", "loc": "remote", "type": "fullTime" }
+        {
+          "title": "Senior Software Engineer, Recommendations",
+          "dept": "engineering",
+          "loc": "seattle",
+          "type": "fullTime"
+        },
+        {
+          "title": "Frontend Engineer, Web Platform",
+          "dept": "engineering",
+          "loc": "remote",
+          "type": "fullTime"
+        },
+        {
+          "title": "Product Designer, Mobile Experience",
+          "dept": "product",
+          "loc": "losAngeles",
+          "type": "fullTime"
+        },
+        {
+          "title": "Data Scientist, Content Intelligence",
+          "dept": "data",
+          "loc": "seattle",
+          "type": "fullTime"
+        },
+        {
+          "title": "Marketing Manager, Global Campaigns",
+          "dept": "marketing",
+          "loc": "newYork",
+          "type": "fullTime"
+        },
+        {
+          "title": "Content Editor, Metadata Operations",
+          "dept": "content",
+          "loc": "london",
+          "type": "fullTime"
+        },
+        {
+          "title": "iOS Engineer, Mobile Apps",
+          "dept": "engineering",
+          "loc": "remote",
+          "type": "fullTime"
+        },
+        {
+          "title": "Software Engineering Intern",
+          "dept": "engineering",
+          "loc": "seattle",
+          "type": "internship"
+        },
+        {
+          "title": "UX Researcher, Discovery Products",
+          "dept": "product",
+          "loc": "losAngeles",
+          "type": "fullTime"
+        },
+        {
+          "title": "ML Engineer, Personalization",
+          "dept": "data",
+          "loc": "remote",
+          "type": "fullTime"
+        }
       ]
     },
     "process": {
@@ -710,17 +811,32 @@
       "functional": {
         "name": "Functional Cookies",
         "desc": "Remember your preferences and choices to provide a personalized experience. These enhance usability but are not essential for basic functionality.",
-        "examples": ["Language preference", "Region selection", "Theme preferences", "Viewing history"]
+        "examples": [
+          "Language preference",
+          "Region selection",
+          "Theme preferences",
+          "Viewing history"
+        ]
       },
       "analytics": {
         "name": "Analytics Cookies",
         "desc": "Help us understand how users interact with our platform. We use this data to improve performance, fix issues, and optimize user experience.",
-        "examples": ["Page visit tracking", "Feature usage", "Error tracking", "Performance monitoring"]
+        "examples": [
+          "Page visit tracking",
+          "Feature usage",
+          "Error tracking",
+          "Performance monitoring"
+        ]
       },
       "advertising": {
         "name": "Advertising Cookies",
         "desc": "Used to deliver relevant advertisements and measure their effectiveness. These may track your browsing across websites over time.",
-        "examples": ["Ad preference data", "Campaign performance", "Retargeting pixels", "Conversion tracking"]
+        "examples": [
+          "Ad preference data",
+          "Campaign performance",
+          "Retargeting pixels",
+          "Conversion tracking"
+        ]
       }
     },
     "manage": {

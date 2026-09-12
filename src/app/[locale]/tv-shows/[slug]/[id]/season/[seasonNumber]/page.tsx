@@ -1,16 +1,16 @@
-import { getTranslations } from "next-intl/server";
-import { fetchApi } from "@/shared/services/fetchApi";
-import { ErrorState } from "@/shared/components/error-state";
-import type { TVSeasonDetails, TMDBTVDetails } from "@/shared/types/tmdb";
-import { SeasonHero } from "@/features/tv/components/season/season-hero";
-import { SeasonMainContent } from "@/features/tv/components/season/season-main-content";
-import { SeasonSidebarColumn } from "@/features/tv/components/season/season-sidebar-column";
+import { getTranslations } from 'next-intl/server';
+import { fetchApi } from '@/shared/services/fetchApi';
+import { ErrorState } from '@/shared/components/error-state';
+import type { TVSeasonDetails, TMDBTVDetails } from '@/shared/types/tmdb';
+import { SeasonHero } from '@/features/tv/components/season/season-hero';
+import { SeasonMainContent } from '@/features/tv/components/season/season-main-content';
+import { SeasonSidebarColumn } from '@/features/tv/components/season/season-sidebar-column';
 
 interface Props {
   params: Promise<{ locale: string; slug: string; id: string; seasonNumber: string }>;
 }
 
-const SEASON_APPEND = "videos,images,external_ids,credits,aggregate_credits";
+const SEASON_APPEND = 'videos,images,external_ids,credits,aggregate_credits';
 
 async function getSeason(tvId: string, seasonNumber: string, locale: string) {
   return fetchApi<TVSeasonDetails>({
@@ -34,14 +34,14 @@ export async function generateMetadata({ params }: Props) {
     const season = await getSeason(id, seasonNumber, locale);
     return { title: `${season.name} · Season ${seasonNumber}` };
   } catch {
-    const t = await getTranslations({ locale, namespace: "ErrorState" });
-    return { title: t("seasonNotFound") };
+    const t = await getTranslations({ locale, namespace: 'ErrorState' });
+    return { title: t('seasonNotFound') };
   }
 }
 
 export default async function SeasonPage({ params }: Props) {
   const { id, seasonNumber, slug, locale } = await params;
-  const t = await getTranslations({ locale, namespace: "ErrorState" });
+  const t = await getTranslations({ locale, namespace: 'ErrorState' });
 
   let season: TVSeasonDetails;
   let tvShow: TMDBTVDetails | null = null;
@@ -53,8 +53,8 @@ export default async function SeasonPage({ params }: Props) {
   } catch {
     return (
       <ErrorState
-        title={t("seasonNotFound")}
-        actionLabel={t("backToTvShow")}
+        title={t('seasonNotFound')}
+        actionLabel={t('backToTvShow')}
         actionHref={`/tv-shows/${slug}/${id}`}
       />
     );
@@ -65,7 +65,7 @@ export default async function SeasonPage({ params }: Props) {
       <SeasonHero
         season={season}
         backdropPath={tvShow?.backdrop_path ?? null}
-        tvName={tvShow?.name ?? ""}
+        tvName={tvShow?.name ?? ''}
       />
 
       <div className="w-full mx-auto app-container mt-8 md:mt-10 pb-16">

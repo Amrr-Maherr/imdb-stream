@@ -1,6 +1,6 @@
-import { fetchApi } from "@/shared/services/fetchApi";
-import type { TMDBResponse, TMDBMovie } from "@/shared/types/tmdb";
-import { HeroBanner } from "./hero-banner";
+import { fetchApi } from '@/shared/services/fetchApi';
+import type { TMDBResponse, TMDBMovie } from '@/shared/types/tmdb';
+import { HeroBanner } from './hero-banner';
 
 interface Props {
   locale: string;
@@ -11,7 +11,7 @@ export async function HeroSection({ locale }: Props) {
 
   try {
     const data = await fetchApi<TMDBResponse<TMDBMovie>>({
-      endpoint: "trending/movie/week",
+      endpoint: 'trending/movie/week',
       revalidate: 3600,
       locale,
     });

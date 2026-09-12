@@ -1,46 +1,38 @@
-"use client";
+'use client';
 
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "@/features/auth/services/firebase";
-import { useState } from "react";
-import { useRouter } from "@/i18n/navigation";
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '@/features/auth/services/firebase';
+import { useState } from 'react';
+import { useRouter } from '@/i18n/navigation';
 // login data types
 type LoginData = {
-    email: string;
-    password: string;
+  email: string;
+  password: string;
 };
 
 export default function useLogin() {
-    const router = useRouter();
-    const [firebaseError, setFirebaseError] = useState<string | null>(null);
+  const router = useRouter();
+  const [firebaseError, setFirebaseError] = useState<string | null>(null);
 
-    const login = async (data: LoginData) => {
+  const login = async (data: LoginData) => {
+    try {
+      const response = await signInWithEmailAndPassword(auth, data.email, data.password);
+      if (response) {
+        router.push('/');
+      } else {
+        return;
+      }
+      return response;
+    } catch (error: any) {
+      const firebaseErr = error?.code?.replace('auth/', '') || error?.message || 'Unknown error';
 
-        try {
-            const response = await signInWithEmailAndPassword(
-                auth,
-                data.email,
-                data.password
-            );
-            if (response) {
-                router.push("/");
-            } else {
-                return;
-            }
-            return response;
-        } catch (error: any) {
-            const firebaseErr =
-                error?.code?.replace("auth/", "") ||
-                error?.message ||
-                "Unknown error";
+      setFirebaseError(firebaseErr);
+      return null;
+    }
+  };
 
-            setFirebaseError(firebaseErr);
-            return null;
-        }
-    };
-
-    return {
-        login,
-        firebaseError,
-    };
+  return {
+    login,
+    firebaseError,
+  };
 }

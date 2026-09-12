@@ -1,9 +1,9 @@
-export { MoviesFilters, DesktopFilters, MobileBar } from "./movies-filters"
-export { GenreDropdown } from "./genre-dropdown"
-export { LanguageDropdown } from "./language-dropdown"
-export { CountryDropdown } from "./country-dropdown"
-export { SortSelect } from "./sort-select"
-export { YearSelect } from "./year-select"
-export { RatingSelect } from "./rating-select"
-export { MobileFilterDrawer } from "./mobile-filter-drawer"
-export { AdultToggle } from "./adult-toggle"
+export { MoviesFilters, DesktopFilters, MobileBar } from './movies-filters';
+export { GenreDropdown } from './genre-dropdown';
+export { LanguageDropdown } from './language-dropdown';
+export { CountryDropdown } from './country-dropdown';
+export { SortSelect } from './sort-select';
+export { YearSelect } from './year-select';
+export { RatingSelect } from './rating-select';
+export { MobileFilterDrawer } from './mobile-filter-drawer';
+export { AdultToggle } from './adult-toggle';

@@ -1,4 +1,4 @@
-import { FadeIn } from "@/features/movies/components/detail/fade-in";
+import { FadeIn } from '@/features/movies/components/detail/fade-in';
 
 export default function CollectionLoading() {
   return (

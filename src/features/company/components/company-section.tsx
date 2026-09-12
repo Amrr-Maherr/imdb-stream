@@ -1,13 +1,11 @@
-import { fetchApi } from "@/shared/services/fetchApi";
-import type { TMDBCompanyDetails } from "@/shared/types/tmdb";
-import { MediaRow } from "@/features/movies/components/listing/media-row";
-import { CompanyCard } from "./company-card";
+import { fetchApi } from '@/shared/services/fetchApi';
+import type { TMDBCompanyDetails } from '@/shared/types/tmdb';
+import { MediaRow } from '@/features/movies/components/listing/media-row';
+import { CompanyCard } from './company-card';
 
-const COMPANY_NS = "Company";
+const COMPANY_NS = 'Company';
 
-const STUDIO_IDS = [
-  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 25, 33, 11725,
-];
+const STUDIO_IDS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 25, 33, 11725];
 
 const PLATFORM_IDS = [
   18, 43, 49, 56, 62, 67, 68, 69, 70, 82, 84, 85, 172, 213, 352, 386, 753, 828, 10221,
@@ -20,17 +18,17 @@ async function fetchByIds(ids: number[], locale: string): Promise<TMDBCompanyDet
         endpoint: `company/${id}`,
         revalidate: 86400,
         locale,
-      }),
-    ),
+      })
+    )
   );
   return results
-    .filter((r) => r.status === "fulfilled")
+    .filter((r) => r.status === 'fulfilled')
     .map((r) => (r as PromiseFulfilledResult<TMDBCompanyDetails>).value)
     .filter((c) => c.name);
 }
 
 export async function ProductionCompaniesSection({ locale }: { locale: string }) {
-  const { getTranslations } = await import("next-intl/server");
+  const { getTranslations } = await import('next-intl/server');
   const t = await getTranslations(COMPANY_NS);
   const companies = await fetchByIds(STUDIO_IDS, locale);
   if (companies.length === 0) return null;
@@ -40,20 +38,11 @@ export async function ProductionCompaniesSection({ locale }: { locale: string })
       <div className="flex items-center gap-3">
         <div className="h-6 w-1 rounded-full bg-brand" />
         <div>
-          <h2 className="text-2xl font-bold text-foreground">
-            {t("productionCompanies")}
-          </h2>
-          <p className="text-sm text-muted-foreground">
-            {t("majorStudios")}
-          </p>
+          <h2 className="text-2xl font-bold text-foreground">{t('productionCompanies')}</h2>
+          <p className="text-sm text-muted-foreground">{t('majorStudios')}</p>
         </div>
       </div>
-      <MediaRow
-        title={t("studios")}
-        slidesPerView={5}
-        slidesMobilePerView={2.5}
-        spaceBetween={14}
-      >
+      <MediaRow title={t('studios')} slidesPerView={5} slidesMobilePerView={2.5} spaceBetween={14}>
         {companies.map((company) => (
           <CompanyCard key={company.id} company={company} />
         ))}
@@ -63,7 +52,7 @@ export async function ProductionCompaniesSection({ locale }: { locale: string })
 }
 
 export async function PlatformsSection({ locale }: { locale: string }) {
-  const { getTranslations } = await import("next-intl/server");
+  const { getTranslations } = await import('next-intl/server');
   const t = await getTranslations(COMPANY_NS);
   const platforms = await fetchByIds(PLATFORM_IDS, locale);
   if (platforms.length === 0) return null;
@@ -73,14 +62,12 @@ export async function PlatformsSection({ locale }: { locale: string }) {
       <div className="flex items-center gap-3">
         <div className="h-6 w-1 rounded-full bg-brand" />
         <div>
-          <h2 className="text-2xl font-bold text-foreground">{t("platforms")}</h2>
-          <p className="text-sm text-muted-foreground">
-            {t("networksStreaming")}
-          </p>
+          <h2 className="text-2xl font-bold text-foreground">{t('platforms')}</h2>
+          <p className="text-sm text-muted-foreground">{t('networksStreaming')}</p>
         </div>
       </div>
       <MediaRow
-        title={t("networksShort")}
+        title={t('networksShort')}
         slidesPerView={5}
         slidesMobilePerView={2.5}
         spaceBetween={14}

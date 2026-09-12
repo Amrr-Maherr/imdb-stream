@@ -1,4 +1,4 @@
-import type { TMDBMovie, TMDBTV } from "@/shared/types/tmdb";
+import type { TMDBMovie, TMDBTV } from '@/shared/types/tmdb';
 
 export type StoredMovie = {
   id: number;
@@ -12,12 +12,12 @@ export const toTMDBMovie = (m: StoredMovie): TMDBMovie => ({
   title: m.title,
   poster_path: m.poster_path ?? null,
   backdrop_path: null,
-  overview: "",
-  release_date: "",
+  overview: '',
+  release_date: '',
   vote_average: 0,
   vote_count: 0,
   genre_ids: [],
-  original_language: "",
+  original_language: '',
   original_title: m.title,
   popularity: 0,
   video: false,
@@ -29,12 +29,12 @@ export const toTMDBTV = (m: StoredMovie): TMDBTV => ({
   name: m.title,
   poster_path: m.poster_path ?? null,
   backdrop_path: null,
-  overview: "",
-  first_air_date: "",
+  overview: '',
+  first_air_date: '',
   vote_average: 0,
   vote_count: 0,
   genre_ids: [],
-  original_language: "",
+  original_language: '',
   original_name: m.title,
   popularity: 0,
   origin_country: [],

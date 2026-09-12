@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { Info, Play, Star } from "lucide-react";
-import { useTranslations } from "next-intl";
-import type { TMDBMovie } from "@/shared/types/tmdb";
-import { slugify } from "@/shared/utils/slugify";
+import Link from 'next/link';
+import { Info, Play, Star } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import type { TMDBMovie } from '@/shared/types/tmdb';
+import { slugify } from '@/shared/utils/slugify';
 
 export function HeroContent({ movie }: { movie: TMDBMovie }) {
-  const t = useTranslations("Common");
+  const t = useTranslations('Common');
   const releaseYear = movie.release_date?.slice(0, 4);
   const vote = movie.vote_average.toFixed(1);
 
@@ -37,7 +37,7 @@ export function HeroContent({ movie }: { movie: TMDBMovie }) {
               className="inline-flex items-center gap-2 rounded-lg bg-brand px-6 py-3 text-sm font-semibold text-brand-foreground hover:bg-brand/90 transition-all"
             >
               <Play className="size-4 fill-current" />
-              {t("watch")}
+              {t('watch')}
             </Link>
 
             <Link
@@ -45,7 +45,7 @@ export function HeroContent({ movie }: { movie: TMDBMovie }) {
               className="inline-flex items-center gap-2 rounded-lg bg-white/10 backdrop-blur-sm px-6 py-3 text-sm font-semibold text-white hover:bg-white/20 transition-all"
             >
               <Info className="size-4" />
-              {t("moreInfo")}
+              {t('moreInfo')}
             </Link>
           </div>
         </div>

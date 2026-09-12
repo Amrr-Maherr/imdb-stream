@@ -1,7 +1,7 @@
-﻿import { getTranslations } from "next-intl/server"
-import { Link } from "@/i18n/navigation"
-import { Button } from "@/shared/components/ui/button"
-import { Card, CardContent } from "@/shared/components/ui/card"
+﻿import { getTranslations } from 'next-intl/server';
+import { Link } from '@/i18n/navigation';
+import { Button } from '@/shared/components/ui/button';
+import { Card, CardContent } from '@/shared/components/ui/card';
 import {
   Heart,
   MessageSquare,
@@ -15,44 +15,44 @@ import {
   Users,
   Lock,
   ArrowRight,
-} from "lucide-react"
+} from 'lucide-react';
 
 interface Props {
-  params: Promise<{ locale: string }>
+  params: Promise<{ locale: string }>;
 }
 
 const ruleConfig = [
-  { key: "beRespectful", Icon: Heart },
-  { key: "stayRelevant", Icon: MessageSquare },
-  { key: "noSpoilers", Icon: Eye },
-  { key: "originalContent", Icon: FileText },
-  { key: "accurateInfo", Icon: CheckCircle },
-  { key: "reportIssues", Icon: Flag },
-] as const
+  { key: 'beRespectful', Icon: Heart },
+  { key: 'stayRelevant', Icon: MessageSquare },
+  { key: 'noSpoilers', Icon: Eye },
+  { key: 'originalContent', Icon: FileText },
+  { key: 'accurateInfo', Icon: CheckCircle },
+  { key: 'reportIssues', Icon: Flag },
+] as const;
 
 const bestPracticeConfig = [
-  { key: "constructive", Icon: Lightbulb },
-  { key: "citeSources", Icon: BookOpen },
-  { key: "useFormatting", Icon: AlignLeft },
-  { key: "beInclusive", Icon: Users },
-  { key: "respectPrivacy", Icon: Lock },
-] as const
+  { key: 'constructive', Icon: Lightbulb },
+  { key: 'citeSources', Icon: BookOpen },
+  { key: 'useFormatting', Icon: AlignLeft },
+  { key: 'beInclusive', Icon: Users },
+  { key: 'respectPrivacy', Icon: Lock },
+] as const;
 
 const enforcementConfig = [
-  { key: "warning", color: "border-l-amber-500", bg: "bg-amber-500/10" },
-  { key: "removal", color: "border-l-orange-500", bg: "bg-orange-500/10" },
-  { key: "suspension", color: "border-l-red-500", bg: "bg-red-500/10" },
-  { key: "permanent", color: "border-l-red-700", bg: "bg-red-700/10" },
-] as const
+  { key: 'warning', color: 'border-l-amber-500', bg: 'bg-amber-500/10' },
+  { key: 'removal', color: 'border-l-orange-500', bg: 'bg-orange-500/10' },
+  { key: 'suspension', color: 'border-l-red-500', bg: 'bg-red-500/10' },
+  { key: 'permanent', color: 'border-l-red-700', bg: 'bg-red-700/10' },
+] as const;
 
 export async function generateMetadata({ params }: Props) {
-  const { locale } = await params
-  const t = await getTranslations({ locale, namespace: "Guidelines" })
-  return { title: t("title") }
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'Guidelines' });
+  return { title: t('title') };
 }
 
 export default async function GuidelinesPage() {
-  const t = await getTranslations("Guidelines")
+  const t = await getTranslations('Guidelines');
 
   return (
     <div className="bg-background">
@@ -61,13 +61,11 @@ export default async function GuidelinesPage() {
         <div className="app-container relative z-10">
           <div className="mx-auto max-w-3xl text-center">
             <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-              {t("hero.title")}
+              {t('hero.title')}
             </h1>
-            <p className="mt-4 text-lg text-muted-foreground sm:text-xl">
-              {t("hero.subtitle")}
-            </p>
+            <p className="mt-4 text-lg text-muted-foreground sm:text-xl">{t('hero.subtitle')}</p>
             <div className="mx-auto mt-6 max-w-2xl text-sm text-muted-foreground">
-              {t("hero.description")}
+              {t('hero.description')}
             </div>
           </div>
         </div>
@@ -78,7 +76,7 @@ export default async function GuidelinesPage() {
       <section className="py-16">
         <div className="app-container">
           <h2 className="mb-10 text-center text-3xl font-bold text-foreground">
-            {t("rules.heading")}
+            {t('rules.heading')}
           </h2>
           <div className="mx-auto grid max-w-6xl gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {ruleConfig.map(({ key, Icon }) => (
@@ -107,7 +105,7 @@ export default async function GuidelinesPage() {
       <section className="bg-muted/50 py-16">
         <div className="app-container">
           <h2 className="mb-10 text-center text-3xl font-bold text-foreground">
-            {t("bestPractices.heading")}
+            {t('bestPractices.heading')}
           </h2>
           <div className="mx-auto grid max-w-5xl gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {bestPracticeConfig.map(({ key, Icon }) => (
@@ -137,22 +135,18 @@ export default async function GuidelinesPage() {
         <div className="app-container">
           <div className="mx-auto max-w-5xl">
             <div className="mb-10 text-center">
-              <h2 className="text-3xl font-bold text-foreground">
-                {t("moderation.heading")}
-              </h2>
-              <p className="mt-3 text-base text-muted-foreground">
-                {t("moderation.body")}
-              </p>
+              <h2 className="text-3xl font-bold text-foreground">{t('moderation.heading')}</h2>
+              <p className="mt-3 text-base text-muted-foreground">{t('moderation.body')}</p>
             </div>
             <h3 className="mb-6 text-xl font-semibold text-foreground">
-              {t("moderation.actions.heading")}
+              {t('moderation.actions.heading')}
             </h3>
             <div className="grid gap-4 sm:grid-cols-2">
               {enforcementConfig.map(({ key, color, bg }) => {
-                const full = t(`moderation.actions.${key}`)
-                const colonIndex = full.indexOf(":")
-                const title = colonIndex !== -1 ? full.slice(0, colonIndex) : full
-                const desc = colonIndex !== -1 ? full.slice(colonIndex + 1).trim() : ""
+                const full = t(`moderation.actions.${key}`);
+                const colonIndex = full.indexOf(':');
+                const title = colonIndex !== -1 ? full.slice(0, colonIndex) : full;
+                const desc = colonIndex !== -1 ? full.slice(colonIndex + 1).trim() : '';
                 return (
                   <Card key={key} className={`border-border/50 border-l-4 shadow-sm ${color}`}>
                     <CardContent className="p-5">
@@ -163,12 +157,12 @@ export default async function GuidelinesPage() {
                       <p className="text-sm leading-relaxed text-muted-foreground">{desc}</p>
                     </CardContent>
                   </Card>
-                )
+                );
               })}
             </div>
             <div className="mt-8 rounded-xl border border-border/50 bg-muted/30 p-6">
               <p className="text-sm leading-relaxed text-muted-foreground">
-                {t("moderation.appeal")}
+                {t('moderation.appeal')}
               </p>
             </div>
           </div>
@@ -179,12 +173,8 @@ export default async function GuidelinesPage() {
       <section className="relative overflow-hidden bg-gradient-to-r from-brand/20 via-brand/10 to-background py-20">
         <div className="app-container relative z-10">
           <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-3xl font-bold text-foreground sm:text-4xl">
-              {t("cta.heading")}
-            </h2>
-            <p className="mt-4 text-lg text-muted-foreground">
-              {t("cta.subheading")}
-            </p>
+            <h2 className="text-3xl font-bold text-foreground sm:text-4xl">{t('cta.heading')}</h2>
+            <p className="mt-4 text-lg text-muted-foreground">{t('cta.subheading')}</p>
             <div className="mt-8">
               <Button
                 size="lg"
@@ -192,7 +182,7 @@ export default async function GuidelinesPage() {
                 asChild
               >
                 <Link href="#">
-                  {t("cta.button")}
+                  {t('cta.button')}
                   <ArrowRight className="ml-2 size-4" />
                 </Link>
               </Button>
@@ -202,5 +192,5 @@ export default async function GuidelinesPage() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_left,oklch(0.79_0.175_88_/_0.12),transparent_60%)]" />
       </section>
     </div>
-  )
+  );
 }

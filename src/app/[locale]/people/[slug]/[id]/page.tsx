@@ -1,10 +1,10 @@
-import { getTranslations } from "next-intl/server";
-import { fetchApi } from "@/shared/services/fetchApi";
-import { ErrorState } from "@/shared/components/error-state";
-import type { TMDBPersonDetails } from "@/shared/types/tmdb";
-import { PersonHero } from "@/features/person/components/person-hero";
-import { PersonMainContent } from "@/features/person/components/person-main-content";
-import { PersonSidebarColumn } from "@/features/person/components/person-sidebar-column";
+import { getTranslations } from 'next-intl/server';
+import { fetchApi } from '@/shared/services/fetchApi';
+import { ErrorState } from '@/shared/components/error-state';
+import type { TMDBPersonDetails } from '@/shared/types/tmdb';
+import { PersonHero } from '@/features/person/components/person-hero';
+import { PersonMainContent } from '@/features/person/components/person-main-content';
+import { PersonSidebarColumn } from '@/features/person/components/person-sidebar-column';
 
 interface Props {
   params: Promise<{ locale: string; slug: string; id: string }>;
@@ -27,15 +27,15 @@ export async function generateMetadata({ params }: Props) {
       description: person.biography?.slice(0, 160),
     };
   } catch {
-    const t = await getTranslations({ locale, namespace: "ErrorState" });
-    return { title: t("personNotFound") };
+    const t = await getTranslations({ locale, namespace: 'ErrorState' });
+    return { title: t('personNotFound') };
   }
 }
 
 export default async function PersonPage({ params }: Props) {
   const { id, locale } = await params;
 
-  const t = await getTranslations({ locale, namespace: "ErrorState" });
+  const t = await getTranslations({ locale, namespace: 'ErrorState' });
 
   let person: TMDBPersonDetails;
   try {
@@ -43,9 +43,9 @@ export default async function PersonPage({ params }: Props) {
   } catch {
     return (
       <ErrorState
-        title={t("personNotFound")}
-        description={t("personNotFoundDesc")}
-        actionLabel={t("goHome")}
+        title={t('personNotFound')}
+        description={t('personNotFoundDesc')}
+        actionLabel={t('goHome')}
         actionHref="/"
       />
     );

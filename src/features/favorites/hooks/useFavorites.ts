@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { db } from "@/lib/firebase";
-import { collection, getDocs, doc, writeBatch } from "firebase/firestore";
-import type { StoredMovie } from "@/features/movies/services/mapper";
-import { useAuth } from "@/shared/provider/authProvider";
+import { useEffect, useState } from 'react';
+import { db } from '@/lib/firebase';
+import { collection, getDocs, doc, writeBatch } from 'firebase/firestore';
+import type { StoredMovie } from '@/features/movies/services/mapper';
+import { useAuth } from '@/shared/provider/authProvider';
 
 type FavoriteItem = {
   id: string;
@@ -26,9 +26,7 @@ export function useFavorites() {
           return;
         }
 
-        const snapshot = await getDocs(
-          collection(db, "users", user.uid, "favorites"),
-        );
+        const snapshot = await getDocs(collection(db, 'users', user.uid, 'favorites'));
         const items = snapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
@@ -36,7 +34,7 @@ export function useFavorites() {
 
         setFavorites(items);
       } catch {
-        console.error("Failed to fetch favorites");
+        console.error('Failed to fetch favorites');
       } finally {
         setLoading(false);
       }
@@ -52,12 +50,12 @@ export function useFavorites() {
     try {
       const batch = writeBatch(db);
       favorites.forEach((item) => {
-        batch.delete(doc(db, "users", user!.uid, "favorites", item.id));
+        batch.delete(doc(db, 'users', user!.uid, 'favorites', item.id));
       });
       await batch.commit();
       setFavorites([]);
     } catch {
-      console.error("Failed to delete favorites");
+      console.error('Failed to delete favorites');
     } finally {
       setDeleting(false);
     }

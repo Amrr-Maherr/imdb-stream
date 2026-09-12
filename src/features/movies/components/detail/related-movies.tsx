@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { Slider } from "@/shared/components/ui/slider";
-import { MovieCard } from "@/features/movies/components/listing/movie-card";
-import type { TMDBMovie } from "@/shared/types/tmdb";
+import { Slider } from '@/shared/components/ui/slider';
+import { MovieCard } from '@/features/movies/components/listing/movie-card';
+import type { TMDBMovie } from '@/shared/types/tmdb';
 
 type RelatedMoviesProps = {
   title: string;

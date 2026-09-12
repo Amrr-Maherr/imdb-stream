@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useTranslations } from "next-intl";
-import { cn } from "@/shared/utils/utils";
+import { useTranslations } from 'next-intl';
+import { cn } from '@/shared/utils/utils';
 
 interface DeleteAllButtonProps {
   onClick: () => void;
@@ -16,17 +16,17 @@ function DeleteAllButton({
   deleting = false,
   className,
 }: DeleteAllButtonProps) {
-  const t = useTranslations("Common");
+  const t = useTranslations('Common');
   return (
     <button
       onClick={onClick}
       disabled={disabled || deleting}
       className={cn(
-        "rounded-lg bg-destructive px-4 py-2 text-sm font-semibold text-destructive-foreground hover:bg-destructive/90 disabled:opacity-50",
-        className,
+        'rounded-lg bg-destructive px-4 py-2 text-sm font-semibold text-destructive-foreground hover:bg-destructive/90 disabled:opacity-50',
+        className
       )}
     >
-      {deleting ? t("deleting") : t("deleteAll")}
+      {deleting ? t('deleting') : t('deleteAll')}
     </button>
   );
 }

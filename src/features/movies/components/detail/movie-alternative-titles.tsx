@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useTranslations } from "next-intl";
-import { useState } from "react";
-import { ChevronDown, ChevronUp, Globe } from "lucide-react";
+import { useTranslations } from 'next-intl';
+import { useState } from 'react';
+import { ChevronDown, ChevronUp, Globe } from 'lucide-react';
 
 type AlternativeTitle = {
   iso_3166_1: string;
@@ -18,16 +18,14 @@ const DISPLAY_LIMIT = 6;
 
 function getCountryName(code: string) {
   try {
-    return new Intl.DisplayNames(["en"], { type: "region" }).of(code) || code;
+    return new Intl.DisplayNames(['en'], { type: 'region' }).of(code) || code;
   } catch {
     return code;
   }
 }
 
-export function MovieAlternativeTitles({
-  titles,
-}: MovieAlternativeTitlesProps) {
-  const t = useTranslations("MovieDetail");
+export function MovieAlternativeTitles({ titles }: MovieAlternativeTitlesProps) {
+  const t = useTranslations('MovieDetail');
   const [expanded, setExpanded] = useState(false);
   if (titles.length === 0) return null;
 
@@ -44,12 +42,10 @@ export function MovieAlternativeTitles({
           >
             <Globe className="mt-0.5 size-4 shrink-0 text-muted-foreground" />
             <div className="min-w-0">
-              <p className="text-sm font-medium text-foreground truncate">
-                {t.title}
-              </p>
+              <p className="text-sm font-medium text-foreground truncate">{t.title}</p>
               <p className="text-xs text-muted-foreground">
                 {getCountryName(t.iso_3166_1)}
-                {t.type ? ` · ${t.type}` : ""}
+                {t.type ? ` · ${t.type}` : ''}
               </p>
             </div>
           </div>
@@ -61,9 +57,14 @@ export function MovieAlternativeTitles({
           className="inline-flex items-center gap-1 mt-3 text-sm font-medium text-brand hover:text-brand/80 transition-colors"
         >
           {expanded ? (
-            <>{t("showLess")} <ChevronUp className="size-3.5" /></>
+            <>
+              {t('showLess')} <ChevronUp className="size-3.5" />
+            </>
           ) : (
-            <>{t("showMore", { count: titles.length - DISPLAY_LIMIT })} <ChevronDown className="size-3.5" /></>
+            <>
+              {t('showMore', { count: titles.length - DISPLAY_LIMIT })}{' '}
+              <ChevronDown className="size-3.5" />
+            </>
           )}
         </button>
       )}

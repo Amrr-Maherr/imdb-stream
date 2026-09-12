@@ -1,21 +1,27 @@
-﻿import Image from "next/image"
-import { Link } from "@/i18n/navigation"
-import { getTranslations } from "next-intl/server"
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/shared/components/ui/card"
+﻿import Image from 'next/image';
+import { Link } from '@/i18n/navigation';
+import { getTranslations } from 'next-intl/server';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from '@/shared/components/ui/card';
 
 interface Props {
-  params: Promise<{ locale: string }>
+  params: Promise<{ locale: string }>;
 }
 
 export async function generateMetadata({ params }: Props) {
-  const { locale } = await params
-  const t = await getTranslations({ locale, namespace: "Feedback" })
-  return { title: t("title") }
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'Feedback' });
+  return { title: t('title') };
 }
 
 export default async function FeedbackPage() {
-  const t = await getTranslations("Feedback")
-  const common = await getTranslations("Common")
+  const t = await getTranslations('Feedback');
+  const common = await getTranslations('Common');
   return (
     <div className="flex min-h-[calc(100vh-4rem)] flex-col items-center bg-background px-4 py-16">
       <div className="w-full max-w-2xl">
@@ -23,7 +29,7 @@ export default async function FeedbackPage() {
           <Link href="/">
             <Image
               src="/logo.svg"
-              alt={common("siteName")}
+              alt={common('siteName')}
               width={100}
               height={50}
               className="h-10 w-auto"
@@ -34,25 +40,25 @@ export default async function FeedbackPage() {
 
         <Card className="border-border/50 shadow-lg">
           <CardHeader>
-            <CardTitle>{t("title")}</CardTitle>
-            <CardDescription>{t("description")}</CardDescription>
+            <CardTitle>{t('title')}</CardTitle>
+            <CardDescription>{t('description')}</CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="space-y-2">
-              <h3 className="text-base font-semibold text-foreground">{t("section1.heading")}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{t("section1.body")}</p>
+              <h3 className="text-base font-semibold text-foreground">{t('section1.heading')}</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">{t('section1.body')}</p>
             </div>
             <div className="space-y-2">
-              <h3 className="text-base font-semibold text-foreground">{t("section2.heading")}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{t("section2.body")}</p>
+              <h3 className="text-base font-semibold text-foreground">{t('section2.heading')}</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">{t('section2.body')}</p>
             </div>
             <div className="space-y-2">
-              <h3 className="text-base font-semibold text-foreground">{t("section3.heading")}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{t("section3.body")}</p>
+              <h3 className="text-base font-semibold text-foreground">{t('section3.heading')}</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">{t('section3.body')}</p>
             </div>
           </CardContent>
         </Card>
       </div>
     </div>
-  )
+  );
 }

@@ -1,6 +1,6 @@
-import Image from "next/image";
-import { Link } from "@/i18n/navigation";
-import { Card, CardContent, CardHeader, CardTitle } from "@/shared/components/ui/card";
+import Image from 'next/image';
+import { Link } from '@/i18n/navigation';
+import { Card, CardContent, CardHeader, CardTitle } from '@/shared/components/ui/card';
 
 interface AuthLayoutProps {
   children: React.ReactNode;

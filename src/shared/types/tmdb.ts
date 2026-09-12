@@ -256,7 +256,7 @@ export type TMDBMovieDetails = {
   similar?: TMDBResponse<TMDBMovie>;
   translations?: { translations: Translation[] };
   videos?: { results: Video[] };
-  "watch/providers"?: WatchProviders;
+  'watch/providers'?: WatchProviders;
 };
 
 export type TMDBTV = {
@@ -356,7 +356,7 @@ export type TMDBTVDetails = {
   similar?: TMDBResponse<TMDBTV>;
   translations?: { translations: Translation[] };
   videos?: { results: Video[] };
-  "watch/providers"?: WatchProviders;
+  'watch/providers'?: WatchProviders;
 };
 
 export type PersonCreditCast = {

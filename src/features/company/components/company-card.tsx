@@ -1,20 +1,20 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import Link from "next/link";
-import { useTranslations } from "next-intl";
-import { Building2 } from "lucide-react";
-import type { TMDBCompanyDetails } from "@/shared/types/tmdb";
-import { slugify } from "@/shared/utils/slugify";
+import Image from 'next/image';
+import Link from 'next/link';
+import { useTranslations } from 'next-intl';
+import { Building2 } from 'lucide-react';
+import type { TMDBCompanyDetails } from '@/shared/types/tmdb';
+import { slugify } from '@/shared/utils/slugify';
 
-const TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p";
+const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p';
 
 type CompanyCardProps = {
   company: TMDBCompanyDetails;
 };
 
 export function CompanyCard({ company }: CompanyCardProps) {
-  const t = useTranslations("Company");
+  const t = useTranslations('Company');
   return (
     <Link
       href={`/company/${slugify(company.name)}/${company.id}`}
@@ -32,9 +32,7 @@ export function CompanyCard({ company }: CompanyCardProps) {
         ) : (
           <div className="flex flex-col items-center gap-2 text-muted-foreground">
             <Building2 className="size-8" />
-            <span className="text-xs text-center line-clamp-2">
-              {company.name}
-            </span>
+            <span className="text-xs text-center line-clamp-2">{company.name}</span>
           </div>
         )}
       </div>
@@ -43,7 +41,7 @@ export function CompanyCard({ company }: CompanyCardProps) {
           {company.name}
         </h3>
         <p className="text-xs text-muted-foreground">
-          {company.origin_country || t("productionCompany")}
+          {company.origin_country || t('productionCompany')}
         </p>
         {company.description && (
           <p className="text-[10px] text-muted-foreground/50 line-clamp-1 leading-relaxed">

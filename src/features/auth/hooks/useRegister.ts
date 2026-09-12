@@ -1,51 +1,43 @@
-"use client";
+'use client';
 
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { auth } from "@/features/auth/services/firebase";
-import { useState } from "react";
-import { useRouter } from "@/i18n/navigation";
-
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { auth } from '@/features/auth/services/firebase';
+import { useState } from 'react';
+import { useRouter } from '@/i18n/navigation';
 
 type RegisterData = {
-    name: string;
-    email: string;
-    password: string;
+  name: string;
+  email: string;
+  password: string;
 };
 
 export default function useRegister() {
-    const router = useRouter();
-    const [firebaseError, setFirebaseError] = useState<string | null>(null);
+  const router = useRouter();
+  const [firebaseError, setFirebaseError] = useState<string | null>(null);
 
-    const register = async (data: RegisterData) => {
-        try {
-            const response = await createUserWithEmailAndPassword(
-                auth,
-                data.email,
-                data.password
-            );
+  const register = async (data: RegisterData) => {
+    try {
+      const response = await createUserWithEmailAndPassword(auth, data.email, data.password);
 
-            await updateProfile(response.user, {
-                displayName: data.name,
-            });
+      await updateProfile(response.user, {
+        displayName: data.name,
+      });
 
-            if (response) {
-                router.push("/");
-            }
+      if (response) {
+        router.push('/');
+      }
 
-            return response;
-        } catch (error: any) {
-            const firebaseErr =
-                error?.code?.replace("auth/", "") ||
-                error?.message ||
-                "Unknown error";
+      return response;
+    } catch (error: any) {
+      const firebaseErr = error?.code?.replace('auth/', '') || error?.message || 'Unknown error';
 
-            setFirebaseError(firebaseErr);
-            return null;
-        }
-    };
+      setFirebaseError(firebaseErr);
+      return null;
+    }
+  };
 
-    return {
-        register,
-        firebaseError,
-    };
+  return {
+    register,
+    firebaseError,
+  };
 }

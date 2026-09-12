@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { useTranslations } from "next-intl";
-import Image from "next/image";
-import Link from "next/link";
-import { Play } from "lucide-react";
-import { Slider } from "@/shared/components/ui/slider";
-import type { Video } from "@/shared/types/tmdb";
+import { useTranslations } from 'next-intl';
+import Image from 'next/image';
+import Link from 'next/link';
+import { Play } from 'lucide-react';
+import { Slider } from '@/shared/components/ui/slider';
+import type { Video } from '@/shared/types/tmdb';
 
 type VideoCardInnerProps = {
   videoKey: string;
@@ -48,13 +48,13 @@ type MovieVideosProps = {
 };
 
 export function MovieVideos({ videos }: MovieVideosProps) {
-  const t = useTranslations("MovieDetail");
-  const youtubeVideos = videos.filter((v) => v.site === "YouTube");
+  const t = useTranslations('MovieDetail');
+  const youtubeVideos = videos.filter((v) => v.site === 'YouTube');
   if (youtubeVideos.length === 0) return null;
 
   return (
     <section>
-      <h2 className="text-xl font-bold text-foreground mb-4">{t("videos")}</h2>
+      <h2 className="text-xl font-bold text-foreground mb-4">{t('videos')}</h2>
       <Slider
         slidesPerView={3}
         slidesMobilePerView={1.2}
@@ -64,12 +64,7 @@ export function MovieVideos({ videos }: MovieVideosProps) {
         className="-mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 pb-8"
       >
         {youtubeVideos.map((video) => (
-          <VideoCardInner
-            key={video.id}
-            videoKey={video.key}
-            name={video.name}
-            type={video.type}
-          />
+          <VideoCardInner key={video.id} videoKey={video.key} name={video.name} type={video.type} />
         ))}
       </Slider>
     </section>

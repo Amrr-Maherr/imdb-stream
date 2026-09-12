@@ -1,24 +1,18 @@
-"use client";
+'use client';
 
-import {
-  signInWithPhoneNumber,
-  RecaptchaVerifier,
-  ConfirmationResult,
-} from "firebase/auth";
-import { auth } from "@/features/auth/services/firebase";
-import { useState } from "react";
-import { useRouter } from "@/i18n/navigation";
+import { signInWithPhoneNumber, RecaptchaVerifier, ConfirmationResult } from 'firebase/auth';
+import { auth } from '@/features/auth/services/firebase';
+import { useState } from 'react';
+import { useRouter } from '@/i18n/navigation';
 
-
-export type Step = "phone" | "otp";
+export type Step = 'phone' | 'otp';
 
 export default function usePhoneAuth() {
   const router = useRouter();
-  const [step, setStep] = useState<Step>("phone");
+  const [step, setStep] = useState<Step>('phone');
   const [firebaseError, setFirebaseError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const [confirmationResult, setConfirmationResult] =
-    useState<ConfirmationResult | null>(null);
+  const [confirmationResult, setConfirmationResult] = useState<ConfirmationResult | null>(null);
 
   const createVerifier = () => {
     const existing = (window as any).recaptchaVerifier;
@@ -26,8 +20,8 @@ export default function usePhoneAuth() {
       existing.clear();
       delete (window as any).recaptchaVerifier;
     }
-    const verifier = new RecaptchaVerifier(auth, "recaptcha-container", {
-      size: "invisible",
+    const verifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+      size: 'invisible',
     });
     (window as any).recaptchaVerifier = verifier;
     return verifier;
@@ -48,14 +42,10 @@ export default function usePhoneAuth() {
       const verifier = createVerifier();
       const result = await signInWithPhoneNumber(auth, phoneNumber, verifier);
       setConfirmationResult(result);
-      setStep("otp");
+      setStep('otp');
       return true;
     } catch (error: any) {
-      setFirebaseError(
-        error?.code?.replace("auth/", "") ||
-          error?.message ||
-          "Unknown error"
-      );
+      setFirebaseError(error?.code?.replace('auth/', '') || error?.message || 'Unknown error');
       return false;
     } finally {
       setLoading(false);
@@ -69,15 +59,11 @@ export default function usePhoneAuth() {
     try {
       const response = await confirmationResult.confirm(otp);
       if (response) {
-        router.push("/");
+        router.push('/');
       }
       return true;
     } catch (error: any) {
-      setFirebaseError(
-        error?.code?.replace("auth/", "") ||
-          error?.message ||
-          "Unknown error"
-      );
+      setFirebaseError(error?.code?.replace('auth/', '') || error?.message || 'Unknown error');
       return false;
     } finally {
       setLoading(false);
@@ -86,7 +72,7 @@ export default function usePhoneAuth() {
 
   const reset = () => {
     clearVerifier();
-    setStep("phone");
+    setStep('phone');
     setFirebaseError(null);
     setLoading(false);
     setConfirmationResult(null);

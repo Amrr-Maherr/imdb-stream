@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { useTranslations } from "next-intl";
-import Image from "next/image";
-import Link from "next/link";
-import { Tv, ShoppingCart, CreditCard, Monitor, ExternalLink } from "lucide-react";
-import { Slider } from "@/shared/components/ui/slider";
+import { useTranslations } from 'next-intl';
+import Image from 'next/image';
+import Link from 'next/link';
+import { Tv, ShoppingCart, CreditCard, Monitor, ExternalLink } from 'lucide-react';
+import { Slider } from '@/shared/components/ui/slider';
 
-const TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p";
+const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p';
 
 type WatchProvider = {
   logo_path: string;
@@ -56,11 +56,7 @@ function ProviderSlider({
         className="pb-4"
       >
         {providers.map((p) => (
-          <div
-            key={p.provider_id}
-            className="flex-shrink-0 w-[80px]"
-            title={p.provider_name}
-          >
+          <div key={p.provider_id} className="flex-shrink-0 w-[80px]" title={p.provider_name}>
             <div className="relative aspect-square w-full overflow-hidden rounded-xl bg-muted">
               {p.logo_path ? (
                 <Image
@@ -83,7 +79,7 @@ function ProviderSlider({
 }
 
 export function MovieWatchProviders({ providers }: MovieWatchProvidersProps) {
-  const t = useTranslations("MovieDetail");
+  const t = useTranslations('MovieDetail');
   if (!providers) return null;
 
   const hasAny =
@@ -97,10 +93,26 @@ export function MovieWatchProviders({ providers }: MovieWatchProvidersProps) {
 
   return (
     <div className="space-y-4">
-      <ProviderSlider label="Stream" icon={<Tv className="size-4" />} providers={providers.flatrate ?? []} />
-      <ProviderSlider label="Rent" icon={<CreditCard className="size-4" />} providers={providers.rent ?? []} />
-      <ProviderSlider label="Buy" icon={<ShoppingCart className="size-4" />} providers={providers.buy ?? []} />
-      <ProviderSlider label="Free" icon={<Monitor className="size-4" />} providers={providers.free ?? []} />
+      <ProviderSlider
+        label="Stream"
+        icon={<Tv className="size-4" />}
+        providers={providers.flatrate ?? []}
+      />
+      <ProviderSlider
+        label="Rent"
+        icon={<CreditCard className="size-4" />}
+        providers={providers.rent ?? []}
+      />
+      <ProviderSlider
+        label="Buy"
+        icon={<ShoppingCart className="size-4" />}
+        providers={providers.buy ?? []}
+      />
+      <ProviderSlider
+        label="Free"
+        icon={<Monitor className="size-4" />}
+        providers={providers.free ?? []}
+      />
       {providers.link && (
         <Link
           href={providers.link}
@@ -109,7 +121,7 @@ export function MovieWatchProviders({ providers }: MovieWatchProvidersProps) {
           className="inline-flex items-center gap-1 text-sm text-brand hover:underline"
         >
           <ExternalLink className="size-3.5" />
-          {t("seeAllOptions")}
+          {t('seeAllOptions')}
         </Link>
       )}
     </div>

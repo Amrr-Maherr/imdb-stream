@@ -1,7 +1,7 @@
-import { PersonCard } from "@/features/movies/components/listing/person-card";
-import GetPeople from "@/features/person/services/getPeople";
-import { PaginationDemo } from "@/shared/components/pagination";
-import { getTranslations } from "next-intl/server";
+import { PersonCard } from '@/features/movies/components/listing/person-card';
+import GetPeople from '@/features/person/services/getPeople';
+import { PaginationDemo } from '@/shared/components/pagination';
+import { getTranslations } from 'next-intl/server';
 
 interface Props {
   params: Promise<{ locale: string }>;
@@ -10,20 +10,17 @@ interface Props {
 
 export async function generateMetadata({ params }: Props) {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "People" });
-  return { title: t("title") };
+  const t = await getTranslations({ locale, namespace: 'People' });
+  return { title: t('title') };
 }
 
 export default async function PeoplePage({
   params: paramsPromise,
   searchParams: searchParamsPromise,
 }: Props) {
-  const [params, searchParams] = await Promise.all([
-    paramsPromise,
-    searchParamsPromise,
-  ]);
+  const [params, searchParams] = await Promise.all([paramsPromise, searchParamsPromise]);
   const { locale } = params;
-  const t = await getTranslations({ locale, namespace: "People" });
+  const t = await getTranslations({ locale, namespace: 'People' });
 
   const data = await GetPeople({
     page: searchParams.page ? Number(searchParams.page) : undefined,
@@ -37,21 +34,15 @@ export default async function PeoplePage({
     <div className="flex flex-col flex-1 bg-background pt-16">
       <main className="app-container flex flex-1 flex-col py-8 md:py-12">
         <section className="mb-6 md:mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-foreground">
-            {t("title")}
-          </h1>
-          <p className="mt-1.5 text-sm md:text-base text-muted-foreground">
-            {t("description")}
-          </p>
+          <h1 className="text-3xl md:text-4xl font-bold text-foreground">{t('title')}</h1>
+          <p className="mt-1.5 text-sm md:text-base text-muted-foreground">{t('description')}</p>
         </section>
 
         {totalResults > 0 && (
           <div className="flex items-center justify-between mb-4 md:mb-5">
-            <p className="text-sm text-muted-foreground">
-              {t("showing", { count: totalResults })}
-            </p>
+            <p className="text-sm text-muted-foreground">{t('showing', { count: totalResults })}</p>
             <p className="text-xs text-muted-foreground/70">
-              {t("pageInfo", { current: currentPage, total: totalPages })}
+              {t('pageInfo', { current: currentPage, total: totalPages })}
             </p>
           </div>
         )}

@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import Link from "next/link";
-import { useTranslations } from "next-intl";
+import Image from 'next/image';
+import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import {
   User,
   Mail,
@@ -17,21 +17,21 @@ import {
   Clock,
   Award,
   ChevronRight,
-} from "lucide-react";
-import { ProfileSkeleton } from "@/features/profile/components/profile-skeleton";
-import { useAuth } from "@/shared/provider/authProvider";
+} from 'lucide-react';
+import { ProfileSkeleton } from '@/features/profile/components/profile-skeleton';
+import { useAuth } from '@/shared/provider/authProvider';
 
 export default function ProfilePage() {
-  const t = useTranslations("Profile");
-  const tc = useTranslations("Common");
+  const t = useTranslations('Profile');
+  const tc = useTranslations('Common');
   const { user, loading } = useAuth();
 
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr);
-    return date.toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
     });
   };
 
@@ -39,20 +39,20 @@ export default function ProfilePage() {
     const joined = new Date(dateStr);
     const now = new Date();
     const years = now.getFullYear() - joined.getFullYear();
-    return years > 0 ? t("years", { count: years }) : t("lessThanYear");
+    return years > 0 ? t('years', { count: years }) : t('lessThanYear');
   };
 
   const providerIcon = (providerId: string) => {
-    if (providerId === "google.com") return <Globe className="size-4" />;
-    if (providerId === "password") return <Key className="size-4" />;
-    if (providerId === "phone") return <Smartphone className="size-4" />;
+    if (providerId === 'google.com') return <Globe className="size-4" />;
+    if (providerId === 'password') return <Key className="size-4" />;
+    if (providerId === 'phone') return <Smartphone className="size-4" />;
     return <LogIn className="size-4" />;
   };
 
   const providerLabel = (providerId: string) => {
-    if (providerId === "google.com") return t("providerGoogle");
-    if (providerId === "password") return t("providerEmail");
-    if (providerId === "phone") return t("providerPhone");
+    if (providerId === 'google.com') return t('providerGoogle');
+    if (providerId === 'password') return t('providerEmail');
+    if (providerId === 'phone') return t('providerPhone');
     return providerId;
   };
 
@@ -64,16 +64,14 @@ export default function ProfilePage() {
     return (
       <div className="flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center gap-4 px-4">
         <User className="size-12 text-muted-foreground" />
-        <h1 className="text-xl font-bold text-foreground">{t("notSignedIn")}</h1>
-        <p className="text-sm text-muted-foreground text-center max-w-sm">
-          {t("notSignedInDesc")}
-        </p>
+        <h1 className="text-xl font-bold text-foreground">{t('notSignedIn')}</h1>
+        <p className="text-sm text-muted-foreground text-center max-w-sm">{t('notSignedInDesc')}</p>
         <Link
           href="/auth/signin"
           className="inline-flex items-center gap-2 rounded-lg bg-brand px-6 py-2.5 text-sm font-semibold text-brand-foreground transition-opacity hover:opacity-90"
         >
           <LogIn className="size-4" />
-          {t("signIn")}
+          {t('signIn')}
         </Link>
       </div>
     );
@@ -86,7 +84,7 @@ export default function ProfilePage() {
           {user.photoURL ? (
             <Image
               src={user.photoURL}
-              alt={user.displayName || t("profileAlt")}
+              alt={user.displayName || t('profileAlt')}
               fill
               className="object-cover"
               sizes="112px"
@@ -100,28 +98,26 @@ export default function ProfilePage() {
 
         <div className="flex flex-col items-center gap-2 sm:items-start sm:gap-1">
           <h1 className="text-2xl font-bold text-foreground sm:text-3xl">
-            {user.displayName || t("userLabel")}
+            {user.displayName || t('userLabel')}
           </h1>
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <Calendar className="size-3.5" />
-            <span>{t("joined", { date: formatDate(user.metadata.creationTime ?? "") })}</span>
+            <span>{t('joined', { date: formatDate(user.metadata.creationTime ?? '') })}</span>
           </div>
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <Mail className="size-3.5" />
             <span>{user.email}</span>
-            {user.emailVerified && (
-              <BadgeCheck className="size-4 text-green-500" />
-            )}
+            {user.emailVerified && <BadgeCheck className="size-4 text-green-500" />}
           </div>
           <div className="mt-1 flex items-center gap-2">
             <span className="inline-flex items-center gap-1 rounded-full bg-brand/10 px-3 py-0.5 text-xs font-semibold text-brand">
               <Award className="size-3" />
-              {t("imdbMember", { years: getYearsSince(user.metadata.creationTime ?? "") })}
+              {t('imdbMember', { years: getYearsSince(user.metadata.creationTime ?? '') })}
             </span>
             {user.emailVerified && (
               <span className="inline-flex items-center gap-1 rounded-full bg-green-500/10 px-3 py-0.5 text-xs font-medium text-green-600 dark:text-green-400">
                 <BadgeCheck className="size-3" />
-                {t("verified")}
+                {t('verified')}
               </span>
             )}
           </div>
@@ -131,22 +127,22 @@ export default function ProfilePage() {
       <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4">
         <StatCard
           icon={Calendar}
-          label={t("memberSince")}
-          value={formatDate(user.metadata.creationTime ?? "").split(",")[0]}
+          label={t('memberSince')}
+          value={formatDate(user.metadata.creationTime ?? '').split(',')[0]}
         />
         <StatCard
           icon={Clock}
-          label={t("lastLogin")}
-          value={formatDate(user.metadata.lastSignInTime ?? "").split(",")[0]}
+          label={t('lastLogin')}
+          value={formatDate(user.metadata.lastSignInTime ?? '').split(',')[0]}
         />
         <StatCard
           icon={Shield}
-          label={t("accountType")}
-          value={user.isAnonymous ? t("anonymous") : t("registered")}
+          label={t('accountType')}
+          value={user.isAnonymous ? t('anonymous') : t('registered')}
         />
         <StatCard
           icon={Star}
-          label={t("providers")}
+          label={t('providers')}
           value={String(user.providerData?.length || 1)}
         />
       </div>
@@ -155,7 +151,7 @@ export default function ProfilePage() {
         <section className="mt-12">
           <h2 className="flex items-center gap-2 text-lg font-bold text-foreground">
             <Shield className="size-5 text-brand" />
-            {t("connectedAccounts")}
+            {t('connectedAccounts')}
           </h2>
           <div className="mt-4 space-y-2">
             {user.providerData.map((provider, i) => (
@@ -175,7 +171,7 @@ export default function ProfilePage() {
                   </p>
                 </div>
                 <span className="shrink-0 rounded-full bg-green-500/10 px-2.5 py-0.5 text-[11px] font-medium text-green-600 dark:text-green-400">
-                  {t("connected")}
+                  {t('connected')}
                 </span>
                 <ChevronRight className="size-4 text-muted-foreground/40" />
               </div>
@@ -187,26 +183,17 @@ export default function ProfilePage() {
       <section className="mt-10">
         <h2 className="flex items-center gap-2 text-lg font-bold text-foreground">
           <User className="size-5 text-brand" />
-          {t("accountDetails")}
+          {t('accountDetails')}
         </h2>
         <div className="mt-4 divide-y divide-border rounded-xl border border-border bg-card">
-          <DetailRow label={t("userId")} value={user.uid} mono />
-          <DetailRow label={t("email")} value={user.email ?? ""} />
+          <DetailRow label={t('userId')} value={user.uid} mono />
+          <DetailRow label={t('email')} value={user.email ?? ''} />
+          <DetailRow label={t('emailVerified')} value={user.emailVerified ? tc('yes') : tc('no')} />
+          <DetailRow label={t('displayName')} value={user.displayName || '\u2014'} />
+          <DetailRow label={t('anonymousLabel')} value={user.isAnonymous ? tc('yes') : tc('no')} />
           <DetailRow
-            label={t("emailVerified")}
-            value={user.emailVerified ? tc("yes") : tc("no")}
-          />
-          <DetailRow
-            label={t("displayName")}
-            value={user.displayName || "\u2014"}
-          />
-          <DetailRow
-            label={t("anonymousLabel")}
-            value={user.isAnonymous ? tc("yes") : tc("no")}
-          />
-          <DetailRow
-            label={t("signInMethod")}
-            value={user.providerData[0]?.providerId || "unknown"}
+            label={t('signInMethod')}
+            value={user.providerData[0]?.providerId || 'unknown'}
             capitalize
           />
         </div>
@@ -251,8 +238,8 @@ function DetailRow({
       <span className="text-sm text-muted-foreground">{label}</span>
       <span
         className={`text-sm font-medium text-foreground truncate max-w-[300px] text-right ${
-          mono ? "font-mono text-xs tracking-tight" : ""
-        } ${capitalize ? "capitalize" : ""}`}
+          mono ? 'font-mono text-xs tracking-tight' : ''
+        } ${capitalize ? 'capitalize' : ''}`}
       >
         {value}
       </span>

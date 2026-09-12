@@ -1,11 +1,11 @@
-﻿"use client";
+﻿'use client';
 
-import Image from "next/image";
-import { useTranslations } from "next-intl";
-import { Star, Clock, Calendar } from "lucide-react";
-import { FadeIn } from "@/features/movies/components/detail/fade-in";
+import Image from 'next/image';
+import { useTranslations } from 'next-intl';
+import { Star, Clock, Calendar } from 'lucide-react';
+import { FadeIn } from '@/features/movies/components/detail/fade-in';
 
-const TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p";
+const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p';
 
 type EpisodeHeroProps = {
   stillPath: string | null;
@@ -28,7 +28,7 @@ export function EpisodeHero({
   airDate,
   runtime,
 }: EpisodeHeroProps) {
-  const t = useTranslations("TvDetail");
+  const t = useTranslations('TvDetail');
   return (
     <FadeIn>
       <section className="relative w-full aspect-[4/5] md:aspect-[16/9] lg:aspect-[21/9] overflow-hidden">
@@ -53,7 +53,7 @@ export function EpisodeHero({
             <div className="flex items-start gap-4">
               <div className="min-w-0 flex-1">
                 <p className="text-sm font-medium text-white/60">
-                  {t("season")} {seasonNumber} · {t("episode")} {episodeNumber}
+                  {t('season')} {seasonNumber} · {t('episode')} {episodeNumber}
                 </p>
                 <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white leading-tight mt-1">
                   {name}
@@ -68,17 +68,17 @@ export function EpisodeHero({
                   {airDate && (
                     <span className="flex items-center gap-1">
                       <Calendar className="size-3.5" />
-                      {new Date(airDate).toLocaleDateString("en-US", {
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
+                      {new Date(airDate).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
                       })}
                     </span>
                   )}
                   {runtime != null && runtime > 0 && (
                     <span className="flex items-center gap-1">
                       <Clock className="size-3.5" />
-                      {t("runtimeMin", { runtime })}
+                      {t('runtimeMin', { runtime })}
                     </span>
                   )}
                 </div>

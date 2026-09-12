@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { useTranslations } from "next-intl";
-import Image from "next/image";
-import { Quote, Star } from "lucide-react";
-import { Card, CardContent } from "@/shared/components/ui/card";
-import { Slider } from "@/shared/components/ui/slider";
+import { useTranslations } from 'next-intl';
+import Image from 'next/image';
+import { Quote, Star } from 'lucide-react';
+import { Card, CardContent } from '@/shared/components/ui/card';
+import { Slider } from '@/shared/components/ui/slider';
 
 type AuthorDetails = {
   name: string;
@@ -27,18 +27,18 @@ type MovieReviewsProps = {
   reviews: Review[];
 };
 
-const TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p";
+const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p';
 
 function formatDate(dateStr: string) {
-  return new Date(dateStr).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
+  return new Date(dateStr).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
   });
 }
 
 function ReviewCard({ review }: { review: Review }) {
-  const t = useTranslations("MovieDetail");
+  const t = useTranslations('MovieDetail');
   return (
     <Card className="h-full">
       <CardContent className="p-4 flex flex-col h-full">
@@ -47,7 +47,7 @@ function ReviewCard({ review }: { review: Review }) {
             {review.author_details.avatar_path ? (
               <Image
                 src={
-                  review.author_details.avatar_path.startsWith("/https")
+                  review.author_details.avatar_path.startsWith('/https')
                     ? review.author_details.avatar_path.slice(1)
                     : `${TMDB_IMAGE_BASE}/w185${review.author_details.avatar_path}`
                 }
@@ -70,7 +70,7 @@ function ReviewCard({ review }: { review: Review }) {
               {review.author_details.rating && (
                 <span className="flex items-center gap-0.5 text-xs text-yellow-400 shrink-0">
                   <Star className="size-3 fill-yellow-400" />
-                  {t("ratingOutOf", { rating: review.author_details.rating })}
+                  {t('ratingOutOf', { rating: review.author_details.rating })}
                 </span>
               )}
             </div>
@@ -89,7 +89,7 @@ function ReviewCard({ review }: { review: Review }) {
             rel="noopener noreferrer"
             className="mt-2 inline-flex text-xs text-brand hover:underline shrink-0"
           >
-            {t("readFullReview")}
+            {t('readFullReview')}
           </a>
         )}
       </CardContent>

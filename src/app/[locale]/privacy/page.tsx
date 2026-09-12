@@ -1,35 +1,35 @@
-import { getTranslations } from "next-intl/server"
-import { Shield, CheckCircle, ChevronRight } from "lucide-react"
-import { cn } from "@/shared/utils/utils"
-import { AnimatedSection } from "@/shared/components/ui/animated-section"
+import { getTranslations } from 'next-intl/server';
+import { Shield, CheckCircle, ChevronRight } from 'lucide-react';
+import { cn } from '@/shared/utils/utils';
+import { AnimatedSection } from '@/shared/components/ui/animated-section';
 
 interface Props {
-  params: Promise<{ locale: string }>
+  params: Promise<{ locale: string }>;
 }
 
 export async function generateMetadata({ params }: Props) {
-  const { locale } = await params
-  const t = await getTranslations({ locale, namespace: "Privacy" })
-  return { title: t("title"), description: t("description") }
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'Privacy' });
+  return { title: t('title'), description: t('description') };
 }
 
 const sectionKeys = [
-  "introduction",
-  "collection",
-  "usage",
-  "sharing",
-  "security",
-  "rights",
-  "cookies",
-  "children",
-  "changes",
-  "contact",
-] as const
+  'introduction',
+  'collection',
+  'usage',
+  'sharing',
+  'security',
+  'rights',
+  'cookies',
+  'children',
+  'changes',
+  'contact',
+] as const;
 
-const itemSections = new Set(["collection", "usage", "rights"])
+const itemSections = new Set(['collection', 'usage', 'rights']);
 
 export default async function PrivacyPage() {
-  const t = await getTranslations("Privacy")
+  const t = await getTranslations('Privacy');
 
   return (
     <main>
@@ -41,13 +41,11 @@ export default async function PrivacyPage() {
               <Shield className="size-8 text-brand" />
             </div>
             <h1 className="text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl">
-              {t("hero.title")}
+              {t('hero.title')}
             </h1>
-            <p className="mt-2 text-sm font-medium text-brand">
-              {t("hero.subtitle")}
-            </p>
+            <p className="mt-2 text-sm font-medium text-brand">{t('hero.subtitle')}</p>
             <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground md:text-xl">
-              {t("hero.description")}
+              {t('hero.description')}
             </p>
           </AnimatedSection>
         </div>
@@ -59,15 +57,15 @@ export default async function PrivacyPage() {
             <aside className="relative max-lg:hidden">
               <nav className="sticky top-24 space-y-1">
                 <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-                  {t("toc.introduction").includes("Introduction") ? "On this page" : "Contents"}
+                  {t('toc.introduction').includes('Introduction') ? 'On this page' : 'Contents'}
                 </p>
                 {sectionKeys.map((key, i) => (
                   <a
                     key={key}
                     href={`#${key}`}
                     className={cn(
-                      "group flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground",
-                      i === 0 && "bg-muted/50 text-foreground"
+                      'group flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground',
+                      i === 0 && 'bg-muted/50 text-foreground'
                     )}
                   >
                     <ChevronRight className="size-3 shrink-0 opacity-0 transition-all group-hover:opacity-100" />
@@ -104,14 +102,17 @@ export default async function PrivacyPage() {
                         </h2>
                         {itemSections.has(key) ? (
                           <ul className="mt-4 space-y-3">
-                            {(
-                              t.raw(`sections.${key}.items`) as string[]
-                            ).map((item: string, idx: number) => (
-                              <li key={idx} className="flex items-start gap-3 text-muted-foreground leading-relaxed">
-                                <CheckCircle className="mt-0.5 size-4 shrink-0 text-brand" />
-                                <span>{item}</span>
-                              </li>
-                            ))}
+                            {(t.raw(`sections.${key}.items`) as string[]).map(
+                              (item: string, idx: number) => (
+                                <li
+                                  key={idx}
+                                  className="flex items-start gap-3 text-muted-foreground leading-relaxed"
+                                >
+                                  <CheckCircle className="mt-0.5 size-4 shrink-0 text-brand" />
+                                  <span>{item}</span>
+                                </li>
+                              )
+                            )}
                           </ul>
                         ) : (
                           <p className="mt-4 text-muted-foreground leading-relaxed">
@@ -125,12 +126,12 @@ export default async function PrivacyPage() {
               </div>
 
               <p className="mt-12 text-center text-xs text-muted-foreground">
-                {t("hero.subtitle")}
+                {t('hero.subtitle')}
               </p>
             </div>
           </div>
         </div>
       </section>
     </main>
-  )
+  );
 }

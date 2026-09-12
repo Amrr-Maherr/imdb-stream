@@ -1,30 +1,52 @@
-import { fetchApi } from "@/shared/services/fetchApi";
-import { ErrorState } from "@/shared/components/error-state";
-import { getTranslations } from "next-intl/server";
-import type { TMDBMovieDetails, TMDBTVDetails } from "@/shared/types/tmdb";
-import { MovieHero } from "@/features/movies/components/detail/movie-hero";
-import { MovieCollection } from "@/features/movies/components/detail/movie-collection";
-import { MovieMainContent } from "@/features/movies/components/detail/movie-main-content";
-import { MovieSidebarColumn } from "@/features/movies/components/detail/movie-sidebar-column";
-import { TvMainContent } from "@/features/tv/components/detail/tv-main-content";
-import { TvSidebarColumn } from "@/features/tv/components/detail/tv-sidebar-column";
+import { fetchApi } from '@/shared/services/fetchApi';
+import { ErrorState } from '@/shared/components/error-state';
+import { getTranslations } from 'next-intl/server';
+import type { TMDBMovieDetails, TMDBTVDetails } from '@/shared/types/tmdb';
+import { MovieHero } from '@/features/movies/components/detail/movie-hero';
+import { MovieCollection } from '@/features/movies/components/detail/movie-collection';
+import { MovieMainContent } from '@/features/movies/components/detail/movie-main-content';
+import { MovieSidebarColumn } from '@/features/movies/components/detail/movie-sidebar-column';
+import { TvMainContent } from '@/features/tv/components/detail/tv-main-content';
+import { TvSidebarColumn } from '@/features/tv/components/detail/tv-sidebar-column';
 
 interface Props {
   params: Promise<{ locale: string; mediaType: string; slug: string; id: string }>;
 }
 
 const MOVIE_APPEND = [
-  "account_states", "alternative_titles", "credits", "external_ids",
-  "images", "keywords", "lists", "recommendations", "release_dates",
-  "reviews", "similar", "translations", "videos", "watch/providers",
-].join(",");
+  'account_states',
+  'alternative_titles',
+  'credits',
+  'external_ids',
+  'images',
+  'keywords',
+  'lists',
+  'recommendations',
+  'release_dates',
+  'reviews',
+  'similar',
+  'translations',
+  'videos',
+  'watch/providers',
+].join(',');
 
 const TV_APPEND = [
-  "account_states", "aggregate_credits", "alternative_titles",
-  "content_ratings", "credits", "external_ids", "images", "keywords",
-  "lists", "recommendations", "reviews", "similar", "translations",
-  "videos", "watch/providers",
-].join(",");
+  'account_states',
+  'aggregate_credits',
+  'alternative_titles',
+  'content_ratings',
+  'credits',
+  'external_ids',
+  'images',
+  'keywords',
+  'lists',
+  'recommendations',
+  'reviews',
+  'similar',
+  'translations',
+  'videos',
+  'watch/providers',
+].join(',');
 
 async function getMovie(id: string, locale: string) {
   return fetchApi<TMDBMovieDetails>({
@@ -45,7 +67,7 @@ async function getTvShow(id: string, locale: string) {
 export async function generateMetadata({ params }: Props) {
   const { mediaType, id, locale } = await params;
   try {
-    if (mediaType === "movie") {
+    if (mediaType === 'movie') {
       const movie = await getMovie(id, locale);
       return {
         title: movie.title,
@@ -58,57 +80,57 @@ export async function generateMetadata({ params }: Props) {
       description: show.tagline || show.overview?.slice(0, 160),
     };
   } catch {
-    return { title: mediaType === "movie" ? "Movie" : "TV Show" };
+    return { title: mediaType === 'movie' ? 'Movie' : 'TV Show' };
   }
 }
 
 export default async function ListItemPage({ params }: Props) {
   const { mediaType, id, locale } = await params;
-  const t = await getTranslations({ locale, namespace: "ErrorState" });
+  const t = await getTranslations({ locale, namespace: 'ErrorState' });
 
   const { slug } = await params;
 
-  if (mediaType === "movie") {
+  if (mediaType === 'movie') {
     return <MovieContent id={id} locale={locale} />;
   }
-  if (mediaType === "tv") {
+  if (mediaType === 'tv') {
     return <TvContent id={id} slug={slug} locale={locale} />;
   }
 
   return (
     <ErrorState
-      title={t("invalidMediaType")}
-      description={t("invalidMediaTypeDesc", { mediaType })}
-      actionLabel={t("goHome")}
+      title={t('invalidMediaType')}
+      description={t('invalidMediaTypeDesc', { mediaType })}
+      actionLabel={t('goHome')}
       actionHref="/"
     />
   );
 }
 
 async function MovieContent({ id, locale }: { id: string; locale: string }) {
-  const t = await getTranslations({ locale, namespace: "ErrorState" });
+  const t = await getTranslations({ locale, namespace: 'ErrorState' });
   let movie: TMDBMovieDetails;
   try {
     movie = await getMovie(id, locale);
   } catch {
     return (
       <ErrorState
-        title={t("movieNotFound")}
-        description={t("movieNotFoundDesc")}
-        actionLabel={t("goHome")}
+        title={t('movieNotFound')}
+        description={t('movieNotFoundDesc')}
+        actionLabel={t('goHome')}
         actionHref="/"
       />
     );
   }
 
-  const year = movie.release_date?.slice(0, 4) ?? "";
+  const year = movie.release_date?.slice(0, 4) ?? '';
   const trailers = (movie.videos?.results ?? []).filter(
-    (v) => v.site === "YouTube" && (v.type === "Trailer" || v.type === "Teaser"),
+    (v) => v.site === 'YouTube' && (v.type === 'Trailer' || v.type === 'Teaser')
   );
-  const director = movie.credits?.crew?.find((c) => c.job === "Director");
-  const writers = (movie.credits?.crew ?? []).filter((c) => c.department === "Writing");
-  const usRelease = (movie.release_dates?.results ?? []).find((r) => r.iso_3166_1 === "US");
-  const certification = usRelease?.release_dates?.[0]?.certification ?? "";
+  const director = movie.credits?.crew?.find((c) => c.job === 'Director');
+  const writers = (movie.credits?.crew ?? []).filter((c) => c.department === 'Writing');
+  const usRelease = (movie.release_dates?.results ?? []).find((r) => r.iso_3166_1 === 'US');
+  const certification = usRelease?.release_dates?.[0]?.certification ?? '';
 
   return (
     <div className="flex flex-col flex-1 bg-background">
@@ -148,29 +170,27 @@ async function MovieContent({ id, locale }: { id: string; locale: string }) {
 }
 
 async function TvContent({ id, slug, locale }: { id: string; slug: string; locale: string }) {
-  const t = await getTranslations({ locale, namespace: "ErrorState" });
+  const t = await getTranslations({ locale, namespace: 'ErrorState' });
   let show: TMDBTVDetails;
   try {
     show = await getTvShow(id, locale);
   } catch {
     return (
       <ErrorState
-        title={t("tvNotFound")}
-        description={t("tvNotFoundDesc")}
-        actionLabel={t("goHome")}
+        title={t('tvNotFound')}
+        description={t('tvNotFoundDesc')}
+        actionLabel={t('goHome')}
         actionHref="/"
       />
     );
   }
 
-  const year = show.first_air_date?.slice(0, 4) ?? "";
+  const year = show.first_air_date?.slice(0, 4) ?? '';
   const trailers = (show.videos?.results ?? []).filter(
-    (v) => v.site === "YouTube" && (v.type === "Trailer" || v.type === "Teaser"),
+    (v) => v.site === 'YouTube' && (v.type === 'Trailer' || v.type === 'Teaser')
   );
-  const usRating = (show.content_ratings?.results ?? []).find(
-    (r) => r.iso_3166_1 === "US",
-  );
-  const certification = usRating?.rating ?? "";
+  const usRating = (show.content_ratings?.results ?? []).find((r) => r.iso_3166_1 === 'US');
+  const certification = usRating?.rating ?? '';
   const runtime = show.episode_run_time?.[0] ?? 0;
   const creators = show.created_by?.map((c) => c.name) ?? [];
 
@@ -202,5 +222,3 @@ async function TvContent({ id, slug, locale }: { id: string; slug: string; local
     </div>
   );
 }
-
-

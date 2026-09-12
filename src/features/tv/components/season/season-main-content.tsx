@@ -1,16 +1,16 @@
-﻿"use client";
+﻿'use client';
 
-import Image from "next/image";
-import Link from "next/link";
-import { useTranslations } from "next-intl";
-import { Star, Play } from "lucide-react";
-import type { TVSeasonDetails } from "@/shared/types/tmdb";
-import { MovieCast } from "@/features/movies/components/detail/movie-cast";
-import { MovieSection } from "@/features/movies/components/detail/movie-section";
-import { FadeIn } from "@/features/movies/components/detail/fade-in";
-import { Slider } from "@/shared/components/ui/slider";
+import Image from 'next/image';
+import Link from 'next/link';
+import { useTranslations } from 'next-intl';
+import { Star, Play } from 'lucide-react';
+import type { TVSeasonDetails } from '@/shared/types/tmdb';
+import { MovieCast } from '@/features/movies/components/detail/movie-cast';
+import { MovieSection } from '@/features/movies/components/detail/movie-section';
+import { FadeIn } from '@/features/movies/components/detail/fade-in';
+import { Slider } from '@/shared/components/ui/slider';
 
-const TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p";
+const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p';
 
 type SeasonMainContentProps = {
   season: TVSeasonDetails;
@@ -19,15 +19,10 @@ type SeasonMainContentProps = {
   seasonNumber: string;
 };
 
-export function SeasonMainContent({
-  season,
-  slug,
-  tvId,
-  seasonNumber,
-}: SeasonMainContentProps) {
-  const t = useTranslations("TvDetail");
-  const tc = useTranslations("Common");
-  const tm = useTranslations("MovieDetail");
+export function SeasonMainContent({ season, slug, tvId, seasonNumber }: SeasonMainContentProps) {
+  const t = useTranslations('TvDetail');
+  const tc = useTranslations('Common');
+  const tm = useTranslations('MovieDetail');
   const allCast = season.aggregate_credits?.cast ?? season.credits?.cast ?? [];
   const posters = season.images?.posters ?? [];
   const backdrops = season.images?.backdrops ?? [];
@@ -36,7 +31,7 @@ export function SeasonMainContent({
     <div className="flex-1 min-w-0 space-y-12">
       <FadeIn>
         <section>
-          <h2 className="text-xl font-bold text-foreground mb-6">{t("episodes")}</h2>
+          <h2 className="text-xl font-bold text-foreground mb-6">{t('episodes')}</h2>
           <div className="space-y-3">
             {season.episodes.map((episode) => (
               <Link
@@ -62,7 +57,7 @@ export function SeasonMainContent({
                     </>
                   ) : (
                     <div className="flex h-full items-center justify-center text-xs text-muted-foreground">
-                      {tc("noImage")}
+                      {tc('noImage')}
                     </div>
                   )}
                   <div className="absolute top-1.5 left-1.5 rounded bg-black/70 px-1.5 py-0.5 text-[10px] font-medium text-white">
@@ -84,20 +79,17 @@ export function SeasonMainContent({
                   <div className="flex flex-wrap items-center gap-2 mt-1 text-xs text-muted-foreground">
                     {episode.air_date && (
                       <span>
-                        {new Date(episode.air_date).toLocaleDateString(
-                          "en-US",
-                          {
-                            month: "short",
-                            day: "numeric",
-                            year: "numeric",
-                          },
-                        )}
+                        {new Date(episode.air_date).toLocaleDateString('en-US', {
+                          month: 'short',
+                          day: 'numeric',
+                          year: 'numeric',
+                        })}
                       </span>
                     )}
                     {episode.runtime != null && episode.runtime > 0 && (
                       <>
                         <span className="text-muted-foreground/50">·</span>
-                        <span>{t("runtimeMin", { runtime: episode.runtime })}</span>
+                        <span>{t('runtimeMin', { runtime: episode.runtime })}</span>
                       </>
                     )}
                   </div>
@@ -122,7 +114,7 @@ export function SeasonMainContent({
 
       {(posters.length > 0 || backdrops.length > 0) && (
         <FadeIn delay={0.15}>
-          <MovieSection title={tm("photos")} icon={null}>
+          <MovieSection title={tm('photos')} icon={null}>
             <Slider
               slidesPerView={3}
               slidesMobilePerView={1.5}

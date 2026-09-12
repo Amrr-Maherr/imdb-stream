@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import Link from "next/link";
-import { useTranslations } from "next-intl";
-import { Star } from "lucide-react";
-import { slugify } from "@/shared/utils/slugify";
-import { Slider } from "@/shared/components/ui/slider";
+import Image from 'next/image';
+import Link from 'next/link';
+import { useTranslations } from 'next-intl';
+import { Star } from 'lucide-react';
+import { slugify } from '@/shared/utils/slugify';
+import { Slider } from '@/shared/components/ui/slider';
 
-const TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p";
+const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p';
 
 type KnownForItem = {
   id: number;
@@ -26,7 +26,7 @@ type PersonKnownForProps = {
 };
 
 function getTitle(item: KnownForItem, t: (key: string) => string) {
-  return item.title || item.name || t("unknown");
+  return item.title || item.name || t('unknown');
 }
 
 function getYear(item: KnownForItem) {
@@ -35,19 +35,19 @@ function getYear(item: KnownForItem) {
 }
 
 function getHref(item: KnownForItem) {
-  const title = item.title || item.name || "unknown";
-  if (item.media_type === "movie") return `/movies/${slugify(title)}/${item.id}`;
-  if (item.media_type === "tv") return `/tv-shows/${slugify(title)}/${item.id}`;
-  return "#";
+  const title = item.title || item.name || 'unknown';
+  if (item.media_type === 'movie') return `/movies/${slugify(title)}/${item.id}`;
+  if (item.media_type === 'tv') return `/tv-shows/${slugify(title)}/${item.id}`;
+  return '#';
 }
 
 export function PersonKnownFor({ items }: PersonKnownForProps) {
-  const t = useTranslations("Person");
+  const t = useTranslations('Person');
   if (items.length === 0) return null;
 
   return (
     <section>
-      <h2 className="text-xl font-bold text-foreground mb-4">{t("knownFor")}</h2>
+      <h2 className="text-xl font-bold text-foreground mb-4">{t('knownFor')}</h2>
       <Slider
         slidesPerView={6}
         slidesMobilePerView={2.5}
@@ -92,7 +92,7 @@ export function PersonKnownFor({ items }: PersonKnownForProps) {
               <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
                 {year && <span>{year}</span>}
                 <span className="rounded bg-muted px-1 py-0.5 uppercase text-[10px]">
-                  {item.media_type === "movie" ? t("movie") : t("tv")}
+                  {item.media_type === 'movie' ? t('movie') : t('tv')}
                 </span>
               </div>
             </Link>

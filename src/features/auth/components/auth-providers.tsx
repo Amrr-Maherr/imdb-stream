@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import { Phone } from "lucide-react"
-import Link from "next/link"
-import { useTranslations } from "next-intl"
+import { Phone } from 'lucide-react';
+import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 
-import { Button } from "@/shared/components/ui/button"
-import { EmailPasswordAuth } from "./email-password-auth"
-import { GoogleAuth } from "./google-auth"
-import { GuestAuth } from "./guest-auth"
-import { AuthDivider } from "./auth-divider"
+import { Button } from '@/shared/components/ui/button';
+import { EmailPasswordAuth } from './email-password-auth';
+import { GoogleAuth } from './google-auth';
+import { GuestAuth } from './guest-auth';
+import { AuthDivider } from './auth-divider';
 
 export function AuthProviders() {
-  const tc = useTranslations("Common")
+  const tc = useTranslations('Common');
 
   return (
     <div className="space-y-4">
@@ -24,13 +24,9 @@ export function AuthProviders() {
       <AuthDivider />
 
       <Link href="/auth/phone" className="block">
-        <Button
-          type="button"
-          variant="outline"
-          className="w-full gap-2"
-        >
+        <Button type="button" variant="outline" className="w-full gap-2">
           <Phone size={16} strokeWidth={2} />
-          {tc("continueWithPhone")}
+          {tc('continueWithPhone')}
         </Button>
       </Link>
 
@@ -38,5 +34,5 @@ export function AuthProviders() {
 
       <GuestAuth />
     </div>
-  )
+  );
 }

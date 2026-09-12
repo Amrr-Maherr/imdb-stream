@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { SearchResultItem, type SearchResult } from "./SearchResultItem";
+import { SearchResultItem, type SearchResult } from './SearchResultItem';
 
 type SearchDropdownProps = {
   results: SearchResult[];

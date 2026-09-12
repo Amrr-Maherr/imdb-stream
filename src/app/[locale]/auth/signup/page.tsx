@@ -1,20 +1,20 @@
-﻿import Image from "next/image"
-import { Link } from "@/i18n/navigation"
-import { getTranslations } from "next-intl/server"
-import { SignUpForm } from "@/features/auth/components/sign-up-form"
+﻿import Image from 'next/image';
+import { Link } from '@/i18n/navigation';
+import { getTranslations } from 'next-intl/server';
+import { SignUpForm } from '@/features/auth/components/sign-up-form';
 
 interface Props {
-  params: Promise<{ locale: string }>
+  params: Promise<{ locale: string }>;
 }
 
 export async function generateMetadata({ params }: Props) {
-  const { locale } = await params
-  const t = await getTranslations({ locale, namespace: "Auth" })
-  return { title: t("signUp.title") }
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'Auth' });
+  return { title: t('signUp.title') };
 }
 
 export default async function SignUpPage() {
-  const t = await getTranslations("Common")
+  const t = await getTranslations('Common');
   return (
     <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center bg-background px-4 py-12">
       <div className="w-full max-w-sm">
@@ -22,7 +22,7 @@ export default async function SignUpPage() {
           <Link href="/">
             <Image
               src="/logo.svg"
-              alt={t("siteName")}
+              alt={t('siteName')}
               width={100}
               height={50}
               className="h-10 w-auto"
@@ -34,5 +34,5 @@ export default async function SignUpPage() {
         <SignUpForm />
       </div>
     </div>
-  )
+  );
 }

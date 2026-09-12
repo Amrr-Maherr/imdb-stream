@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import Link from "next/link";
-import { useTranslations } from "next-intl";
-import type { TVSeason } from "@/shared/types/tmdb";
+import Image from 'next/image';
+import Link from 'next/link';
+import { useTranslations } from 'next-intl';
+import type { TVSeason } from '@/shared/types/tmdb';
 
-const TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p";
+const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p';
 
 type SeasonCardProps = {
   season: TVSeason;
@@ -14,7 +14,7 @@ type SeasonCardProps = {
 };
 
 export function SeasonCard({ season, tvId, tvSlug }: SeasonCardProps) {
-  const t = useTranslations("TvDetail");
+  const t = useTranslations('TvDetail');
   if (season.season_number === 0) return null;
 
   return (
@@ -42,7 +42,7 @@ export function SeasonCard({ season, tvId, tvSlug }: SeasonCardProps) {
           {season.name}
         </h3>
         <p className="text-xs text-muted-foreground">
-          {t("episodeCount", { count: season.episode_count })}
+          {t('episodeCount', { count: season.episode_count })}
           {season.air_date && <> · {season.air_date.slice(0, 4)}</>}
         </p>
       </div>

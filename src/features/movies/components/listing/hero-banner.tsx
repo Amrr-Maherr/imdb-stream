@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { Slider } from "@/shared/components/ui/slider";
-import type { TMDBMovie } from "@/shared/types/tmdb";
-import { HeroSlide } from "./hero-slide";
+import { Slider } from '@/shared/components/ui/slider';
+import type { TMDBMovie } from '@/shared/types/tmdb';
+import { HeroSlide } from './hero-slide';
 
-const TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p";
+const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p';
 
 type HeroBannerProps = {
   movies: TMDBMovie[];

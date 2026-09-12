@@ -1,31 +1,37 @@
-﻿import { getTranslations } from "next-intl/server"
-import { Link } from "@/i18n/navigation"
-import { Button } from "@/shared/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/shared/components/ui/card"
-import { Check, X } from "lucide-react"
+﻿import { getTranslations } from 'next-intl/server';
+import { Link } from '@/i18n/navigation';
+import { Button } from '@/shared/components/ui/button';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from '@/shared/components/ui/card';
+import { Check, X } from 'lucide-react';
 
 interface Props {
-  params: Promise<{ locale: string }>
+  params: Promise<{ locale: string }>;
 }
 
 export async function generateMetadata({ params }: Props) {
-  const { locale } = await params
-  const t = await getTranslations({ locale, namespace: "Subscription" })
-  return { title: t("title") }
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'Subscription' });
+  return { title: t('title') };
 }
 
 const comparisonFeatures = [
-  "browsing",
-  "ratings",
-  "watchlist",
-  "adFree",
-  "aiRecommendations",
-  "earlyAccess",
-  "prioritySupport",
-  "apiAccess",
-  "analytics",
-  "teamFeatures",
-] as const
+  'browsing',
+  'ratings',
+  'watchlist',
+  'adFree',
+  'aiRecommendations',
+  'earlyAccess',
+  'prioritySupport',
+  'apiAccess',
+  'analytics',
+  'teamFeatures',
+] as const;
 
 const featureMatrix: Record<string, Record<string, boolean>> = {
   free: {
@@ -64,12 +70,12 @@ const featureMatrix: Record<string, Record<string, boolean>> = {
     analytics: true,
     teamFeatures: true,
   },
-}
+};
 
 export default async function SubscriptionPage() {
-  const t = await getTranslations("Subscription")
+  const t = await getTranslations('Subscription');
 
-  const plans = ["free", "pro", "enterprise"] as const
+  const plans = ['free', 'pro', 'enterprise'] as const;
 
   const planFeatures = plans.map((key) => ({
     key,
@@ -79,10 +85,10 @@ export default async function SubscriptionPage() {
     description: t(`plans.${key}.description`),
     features: t.raw(`plans.${key}.features`) as string[],
     cta: t(`plans.${key}.cta`),
-    popular: key === "pro",
-  }))
+    popular: key === 'pro',
+  }));
 
-  const faqs = [1, 2, 3, 4, 5] as const
+  const faqs = [1, 2, 3, 4, 5] as const;
 
   return (
     <div className="bg-background">
@@ -91,23 +97,23 @@ export default async function SubscriptionPage() {
         <div className="app-container relative z-10">
           <div className="mx-auto max-w-3xl text-center">
             <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-              {t("hero.title")}
+              {t('hero.title')}
             </h1>
-            <p className="mt-4 text-lg text-muted-foreground sm:text-xl">
-              {t("hero.subtitle")}
-            </p>
+            <p className="mt-4 text-lg text-muted-foreground sm:text-xl">{t('hero.subtitle')}</p>
             <div className="mt-8 flex items-center justify-center gap-3">
-              <span className={`text-sm font-medium ${true ? "text-foreground" : "text-muted-foreground"}`}>
-                {t("hero.toggle")}
+              <span
+                className={`text-sm font-medium ${true ? 'text-foreground' : 'text-muted-foreground'}`}
+              >
+                {t('hero.toggle')}
               </span>
               <div className="flex h-8 w-14 items-center rounded-full border border-border bg-muted p-1">
                 <div className="h-6 w-6 rounded-full bg-brand shadow-sm" />
               </div>
               <span className="text-sm font-medium text-muted-foreground">
-                {t("hero.toggleAnnual")}
+                {t('hero.toggleAnnual')}
               </span>
               <span className="rounded-full bg-brand/20 px-2.5 py-0.5 text-xs font-semibold text-brand">
-                {t("hero.saveText")}
+                {t('hero.saveText')}
               </span>
             </div>
           </div>
@@ -124,30 +130,24 @@ export default async function SubscriptionPage() {
                 key={plan.key}
                 className={`relative flex flex-col border ${
                   plan.popular
-                    ? "border-brand/50 shadow-glow ring-1 ring-brand/30"
-                    : "border-border"
+                    ? 'border-brand/50 shadow-glow ring-1 ring-brand/30'
+                    : 'border-border'
                 }`}
               >
                 {plan.popular && (
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2">
                     <span className="inline-block rounded-full bg-brand px-4 py-1 text-xs font-bold text-brand-foreground">
-                      {t("plans.pro.popular")}
+                      {t('plans.pro.popular')}
                     </span>
                   </div>
                 )}
-                <CardHeader className={plan.popular ? "pt-8" : ""}>
+                <CardHeader className={plan.popular ? 'pt-8' : ''}>
                   <CardTitle className="text-2xl">{plan.name}</CardTitle>
                   <div className="mt-2 flex items-baseline gap-1">
-                    <span className="text-4xl font-bold text-foreground">
-                      {plan.price}
-                    </span>
-                    <span className="text-sm text-muted-foreground">
-                      {plan.period}
-                    </span>
+                    <span className="text-4xl font-bold text-foreground">{plan.price}</span>
+                    <span className="text-sm text-muted-foreground">{plan.period}</span>
                   </div>
-                  <CardDescription className="mt-2">
-                    {plan.description}
-                  </CardDescription>
+                  <CardDescription className="mt-2">{plan.description}</CardDescription>
                 </CardHeader>
                 <CardContent className="flex flex-1 flex-col gap-6">
                   <ul className="flex-1 space-y-3">
@@ -159,14 +159,12 @@ export default async function SubscriptionPage() {
                     ))}
                   </ul>
                   <Button
-                    variant={plan.popular ? "default" : "outline"}
+                    variant={plan.popular ? 'default' : 'outline'}
                     size="lg"
                     className="w-full"
                     asChild
                   >
-                    <Link href="#">
-                      {plan.cta}
-                    </Link>
+                    <Link href="#">{plan.cta}</Link>
                   </Button>
                 </CardContent>
               </Card>
@@ -179,7 +177,7 @@ export default async function SubscriptionPage() {
       <section className="bg-muted/50 py-16">
         <div className="app-container">
           <h2 className="mb-10 text-center text-3xl font-bold text-foreground">
-            {t("comparison.heading")}
+            {t('comparison.heading')}
           </h2>
 
           <div className="hidden overflow-hidden rounded-xl border border-border md:block">
@@ -187,10 +185,13 @@ export default async function SubscriptionPage() {
               <thead>
                 <tr className="border-b border-border bg-muted/50">
                   <th className="px-6 py-4 text-left text-sm font-semibold text-foreground">
-                    {t("comparison.feature")}
+                    {t('comparison.feature')}
                   </th>
                   {plans.map((key) => (
-                    <th key={key} className="px-6 py-4 text-center text-sm font-semibold text-foreground">
+                    <th
+                      key={key}
+                      className="px-6 py-4 text-center text-sm font-semibold text-foreground"
+                    >
                       {t(`comparison.${key}`)}
                     </th>
                   ))}
@@ -201,14 +202,12 @@ export default async function SubscriptionPage() {
                   <tr
                     key={feature}
                     className={`border-b border-border text-sm ${
-                      i % 2 === 0 ? "bg-background" : "bg-muted/20"
+                      i % 2 === 0 ? 'bg-background' : 'bg-muted/20'
                     }`}
                   >
-                    <td className="px-6 py-4 text-foreground">
-                      {t(`comparison.rows.${feature}`)}
-                    </td>
+                    <td className="px-6 py-4 text-foreground">{t(`comparison.rows.${feature}`)}</td>
                     {plans.map((key) => {
-                      const isAvailable = featureMatrix[key]?.[feature] ?? false
+                      const isAvailable = featureMatrix[key]?.[feature] ?? false;
                       return (
                         <td key={key} className="px-6 py-4 text-center">
                           {isAvailable ? (
@@ -217,7 +216,7 @@ export default async function SubscriptionPage() {
                             <X className="mx-auto h-5 w-5 text-muted-foreground/50" />
                           )}
                         </td>
-                      )
+                      );
                     })}
                   </tr>
                 ))}
@@ -234,7 +233,7 @@ export default async function SubscriptionPage() {
                 <CardContent>
                   <ul className="space-y-3">
                     {comparisonFeatures.map((feature) => {
-                      const isAvailable = featureMatrix[key]?.[feature] ?? false
+                      const isAvailable = featureMatrix[key]?.[feature] ?? false;
                       return (
                         <li key={feature} className="flex items-center justify-between text-sm">
                           <span className="text-muted-foreground">
@@ -246,7 +245,7 @@ export default async function SubscriptionPage() {
                             <X className="h-4 w-4 text-muted-foreground/50" />
                           )}
                         </li>
-                      )
+                      );
                     })}
                   </ul>
                 </CardContent>
@@ -260,7 +259,7 @@ export default async function SubscriptionPage() {
       <section className="py-16">
         <div className="app-container">
           <h2 className="mb-10 text-center text-3xl font-bold text-foreground">
-            {t("faq.heading")}
+            {t('faq.heading')}
           </h2>
           <div className="mx-auto max-w-3xl space-y-3">
             {faqs.map((num) => (
@@ -297,17 +296,15 @@ export default async function SubscriptionPage() {
       <section className="relative overflow-hidden bg-gradient-to-r from-brand/20 via-brand/10 to-background py-20">
         <div className="app-container relative z-10">
           <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-3xl font-bold text-foreground sm:text-4xl">
-              {t("cta.heading")}
-            </h2>
-            <p className="mt-4 text-lg text-muted-foreground">
-              {t("cta.subheading")}
-            </p>
+            <h2 className="text-3xl font-bold text-foreground sm:text-4xl">{t('cta.heading')}</h2>
+            <p className="mt-4 text-lg text-muted-foreground">{t('cta.subheading')}</p>
             <div className="mt-8">
-              <Button size="lg" className="bg-brand text-brand-foreground hover:bg-brand/90" asChild>
-                <Link href="#">
-                  {t("cta.button")}
-                </Link>
+              <Button
+                size="lg"
+                className="bg-brand text-brand-foreground hover:bg-brand/90"
+                asChild
+              >
+                <Link href="#">{t('cta.button')}</Link>
               </Button>
             </div>
           </div>
@@ -315,5 +312,5 @@ export default async function SubscriptionPage() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_left,oklch(0.79_0.175_88_/_0.12),transparent_60%)]" />
       </section>
     </div>
-  )
+  );
 }

@@ -1,17 +1,11 @@
-"use client";
+'use client';
 
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-  ReactNode,
-} from "react";
-import toast from "react-hot-toast";
-import { User, onAuthStateChanged } from "firebase/auth";
-import { auth } from "@/lib/firebase";
-import { signOut } from "firebase/auth";
-import { useRouter } from "next/navigation";
+import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+import toast from 'react-hot-toast';
+import { User, onAuthStateChanged } from 'firebase/auth';
+import { auth } from '@/lib/firebase';
+import { signOut } from 'firebase/auth';
+import { useRouter } from 'next/navigation';
 type AuthContextType = {
   user: User | null;
   loading: boolean;
@@ -43,8 +37,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const logout = async () => {
     try {
       await signOut(auth);
-      toast.success("See you again!");
-      router.push("/auth/signin");
+      toast.success('See you again!');
+      router.push('/auth/signin');
     } catch (error) {
       console.log(error);
     }

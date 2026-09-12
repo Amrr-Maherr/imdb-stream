@@ -1,32 +1,24 @@
-"use client";
+'use client';
 
-import * as React from "react";
-import { Dialog as DialogPrimitive } from "radix-ui";
-import { XIcon } from "lucide-react";
+import * as React from 'react';
+import { Dialog as DialogPrimitive } from 'radix-ui';
+import { XIcon } from 'lucide-react';
 
-import { cn } from "@/shared/utils/utils";
+import { cn } from '@/shared/utils/utils';
 
-function Drawer({
-  ...props
-}: React.ComponentProps<typeof DialogPrimitive.Root>) {
+function Drawer({ ...props }: React.ComponentProps<typeof DialogPrimitive.Root>) {
   return <DialogPrimitive.Root data-slot="drawer" {...props} />;
 }
 
-function DrawerTrigger({
-  ...props
-}: React.ComponentProps<typeof DialogPrimitive.Trigger>) {
+function DrawerTrigger({ ...props }: React.ComponentProps<typeof DialogPrimitive.Trigger>) {
   return <DialogPrimitive.Trigger data-slot="drawer-trigger" {...props} />;
 }
 
-function DrawerClose({
-  ...props
-}: React.ComponentProps<typeof DialogPrimitive.Close>) {
+function DrawerClose({ ...props }: React.ComponentProps<typeof DialogPrimitive.Close>) {
   return <DialogPrimitive.Close data-slot="drawer-close" {...props} />;
 }
 
-function DrawerPortal({
-  ...props
-}: React.ComponentProps<typeof DialogPrimitive.Portal>) {
+function DrawerPortal({ ...props }: React.ComponentProps<typeof DialogPrimitive.Portal>) {
   return <DialogPrimitive.Portal data-slot="drawer-portal" {...props} />;
 }
 
@@ -38,8 +30,8 @@ function DrawerOverlay({
     <DialogPrimitive.Overlay
       data-slot="drawer-overlay"
       className={cn(
-        "fixed inset-0 z-50 bg-overlay/80 backdrop-blur-sm duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] data-open:animate-in data-open:fade-in-0 data-closed:animate-out data-closed:fade-out-0",
-        className,
+        'fixed inset-0 z-50 bg-overlay/80 backdrop-blur-sm duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] data-open:animate-in data-open:fade-in-0 data-closed:animate-out data-closed:fade-out-0',
+        className
       )}
       {...props}
     />
@@ -49,7 +41,7 @@ function DrawerOverlay({
 function DrawerContent({
   className,
   children,
-  closeLabel = "Close",
+  closeLabel = 'Close',
   ...props
 }: React.ComponentProps<typeof DialogPrimitive.Content> & { closeLabel?: string }) {
   return (
@@ -58,8 +50,8 @@ function DrawerContent({
       <DialogPrimitive.Content
         data-slot="drawer-content"
         className={cn(
-          "fixed inset-x-0 bottom-0 z-50 mt-24 flex h-auto flex-col rounded-t-2xl border border-border bg-background p-6 shadow-lg will-change-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] data-open:animate-in data-open:slide-in-from-bottom-4 data-open:fade-in-0 data-closed:animate-out data-closed:slide-out-to-bottom-4 data-closed:fade-out-0",
-          className,
+          'fixed inset-x-0 bottom-0 z-50 mt-24 flex h-auto flex-col rounded-t-2xl border border-border bg-background p-6 shadow-lg will-change-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] data-open:animate-in data-open:slide-in-from-bottom-4 data-open:fade-in-0 data-closed:animate-out data-closed:slide-out-to-bottom-4 data-closed:fade-out-0',
+          className
         )}
         {...props}
       >
@@ -74,34 +66,27 @@ function DrawerContent({
   );
 }
 
-function DrawerHeader({ className, ...props }: React.ComponentProps<"div">) {
+function DrawerHeader({ className, ...props }: React.ComponentProps<'div'>) {
   return (
-    <div
-      data-slot="drawer-header"
-      className={cn("flex flex-col gap-1.5", className)}
-      {...props}
-    />
+    <div data-slot="drawer-header" className={cn('flex flex-col gap-1.5', className)} {...props} />
   );
 }
 
-function DrawerFooter({ className, ...props }: React.ComponentProps<"div">) {
+function DrawerFooter({ className, ...props }: React.ComponentProps<'div'>) {
   return (
     <div
       data-slot="drawer-footer"
-      className={cn("mt-auto flex flex-col gap-2", className)}
+      className={cn('mt-auto flex flex-col gap-2', className)}
       {...props}
     />
   );
 }
 
-function DrawerTitle({
-  className,
-  ...props
-}: React.ComponentProps<typeof DialogPrimitive.Title>) {
+function DrawerTitle({ className, ...props }: React.ComponentProps<typeof DialogPrimitive.Title>) {
   return (
     <DialogPrimitive.Title
       data-slot="drawer-title"
-      className={cn("text-lg font-semibold text-foreground", className)}
+      className={cn('text-lg font-semibold text-foreground', className)}
       {...props}
     />
   );
@@ -114,7 +99,7 @@ function DrawerDescription({
   return (
     <DialogPrimitive.Description
       data-slot="drawer-description"
-      className={cn("text-sm text-muted-foreground", className)}
+      className={cn('text-sm text-muted-foreground', className)}
       {...props}
     />
   );

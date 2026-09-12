@@ -1,5 +1,5 @@
-import { HeroSection } from "@/features/movies/components/listing/hero-section";
-import { HomeSections } from "@/features/movies/components/listing/home-sections";
+import { HeroSection } from '@/features/movies/components/listing/hero-section';
+import { HomeSections } from '@/features/movies/components/listing/home-sections';
 
 interface Props {
   params: Promise<{ locale: string }>;

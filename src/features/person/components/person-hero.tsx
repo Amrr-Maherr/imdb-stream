@@ -1,11 +1,11 @@
-﻿"use client";
+﻿'use client';
 
-import Image from "next/image";
-import { useTranslations } from "next-intl";
-import { ExternalLink, Calendar, MapPin, Flame } from "lucide-react";
-import { FadeIn } from "@/features/movies/components/detail/fade-in";
+import Image from 'next/image';
+import { useTranslations } from 'next-intl';
+import { ExternalLink, Calendar, MapPin, Flame } from 'lucide-react';
+import { FadeIn } from '@/features/movies/components/detail/fade-in';
 
-const TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p";
+const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p';
 
 type PersonHeroProps = {
   name: string;
@@ -41,7 +41,7 @@ export function PersonHero({
   homepage,
   imdbId,
 }: PersonHeroProps) {
-  const t = useTranslations("Person");
+  const t = useTranslations('Person');
   const age = birthday ? calculateAge(birthday, deathday) : null;
 
   return (
@@ -84,19 +84,23 @@ export function PersonHero({
                 {birthday && (
                   <span className="flex items-center gap-1.5">
                     <Calendar className="size-3.5" />
-                    <span className="font-medium text-foreground">{t("born")}</span>{" "}
-                    {new Date(birthday).toLocaleDateString("en-US", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
+                    <span className="font-medium text-foreground">{t('born')}</span>{' '}
+                    {new Date(birthday).toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric',
                     })}
                     {deathday &&
-                      ` — ${new Date(deathday).toLocaleDateString("en-US", {
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
+                      ` — ${new Date(deathday).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
                       })}`}
-                    {age != null && <span className="text-muted-foreground/60">{deathday ? t("ageSimple", { age }) : t("age", { age })}</span>}
+                    {age != null && (
+                      <span className="text-muted-foreground/60">
+                        {deathday ? t('ageSimple', { age }) : t('age', { age })}
+                      </span>
+                    )}
                   </span>
                 )}
                 {placeOfBirth && (
@@ -116,7 +120,7 @@ export function PersonHero({
                     className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-background px-4 py-2 text-sm font-medium text-foreground hover:bg-muted transition-all"
                   >
                     <ExternalLink className="size-4" />
-                    {t("website")}
+                    {t('website')}
                   </a>
                 )}
                 {imdbId && (
@@ -127,7 +131,7 @@ export function PersonHero({
                     className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-background px-4 py-2 text-sm font-medium text-foreground hover:bg-muted transition-all"
                   >
                     <ExternalLink className="size-4" />
-                    {t("imdb")}
+                    {t('imdb')}
                   </a>
                 )}
               </div>

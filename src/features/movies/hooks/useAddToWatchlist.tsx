@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { db } from "@/lib/firebase";
-import { doc, setDoc } from "firebase/firestore";
+import { useState } from 'react';
+import { db } from '@/lib/firebase';
+import { doc, setDoc } from 'firebase/firestore';
 
 export function useAddToWatchlist() {
   const [loading, setLoading] = useState(false);
@@ -11,13 +11,10 @@ export function useAddToWatchlist() {
     setLoading(true);
 
     try {
-      await setDoc(
-        doc(db, "users", user.uid, "watchlist", movie.id.toString()),
-        {
-          movie,
-          createdAt: new Date(),
-        },
-      );
+      await setDoc(doc(db, 'users', user.uid, 'watchlist', movie.id.toString()), {
+        movie,
+        createdAt: new Date(),
+      });
 
       return {
         success: true,

@@ -1,33 +1,37 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import Link from "next/link";
-import { TrendingUp } from "lucide-react";
-import { useTranslations } from "next-intl";
-import type { TMDBPerson } from "@/shared/types/tmdb";
-import { cn } from "@/shared/utils/utils";
-import { slugify } from "@/shared/utils/slugify";
+import Image from 'next/image';
+import Link from 'next/link';
+import { TrendingUp } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import type { TMDBPerson } from '@/shared/types/tmdb';
+import { cn } from '@/shared/utils/utils';
+import { slugify } from '@/shared/utils/slugify';
 
-const TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p";
+const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p';
 
 type PersonCardProps = {
   person: TMDBPerson;
   featured?: boolean;
 };
 
-export function PersonCard({ person, featured, className }: PersonCardProps & { className?: string }) {
-  const t = useTranslations("Person");
+export function PersonCard({
+  person,
+  featured,
+  className,
+}: PersonCardProps & { className?: string }) {
+  const t = useTranslations('Person');
   const knownFor = person.known_for
     ?.slice(0, 2)
-    .map((item) => ("title" in item ? item.title : item.name))
-    .join(", ");
+    .map((item) => ('title' in item ? item.title : item.name))
+    .join(', ');
 
   if (featured) {
     return (
-    <Link
-      href={`/people/${slugify(person.name)}/${person.id}`}
-      className={cn("group flex-shrink-0 w-[200px] sm:w-[240px]", className)}
-    >
+      <Link
+        href={`/people/${slugify(person.name)}/${person.id}`}
+        className={cn('group flex-shrink-0 w-[200px] sm:w-[240px]', className)}
+      >
         <div className="relative aspect-[1/1] w-full overflow-hidden rounded-xl bg-muted">
           {person.profile_path ? (
             <Image
@@ -47,12 +51,10 @@ export function PersonCard({ person, featured, className }: PersonCardProps & { 
           <h3 className="text-sm font-semibold text-foreground line-clamp-1 leading-tight">
             {person.name}
           </h3>
-          <p className="text-xs text-muted-foreground">
-            {person.known_for_department}
-          </p>
+          <p className="text-xs text-muted-foreground">{person.known_for_department}</p>
           {knownFor && (
             <p className="text-xs text-muted-foreground/70 line-clamp-1">
-              {t("knownForLabel")} {knownFor}
+              {t('knownForLabel')} {knownFor}
             </p>
           )}
           <div className="flex items-center justify-center gap-1 text-[11px] text-muted-foreground/50">
@@ -67,7 +69,7 @@ export function PersonCard({ person, featured, className }: PersonCardProps & { 
   return (
     <Link
       href={`/people/${slugify(person.name)}/${person.id}`}
-      className={cn("group flex-shrink-0 w-[140px] sm:w-[160px]", className)}
+      className={cn('group flex-shrink-0 w-[140px] sm:w-[160px]', className)}
     >
       <div className="relative aspect-[1/1] w-full overflow-hidden rounded-full bg-muted">
         {person.profile_path ? (
@@ -88,13 +90,9 @@ export function PersonCard({ person, featured, className }: PersonCardProps & { 
         <h3 className="text-sm font-medium text-foreground line-clamp-1 leading-tight">
           {person.name}
         </h3>
-        <p className="text-xs text-muted-foreground line-clamp-1">
-          {person.known_for_department}
-        </p>
+        <p className="text-xs text-muted-foreground line-clamp-1">{person.known_for_department}</p>
         {knownFor && (
-          <p className="text-[11px] text-muted-foreground/70 line-clamp-1">
-            {knownFor}
-          </p>
+          <p className="text-[11px] text-muted-foreground/70 line-clamp-1">{knownFor}</p>
         )}
         <div className="flex items-center justify-center gap-1 text-[10px] text-muted-foreground/50 mt-0.5">
           <TrendingUp className="size-2.5" />

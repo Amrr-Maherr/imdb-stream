@@ -1,9 +1,9 @@
-import Link from "next/link";
-import { AlertCircle } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
+import Link from 'next/link';
+import { AlertCircle } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 
-import { cn } from "@/shared/utils/utils";
-import { Button } from "@/shared/components/ui/button";
+import { cn } from '@/shared/utils/utils';
+import { Button } from '@/shared/components/ui/button';
 
 interface ErrorStateProps {
   title: string;
@@ -28,8 +28,8 @@ function ErrorState({
     <div
       role="alert"
       className={cn(
-        "flex flex-1 flex-col items-center justify-center bg-background h-screen p-8",
-        className,
+        'flex flex-1 flex-col items-center justify-center bg-background h-screen p-8',
+        className
       )}
     >
       <div className="flex flex-col items-center gap-4 text-center max-w-md">

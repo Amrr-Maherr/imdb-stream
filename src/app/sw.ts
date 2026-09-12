@@ -1,8 +1,8 @@
 /// <reference lib="esnext" />
 /// <reference lib="webworker" />
-import { defaultCache } from "@serwist/turbopack/worker";
-import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
-import { CacheFirst, ExpirationPlugin, Serwist } from "serwist";
+import { defaultCache } from '@serwist/turbopack/worker';
+import type { PrecacheEntry, SerwistGlobalConfig } from 'serwist';
+import { CacheFirst, ExpirationPlugin, Serwist } from 'serwist';
 
 declare global {
   interface WorkerGlobalScope extends SerwistGlobalConfig {
@@ -22,7 +22,7 @@ const serwist = new Serwist({
     {
       matcher: /^https:\/\/image\.tmdb\.org\/.*/,
       handler: new CacheFirst({
-        cacheName: "tmdb-images",
+        cacheName: 'tmdb-images',
         plugins: [
           new ExpirationPlugin({
             maxEntries: 200,
@@ -34,7 +34,7 @@ const serwist = new Serwist({
     {
       matcher: /^https:\/\/lh3\.googleusercontent\.com\/.*/,
       handler: new CacheFirst({
-        cacheName: "google-avatars",
+        cacheName: 'google-avatars',
         plugins: [
           new ExpirationPlugin({
             maxEntries: 50,
@@ -47,9 +47,9 @@ const serwist = new Serwist({
   fallbacks: {
     entries: [
       {
-        url: "/~offline",
+        url: '/~offline',
         matcher({ request }) {
-          return request.destination === "document";
+          return request.destination === 'document';
         },
       },
     ],

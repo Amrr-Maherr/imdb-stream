@@ -1,23 +1,23 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import { useTranslations } from "next-intl";
-import { Slider } from "@/shared/components/ui/slider";
-import type { CastMember } from "@/shared/types/tmdb";
+import Image from 'next/image';
+import { useTranslations } from 'next-intl';
+import { Slider } from '@/shared/components/ui/slider';
+import type { CastMember } from '@/shared/types/tmdb';
 
-const TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p";
+const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p';
 
 type CastCarouselProps = {
   cast: CastMember[];
 };
 
 export function CastCarousel({ cast }: CastCarouselProps) {
-  const t = useTranslations("MovieDetail");
+  const t = useTranslations('MovieDetail');
   if (cast.length === 0) return null;
 
   return (
     <section>
-      <h2 className="text-2xl font-bold text-foreground mb-6">{t("topCast")}</h2>
+      <h2 className="text-2xl font-bold text-foreground mb-6">{t('topCast')}</h2>
       <Slider
         slidesPerView={6}
         spaceBetween={6}
@@ -42,12 +42,8 @@ export function CastCarousel({ cast }: CastCarouselProps) {
               )}
             </div>
             <div className="mt-2 text-center">
-              <p className="text-sm font-medium text-foreground line-clamp-1">
-                {person.name}
-              </p>
-              <p className="text-xs text-muted-foreground line-clamp-1">
-                {person.character}
-              </p>
+              <p className="text-sm font-medium text-foreground line-clamp-1">{person.name}</p>
+              <p className="text-xs text-muted-foreground line-clamp-1">{person.character}</p>
             </div>
           </div>
         ))}

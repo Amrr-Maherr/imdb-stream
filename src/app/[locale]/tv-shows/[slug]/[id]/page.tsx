@@ -1,21 +1,32 @@
-import { getTranslations } from "next-intl/server";
-import { fetchApi } from "@/shared/services/fetchApi";
-import { ErrorState } from "@/shared/components/error-state";
-import type { TMDBTVDetails } from "@/shared/types/tmdb";
-import { MovieHero } from "@/features/movies/components/detail/movie-hero";
-import { TvMainContent } from "@/features/tv/components/detail/tv-main-content";
-import { TvSidebarColumn } from "@/features/tv/components/detail/tv-sidebar-column";
+import { getTranslations } from 'next-intl/server';
+import { fetchApi } from '@/shared/services/fetchApi';
+import { ErrorState } from '@/shared/components/error-state';
+import type { TMDBTVDetails } from '@/shared/types/tmdb';
+import { MovieHero } from '@/features/movies/components/detail/movie-hero';
+import { TvMainContent } from '@/features/tv/components/detail/tv-main-content';
+import { TvSidebarColumn } from '@/features/tv/components/detail/tv-sidebar-column';
 
 interface Props {
   params: Promise<{ locale: string; slug: string; id: string }>;
 }
 
 const APPEND_PARAMS = [
-  "account_states", "aggregate_credits", "alternative_titles",
-  "content_ratings", "credits", "external_ids", "images", "keywords",
-  "lists", "recommendations", "reviews", "similar", "translations",
-  "videos", "watch/providers",
-].join(",");
+  'account_states',
+  'aggregate_credits',
+  'alternative_titles',
+  'content_ratings',
+  'credits',
+  'external_ids',
+  'images',
+  'keywords',
+  'lists',
+  'recommendations',
+  'reviews',
+  'similar',
+  'translations',
+  'videos',
+  'watch/providers',
+].join(',');
 
 async function getTvShow(id: string, locale: string) {
   return fetchApi<TMDBTVDetails>({
@@ -34,14 +45,14 @@ export async function generateMetadata({ params }: Props) {
       description: show.tagline || show.overview?.slice(0, 160),
     };
   } catch {
-    const t = await getTranslations({ locale, namespace: "ErrorState" });
-    return { title: t("tvNotFound") };
+    const t = await getTranslations({ locale, namespace: 'ErrorState' });
+    return { title: t('tvNotFound') };
   }
 }
 
 export default async function TvShowPage({ params }: Props) {
   const { id, slug, locale } = await params;
-  const t = await getTranslations({ locale, namespace: "ErrorState" });
+  const t = await getTranslations({ locale, namespace: 'ErrorState' });
 
   let show: TMDBTVDetails;
   try {
@@ -49,22 +60,20 @@ export default async function TvShowPage({ params }: Props) {
   } catch {
     return (
       <ErrorState
-        title={t("tvNotFound")}
-        description={t("tvNotFoundDesc")}
-        actionLabel={t("goHome")}
+        title={t('tvNotFound')}
+        description={t('tvNotFoundDesc')}
+        actionLabel={t('goHome')}
         actionHref="/"
       />
     );
   }
 
-  const year = show.first_air_date?.slice(0, 4) ?? "";
+  const year = show.first_air_date?.slice(0, 4) ?? '';
   const trailers = (show.videos?.results ?? []).filter(
-    (v) => v.site === "YouTube" && (v.type === "Trailer" || v.type === "Teaser"),
+    (v) => v.site === 'YouTube' && (v.type === 'Trailer' || v.type === 'Teaser')
   );
-  const usRating = (show.content_ratings?.results ?? []).find(
-    (r) => r.iso_3166_1 === "US",
-  );
-  const certification = usRating?.rating ?? "";
+  const usRating = (show.content_ratings?.results ?? []).find((r) => r.iso_3166_1 === 'US');
+  const certification = usRating?.rating ?? '';
   const runtime = show.episode_run_time?.[0] ?? 0;
   const creators = show.created_by?.map((c) => c.name) ?? [];
 

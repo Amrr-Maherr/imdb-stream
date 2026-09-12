@@ -1,9 +1,9 @@
-import { getTranslations } from "next-intl/server";
-import { fetchApi } from "@/shared/services/fetchApi";
-import { ErrorState } from "@/shared/components/error-state";
-import { ListHero } from "@/features/list/components/list-hero";
-import { ListMainContent } from "@/features/list/components/list-main-content";
-import { ListSidebar } from "@/features/list/components/list-sidebar";
+import { getTranslations } from 'next-intl/server';
+import { fetchApi } from '@/shared/services/fetchApi';
+import { ErrorState } from '@/shared/components/error-state';
+import { ListHero } from '@/features/list/components/list-hero';
+import { ListMainContent } from '@/features/list/components/list-main-content';
+import { ListSidebar } from '@/features/list/components/list-sidebar';
 interface Props {
   params: Promise<{ locale: string; slug: string; id: string }>;
 }
@@ -48,15 +48,15 @@ export async function generateMetadata({ params }: Props) {
       description: list.description?.slice(0, 160),
     };
   } catch {
-    const t = await getTranslations({ locale, namespace: "ErrorState" });
-    return { title: t("listNotFound") };
+    const t = await getTranslations({ locale, namespace: 'ErrorState' });
+    return { title: t('listNotFound') };
   }
 }
 
 export default async function ListPage({ params }: Props) {
   const { id, locale } = await params;
 
-  const t = await getTranslations({ locale, namespace: "ErrorState" });
+  const t = await getTranslations({ locale, namespace: 'ErrorState' });
 
   let list: TMDBListDetails;
   try {
@@ -64,9 +64,9 @@ export default async function ListPage({ params }: Props) {
   } catch {
     return (
       <ErrorState
-        title={t("listNotFound")}
-        description={t("listNotFoundDesc")}
-        actionLabel={t("goHome")}
+        title={t('listNotFound')}
+        description={t('listNotFoundDesc')}
+        actionLabel={t('goHome')}
         actionHref="/"
       />
     );
@@ -85,11 +85,7 @@ export default async function ListPage({ params }: Props) {
 
       <div className="w-full mx-auto app-container mt-8 md:mt-10 pb-16 space-y-8">
         <div className="flex flex-col lg:flex-row gap-10 lg:gap-12">
-          <ListMainContent
-            name={list.name}
-            description={list.description}
-            items={items}
-          />
+          <ListMainContent name={list.name} description={list.description} items={items} />
           <ListSidebar
             name={list.name}
             description={list.description}

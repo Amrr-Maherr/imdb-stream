@@ -1,20 +1,18 @@
-"use client";
+'use client';
 
-import type { TMDBCompanyMovie, TMDBMovie } from "@/shared/types/tmdb";
-import { useTranslations } from "next-intl";
-import { MovieCard } from "@/features/movies/components/listing/movie-card";
-import { MediaRow } from "@/features/movies/components/listing/media-row";
-import { EmptyState } from "@/shared/components/empty-state";
+import type { TMDBCompanyMovie, TMDBMovie } from '@/shared/types/tmdb';
+import { useTranslations } from 'next-intl';
+import { MovieCard } from '@/features/movies/components/listing/movie-card';
+import { MediaRow } from '@/features/movies/components/listing/media-row';
+import { EmptyState } from '@/shared/components/empty-state';
 
 type ProductionCompanyPortfolioProps = {
   movies: TMDBCompanyMovie[];
 };
 
 export function ProductionCompanyPortfolio({ movies }: ProductionCompanyPortfolioProps) {
-  const t = useTranslations("Company");
-  const popularWorks = [...movies]
-    .sort((a, b) => b.popularity - a.popularity)
-    .slice(0, 20);
+  const t = useTranslations('Company');
+  const popularWorks = [...movies].sort((a, b) => b.popularity - a.popularity).slice(0, 20);
 
   const recentWorks = [...movies]
     .filter((m) => m.release_date)
@@ -30,8 +28,8 @@ export function ProductionCompanyPortfolio({ movies }: ProductionCompanyPortfoli
     ...(popularWorks.length > 0
       ? [
           {
-            title: t("popularWorks"),
-            subtitle: t("mostPopular"),
+            title: t('popularWorks'),
+            subtitle: t('mostPopular'),
             slidesPerView: 5 as const,
             slidesMobilePerView: 2.5 as const,
             spaceBetween: 16 as const,
@@ -42,8 +40,8 @@ export function ProductionCompanyPortfolio({ movies }: ProductionCompanyPortfoli
     ...(recentWorks.length > 0
       ? [
           {
-            title: t("recentWorks"),
-            subtitle: t("latestReleases"),
+            title: t('recentWorks'),
+            subtitle: t('latestReleases'),
             slidesPerView: 4 as const,
             slidesMobilePerView: 2 as const,
             spaceBetween: 20 as const,
@@ -54,8 +52,8 @@ export function ProductionCompanyPortfolio({ movies }: ProductionCompanyPortfoli
     ...(topRated.length > 0
       ? [
           {
-            title: t("topRated"),
-            subtitle: t("highestRated"),
+            title: t('topRated'),
+            subtitle: t('highestRated'),
             slidesPerView: 3.5 as const,
             slidesMobilePerView: 1.5 as const,
             spaceBetween: 24 as const,
@@ -68,11 +66,8 @@ export function ProductionCompanyPortfolio({ movies }: ProductionCompanyPortfoli
   if (sections.length === 0) {
     return (
       <section>
-        <h2 className="text-xl font-bold text-foreground mb-6">{t("productions")}</h2>
-        <EmptyState
-          title={t("noProductions")}
-          className="py-0"
-        />
+        <h2 className="text-xl font-bold text-foreground mb-6">{t('productions')}</h2>
+        <EmptyState title={t('noProductions')} className="py-0" />
       </section>
     );
   }

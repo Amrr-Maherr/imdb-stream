@@ -1,17 +1,17 @@
-import { getTranslations } from "next-intl/server";
-import { fetchApi } from "@/shared/services/fetchApi";
-import type { TMDBResponse, TMDBMovie, TMDBTV, TMDBPerson } from "@/shared/types/tmdb";
-import { MediaRow } from "./media-row";
-import { FeaturedRow } from "./featured-row";
-import { BannerSection } from "./banner-section";
-import { PremiumRow } from "./premium-row";
-import { MovieCard } from "./movie-card";
-import { TvCard } from "./tv-card";
-import { PersonCard } from "./person-card";
+import { getTranslations } from 'next-intl/server';
+import { fetchApi } from '@/shared/services/fetchApi';
+import type { TMDBResponse, TMDBMovie, TMDBTV, TMDBPerson } from '@/shared/types/tmdb';
+import { MediaRow } from './media-row';
+import { FeaturedRow } from './featured-row';
+import { BannerSection } from './banner-section';
+import { PremiumRow } from './premium-row';
+import { MovieCard } from './movie-card';
+import { TvCard } from './tv-card';
+import { PersonCard } from './person-card';
 import {
   ProductionCompaniesSection,
   PlatformsSection,
-} from "@/features/company/components/company-section";
+} from '@/features/company/components/company-section';
 
 interface Props {
   locale: string;
@@ -21,12 +21,12 @@ async function fetchGenreMap(locale: string): Promise<Record<number, string>> {
   try {
     const [movieRes, tvRes] = await Promise.all([
       fetchApi<{ genres: { id: number; name: string }[] }>({
-        endpoint: "genre/movie/list",
+        endpoint: 'genre/movie/list',
         revalidate: 86400,
         locale,
       }),
       fetchApi<{ genres: { id: number; name: string }[] }>({
-        endpoint: "genre/tv/list",
+        endpoint: 'genre/tv/list',
         revalidate: 86400,
         locale,
       }),
@@ -41,7 +41,7 @@ async function fetchGenreMap(locale: string): Promise<Record<number, string>> {
 }
 
 export async function HomeSections({ locale }: Props) {
-  const t = await getTranslations({ locale, namespace: "HomePage" });
+  const t = await getTranslations({ locale, namespace: 'HomePage' });
 
   const [
     popular,
@@ -54,14 +54,14 @@ export async function HomeSections({ locale }: Props) {
     popularPeople,
     genreMap,
   ] = await Promise.all([
-    safeFetch<TMDBMovie>("movie/popular", locale),
-    safeFetch<TMDBMovie>("movie/top_rated", locale),
-    safeFetch<TMDBMovie>("movie/now_playing", locale),
-    safeFetch<TMDBTV>("trending/tv/week", locale),
-    safeFetch<TMDBTV>("tv/popular", locale),
-    safeFetch<TMDBTV>("tv/airing_today", locale),
-    safeFetch<TMDBPerson>("trending/person/week", locale),
-    safeFetch<TMDBPerson>("person/popular", locale),
+    safeFetch<TMDBMovie>('movie/popular', locale),
+    safeFetch<TMDBMovie>('movie/top_rated', locale),
+    safeFetch<TMDBMovie>('movie/now_playing', locale),
+    safeFetch<TMDBTV>('trending/tv/week', locale),
+    safeFetch<TMDBTV>('tv/popular', locale),
+    safeFetch<TMDBTV>('tv/airing_today', locale),
+    safeFetch<TMDBPerson>('trending/person/week', locale),
+    safeFetch<TMDBPerson>('person/popular', locale),
     fetchGenreMap(locale),
   ]);
 
@@ -69,11 +69,7 @@ export async function HomeSections({ locale }: Props) {
     <div className="w-full app-container py-8 space-y-14">
       {/* ── Popular Movies ── Pattern B: Featured Spotlight + Carousel ── */}
       {popular.length > 0 && (
-        <FeaturedRow
-          title={t("popularMovies")}
-          spotlight={popular[0]}
-          genreMap={genreMap}
-        >
+        <FeaturedRow title={t('popularMovies')} spotlight={popular[0]} genreMap={genreMap}>
           {popular.slice(1).map((movie) => (
             <MovieCard key={movie.id} movie={movie} genreMap={genreMap} />
           ))}
@@ -83,12 +79,11 @@ export async function HomeSections({ locale }: Props) {
       {/* ── Top Rated Movies ── Pattern C: Premium Editorial ── */}
       {topRated.length > 0 && (
         <PremiumRow
-          title={t("topRated")}
-          subtitle={t("topRatedDesc")}
+          title={t('topRated')}
+          subtitle={t('topRatedDesc')}
           averageRating={
             topRated.length > 0
-              ? topRated.reduce((s, m) => s + m.vote_average, 0) /
-                topRated.length
+              ? topRated.reduce((s, m) => s + m.vote_average, 0) / topRated.length
               : undefined
           }
         >
@@ -100,10 +95,7 @@ export async function HomeSections({ locale }: Props) {
 
       {/* ── Now Playing ── Pattern D: Banner Section ── */}
       {nowPlaying.length > 0 && (
-        <BannerSection
-          title={t("nowPlaying")}
-          subtitle={t("nowPlayingDesc")}
-        >
+        <BannerSection title={t('nowPlaying')} subtitle={t('nowPlayingDesc')}>
           {nowPlaying.map((movie) => (
             <MovieCard key={movie.id} movie={movie} genreMap={genreMap} />
           ))}
@@ -117,8 +109,8 @@ export async function HomeSections({ locale }: Props) {
       {/* ── Trending TV ── Standard carousel ── */}
       {trendingTv.length > 0 && (
         <MediaRow
-          title={t("trendingTv")}
-          subtitle={t("trendingTvDesc")}
+          title={t('trendingTv')}
+          subtitle={t('trendingTvDesc')}
           slidesPerView={5}
           slidesMobilePerView={2.5}
           spaceBetween={14}
@@ -132,8 +124,8 @@ export async function HomeSections({ locale }: Props) {
       {/* ── Popular TV ── Standard carousel with different config ── */}
       {popularTv.length > 0 && (
         <MediaRow
-          title={t("popularTv")}
-          subtitle={t("popularTvDesc")}
+          title={t('popularTv')}
+          subtitle={t('popularTvDesc')}
           slidesPerView={5}
           slidesMobilePerView={2.5}
           spaceBetween={14}
@@ -146,10 +138,7 @@ export async function HomeSections({ locale }: Props) {
 
       {/* ── Airing Today ── Pattern D: Banner Section ── */}
       {airingToday.length > 0 && (
-        <BannerSection
-          title={t("airingToday")}
-          subtitle={t("airingTodayDesc")}
-        >
+        <BannerSection title={t('airingToday')} subtitle={t('airingTodayDesc')}>
           {airingToday.map((tv) => (
             <TvCard key={tv.id} tv={tv} genreMap={genreMap} />
           ))}
@@ -159,8 +148,8 @@ export async function HomeSections({ locale }: Props) {
       {/* ── Popular Actors ── Standard carousel ── */}
       {popularPeople.length > 0 && (
         <MediaRow
-          title={t("popularActors")}
-          subtitle={t("popularActorsDesc")}
+          title={t('popularActors')}
+          subtitle={t('popularActorsDesc')}
           slidesPerView={6}
           slidesMobilePerView={3}
           spaceBetween={16}

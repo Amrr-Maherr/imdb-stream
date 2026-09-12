@@ -1,41 +1,41 @@
-"use client"
+'use client';
 
-import { useState } from "react"
-import { useTranslations } from "next-intl"
-import { Mail, Lock, Eye, EyeOff, Loader2 } from "lucide-react"
-import Link from "next/link"
+import { useState } from 'react';
+import { useTranslations } from 'next-intl';
+import { Mail, Lock, Eye, EyeOff, Loader2 } from 'lucide-react';
+import Link from 'next/link';
 
-import { Button } from "@/shared/components/ui/button"
-import { Input } from "@/shared/components/ui/input"
-import { Label } from "@/shared/components/ui/label"
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/shared/components/ui/card"
+import { Button } from '@/shared/components/ui/button';
+import { Input } from '@/shared/components/ui/input';
+import { Label } from '@/shared/components/ui/label';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/shared/components/ui/card';
 
 export function SignInForm() {
-  const t = useTranslations("Auth.signIn")
-  const [showPassword, setShowPassword] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const t = useTranslations('Auth.signIn');
+  const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    setLoading(true)
-    setTimeout(() => setLoading(false), 1500)
-  }
+    e.preventDefault();
+    setLoading(true);
+    setTimeout(() => setLoading(false), 1500);
+  };
 
   return (
     <Card className="border-border/50 shadow-lg">
       <CardHeader className="items-center text-center">
-        <CardTitle>{t("heading")}</CardTitle>
+        <CardTitle>{t('heading')}</CardTitle>
       </CardHeader>
 
       <form onSubmit={handleSubmit}>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="email">{t("emailLabel")}</Label>
+            <Label htmlFor="email">{t('emailLabel')}</Label>
             <div className="relative">
               <Input
                 id="email"
                 type="email"
-                placeholder={t("emailPlaceholder")}
+                placeholder={t('emailPlaceholder')}
                 className="peer pe-9"
                 required
               />
@@ -46,12 +46,12 @@ export function SignInForm() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="password">{t("passwordLabel")}</Label>
+            <Label htmlFor="password">{t('passwordLabel')}</Label>
             <div className="relative">
               <Input
                 id="password"
-                type={showPassword ? "text" : "password"}
-                placeholder={t("passwordPlaceholder")}
+                type={showPassword ? 'text' : 'password'}
+                placeholder={t('passwordPlaceholder')}
                 className="peer pe-9"
                 required
               />
@@ -59,7 +59,7 @@ export function SignInForm() {
                 type="button"
                 onClick={() => setShowPassword((p) => !p)}
                 className="absolute inset-y-0 end-0 flex items-center justify-center pe-3 text-muted-foreground/80 hover:text-foreground transition-colors"
-                aria-label={showPassword ? t("hidePassword") : t("showPassword")}
+                aria-label={showPassword ? t('hidePassword') : t('showPassword')}
               >
                 {showPassword ? (
                   <EyeOff size={16} strokeWidth={2} aria-hidden="true" />
@@ -75,7 +75,7 @@ export function SignInForm() {
               href="/auth/forgot-password"
               className="text-sm text-brand hover:text-brand/80 transition-colors"
             >
-              {t("forgotPassword")}
+              {t('forgotPassword')}
             </Link>
           </div>
         </CardContent>
@@ -87,20 +87,20 @@ export function SignInForm() {
             disabled={loading}
           >
             {loading && <Loader2 className="animate-spin" />}
-            {loading ? t("signingIn") : t("submit")}
+            {loading ? t('signingIn') : t('submit')}
           </Button>
 
           <p className="text-sm text-muted-foreground">
-            {t("noAccount")}{" "}
+            {t('noAccount')}{' '}
             <Link
               href="/auth/signup"
               className="text-brand hover:text-brand/80 font-medium transition-colors"
             >
-              {t("createAccount")}
+              {t('createAccount')}
             </Link>
           </p>
         </CardFooter>
       </form>
     </Card>
-  )
+  );
 }

@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import { List as ListIcon, Heart, Film } from "lucide-react";
-import { useTranslations } from "next-intl";
-import { FadeIn } from "@/features/movies/components/detail/fade-in";
+import Image from 'next/image';
+import { List as ListIcon, Heart, Film } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import { FadeIn } from '@/features/movies/components/detail/fade-in';
 
 type ListHeroProps = {
   name: string;
@@ -12,13 +12,8 @@ type ListHeroProps = {
   favoriteCount: number;
 };
 
-export function ListHero({
-  name,
-  description,
-  itemCount,
-  favoriteCount,
-}: ListHeroProps) {
-  const t = useTranslations("List");
+export function ListHero({ name, description, itemCount, favoriteCount }: ListHeroProps) {
+  const t = useTranslations('List');
   return (
     <FadeIn>
       <section className="relative w-full aspect-[4/5] md:aspect-[16/9] lg:aspect-[21/9] overflow-hidden bg-gradient-to-br from-card to-background">
@@ -37,7 +32,7 @@ export function ListHero({
               <div className="min-w-0">
                 <p className="text-sm font-medium text-white/60 flex items-center gap-2">
                   <ListIcon className="size-3.5" />
-                  {t("list")}
+                  {t('list')}
                 </p>
                 <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white leading-tight mt-1">
                   {name}
@@ -52,7 +47,7 @@ export function ListHero({
                 <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-2 text-sm text-white/70">
                   <span className="inline-flex items-center gap-1">
                     <Film className="size-3.5" />
-                    {t("itemCount", { count: itemCount })}
+                    {t('itemCount', { count: itemCount })}
                   </span>
                   {favoriteCount > 0 && (
                     <>

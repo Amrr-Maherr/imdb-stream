@@ -1,21 +1,15 @@
-﻿"use client";
+﻿'use client';
 
-import {
-  Star,
-  Calendar,
-  BarChart3,
-  Users,
-  Link2,
-} from "lucide-react";
-import { useTranslations } from "next-intl";
-import type { TVSeasonDetails, TVSeason } from "@/shared/types/tmdb";
-import { MovieSection } from "@/features/movies/components/detail/movie-section";
-import { MovieExternalLinks } from "@/features/movies/components/detail/movie-external-links";
-import { MovieVideos } from "@/features/movies/components/detail/movie-videos";
-import { CrewCard } from "@/features/movies/components/detail/crew-card";
-import { FadeIn } from "@/features/movies/components/detail/fade-in";
-import { Slider } from "@/shared/components/ui/slider";
-import { TvSeasons } from "@/features/tv/components/detail/tv-seasons";
+import { Star, Calendar, BarChart3, Users, Link2 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import type { TVSeasonDetails, TVSeason } from '@/shared/types/tmdb';
+import { MovieSection } from '@/features/movies/components/detail/movie-section';
+import { MovieExternalLinks } from '@/features/movies/components/detail/movie-external-links';
+import { MovieVideos } from '@/features/movies/components/detail/movie-videos';
+import { CrewCard } from '@/features/movies/components/detail/crew-card';
+import { FadeIn } from '@/features/movies/components/detail/fade-in';
+import { Slider } from '@/shared/components/ui/slider';
+import { TvSeasons } from '@/features/tv/components/detail/tv-seasons';
 
 type SeasonSidebarColumnProps = {
   season: TVSeasonDetails;
@@ -30,8 +24,8 @@ export function SeasonSidebarColumn({
   tvSlug,
   tvId,
 }: SeasonSidebarColumnProps) {
-  const t = useTranslations("TvDetail");
-  const tm = useTranslations("MovieDetail");
+  const t = useTranslations('TvDetail');
+  const tm = useTranslations('MovieDetail');
   const allCrew = season.aggregate_credits?.crew ?? season.credits?.crew ?? [];
   const videos = season.videos?.results ?? [];
   const languages = season.episodes.reduce((acc: Set<string>, ep) => {
@@ -54,19 +48,19 @@ export function SeasonSidebarColumn({
       <FadeIn delay={0.05}>
         <div className="rounded-xl border border-border bg-card p-5">
           <h3 className="text-sm font-bold text-foreground uppercase tracking-wide mb-4">
-            {t("seasonStatistics")}
+            {t('seasonStatistics')}
           </h3>
           <div className="space-y-3">
             {season.air_date && (
               <div className="flex items-center gap-3">
                 <Calendar className="size-4 text-muted-foreground shrink-0" />
                 <div className="min-w-0">
-                  <p className="text-xs text-muted-foreground">{t("airDate")}</p>
+                  <p className="text-xs text-muted-foreground">{t('airDate')}</p>
                   <p className="text-sm text-foreground">
-                    {new Date(season.air_date).toLocaleDateString("en-US", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
+                    {new Date(season.air_date).toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric',
                     })}
                   </p>
                 </div>
@@ -75,16 +69,14 @@ export function SeasonSidebarColumn({
             <div className="flex items-center gap-3">
               <BarChart3 className="size-4 text-muted-foreground shrink-0" />
               <div className="min-w-0">
-                <p className="text-xs text-muted-foreground">{t("episodes")}</p>
-                <p className="text-sm text-foreground">
-                  {season.episodes.length}
-                </p>
+                <p className="text-xs text-muted-foreground">{t('episodes')}</p>
+                <p className="text-sm text-foreground">{season.episodes.length}</p>
               </div>
             </div>
             <div className="flex items-center gap-3">
               <Star className="size-4 text-muted-foreground shrink-0" />
               <div className="min-w-0">
-                <p className="text-xs text-muted-foreground">{t("voteAverage")}</p>
+                <p className="text-xs text-muted-foreground">{t('voteAverage')}</p>
                 <p className="text-sm text-foreground font-medium">
                   {season.vote_average.toFixed(1)}
                 </p>
@@ -96,7 +88,7 @@ export function SeasonSidebarColumn({
 
       {allCrew.length > 0 && (
         <FadeIn delay={0.1}>
-          <MovieSection title={t("crew")} icon={<Users className="size-5" />}>
+          <MovieSection title={t('crew')} icon={<Users className="size-5" />}>
             <Slider
               slidesPerView={3}
               slidesMobilePerView={4}
@@ -123,7 +115,7 @@ export function SeasonSidebarColumn({
 
       {videos.length > 0 && (
         <FadeIn delay={0.15}>
-          <MovieSection title={tm("videos")} icon={null}>
+          <MovieSection title={tm('videos')} icon={null}>
             <MovieVideos videos={videos} />
           </MovieSection>
         </FadeIn>
@@ -137,10 +129,7 @@ export function SeasonSidebarColumn({
 
       {externalIds && (
         <FadeIn delay={0.25}>
-          <MovieSection
-            title={t("externalLinks")}
-            icon={<Link2 className="size-5" />}
-          >
+          <MovieSection title={t('externalLinks')} icon={<Link2 className="size-5" />}>
             <MovieExternalLinks ids={externalIds} homepage={null} />
           </MovieSection>
         </FadeIn>

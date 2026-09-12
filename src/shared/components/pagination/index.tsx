@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import {
   Pagination,
   PaginationContent,
@@ -7,17 +7,11 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "../ui/pagination";
-import { getPageNumbers } from "@/shared/utils/pagination";
-import { useChangePage } from "@/shared/hooks/useChangePage";
+} from '../ui/pagination';
+import { getPageNumbers } from '@/shared/utils/pagination';
+import { useChangePage } from '@/shared/hooks/useChangePage';
 
-export function PaginationDemo({
-  total_pages,
-  page,
-}: {
-  total_pages: number;
-  page: number;
-}) {
+export function PaginationDemo({ total_pages, page }: { total_pages: number; page: number }) {
   const changePage = useChangePage();
   const pages = getPageNumbers(page, total_pages);
   const isFirst = page <= 1;
@@ -27,32 +21,24 @@ export function PaginationDemo({
     <Pagination>
       <PaginationContent>
         <PaginationItem
-          className={
-            isFirst ? "pointer-events-none opacity-50" : "cursor-pointer"
-          }
+          className={isFirst ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
           onClick={() => !isFirst && changePage(page - 1)}
         >
           <PaginationPrevious />
         </PaginationItem>
         {pages.map((p, i) =>
-          p === "ellipsis" ? (
+          p === 'ellipsis' ? (
             <PaginationItem key={`ellipsis-${i}`}>
               <PaginationEllipsis />
             </PaginationItem>
           ) : (
-            <PaginationItem
-              key={p}
-              className="cursor-pointer"
-              onClick={() => changePage(p)}
-            >
+            <PaginationItem key={p} className="cursor-pointer" onClick={() => changePage(p)}>
               <PaginationLink isActive={p === page}>{p}</PaginationLink>
             </PaginationItem>
-          ),
+          )
         )}
         <PaginationItem
-          className={
-            isLast ? "pointer-events-none opacity-50" : "cursor-pointer"
-          }
+          className={isLast ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
           onClick={() => !isLast && changePage(page + 1)}
         >
           <PaginationNext />

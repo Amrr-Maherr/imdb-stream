@@ -1,27 +1,27 @@
 export type FetchApiOptions = {
-    endpoint: string;
-    cache?: RequestCache;
-    revalidate?: number;
-    locale: string;
+  endpoint: string;
+  cache?: RequestCache;
+  revalidate?: number;
+  locale: string;
 };
 
 export async function fetchApi<T = any>({
-    endpoint,
-    cache = "force-cache",
-    revalidate,
-    locale,
+  endpoint,
+  cache = 'force-cache',
+  revalidate,
+  locale,
 }: FetchApiOptions): Promise<T> {
-    const separator = endpoint.includes("?") ? "&" : "?";
-    const url = `${process.env.TMDB_BASE_URL}/${endpoint}${separator}api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&include_adult=true&language=${locale}`;
+  const separator = endpoint.includes('?') ? '&' : '?';
+  const url = `${process.env.TMDB_BASE_URL}/${endpoint}${separator}api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&include_adult=true&language=${locale}`;
 
-    const res = await fetch(url, {
-        cache,
-        next: revalidate ? { revalidate } : undefined,
-    });
+  const res = await fetch(url, {
+    cache,
+    next: revalidate ? { revalidate } : undefined,
+  });
 
-    if (!res.ok) {
-        throw new Error(`Request failed: ${endpoint}`);
-    }
+  if (!res.ok) {
+    throw new Error(`Request failed: ${endpoint}`);
+  }
 
-    return res.json();
+  return res.json();
 }

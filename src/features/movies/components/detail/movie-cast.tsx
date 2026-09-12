@@ -1,24 +1,22 @@
-"use client";
+'use client';
 
-import { useTranslations } from "next-intl";
-import { Slider } from "@/shared/components/ui/slider";
-import type { CastMember } from "@/shared/types/tmdb";
-import { CastCard } from "./cast-card";
+import { useTranslations } from 'next-intl';
+import { Slider } from '@/shared/components/ui/slider';
+import type { CastMember } from '@/shared/types/tmdb';
+import { CastCard } from './cast-card';
 
 type MovieCastProps = {
   cast: CastMember[];
 };
 
 export function MovieCast({ cast }: MovieCastProps) {
-  const t = useTranslations("MovieDetail");
-  const topCast = cast
-    .filter((c) => c.known_for_department === "Acting")
-;
+  const t = useTranslations('MovieDetail');
+  const topCast = cast.filter((c) => c.known_for_department === 'Acting');
   if (topCast.length === 0) return null;
 
   return (
     <section>
-      <h2 className="text-xl font-bold text-foreground mb-4">{t("topCast")}</h2>
+      <h2 className="text-xl font-bold text-foreground mb-4">{t('topCast')}</h2>
       <Slider
         slidesPerView={6}
         slidesMobilePerView={2.5}

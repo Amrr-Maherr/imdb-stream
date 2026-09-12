@@ -1,18 +1,18 @@
-import { getTranslations } from "next-intl/server";
-import { fetchApi } from "@/shared/services/fetchApi";
-import { ErrorState } from "@/shared/components/error-state";
+import { getTranslations } from 'next-intl/server';
+import { fetchApi } from '@/shared/services/fetchApi';
+import { ErrorState } from '@/shared/components/error-state';
 import type {
   TMDBCompanyDetails,
   TMDBCompanyMovie,
   TMDBResponse,
   ExternalIds,
   Image,
-} from "@/shared/types/tmdb";
-import { ProductionCompanyHero } from "@/features/company/components/production-company-hero";
-import { ProductionCompanyOverview } from "@/features/company/components/production-company-overview";
-import { ProductionCompanyPortfolio } from "@/features/company/components/production-company-portfolio";
-import { ProductionCompanyMedia } from "@/features/company/components/production-company-media";
-import { ProductionCompanyLinks } from "@/features/company/components/production-company-links";
+} from '@/shared/types/tmdb';
+import { ProductionCompanyHero } from '@/features/company/components/production-company-hero';
+import { ProductionCompanyOverview } from '@/features/company/components/production-company-overview';
+import { ProductionCompanyPortfolio } from '@/features/company/components/production-company-portfolio';
+import { ProductionCompanyMedia } from '@/features/company/components/production-company-media';
+import { ProductionCompanyLinks } from '@/features/company/components/production-company-links';
 
 interface Props {
   params: Promise<{ locale: string; slug: string; id: string }>;
@@ -44,7 +44,7 @@ async function getCompanyExternalIds(id: string): Promise<ExternalIds | null> {
     return await fetchApi<ExternalIds>({
       endpoint: `company/${id}/external_ids`,
       revalidate: 86400,
-      locale: "en", // external ids don't need translation
+      locale: 'en', // external ids don't need translation
     });
   } catch {
     return null;
@@ -56,7 +56,7 @@ async function getCompanyImages(id: string): Promise<Image[]> {
     const data = await fetchApi<{ id: number; logos: Image[] }>({
       endpoint: `company/${id}/images`,
       revalidate: 86400,
-      locale: "en", // images don't need translation
+      locale: 'en', // images don't need translation
     });
     return data.logos;
   } catch {
@@ -73,15 +73,15 @@ export async function generateMetadata({ params }: Props) {
       description: company.description?.slice(0, 160),
     };
   } catch {
-    const t = await getTranslations({ locale, namespace: "ErrorState" });
-    return { title: t("companyNotFound") };
+    const t = await getTranslations({ locale, namespace: 'ErrorState' });
+    return { title: t('companyNotFound') };
   }
 }
 
 export default async function CompanyPage({ params }: Props) {
   const { id, locale } = await params;
 
-  const t = await getTranslations({ locale, namespace: "ErrorState" });
+  const t = await getTranslations({ locale, namespace: 'ErrorState' });
 
   let company: TMDBCompanyDetails;
   try {
@@ -89,9 +89,9 @@ export default async function CompanyPage({ params }: Props) {
   } catch {
     return (
       <ErrorState
-        title={t("companyNotFound")}
-        description={t("companyNotFoundDesc")}
-        actionLabel={t("goHome")}
+        title={t('companyNotFound')}
+        description={t('companyNotFoundDesc')}
+        actionLabel={t('goHome')}
         actionHref="/"
       />
     );
@@ -130,10 +130,7 @@ export default async function CompanyPage({ params }: Props) {
         {logos.length > 0 && <ProductionCompanyMedia logos={logos} />}
 
         {(externalIds || company.homepage) && (
-          <ProductionCompanyLinks
-            homepage={company.homepage}
-            externalIds={externalIds}
-          />
+          <ProductionCompanyLinks homepage={company.homepage} externalIds={externalIds} />
         )}
       </div>
     </div>

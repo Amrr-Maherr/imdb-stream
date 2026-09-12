@@ -1,4 +1,4 @@
-import { HeroBannerSkeleton } from "./hero-skeleton";
+import { HeroBannerSkeleton } from './hero-skeleton';
 
 function SkeletonCard() {
   return (

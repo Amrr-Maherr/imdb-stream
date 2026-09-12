@@ -1,64 +1,64 @@
-"use client"
+'use client';
 
-import { useState } from "react"
-import { useTranslations } from "next-intl"
-import { ArrowLeft, Loader2 } from "lucide-react"
-import { useForm, SubmitHandler } from "react-hook-form"
-import PhoneInput from "react-phone-number-input"
-import "react-phone-number-input/style.css"
+import { useState } from 'react';
+import { useTranslations } from 'next-intl';
+import { ArrowLeft, Loader2 } from 'lucide-react';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import PhoneInput from 'react-phone-number-input';
+import 'react-phone-number-input/style.css';
 
-import { Input } from "@/shared/components/ui/input"
-import { Label } from "@/shared/components/ui/label"
-import { Button } from "@/shared/components/ui/button"
-import usePhoneAuth from "@/features/auth/hooks/usePhoneAuth"
-import AuthStatusMessage from "@/features/auth/components/AuthStatusMessage"
+import { Input } from '@/shared/components/ui/input';
+import { Label } from '@/shared/components/ui/label';
+import { Button } from '@/shared/components/ui/button';
+import usePhoneAuth from '@/features/auth/hooks/usePhoneAuth';
+import AuthStatusMessage from '@/features/auth/components/AuthStatusMessage';
 
 export function PhoneAuth() {
-  const t = useTranslations("Auth.phone")
-  const { step, loading, firebaseError, sendOtp, verifyOtp, reset } = usePhoneAuth()
-  const [phone, setPhone] = useState<string>()
-  const [success, setSuccess] = useState(false)
+  const t = useTranslations('Auth.phone');
+  const { step, loading, firebaseError, sendOtp, verifyOtp, reset } = usePhoneAuth();
+  const [phone, setPhone] = useState<string>();
+  const [success, setSuccess] = useState(false);
 
   type OtpInputs = {
-    otp: string
-  }
+    otp: string;
+  };
 
   const {
     register: registerOtp,
     handleSubmit: handleOtpSubmit,
     formState: { errors: otpErrors },
-  } = useForm<OtpInputs>()
+  } = useForm<OtpInputs>();
 
   const onSendOtp = async () => {
-    if (!phone) return
-    await sendOtp(phone)
-  }
+    if (!phone) return;
+    await sendOtp(phone);
+  };
 
   const onVerifyOtp: SubmitHandler<OtpInputs> = async (data) => {
-    const result = await verifyOtp(data.otp)
-    if (result) setSuccess(true)
-  }
+    const result = await verifyOtp(data.otp);
+    if (result) setSuccess(true);
+  };
 
   if (success) {
     return (
       <div className="space-y-4">
         <AuthStatusMessage
-          message={t("success")}
+          message={t('success')}
           type="success"
           className="text-sm text-green-600"
         />
       </div>
-    )
+    );
   }
 
   return (
     <div className="space-y-4">
       <div id="recaptcha-container" />
 
-      {step === "phone" ? (
+      {step === 'phone' ? (
         <div className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="auth-phone">{t("phoneLabel")}</Label>
+            <Label htmlFor="auth-phone">{t('phoneLabel')}</Label>
             <PhoneInput
               international
               defaultCountry="US"
@@ -83,25 +83,25 @@ export function PhoneAuth() {
             className="w-full bg-brand text-brand-foreground hover:bg-brand/90 font-semibold"
           >
             {loading && <Loader2 className="animate-spin" />}
-            {loading ? t("sendingOtp") : t("sendOtp")}
+            {loading ? t('sendingOtp') : t('sendOtp')}
           </Button>
         </div>
       ) : (
         <form onSubmit={handleOtpSubmit(onVerifyOtp)} className="space-y-4">
           <div className="space-y-3 pt-2">
-            <Label className="text-center block">{t("otpLabel")}</Label>
+            <Label className="text-center block">{t('otpLabel')}</Label>
             <div className="relative">
               <Input
                 id="auth-otp"
                 type="text"
                 inputMode="numeric"
-                placeholder={t("otpPlaceholder")}
-                className={`text-center ${otpErrors.otp ? "border-red-700" : ""}`}
-                {...registerOtp("otp", {
-                  required: t("otpRequired"),
+                placeholder={t('otpPlaceholder')}
+                className={`text-center ${otpErrors.otp ? 'border-red-700' : ''}`}
+                {...registerOtp('otp', {
+                  required: t('otpRequired'),
                   pattern: {
                     value: /^\d{6}$/,
-                    message: t("otpPattern"),
+                    message: t('otpPattern'),
                   },
                 })}
               />
@@ -129,7 +129,7 @@ export function PhoneAuth() {
             className="w-full bg-brand text-brand-foreground hover:bg-brand/90 font-semibold"
           >
             {loading && <Loader2 className="animate-spin" />}
-            {loading ? t("verifyingOtp") : t("verifyOtp")}
+            {loading ? t('verifyingOtp') : t('verifyOtp')}
           </Button>
 
           <button
@@ -139,10 +139,10 @@ export function PhoneAuth() {
             className="flex w-full items-center justify-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors disabled:opacity-50"
           >
             <ArrowLeft size={14} />
-            {t("backToPhone")}
+            {t('backToPhone')}
           </button>
         </form>
       )}
     </div>
-  )
+  );
 }

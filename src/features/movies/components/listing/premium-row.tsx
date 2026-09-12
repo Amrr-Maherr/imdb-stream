@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { Star, Award } from "lucide-react";
-import { useTranslations } from "next-intl";
-import { Slider } from "@/shared/components/ui/slider";
+import { Star, Award } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import { Slider } from '@/shared/components/ui/slider';
 
 type PremiumRowProps = {
   title: string;
@@ -11,13 +11,8 @@ type PremiumRowProps = {
   averageRating?: number;
 };
 
-export function PremiumRow({
-  title,
-  subtitle,
-  children,
-  averageRating,
-}: PremiumRowProps) {
-  const t = useTranslations("Common");
+export function PremiumRow({ title, subtitle, children, averageRating }: PremiumRowProps) {
+  const t = useTranslations('Common');
   return (
     <section className="relative">
       <div className="flex items-end justify-between mb-4">
@@ -27,26 +22,18 @@ export function PremiumRow({
           </div>
           <div>
             <h2 className="text-xl font-bold text-foreground">{title}</h2>
-            {subtitle && (
-              <p className="text-sm text-muted-foreground mt-0.5">{subtitle}</p>
-            )}
+            {subtitle && <p className="text-sm text-muted-foreground mt-0.5">{subtitle}</p>}
           </div>
         </div>
         {averageRating && (
           <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-brand/10 text-brand text-sm font-semibold">
             <Star className="size-4 fill-brand text-brand" />
             <span>{averageRating.toFixed(1)}</span>
-            <span className="text-brand/60 text-xs font-normal">{t("avg")}</span>
+            <span className="text-brand/60 text-xs font-normal">{t('avg')}</span>
           </div>
         )}
       </div>
-      <Slider
-        slidesPerView={5}
-        slidesMobilePerView={2.5}
-        spaceBetween={14}
-        grabCursor
-        freeMode
-      >
+      <Slider slidesPerView={5} slidesMobilePerView={2.5} spaceBetween={14} grabCursor freeMode>
         {children}
       </Slider>
     </section>

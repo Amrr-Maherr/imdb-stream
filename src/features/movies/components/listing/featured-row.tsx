@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import Link from "next/link";
-import { Star } from "lucide-react";
-import type { TMDBMovie } from "@/shared/types/tmdb";
-import { slugify } from "@/shared/utils/slugify";
-import { Slider } from "@/shared/components/ui/slider";
+import Image from 'next/image';
+import Link from 'next/link';
+import { Star } from 'lucide-react';
+import type { TMDBMovie } from '@/shared/types/tmdb';
+import { slugify } from '@/shared/utils/slugify';
+import { Slider } from '@/shared/components/ui/slider';
 
-const TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p";
+const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p';
 
 type FeaturedRowProps = {
   title: string;
@@ -16,12 +16,7 @@ type FeaturedRowProps = {
   children?: React.ReactNode;
 };
 
-export function FeaturedRow({
-  title,
-  spotlight,
-  genreMap,
-  children,
-}: FeaturedRowProps) {
+export function FeaturedRow({ title, spotlight, genreMap, children }: FeaturedRowProps) {
   const year = spotlight.release_date?.slice(0, 4);
   const vote = spotlight.vote_average.toFixed(1);
   const genres = spotlight.genre_ids
@@ -94,13 +89,7 @@ export function FeaturedRow({
           </div>
         </Link>
         {children && (
-          <Slider
-            slidesPerView={5}
-            slidesMobilePerView={2.5}
-            spaceBetween={14}
-            grabCursor
-            freeMode
-          >
+          <Slider slidesPerView={5} slidesMobilePerView={2.5} spaceBetween={14} grabCursor freeMode>
             {children}
           </Slider>
         )}

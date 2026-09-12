@@ -1,32 +1,28 @@
-﻿import { getTranslations } from "next-intl/server"
-import { Shield, Settings, BarChart3, Megaphone, Cookie, Info } from "lucide-react"
-import { Card, CardContent } from "@/shared/components/ui/card"
+﻿import { getTranslations } from 'next-intl/server';
+import { Shield, Settings, BarChart3, Megaphone, Cookie, Info } from 'lucide-react';
+import { Card, CardContent } from '@/shared/components/ui/card';
 
 interface Props {
-  params: Promise<{ locale: string }>
+  params: Promise<{ locale: string }>;
 }
 
 const categoryConfig = [
-  { key: "essential", Icon: Shield },
-  { key: "functional", Icon: Settings },
-  { key: "analytics", Icon: BarChart3 },
-  { key: "advertising", Icon: Megaphone },
-] as const
+  { key: 'essential', Icon: Shield },
+  { key: 'functional', Icon: Settings },
+  { key: 'analytics', Icon: BarChart3 },
+  { key: 'advertising', Icon: Megaphone },
+] as const;
 
-const manageConfig = [
-  { key: "browserSettings" },
-  { key: "optOut" },
-  { key: "impact" },
-] as const
+const manageConfig = [{ key: 'browserSettings' }, { key: 'optOut' }, { key: 'impact' }] as const;
 
 export async function generateMetadata({ params }: Props) {
-  const { locale } = await params
-  const t = await getTranslations({ locale, namespace: "Cookies" })
-  return { title: t("title") }
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'Cookies' });
+  return { title: t('title') };
 }
 
 export default async function CookiesPage() {
-  const t = await getTranslations("Cookies")
+  const t = await getTranslations('Cookies');
 
   return (
     <div className="bg-background">
@@ -36,14 +32,12 @@ export default async function CookiesPage() {
           <div className="mx-auto max-w-3xl text-center">
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-brand/20 bg-brand/10 px-4 py-1.5 text-sm font-medium text-brand">
               <Cookie className="size-4" />
-              <span>{t("hero.subtitle")}</span>
+              <span>{t('hero.subtitle')}</span>
             </div>
             <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-              {t("hero.title")}
+              {t('hero.title')}
             </h1>
-            <p className="mt-4 text-lg text-muted-foreground sm:text-xl">
-              {t("hero.description")}
-            </p>
+            <p className="mt-4 text-lg text-muted-foreground sm:text-xl">{t('hero.description')}</p>
           </div>
         </div>
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,oklch(0.79_0.175_88_/_0.15),transparent_70%)]" />
@@ -60,8 +54,10 @@ export default async function CookiesPage() {
                     <Info className="size-6" />
                   </div>
                   <div>
-                    <h2 className="text-2xl font-semibold text-foreground">{t("intro.heading")}</h2>
-                    <p className="mt-3 text-base leading-relaxed text-muted-foreground">{t("intro.body")}</p>
+                    <h2 className="text-2xl font-semibold text-foreground">{t('intro.heading')}</h2>
+                    <p className="mt-3 text-base leading-relaxed text-muted-foreground">
+                      {t('intro.body')}
+                    </p>
                   </div>
                 </div>
               </CardContent>
@@ -74,7 +70,9 @@ export default async function CookiesPage() {
       <section className="bg-muted/50 py-16">
         <div className="app-container">
           <div className="mx-auto max-w-5xl">
-            <h2 className="mb-10 text-center text-3xl font-bold text-foreground">{t("categories.heading")}</h2>
+            <h2 className="mb-10 text-center text-3xl font-bold text-foreground">
+              {t('categories.heading')}
+            </h2>
             <div className="grid gap-6 md:grid-cols-2">
               {categoryConfig.map(({ key, Icon }) => (
                 <Card
@@ -93,7 +91,10 @@ export default async function CookiesPage() {
                     </p>
                     <ul className="mt-4 space-y-2">
                       {(t.raw(`categories.${key}.examples`) as string[]).map((example) => (
-                        <li key={example} className="flex items-center gap-2 text-xs text-muted-foreground">
+                        <li
+                          key={example}
+                          className="flex items-center gap-2 text-xs text-muted-foreground"
+                        >
                           <span className="size-1.5 shrink-0 rounded-full bg-brand/60" />
                           {example}
                         </li>
@@ -112,16 +113,14 @@ export default async function CookiesPage() {
         <div className="app-container">
           <div className="mx-auto max-w-5xl">
             <div className="mb-10 text-center">
-              <h2 className="text-3xl font-bold text-foreground">{t("manage.heading")}</h2>
-              <p className="mt-3 text-base text-muted-foreground">{t("manage.body")}</p>
+              <h2 className="text-3xl font-bold text-foreground">{t('manage.heading')}</h2>
+              <p className="mt-3 text-base text-muted-foreground">{t('manage.body')}</p>
             </div>
             <div className="grid gap-6 md:grid-cols-3">
               {manageConfig.map(({ key }) => (
                 <Card key={key} className="border-border/50 shadow-sm">
                   <CardContent className="p-6">
-                    <h3 className="text-lg font-semibold text-foreground">
-                      {t(`manage.${key}`)}
-                    </h3>
+                    <h3 className="text-lg font-semibold text-foreground">{t(`manage.${key}`)}</h3>
                     <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                       {t(`manage.${key}Desc`)}
                     </p>
@@ -144,8 +143,12 @@ export default async function CookiesPage() {
                     <Megaphone className="size-6" />
                   </div>
                   <div>
-                    <h2 className="text-2xl font-semibold text-foreground">{t("thirdParty.heading")}</h2>
-                    <p className="mt-3 text-base leading-relaxed text-muted-foreground">{t("thirdParty.body")}</p>
+                    <h2 className="text-2xl font-semibold text-foreground">
+                      {t('thirdParty.heading')}
+                    </h2>
+                    <p className="mt-3 text-base leading-relaxed text-muted-foreground">
+                      {t('thirdParty.body')}
+                    </p>
                   </div>
                 </div>
               </CardContent>
@@ -160,19 +163,23 @@ export default async function CookiesPage() {
           <div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-2">
             <Card className="border-border/50 shadow-sm">
               <CardContent className="p-6">
-                <h2 className="text-xl font-semibold text-foreground">{t("updates.heading")}</h2>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{t("updates.body")}</p>
+                <h2 className="text-xl font-semibold text-foreground">{t('updates.heading')}</h2>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                  {t('updates.body')}
+                </p>
               </CardContent>
             </Card>
             <Card className="border-border/50 shadow-sm">
               <CardContent className="p-6">
-                <h2 className="text-xl font-semibold text-foreground">{t("contact.heading")}</h2>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{t("contact.body")}</p>
+                <h2 className="text-xl font-semibold text-foreground">{t('contact.heading')}</h2>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                  {t('contact.body')}
+                </p>
               </CardContent>
             </Card>
           </div>
         </div>
       </section>
     </div>
-  )
+  );
 }

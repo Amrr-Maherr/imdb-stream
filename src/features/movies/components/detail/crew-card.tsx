@@ -1,8 +1,8 @@
-import Image from "next/image";
-import Link from "next/link";
-import { slugify } from "@/shared/utils/slugify";
+import Image from 'next/image';
+import Link from 'next/link';
+import { slugify } from '@/shared/utils/slugify';
 
-const TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p";
+const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p';
 
 type CrewCardProps = {
   id: number;
@@ -13,17 +13,9 @@ type CrewCardProps = {
   creditId: string;
 };
 
-export function CrewCard({
-  id,
-  name,
-  job,
-  profilePath,
-}: CrewCardProps) {
+export function CrewCard({ id, name, job, profilePath }: CrewCardProps) {
   return (
-    <Link
-      href={`/people/${slugify(name)}/${id}`}
-      className="group w-full text-center"
-    >
+    <Link href={`/people/${slugify(name)}/${id}`} className="group w-full text-center">
       <div className="relative size-24 mx-auto overflow-hidden rounded-full bg-muted ring-2 ring-border group-hover:ring-brand transition-all">
         {profilePath ? (
           <Image
@@ -43,9 +35,7 @@ export function CrewCard({
         <p className="text-sm font-medium text-foreground line-clamp-1 leading-tight group-hover:text-brand transition-colors">
           {name}
         </p>
-        <p className="text-xs text-muted-foreground line-clamp-1 mt-0.5">
-          {job}
-        </p>
+        <p className="text-xs text-muted-foreground line-clamp-1 mt-0.5">{job}</p>
       </div>
     </Link>
   );

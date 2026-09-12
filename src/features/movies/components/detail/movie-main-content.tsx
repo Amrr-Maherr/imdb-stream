@@ -1,22 +1,22 @@
-import { useTranslations } from "next-intl";
-import type { TMDBMovieDetails } from "@/shared/types/tmdb";
-import { Building, Users, MessageSquare, Languages, Calendar, List, Link2 } from "lucide-react";
-import { MoviePoster } from "./movie-poster";
-import { MovieOverview } from "./movie-overview";
-import { MovieSection } from "./movie-section";
-import { MovieProductionCompanies } from "./movie-production-companies";
-import { MovieCrewSection } from "./movie-crew";
-import { MovieCast } from "./movie-cast";
-import { FullCastSlider } from "./full-cast-slider";
-import { MovieVideos } from "./movie-videos";
-import { MoviePhotos } from "./movie-photos";
-import { MovieReviews } from "./movie-reviews";
-import { RelatedMovies } from "./related-movies";
-import { MovieAlternativeTitles } from "./movie-alternative-titles";
-import { MovieReleaseDates } from "./movie-release-dates";
-import { MovieLists } from "./movie-lists";
-import { MovieExternalLinks } from "./movie-external-links";
-import { FadeIn } from "./fade-in";
+import { useTranslations } from 'next-intl';
+import type { TMDBMovieDetails } from '@/shared/types/tmdb';
+import { Building, Users, MessageSquare, Languages, Calendar, List, Link2 } from 'lucide-react';
+import { MoviePoster } from './movie-poster';
+import { MovieOverview } from './movie-overview';
+import { MovieSection } from './movie-section';
+import { MovieProductionCompanies } from './movie-production-companies';
+import { MovieCrewSection } from './movie-crew';
+import { MovieCast } from './movie-cast';
+import { FullCastSlider } from './full-cast-slider';
+import { MovieVideos } from './movie-videos';
+import { MoviePhotos } from './movie-photos';
+import { MovieReviews } from './movie-reviews';
+import { RelatedMovies } from './related-movies';
+import { MovieAlternativeTitles } from './movie-alternative-titles';
+import { MovieReleaseDates } from './movie-release-dates';
+import { MovieLists } from './movie-lists';
+import { MovieExternalLinks } from './movie-external-links';
+import { FadeIn } from './fade-in';
 
 type MovieMainContentProps = {
   movie: TMDBMovieDetails;
@@ -25,7 +25,7 @@ type MovieMainContentProps = {
 };
 
 export function MovieMainContent({ movie, directorName, writers }: MovieMainContentProps) {
-  const t = useTranslations("MovieDetail");
+  const t = useTranslations('MovieDetail');
   const allCrew = movie.credits?.crew ?? [];
   const reviews = movie.reviews?.results ?? [];
   const altTitles = movie.alternative_titles?.titles ?? [];
@@ -47,7 +47,7 @@ export function MovieMainContent({ movie, directorName, writers }: MovieMainCont
 
       {movie.production_companies && movie.production_companies.length > 0 && (
         <FadeIn delay={0.05}>
-          <MovieSection title={t("productionCompanies")} icon={<Building className="size-5" />}>
+          <MovieSection title={t('productionCompanies')} icon={<Building className="size-5" />}>
             <MovieProductionCompanies companies={movie.production_companies} />
           </MovieSection>
         </FadeIn>
@@ -55,7 +55,7 @@ export function MovieMainContent({ movie, directorName, writers }: MovieMainCont
 
       {allCrew.length > 0 && (
         <FadeIn delay={0.1}>
-          <MovieSection title={t("fullCrew")} icon={<Users className="size-5" />}>
+          <MovieSection title={t('fullCrew')} icon={<Users className="size-5" />}>
             <MovieCrewSection crew={allCrew} />
           </MovieSection>
         </FadeIn>
@@ -67,7 +67,7 @@ export function MovieMainContent({ movie, directorName, writers }: MovieMainCont
 
       {movie.credits && movie.credits.cast.length > 0 && (
         <FadeIn delay={0.18}>
-          <MovieSection title={t("filmography")}>
+          <MovieSection title={t('filmography')}>
             <FullCastSlider cast={movie.credits.cast} />
           </MovieSection>
         </FadeIn>
@@ -87,23 +87,23 @@ export function MovieMainContent({ movie, directorName, writers }: MovieMainCont
 
       {reviews.length > 0 && (
         <FadeIn delay={0.3}>
-          <MovieSection title={t("reviews")} icon={<MessageSquare className="size-5" />}>
+          <MovieSection title={t('reviews')} icon={<MessageSquare className="size-5" />}>
             <MovieReviews reviews={reviews} />
           </MovieSection>
         </FadeIn>
       )}
 
       <FadeIn delay={0.35}>
-        <RelatedMovies title={t("recommendations")} movies={movie.recommendations?.results ?? []} />
+        <RelatedMovies title={t('recommendations')} movies={movie.recommendations?.results ?? []} />
       </FadeIn>
 
       <FadeIn delay={0.4}>
-        <RelatedMovies title={t("similarMovies")} movies={movie.similar?.results ?? []} />
+        <RelatedMovies title={t('similarMovies')} movies={movie.similar?.results ?? []} />
       </FadeIn>
 
       {altTitles.length > 0 && (
         <FadeIn delay={0.45}>
-          <MovieSection title={t("alternativeTitles")} icon={<Languages className="size-5" />}>
+          <MovieSection title={t('alternativeTitles')} icon={<Languages className="size-5" />}>
             <MovieAlternativeTitles titles={altTitles} />
           </MovieSection>
         </FadeIn>
@@ -111,7 +111,7 @@ export function MovieMainContent({ movie, directorName, writers }: MovieMainCont
 
       {releaseDates.length > 0 && (
         <FadeIn delay={0.5}>
-          <MovieSection title={t("releaseDates")} icon={<Calendar className="size-5" />}>
+          <MovieSection title={t('releaseDates')} icon={<Calendar className="size-5" />}>
             <MovieReleaseDates releaseDates={releaseDates} />
           </MovieSection>
         </FadeIn>
@@ -119,14 +119,14 @@ export function MovieMainContent({ movie, directorName, writers }: MovieMainCont
 
       {lists.length > 0 && (
         <FadeIn delay={0.55}>
-          <MovieSection title={t("lists")} icon={<List className="size-5" />}>
+          <MovieSection title={t('lists')} icon={<List className="size-5" />}>
             <MovieLists lists={lists} />
           </MovieSection>
         </FadeIn>
       )}
 
       <FadeIn delay={0.6}>
-        <MovieSection title={t("externalLinks")} icon={<Link2 className="size-5" />}>
+        <MovieSection title={t('externalLinks')} icon={<Link2 className="size-5" />}>
           <MovieExternalLinks ids={movie.external_ids ?? null} homepage={movie.homepage || null} />
         </MovieSection>
       </FadeIn>

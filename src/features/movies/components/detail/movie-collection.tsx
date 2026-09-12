@@ -1,10 +1,10 @@
-import { useTranslations } from "next-intl";
-import Image from "next/image";
-import Link from "next/link";
-import { Film } from "lucide-react";
-import { slugify } from "@/shared/utils/slugify";
+import { useTranslations } from 'next-intl';
+import Image from 'next/image';
+import Link from 'next/link';
+import { Film } from 'lucide-react';
+import { slugify } from '@/shared/utils/slugify';
 
-const TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p";
+const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p';
 
 type Collection = {
   id: number;
@@ -18,7 +18,7 @@ type MovieCollectionProps = {
 };
 
 export function MovieCollection({ collection }: MovieCollectionProps) {
-  const t = useTranslations("Collection");
+  const t = useTranslations('Collection');
   return (
     <div className="relative overflow-hidden rounded-xl border border-border bg-card">
       <div className="absolute inset-0">
@@ -50,16 +50,14 @@ export function MovieCollection({ collection }: MovieCollectionProps) {
         </div>
         <div className="min-w-0">
           <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-            {t("partOf")}
+            {t('partOf')}
           </p>
-          <p className="text-lg font-bold text-foreground truncate">
-            {collection.name}
-          </p>
+          <p className="text-lg font-bold text-foreground truncate">{collection.name}</p>
           <Link
             href={`/collection/${slugify(collection.name)}/${collection.id}`}
             className="mt-1 inline-flex items-center gap-1 text-sm font-medium text-brand hover:underline"
           >
-            {t("viewCollection")}
+            {t('viewCollection')}
           </Link>
         </div>
       </div>

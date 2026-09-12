@@ -1,6 +1,6 @@
-import { useTranslations } from "next-intl";
-import Link from "next/link";
-import { ExternalLink } from "lucide-react";
+import { useTranslations } from 'next-intl';
+import Link from 'next/link';
+import { ExternalLink } from 'lucide-react';
 
 type ExternalIds = {
   imdb_id: string | null;
@@ -15,11 +15,8 @@ type MovieExternalLinksProps = {
   homepage: string | null;
 };
 
-export function MovieExternalLinks({
-  ids,
-  homepage,
-}: MovieExternalLinksProps) {
-  const t = useTranslations("MovieDetail");
+export function MovieExternalLinks({ ids, homepage }: MovieExternalLinksProps) {
+  const t = useTranslations('MovieDetail');
 
   if (!ids && !homepage) return null;
 
@@ -29,35 +26,33 @@ export function MovieExternalLinks({
     href: (id: string) => string;
   }[] = [
     {
-      key: "imdb_id",
-      label: t("imdb"),
+      key: 'imdb_id',
+      label: t('imdb'),
       href: (id) => `https://www.imdb.com/title/${id}`,
     },
     {
-      key: "facebook_id",
-      label: t("facebook"),
+      key: 'facebook_id',
+      label: t('facebook'),
       href: (id) => `https://www.facebook.com/${id}`,
     },
     {
-      key: "instagram_id",
-      label: t("instagram"),
+      key: 'instagram_id',
+      label: t('instagram'),
       href: (id) => `https://www.instagram.com/${id}`,
     },
     {
-      key: "twitter_id",
-      label: t("twitterX"),
+      key: 'twitter_id',
+      label: t('twitterX'),
       href: (id) => `https://twitter.com/${id}`,
     },
     {
-      key: "wikidata_id",
-      label: t("wikidata"),
+      key: 'wikidata_id',
+      label: t('wikidata'),
       href: (id) => `https://www.wikidata.org/wiki/${id}`,
     },
   ];
 
-  const externalLinks = LINKS.filter(
-    (link) => ids?.[link.key],
-  );
+  const externalLinks = LINKS.filter((link) => ids?.[link.key]);
 
   if (externalLinks.length === 0 && !homepage) return null;
 
@@ -71,7 +66,7 @@ export function MovieExternalLinks({
           className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-card px-3 py-2 text-sm font-medium text-foreground hover:bg-muted transition-colors"
         >
           <ExternalLink className="size-3.5" />
-          {t("officialWebsite")}
+          {t('officialWebsite')}
         </Link>
       )}
       {externalLinks.map((link) => {
