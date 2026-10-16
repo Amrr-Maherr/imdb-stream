@@ -3,11 +3,13 @@
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import type { TMDBEpisodeDetails } from '@/shared/types/tmdb';
-import { Users, Film, Monitor, Link2 } from 'lucide-react';
+import { Users, Film, Link2 } from 'lucide-react';
 import { MovieSection } from '@/features/movies/components/detail/movie-section';
 import { MovieVideos } from '@/features/movies/components/detail/movie-videos';
 import { MovieExternalLinks } from '@/features/movies/components/detail/movie-external-links';
+import { MovieCast } from '@/features/movies/components/detail/movie-cast';
 import { CastCard } from '@/features/movies/components/detail/cast-card';
+import { MovieCrewSection, PRIORITY_JOBS } from '@/features/movies/components/detail/movie-crew';
 import { FadeIn } from '@/features/movies/components/detail/fade-in';
 import { Slider } from '@/shared/components/ui/slider';
 
@@ -29,30 +31,6 @@ function getProducers(crew: TMDBEpisodeDetails['crew']) {
   return crew.filter((m) => m.job === 'Producer' || m.job === 'Executive Producer');
 }
 
-function groupCrewByDepartment(crew: TMDBEpisodeDetails['crew']) {
-  const priority = [
-    'Directing',
-    'Writing',
-    'Production',
-    'Camera',
-    'Sound',
-    'Art',
-    'Editing',
-    'Costume & Make-Up',
-    'Visual Effects',
-  ];
-  const groups = new Map<string, typeof crew>();
-  for (const m of crew) {
-    const dept = m.department || 'Other';
-    if (!groups.has(dept)) groups.set(dept, []);
-    groups.get(dept)!.push(m);
-  }
-  return priority.map((d) => [d, groups.get(d)] as const).filter(([, v]) => v && v.length > 0) as [
-    string,
-    typeof crew,
-  ][];
-}
-
 export function EpisodeMainContent({ ep }: EpisodeMainContentProps) {
   const t = useTranslations('TvDetail');
   const stills = ep.images?.stills ?? [];
@@ -60,6 +38,7 @@ export function EpisodeMainContent({ ep }: EpisodeMainContentProps) {
   const director = getDirector(ep.crew);
   const writers = getWriters(ep.crew);
   const producers = getProducers(ep.crew);
+  const hasKeyCrew = ep.crew.some((m) => PRIORITY_JOBS.includes(m.job));
 
   const externalIds = ep.external_ids
     ? {
@@ -67,12 +46,12 @@ export function EpisodeMainContent({ ep }: EpisodeMainContentProps) {
         facebook_id: null as string | null,
         instagram_id: null as string | null,
         twitter_id: null as string | null,
-        wikidata_id: null as string | null,
+        wikidata_id: ep.external_ids.wikidata_id ?? null,
       }
     : null;
 
   return (
-    <div className="flex-1 min-w-0 space-y-10">
+    <div className="order-2 flex-1 min-w-0 space-y-10 lg:order-1">
       <FadeIn>
         <section>
           {ep.overview && <p className="text-muted-foreground leading-relaxed">{ep.overview}</p>}
@@ -104,8 +83,22 @@ export function EpisodeMainContent({ ep }: EpisodeMainContentProps) {
         </section>
       </FadeIn>
 
-      {ep.guest_stars.length > 0 && (
+      {hasKeyCrew && (
         <FadeIn delay={0.05}>
+          <MovieSection title={t('crew')} icon={<Users className="size-5" />}>
+            <MovieCrewSection crew={ep.crew} />
+          </MovieSection>
+        </FadeIn>
+      )}
+
+      {(ep.credits?.cast?.length ?? 0) > 0 && (
+        <FadeIn delay={0.1}>
+          <MovieCast cast={ep.credits?.cast ?? []} />
+        </FadeIn>
+      )}
+
+      {ep.guest_stars.length > 0 && (
+        <FadeIn delay={0.15}>
           <MovieSection title={t('guestStars')} icon={<Users className="size-5" />}>
             <Slider
               slidesPerView={6}
@@ -130,36 +123,14 @@ export function EpisodeMainContent({ ep }: EpisodeMainContentProps) {
         </FadeIn>
       )}
 
-      {ep.crew.length > 0 && (
-        <FadeIn delay={0.1}>
-          <MovieSection title={t('crew')} icon={<Monitor className="size-5" />}>
-            {groupCrewByDepartment(ep.crew).map(([dept, members]) => (
-              <div key={dept} className="mb-4 last:mb-0">
-                <h4 className="text-xs font-semibold text-muted-foreground uppercase mb-2">
-                  {dept}
-                </h4>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                  {members.slice(0, 6).map((m) => (
-                    <div key={m.credit_id} className="text-sm text-foreground">
-                      <p className="font-medium truncate">{m.name}</p>
-                      <p className="text-xs text-muted-foreground truncate">{m.job}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </MovieSection>
-        </FadeIn>
-      )}
-
       {videos.length > 0 && (
-        <FadeIn delay={0.15}>
+        <FadeIn delay={0.2}>
           <MovieVideos videos={videos} />
         </FadeIn>
       )}
 
       {stills.length > 0 && (
-        <FadeIn delay={0.2}>
+        <FadeIn delay={0.25}>
           <MovieSection title={t('episodeImages')} icon={<Film className="size-5" />}>
             <Slider
               slidesPerView={3}

@@ -3,12 +3,19 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
-import { ChevronLeft, ChevronRight, Hash, Film, Clock, Star } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Info, Star } from 'lucide-react';
 import type { TMDBEpisodeDetails, TVEpisode } from '@/shared/types/tmdb';
 import { FadeIn } from '@/features/movies/components/detail/fade-in';
-import { Slider } from '@/shared/components/ui/slider';
+import { FactsCard, type Fact } from '@/features/movies/components/detail/facts-card';
 
 const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p';
+
+const EPISODE_TYPE_KEYS: Record<string, string> = {
+  standard: 'episodeTypeStandard',
+  finale: 'episodeTypeFinale',
+  season_premiere: 'episodeTypeSeasonPremiere',
+  season_finale: 'episodeTypeSeasonFinale',
+};
 
 type EpisodeSidebarColumnProps = {
   ep: TMDBEpisodeDetails;
@@ -28,150 +35,130 @@ export function EpisodeSidebarColumn({
   tvId,
 }: EpisodeSidebarColumnProps) {
   const t = useTranslations('TvDetail');
-  const tc = useTranslations('Common');
   const prevEp = seasonEpisodes.find((e) => e.episode_number === currentEpisodeNumber - 1) ?? null;
   const nextEp =
     seasonEpisodes.find((e) => e.episode_number === currentEpisodeNumber + 1) ?? null;
 
-  const moreEpisodes = seasonEpisodes
-    .filter((e) => e.episode_number !== currentEpisodeNumber)
-    .slice(0, 12);
+  const typeKey = ep.episode_type ? EPISODE_TYPE_KEYS[ep.episode_type] : undefined;
+
+  const facts: Fact[] = [{ label: t('season'), value: seasonNumber }];
+  facts.push({ label: t('episode'), value: ep.episode_number });
+  if (typeKey) facts.push({ label: t('type'), value: t(typeKey) });
+  if (ep.air_date) {
+    facts.push({
+      label: t('airDate'),
+      value: new Date(ep.air_date).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      }),
+    });
+  }
+  if (ep.runtime != null && ep.runtime > 0) {
+    facts.push({ label: t('episodeRuntime'), value: t('runtimeMin', { runtime: ep.runtime }) });
+  }
+  if (ep.vote_count > 0) {
+    facts.push({
+      label: t('voteAverage'),
+      value: (
+        <span className="inline-flex items-center gap-1.5">
+          <Star className="size-3.5 fill-rating-star text-rating-star" />
+          <span className="font-medium">{ep.vote_average.toFixed(1)}</span>
+          <span className="text-muted-foreground">({ep.vote_count.toLocaleString()})</span>
+        </span>
+      ),
+    });
+  }
+  if (ep.production_code) {
+    facts.push({ label: t('productionCode'), value: ep.production_code });
+  }
 
   return (
-    <div className="w-full lg:w-80 xl:w-96 flex-shrink-0 space-y-8">
+    <aside className="order-1 w-full space-y-6 lg:sticky lg:top-20 lg:order-2 lg:w-80 xl:w-96 lg:flex-shrink-0 lg:self-start">
       <FadeIn delay={0.05}>
-        <div className="rounded-xl border border-border bg-card p-5">
-          <h3 className="text-sm font-bold text-foreground uppercase tracking-wide mb-4">
-            {t('episodeInfo')}
-          </h3>
-          <div className="space-y-3">
-            <div className="flex items-center gap-3">
-              <Hash className="size-4 text-muted-foreground shrink-0" />
-              <div className="min-w-0">
-                <p className="text-xs text-muted-foreground">{t('season')}</p>
-                <p className="text-sm text-foreground">{seasonNumber}</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <Film className="size-4 text-muted-foreground shrink-0" />
-              <div className="min-w-0">
-                <p className="text-xs text-muted-foreground">{t('episode')}</p>
-                <p className="text-sm text-foreground">{ep.episode_number}</p>
-              </div>
-            </div>
-            {ep.runtime != null && ep.runtime > 0 && (
-              <div className="flex items-center gap-3">
-                <Clock className="size-4 text-muted-foreground shrink-0" />
-                <div className="min-w-0">
-                  <p className="text-xs text-muted-foreground">{t('episodeRuntime')}</p>
-                  <p className="text-sm text-foreground">
-                    {t('runtimeMin', { runtime: ep.runtime })}
-                  </p>
-                </div>
-              </div>
-            )}
-            {ep.production_code && (
-              <div className="flex items-center gap-3">
-                <Hash className="size-4 text-muted-foreground shrink-0" />
-                <div className="min-w-0">
-                  <p className="text-xs text-muted-foreground">{t('productionCode')}</p>
-                  <p className="text-sm text-foreground">{ep.production_code}</p>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
+        <FactsCard title={t('episodeInfo')} icon={<Info className="size-4" />} facts={facts} />
       </FadeIn>
 
       {(prevEp || nextEp) && (
         <FadeIn delay={0.1}>
           <div className="flex flex-col gap-3">
             {prevEp && (
-              <Link
-                href={`/tv-shows/${slug}/${tvId}/season/${seasonNumber}/episode/${prevEp.episode_number}`}
-                className="flex items-center gap-3 rounded-xl border border-border bg-card p-4 hover:bg-muted transition-colors group"
-              >
-                <ChevronLeft className="size-5 text-muted-foreground shrink-0 rtl:rotate-180" />
-                <div className="min-w-0">
-                  <p className="text-[10px] text-muted-foreground uppercase">
-                    {t('previousEpisode')}
-                  </p>
-                  <p className="text-sm font-medium text-foreground truncate group-hover:text-brand transition-colors">
-                    {prevEp.name}
-                  </p>
-                </div>
-              </Link>
+              <EpisodeNavLink
+                episode={prevEp}
+                label={t('previousEpisode')}
+                direction="prev"
+                slug={slug}
+                tvId={tvId}
+                seasonNumber={seasonNumber}
+              />
             )}
-
             {nextEp && (
-              <Link
-                href={`/tv-shows/${slug}/${tvId}/season/${seasonNumber}/episode/${nextEp.episode_number}`}
-                className="flex items-center gap-3 rounded-xl border border-border bg-card p-4 hover:bg-muted transition-colors group"
-              >
-                <div className="min-w-0 flex-1 text-end">
-                  <p className="text-[10px] text-muted-foreground uppercase">{t('nextEpisode')}</p>
-                  <p className="text-sm font-medium text-foreground truncate group-hover:text-brand transition-colors">
-                    {nextEp.name}
-                  </p>
-                </div>
-                <ChevronRight className="size-5 text-muted-foreground shrink-0 rtl:rotate-180" />
-              </Link>
+              <EpisodeNavLink
+                episode={nextEp}
+                label={t('nextEpisode')}
+                direction="next"
+                slug={slug}
+                tvId={tvId}
+                seasonNumber={seasonNumber}
+              />
             )}
           </div>
         </FadeIn>
       )}
+    </aside>
+  );
+}
 
-      {moreEpisodes.length > 0 && (
-        <FadeIn delay={0.15}>
-          <div>
-            <h3 className="text-sm font-bold text-foreground uppercase tracking-wide mb-4">
-              {t('moreEpisodes')}
-            </h3>
-            <Slider
-              slidesPerView={2}
-              slidesMobilePerView={2}
-              spaceBetween={12}
-              grabCursor
-              freeMode
-              className="-mx-4 sm:-mx-0 px-4 sm:px-0 pb-2"
-            >
-              {moreEpisodes.map((episode) => (
-                <Link
-                  key={episode.id}
-                  href={`/tv-shows/${slug}/${tvId}/season/${seasonNumber}/episode/${episode.episode_number}`}
-                  className="group"
-                >
-                  <div className="relative aspect-video w-full overflow-hidden rounded-lg bg-muted mb-1.5">
-                    {episode.still_path ? (
-                      <Image
-                        src={`${TMDB_IMAGE_BASE}/w300${episode.still_path}`}
-                        alt={episode.name}
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 640px) 50vw, 150px"
-                      />
-                    ) : (
-                      <div className="flex h-full items-center justify-center text-[10px] text-muted-foreground">
-                        {tc('noImage')}
-                      </div>
-                    )}
-                    <div className="absolute top-1 left-1 rounded bg-black/70 px-1 py-0.5 text-[10px] font-medium text-white">
-                      {episode.episode_number}
-                    </div>
-                  </div>
-                  <p className="text-xs font-medium text-foreground truncate group-hover:text-brand transition-colors leading-tight">
-                    {episode.name}
-                  </p>
-                  <div className="flex items-center gap-1 text-[10px] text-muted-foreground mt-0.5">
-                    <Star className="size-2.5 fill-yellow-400 text-yellow-400" />
-                    <span>{episode.vote_average.toFixed(1)}</span>
-                  </div>
-                </Link>
-              ))}
-            </Slider>
+type EpisodeNavLinkProps = {
+  episode: TVEpisode;
+  label: string;
+  direction: 'prev' | 'next';
+  slug: string;
+  tvId: string;
+  seasonNumber: string;
+};
+
+function EpisodeNavLink({
+  episode,
+  label,
+  direction,
+  slug,
+  tvId,
+  seasonNumber,
+}: EpisodeNavLinkProps) {
+  const tc = useTranslations('Common');
+  const isPrev = direction === 'prev';
+  const Chevron = isPrev ? ChevronLeft : ChevronRight;
+
+  return (
+    <Link
+      href={`/tv-shows/${slug}/${tvId}/season/${seasonNumber}/episode/${episode.episode_number}`}
+      className={`group flex items-center gap-3 rounded-xl border border-border bg-card p-3 transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
+        isPrev ? '' : 'flex-row-reverse'
+      }`}
+    >
+      <Chevron className="size-5 shrink-0 text-muted-foreground rtl:rotate-180" />
+      <div className="relative aspect-video w-20 flex-shrink-0 overflow-hidden rounded-md bg-muted">
+        {episode.still_path ? (
+          <Image
+            src={`${TMDB_IMAGE_BASE}/w200${episode.still_path}`}
+            alt={episode.name}
+            fill
+            className="object-cover"
+            sizes="80px"
+          />
+        ) : (
+          <div className="flex h-full items-center justify-center text-[10px] text-muted-foreground">
+            {tc('noImage')}
           </div>
-        </FadeIn>
-      )}
-    </div>
+        )}
+      </div>
+      <div className={`min-w-0 flex-1 ${isPrev ? '' : 'text-end'}`}>
+        <p className="text-[10px] uppercase tracking-wide text-muted-foreground">{label}</p>
+        <p className="truncate text-sm font-medium text-foreground transition-colors group-hover:text-brand">
+          {episode.episode_number}. {episode.name}
+        </p>
+      </div>
+    </Link>
   );
 }

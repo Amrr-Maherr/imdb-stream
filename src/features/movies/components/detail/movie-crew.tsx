@@ -16,7 +16,7 @@ type MovieCrewSectionProps = {
   crew: CrewMember[];
 };
 
-const PRIORITY_JOBS = [
+export const PRIORITY_JOBS = [
   'Director',
   'Screenplay',
   'Writer',

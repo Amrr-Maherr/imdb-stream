@@ -5,6 +5,7 @@ import type { TMDBEpisodeDetails, TVSeasonDetails, TMDBTVDetails } from '@/share
 import { EpisodeHero } from '@/features/tv/components/episode/episode-hero';
 import { EpisodeMainContent } from '@/features/tv/components/episode/episode-main-content';
 import { EpisodeSidebarColumn } from '@/features/tv/components/episode/episode-sidebar-column';
+import { EpisodeMoreEpisodes } from '@/features/tv/components/episode/episode-more-episodes';
 
 interface Props {
   params: Promise<{
@@ -108,6 +109,16 @@ export default async function EpisodePage({ params }: Props) {
             currentEpisodeNumber={ep.episode_number}
             slug={slug}
             tvId={id}
+          />
+        </div>
+
+        <div className="mt-12 lg:mt-16">
+          <EpisodeMoreEpisodes
+            episodes={season?.episodes ?? []}
+            currentEpisodeNumber={ep.episode_number}
+            slug={slug}
+            tvId={id}
+            seasonNumber={seasonNumber}
           />
         </div>
       </div>

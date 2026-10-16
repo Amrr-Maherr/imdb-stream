@@ -456,6 +456,7 @@ export type TVEpisode = {
   still_path: string | null;
   air_date: string | null;
   episode_number: number;
+  episode_type?: string;
   season_number: number;
   vote_average: number;
   vote_count: number;
@@ -487,7 +488,11 @@ export type TVSeasonDetails = {
 export type TMDBEpisodeDetails = TVEpisode & {
   videos?: { results: Video[] };
   images?: { stills: Image[] };
-  external_ids?: { tvdb_id: number | null; imdb_id: string | null };
+  external_ids?: {
+    tvdb_id?: number | null;
+    imdb_id: string | null;
+    wikidata_id?: string | null;
+  };
   credits?: Credits;
 };
 
