@@ -50,12 +50,17 @@ export function TvMainContent({ show, slug, creators }: TvMainContentProps) {
   return (
     <div className="flex-1 min-w-0 space-y-10">
       <FadeIn>
-        <div className="flex flex-col sm:flex-row gap-6">
-          <div className="flex-shrink-0 w-full max-w-[200px] mx-auto sm:mx-0">
+        <div className="flex flex-col sm:flex-row gap-6 lg:gap-8">
+          <div className="flex-shrink-0 w-full max-w-[160px] sm:max-w-[190px] lg:max-w-[210px] mx-auto sm:mx-0">
             <MoviePoster posterPath={show.poster_path} title={show.name} priority />
           </div>
           <div className="flex-1 min-w-0">
-            <MovieOverview overview={show.overview} director={null} writers={creators} />
+            <MovieOverview
+              overview={show.overview}
+              director={null}
+              writers={creators}
+              writersLabel={t('createdBy')}
+            />
           </div>
         </div>
       </FadeIn>

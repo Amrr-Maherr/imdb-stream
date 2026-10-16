@@ -2,8 +2,9 @@
 
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
-import { Monitor, Flag, Globe, ShieldCheck } from 'lucide-react';
+import { Monitor, Flag, Globe, ShieldCheck, Info } from 'lucide-react';
 import { MovieRating } from '@/features/movies/components/detail/movie-rating';
+import { FactsCard, type Fact } from '@/features/movies/components/detail/facts-card';
 import { slugify } from '@/shared/utils/slugify';
 
 type TvSidebarProps = {
@@ -60,6 +61,128 @@ export function TvSidebar({
   const t = useTranslations('TvDetail');
   const tm = useTranslations('MovieDetail');
   const tc = useTranslations('Common');
+
+  const facts: Fact[] = [];
+  if (status) facts.push({ label: t('status'), value: status });
+  if (type) facts.push({ label: t('type'), value: type });
+  if (firstAirDate) {
+    facts.push({
+      label: t('firstAirDate'),
+      value: new Date(firstAirDate).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      }),
+    });
+  }
+  if (lastAirDate) {
+    facts.push({
+      label: t('lastAirDate'),
+      value: new Date(lastAirDate).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      }),
+    });
+  }
+  if (numberOfSeasons > 0) facts.push({ label: t('seasons'), value: numberOfSeasons });
+  if (numberOfEpisodes > 0) facts.push({ label: t('episodes'), value: numberOfEpisodes });
+  if (episodeRuntime.length > 0) {
+    facts.push({ label: t('episodeRuntime'), value: t('runtimeMin', { runtime: episodeRuntime[0] }) });
+  }
+  if (originalLanguage) {
+    facts.push({ label: tm('originalLanguage'), value: originalLanguage.toUpperCase() });
+  }
+  if (inProduction) {
+    facts.push({
+      label: t('inProduction'),
+      value: (
+        <span className="inline-flex items-center gap-1">
+          <ShieldCheck className="size-3.5 shrink-0 text-muted-foreground" />
+          {tc('yes')}
+        </span>
+      ),
+    });
+  }
+  if (createdBy.length > 0) {
+    facts.push({
+      label: t('createdBy'),
+      value: (
+        <span className="flex flex-col gap-0.5">
+          {createdBy.map((name) => (
+            <span key={name}>{name}</span>
+          ))}
+        </span>
+      ),
+    });
+  }
+  if (originalName !== name) {
+    facts.push({ label: t('originalName'), value: originalName });
+  }
+  if (originCountry?.length > 0) {
+    facts.push({
+      label: tm('originCountry'),
+      value: (
+        <span className="inline-flex items-start gap-1">
+          <Flag className="mt-0.5 size-3.5 shrink-0 text-muted-foreground" />
+          {originCountry.join(', ')}
+        </span>
+      ),
+    });
+  }
+  if (productionCountries?.length > 0) {
+    facts.push({
+      label: tm('productionCountries'),
+      value: (
+        <span className="inline-flex items-start gap-1">
+          <Globe className="mt-0.5 size-3.5 shrink-0 text-muted-foreground" />
+          {productionCountries.map((pc) => pc.name).join(', ')}
+        </span>
+      ),
+    });
+  }
+  if (networks.length > 0) {
+    facts.push({
+      label: t('network'),
+      value: (
+        <span className="flex flex-col gap-0.5">
+          {networks.map((n) => (
+            <Link
+              key={n.id}
+              href={`/company/${slugify(n.name)}/${n.id}`}
+              className="inline-flex items-center gap-1 hover:text-brand transition-colors"
+            >
+              <Monitor className="size-3.5 shrink-0 text-muted-foreground" />
+              {n.name}
+            </Link>
+          ))}
+        </span>
+      ),
+    });
+  }
+  if (productionCompanies.length > 0) {
+    facts.push({
+      label: tm('production'),
+      value: (
+        <span className="flex flex-col gap-0.5">
+          {productionCompanies.map((c) => (
+            <Link
+              key={c.id}
+              href={`/company/${slugify(c.name)}/${c.id}`}
+              className="hover:text-brand transition-colors"
+            >
+              {c.name}
+            </Link>
+          ))}
+        </span>
+      ),
+    });
+  }
+  facts.push({
+    label: tm('languages'),
+    value: tm('languagesCount', { count: spokenLanguagesCount, translations: translationsCount }),
+  });
+
   return (
     <aside className="space-y-8">
       {/* Rating Card */}
@@ -68,187 +191,7 @@ export function TvSidebar({
       </div>
 
       {/* TV Facts */}
-      <div>
-        <h3 className="text-sm font-bold text-foreground uppercase tracking-wide mb-3">
-          {tm('facts')}
-        </h3>
-        <div className="space-y-3">
-          {status && (
-            <div>
-              <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                {t('status')}
-              </h4>
-              <p className="text-sm text-foreground mt-0.5">{status}</p>
-            </div>
-          )}
-          {type && (
-            <div>
-              <h4 className="text-xs font-semibold text-muted-foreground uppercase">{t('type')}</h4>
-              <p className="text-sm text-foreground mt-0.5">{type}</p>
-            </div>
-          )}
-          {firstAirDate && (
-            <div>
-              <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                {t('firstAirDate')}
-              </h4>
-              <p className="text-sm text-foreground mt-0.5">
-                {new Date(firstAirDate).toLocaleDateString('en-US', {
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric',
-                })}
-              </p>
-            </div>
-          )}
-          {lastAirDate && (
-            <div>
-              <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                {t('lastAirDate')}
-              </h4>
-              <p className="text-sm text-foreground mt-0.5">
-                {new Date(lastAirDate).toLocaleDateString('en-US', {
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric',
-                })}
-              </p>
-            </div>
-          )}
-          {numberOfSeasons > 0 && (
-            <div>
-              <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                {t('seasons')}
-              </h4>
-              <p className="text-sm text-foreground mt-0.5">{numberOfSeasons}</p>
-            </div>
-          )}
-          {numberOfEpisodes > 0 && (
-            <div>
-              <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                {t('episodes')}
-              </h4>
-              <p className="text-sm text-foreground mt-0.5">{numberOfEpisodes}</p>
-            </div>
-          )}
-          {episodeRuntime.length > 0 && (
-            <div>
-              <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                {t('episodeRuntime')}
-              </h4>
-              <p className="text-sm text-foreground mt-0.5">
-                {t('runtimeMin', { runtime: episodeRuntime[0] })}
-              </p>
-            </div>
-          )}
-          {originalLanguage && (
-            <div>
-              <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                {tm('originalLanguage')}
-              </h4>
-              <p className="text-sm text-foreground mt-0.5 uppercase">{originalLanguage}</p>
-            </div>
-          )}
-          {inProduction && (
-            <div>
-              <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                {t('inProduction')}
-              </h4>
-              <p className="text-sm text-foreground mt-0.5 flex items-center gap-1">
-                <ShieldCheck className="size-3.5" />
-                {tc('yes')}
-              </p>
-            </div>
-          )}
-          {createdBy.length > 0 && (
-            <div>
-              <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                {t('createdBy')}
-              </h4>
-              <div className="text-sm text-foreground mt-0.5 space-y-0.5">
-                {createdBy.map((name) => (
-                  <p key={name}>{name}</p>
-                ))}
-              </div>
-            </div>
-          )}
-          {originalName !== name && (
-            <div>
-              <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                {t('originalName')}
-              </h4>
-              <p className="text-sm text-foreground mt-0.5">{originalName}</p>
-            </div>
-          )}
-          {originCountry?.length > 0 && (
-            <div>
-              <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                {tm('originCountry')}
-              </h4>
-              <p className="text-sm text-foreground mt-0.5 flex items-center gap-1">
-                <Flag className="size-3.5" />
-                {originCountry.join(', ')}
-              </p>
-            </div>
-          )}
-          {productionCountries?.length > 0 && (
-            <div>
-              <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                {tm('productionCountries')}
-              </h4>
-              <p className="text-sm text-foreground mt-0.5 flex items-center gap-1">
-                <Globe className="size-3.5" />
-                {productionCountries.map((pc) => pc.name).join(', ')}
-              </p>
-            </div>
-          )}
-          {networks.length > 0 && (
-            <div>
-              <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                {t('network')}
-              </h4>
-              <div className="text-sm text-foreground mt-0.5">
-                {networks.map((n) => (
-                  <Link
-                    key={n.id}
-                    href={`/company/${slugify(n.name)}/${n.id}`}
-                    className="flex items-center gap-1 hover:text-brand transition-colors"
-                  >
-                    <Monitor className="size-3.5 text-muted-foreground" />
-                    {n.name}
-                  </Link>
-                ))}
-              </div>
-            </div>
-          )}
-          {productionCompanies.length > 0 && (
-            <div>
-              <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                {tm('production')}
-              </h4>
-              <div className="text-sm text-foreground mt-0.5 space-y-0.5">
-                {productionCompanies.map((c) => (
-                  <Link
-                    key={c.id}
-                    href={`/company/${slugify(c.name)}/${c.id}`}
-                    className="block hover:text-brand transition-colors"
-                  >
-                    {c.name}
-                  </Link>
-                ))}
-              </div>
-            </div>
-          )}
-          <div>
-            <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-              {tm('languages')}
-            </h4>
-            <p className="text-sm text-foreground mt-0.5">
-              {spokenLanguagesCount} spoken · {translationsCount} translations
-            </p>
-          </div>
-        </div>
-      </div>
+      <FactsCard title={tm('facts')} icon={<Info className="size-4" />} facts={facts} />
 
       {/* Keywords */}
       {keywords.length > 0 && (
