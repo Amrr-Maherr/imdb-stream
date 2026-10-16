@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
-import { ChevronLeft, Hash, Film, Clock, Star } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Hash, Film, Clock, Star } from 'lucide-react';
 import type { TMDBEpisodeDetails, TVEpisode } from '@/shared/types/tmdb';
 import { FadeIn } from '@/features/movies/components/detail/fade-in';
 import { Slider } from '@/shared/components/ui/slider';
@@ -30,6 +30,8 @@ export function EpisodeSidebarColumn({
   const t = useTranslations('TvDetail');
   const tc = useTranslations('Common');
   const prevEp = seasonEpisodes.find((e) => e.episode_number === currentEpisodeNumber - 1) ?? null;
+  const nextEp =
+    seasonEpisodes.find((e) => e.episode_number === currentEpisodeNumber + 1) ?? null;
 
   const moreEpisodes = seasonEpisodes
     .filter((e) => e.episode_number !== currentEpisodeNumber)
@@ -81,20 +83,41 @@ export function EpisodeSidebarColumn({
         </div>
       </FadeIn>
 
-      {prevEp && (
+      {(prevEp || nextEp) && (
         <FadeIn delay={0.1}>
-          <Link
-            href={`/tv-shows/${slug}/${tvId}/season/${seasonNumber}/episode/${prevEp.episode_number}`}
-            className="flex items-center gap-3 rounded-xl border border-border bg-card p-4 hover:bg-muted transition-colors group"
-          >
-            <ChevronLeft className="size-5 text-muted-foreground shrink-0" />
-            <div className="min-w-0">
-              <p className="text-[10px] text-muted-foreground uppercase">{t('previousEpisode')}</p>
-              <p className="text-sm font-medium text-foreground truncate group-hover:text-brand transition-colors">
-                {prevEp.name}
-              </p>
-            </div>
-          </Link>
+          <div className="flex flex-col gap-3">
+            {prevEp && (
+              <Link
+                href={`/tv-shows/${slug}/${tvId}/season/${seasonNumber}/episode/${prevEp.episode_number}`}
+                className="flex items-center gap-3 rounded-xl border border-border bg-card p-4 hover:bg-muted transition-colors group"
+              >
+                <ChevronLeft className="size-5 text-muted-foreground shrink-0 rtl:rotate-180" />
+                <div className="min-w-0">
+                  <p className="text-[10px] text-muted-foreground uppercase">
+                    {t('previousEpisode')}
+                  </p>
+                  <p className="text-sm font-medium text-foreground truncate group-hover:text-brand transition-colors">
+                    {prevEp.name}
+                  </p>
+                </div>
+              </Link>
+            )}
+
+            {nextEp && (
+              <Link
+                href={`/tv-shows/${slug}/${tvId}/season/${seasonNumber}/episode/${nextEp.episode_number}`}
+                className="flex items-center gap-3 rounded-xl border border-border bg-card p-4 hover:bg-muted transition-colors group"
+              >
+                <div className="min-w-0 flex-1 text-end">
+                  <p className="text-[10px] text-muted-foreground uppercase">{t('nextEpisode')}</p>
+                  <p className="text-sm font-medium text-foreground truncate group-hover:text-brand transition-colors">
+                    {nextEp.name}
+                  </p>
+                </div>
+                <ChevronRight className="size-5 text-muted-foreground shrink-0 rtl:rotate-180" />
+              </Link>
+            )}
+          </div>
         </FadeIn>
       )}
 

@@ -1,8 +1,9 @@
 ﻿'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { useTranslations } from 'next-intl';
-import { Star, Clock, Calendar } from 'lucide-react';
+import { Star, Clock, Calendar, ChevronLeft } from 'lucide-react';
 import { FadeIn } from '@/features/movies/components/detail/fade-in';
 
 const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p';
@@ -10,6 +11,9 @@ const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p';
 type EpisodeHeroProps = {
   stillPath: string | null;
   name: string;
+  tvName: string;
+  tvSlug: string;
+  tvId: string;
   seasonNumber: string;
   episodeNumber: number;
   voteAverage: number;
@@ -21,6 +25,9 @@ type EpisodeHeroProps = {
 export function EpisodeHero({
   stillPath,
   name,
+  tvName,
+  tvSlug,
+  tvId,
   seasonNumber,
   episodeNumber,
   voteAverage,
@@ -47,15 +54,41 @@ export function EpisodeHero({
 
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10" />
         <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent" />
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-black/60 to-transparent" />
 
         <div className="absolute bottom-0 left-0 right-0 z-10 pb-8 md:pb-12">
           <div className="w-full mx-auto app-container">
             <div className="flex items-start gap-4">
               <div className="min-w-0 flex-1">
-                <p className="text-sm font-medium text-white/60">
-                  {t('season')} {seasonNumber} · {t('episode')} {episodeNumber}
-                </p>
-                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white leading-tight mt-1">
+                <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-sm font-medium text-white/70">
+                  {tvName && (
+                    <>
+                      <Link
+                        href={`/tv-shows/${tvSlug}/${tvId}`}
+                        className="inline-flex items-center gap-1 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 rounded-sm"
+                      >
+                        <ChevronLeft className="size-3.5 rtl:rotate-180" />
+                        {tvName}
+                      </Link>
+                      <span className="text-white/40" aria-hidden="true">
+                        ·
+                      </span>
+                    </>
+                  )}
+                  <Link
+                    href={`/tv-shows/${tvSlug}/${tvId}/season/${seasonNumber}`}
+                    className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 rounded-sm"
+                  >
+                    {t('season')} {seasonNumber}
+                  </Link>
+                  <span className="text-white/40" aria-hidden="true">
+                    ·
+                  </span>
+                  <span className="text-white/50">
+                    {t('episode')} {episodeNumber}
+                  </span>
+                </div>
+                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white leading-tight mt-1 break-words">
                   {name}
                 </h1>
 

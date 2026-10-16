@@ -1,7 +1,7 @@
 import { getTranslations } from 'next-intl/server';
 import { fetchApi } from '@/shared/services/fetchApi';
 import { ErrorState } from '@/shared/components/error-state';
-import type { TMDBEpisodeDetails, TVSeasonDetails } from '@/shared/types/tmdb';
+import type { TMDBEpisodeDetails, TVSeasonDetails, TMDBTVDetails } from '@/shared/types/tmdb';
 import { EpisodeHero } from '@/features/tv/components/episode/episode-hero';
 import { EpisodeMainContent } from '@/features/tv/components/episode/episode-main-content';
 import { EpisodeSidebarColumn } from '@/features/tv/components/episode/episode-sidebar-column';
@@ -40,6 +40,14 @@ async function getSeason(tvId: string, seasonNumber: string, locale: string) {
   });
 }
 
+async function getTvShow(tvId: string, locale: string) {
+  return fetchApi<TMDBTVDetails>({
+    endpoint: `tv/${tvId}`,
+    revalidate: 3600,
+    locale,
+  });
+}
+
 export async function generateMetadata({ params }: Props) {
   const { id, seasonNumber, episodeNumber, locale } = await params;
   try {
@@ -57,10 +65,12 @@ export default async function EpisodePage({ params }: Props) {
 
   let ep: TMDBEpisodeDetails;
   let season: TVSeasonDetails | null = null;
+  let tvShow: TMDBTVDetails | null = null;
   try {
-    [ep, season] = await Promise.all([
+    [ep, season, tvShow] = await Promise.all([
       getEpisode(id, seasonNumber, episodeNumber, locale),
       getSeason(id, seasonNumber, locale).catch(() => null),
+      getTvShow(id, locale).catch(() => null),
     ]);
   } catch {
     return (
@@ -77,6 +87,9 @@ export default async function EpisodePage({ params }: Props) {
       <EpisodeHero
         stillPath={ep.still_path}
         name={ep.name}
+        tvName={tvShow?.name ?? ''}
+        tvSlug={slug}
+        tvId={id}
         seasonNumber={seasonNumber}
         episodeNumber={ep.episode_number}
         voteAverage={ep.vote_average}
