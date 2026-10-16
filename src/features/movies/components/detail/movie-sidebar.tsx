@@ -1,7 +1,8 @@
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
-import { DollarSign, TrendingUp, Flag, Globe, ShieldCheck } from 'lucide-react';
+import { DollarSign, TrendingUp, Flag, Globe, ShieldCheck, Info } from 'lucide-react';
 import { MovieRating } from './movie-rating';
+import { FactsCard, type Fact } from './facts-card';
 import { slugify } from '@/shared/utils/slugify';
 
 type MovieSidebarProps = {
@@ -54,6 +55,117 @@ export function MovieSidebar({
   adult,
 }: MovieSidebarProps) {
   const t = useTranslations('MovieDetail');
+
+  const facts: Fact[] = [];
+  if (status) facts.push({ label: t('status'), value: status });
+  if (releaseDate) {
+    facts.push({
+      label: t('releaseDate'),
+      value: new Date(releaseDate).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      }),
+    });
+  }
+  if (originalLanguage) {
+    facts.push({ label: t('originalLanguage'), value: originalLanguage.toUpperCase() });
+  }
+  if (budget > 0) {
+    facts.push({
+      label: t('budget'),
+      value: (
+        <span className="inline-flex items-center gap-1">
+          <DollarSign className="size-3.5 shrink-0 text-muted-foreground" />
+          {formatCurrency(budget)}
+        </span>
+      ),
+    });
+  }
+  if (revenue > 0) {
+    facts.push({
+      label: t('revenue'),
+      value: (
+        <span className="inline-flex items-center gap-1">
+          <DollarSign className="size-3.5 shrink-0 text-muted-foreground" />
+          {formatCurrency(revenue)}
+        </span>
+      ),
+    });
+  }
+  if (budget > 0 && revenue > 0) {
+    facts.push({
+      label: t('profit'),
+      value: (
+        <span className="inline-flex items-center gap-1">
+          <TrendingUp className="size-3.5 shrink-0 text-muted-foreground" />
+          {formatCurrency(revenue - budget)}
+        </span>
+      ),
+    });
+  }
+  if (originalTitle !== title) {
+    facts.push({ label: t('originalTitle'), value: originalTitle });
+  }
+  if (productionCompanies.length > 0) {
+    facts.push({
+      label: t('production'),
+      value: (
+        <span className="flex flex-col gap-0.5">
+          {productionCompanies.map((c) => (
+            <Link
+              key={c.id}
+              href={`/company/${slugify(c.name)}/${c.id}`}
+              className="hover:text-brand transition-colors"
+            >
+              {c.name}
+            </Link>
+          ))}
+        </span>
+      ),
+    });
+  }
+  if (productionCountries?.length > 0) {
+    facts.push({
+      label: t('productionCountries'),
+      value: (
+        <span className="inline-flex items-start gap-1">
+          <Globe className="mt-0.5 size-3.5 shrink-0 text-muted-foreground" />
+          {productionCountries.map((pc) => pc.name).join(', ')}
+        </span>
+      ),
+    });
+  }
+  if (originCountry?.length > 0) {
+    facts.push({
+      label: t('originCountry'),
+      value: (
+        <span className="inline-flex items-start gap-1">
+          <Flag className="mt-0.5 size-3.5 shrink-0 text-muted-foreground" />
+          {originCountry.join(', ')}
+        </span>
+      ),
+    });
+  }
+  if (adult) {
+    facts.push({
+      label: t('adult'),
+      value: (
+        <span className="inline-flex items-center gap-1">
+          <ShieldCheck className="size-3.5 shrink-0 text-muted-foreground" />
+          {t('yes')}
+        </span>
+      ),
+    });
+  }
+  facts.push({
+    label: t('languages'),
+    value: t('languagesCount', {
+      count: spokenLanguagesCount,
+      translations: translationsCount,
+    }),
+  });
+
   return (
     <aside className="space-y-8">
       {/* Rating Card */}
@@ -62,146 +174,7 @@ export function MovieSidebar({
       </div>
 
       {/* Movie Facts */}
-      <div>
-        <h3 className="text-sm font-bold text-foreground uppercase tracking-wide mb-3">
-          {t('facts')}
-        </h3>
-        <div className="space-y-3">
-          {status && (
-            <div>
-              <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                {t('status')}
-              </h4>
-              <p className="text-sm text-foreground mt-0.5">{status}</p>
-            </div>
-          )}
-          {releaseDate && (
-            <div>
-              <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                {t('releaseDate')}
-              </h4>
-              <p className="text-sm text-foreground mt-0.5">
-                {new Date(releaseDate).toLocaleDateString('en-US', {
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric',
-                })}
-              </p>
-            </div>
-          )}
-          {originalLanguage && (
-            <div>
-              <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                {t('originalLanguage')}
-              </h4>
-              <p className="text-sm text-foreground mt-0.5 uppercase">{originalLanguage}</p>
-            </div>
-          )}
-          {budget > 0 && (
-            <div>
-              <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                {t('budget')}
-              </h4>
-              <p className="text-sm text-foreground mt-0.5 flex items-center gap-1">
-                <DollarSign className="size-3.5" />
-                {formatCurrency(budget)}
-              </p>
-            </div>
-          )}
-          {revenue > 0 && (
-            <div>
-              <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                {t('revenue')}
-              </h4>
-              <p className="text-sm text-foreground mt-0.5 flex items-center gap-1">
-                <DollarSign className="size-3.5" />
-                {formatCurrency(revenue)}
-              </p>
-            </div>
-          )}
-          {budget > 0 && revenue > 0 && (
-            <div>
-              <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                {t('profit')}
-              </h4>
-              <p className="text-sm text-foreground mt-0.5 flex items-center gap-1">
-                <TrendingUp className="size-3.5" />
-                {formatCurrency(revenue - budget)}
-              </p>
-            </div>
-          )}
-          {originalTitle !== title && (
-            <div>
-              <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                {t('originalTitle')}
-              </h4>
-              <p className="text-sm text-foreground mt-0.5">{originalTitle}</p>
-            </div>
-          )}
-          {productionCompanies.length > 0 && (
-            <div>
-              <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                {t('production')}
-              </h4>
-              <div className="text-sm text-foreground mt-0.5 space-y-0.5">
-                {productionCompanies.map((c) => (
-                  <Link
-                    key={c.id}
-                    href={`/company/${slugify(c.name)}/${c.id}`}
-                    className="block hover:text-brand transition-colors"
-                  >
-                    {c.name}
-                  </Link>
-                ))}
-              </div>
-            </div>
-          )}
-          {productionCountries?.length > 0 && (
-            <div>
-              <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                {t('productionCountries')}
-              </h4>
-              <p className="text-sm text-foreground mt-0.5 flex items-center gap-1">
-                <Globe className="size-3.5" />
-                {productionCountries.map((pc) => pc.name).join(', ')}
-              </p>
-            </div>
-          )}
-          {originCountry?.length > 0 && (
-            <div>
-              <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                {t('originCountry')}
-              </h4>
-              <p className="text-sm text-foreground mt-0.5 flex items-center gap-1">
-                <Flag className="size-3.5" />
-                {originCountry.join(', ')}
-              </p>
-            </div>
-          )}
-          {adult && (
-            <div>
-              <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-                {t('adult')}
-              </h4>
-              <p className="text-sm text-foreground mt-0.5 flex items-center gap-1">
-                <ShieldCheck className="size-3.5" />
-                {t('yes')}
-              </p>
-            </div>
-          )}
-          <div>
-            <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-              {t('languages')}
-            </h4>
-            <p className="text-sm text-foreground mt-0.5">
-              {t('languagesCount', {
-                count: spokenLanguagesCount,
-                translations: translationsCount,
-              })}
-            </p>
-          </div>
-        </div>
-      </div>
+      <FactsCard title={t('facts')} icon={<Info className="size-4" />} facts={facts} />
 
       {/* Keywords */}
       {keywords.length > 0 && (

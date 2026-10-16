@@ -21,6 +21,7 @@ type MovieHeroProps = {
   backdropPath: string | null;
   title: string;
   year: string;
+  endYear?: string | null;
   certification: string;
   runtime: number;
   tagline: string | null;
@@ -73,6 +74,7 @@ export function MovieHero({
   backdropPath,
   title,
   year,
+  endYear,
   certification,
   runtime,
   tagline,
@@ -186,15 +188,17 @@ export function MovieHero({
   }, []);
 
   return (
-    <section className="relative w-full aspect-[4/5] md:aspect-[16/9] lg:aspect-[21/10] overflow-hidden">
+    <section className="relative w-full aspect-[4/5] md:aspect-[16/9] lg:aspect-[21/9] overflow-hidden">
       {/* Background layer – z-0 */}
       <div ref={containerRef} className="absolute inset-0">
         <MovieBackground trailerKey={trailerKey} backdropPath={backdropPath} title={title} />
       </div>
 
       {/* Gradient overlays – z-10 */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent z-10" />
-      <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-transparent z-10" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-10" />
+      <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-transparent z-10" />
+      {/* Top scrim keeps the fixed header legible over bright backdrops */}
+      <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-black/60 to-transparent z-10 pointer-events-none" />
 
       {/* Content overlay – z-20 */}
       <div className="absolute inset-0 z-20 flex flex-col justify-end pb-16 md:pb-20">
@@ -202,6 +206,7 @@ export function MovieHero({
           <MovieInfo
             title={title}
             year={year}
+            endYear={endYear}
             certification={certification}
             runtime={runtime}
             tagline={tagline}
@@ -209,26 +214,26 @@ export function MovieHero({
           />
 
           {/* Rating */}
-          <div className="flex items-center gap-2 mt-3">
-            <Star className="size-5 fill-rating-star text-rating-star" />
-            <span className="text-lg font-bold text-white">{voteAverage.toFixed(1)}</span>
-            <span className="text-sm text-white/60">· {t('votes', { count: voteCount })}</span>
-          </div>
-
-          {/* Genres */}
-          <div className="mt-3">
+          <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-2">
+            <span className="inline-flex items-center gap-1.5 rounded-md bg-black/40 px-2.5 py-1 backdrop-blur-sm">
+              <Star className="size-4 fill-rating-star text-rating-star" />
+              <span className="text-base font-bold leading-none text-white">
+                {voteAverage.toFixed(1)}
+              </span>
+              <span className="text-xs text-white/70">{t('votes', { count: voteCount })}</span>
+            </span>
             <GenreTags genres={genres} overlay />
           </div>
 
           {/* Overview */}
           {overview && (
-            <p className="mt-3 text-sm text-white/80 line-clamp-2 max-w-2xl leading-relaxed">
+            <p className="mt-3 max-w-2xl text-sm leading-relaxed text-white/80 line-clamp-2 sm:line-clamp-3">
               {overview}
             </p>
           )}
 
           {/* Actions */}
-          <div className="mt-4">
+          <div className="mt-5">
             <MovieActions
               trailerKey={trailerKey}
               imdbId={imdbId}

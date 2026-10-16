@@ -35,8 +35,8 @@ export function MovieMainContent({ movie, directorName, writers }: MovieMainCont
   return (
     <div className="flex-1 min-w-0 space-y-10">
       <FadeIn>
-        <div className="flex flex-col sm:flex-row gap-6">
-          <div className="flex-shrink-0 w-full max-w-[200px] mx-auto sm:mx-0">
+        <div className="flex flex-col sm:flex-row gap-6 lg:gap-8">
+          <div className="flex-shrink-0 w-full max-w-[160px] sm:max-w-[190px] lg:max-w-[210px] mx-auto sm:mx-0">
             <MoviePoster posterPath={movie.poster_path} title={movie.title} priority />
           </div>
           <div className="flex-1 min-w-0">

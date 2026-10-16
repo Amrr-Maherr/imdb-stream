@@ -1,6 +1,7 @@
 type MovieInfoProps = {
   title: string;
   year: string;
+  endYear?: string | null;
   certification: string;
   runtime: number;
   tagline: string | null;
@@ -17,6 +18,7 @@ function runtimeDisplay(minutes: number) {
 export function MovieInfo({
   title,
   year,
+  endYear,
   certification,
   runtime,
   tagline,
@@ -26,22 +28,24 @@ export function MovieInfo({
     ? 'text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight'
     : 'text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground leading-tight';
   const metaClass = overlay
-    ? 'flex flex-wrap items-center gap-x-3 gap-y-1 mt-2 text-sm text-white/60'
-    : 'flex flex-wrap items-center gap-x-3 gap-y-1 mt-2 text-sm text-muted-foreground';
+    ? 'flex flex-wrap items-center gap-x-3 gap-y-1.5 mt-3 text-sm text-white/70'
+    : 'flex flex-wrap items-center gap-x-3 gap-y-1.5 mt-3 text-sm text-muted-foreground';
   const certClass = overlay
-    ? 'rounded border border-white/30 px-1.5 py-0.5 text-xs font-bold text-white'
+    ? 'rounded border border-white/40 px-1.5 py-0.5 text-xs font-bold text-white'
     : 'rounded border border-border px-1.5 py-0.5 text-xs font-bold text-foreground';
   const yearClass = overlay ? 'font-medium text-white' : 'font-medium text-foreground';
   const taglineClass = overlay
-    ? 'text-base text-white/60 italic mt-1'
+    ? 'text-base text-white/70 italic mt-1'
     : 'text-base text-muted-foreground italic mt-1';
+
+  const yearLabel = endYear && endYear !== year ? `${year}–${endYear}` : year;
 
   return (
     <div>
       <h1 className={titleClass}>{title}</h1>
       <div className={metaClass}>
         {certification && <span className={certClass}>{certification}</span>}
-        {year && <span className={yearClass}>{year}</span>}
+        {yearLabel && <span className={yearClass}>{yearLabel}</span>}
         {runtime > 0 && <span>{runtimeDisplay(runtime)}</span>}
       </div>
       {tagline && <p className={taglineClass}>{tagline}</p>}

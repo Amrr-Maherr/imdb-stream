@@ -71,6 +71,7 @@ export function MovieActions({
       {/* Watchlist */}
       <button
         disabled={watchlistLoading}
+        aria-label={inWatchlist ? t('inWatchlist') : t('watchlist')}
         onClick={async () => {
           if (!user) {
             toast.error(t('loginRequired'));
@@ -108,6 +109,7 @@ export function MovieActions({
       {/* Favorite */}
       <button
         disabled={favoriteLoading}
+        aria-label={favorited ? t('favorited') : t('favorite')}
         onClick={async () => {
           if (!user) {
             toast.error(t('loginRequired'));
@@ -144,6 +146,7 @@ export function MovieActions({
 
       <button
         onClick={handleShare}
+        aria-label={t('share')}
         className={`inline-flex items-center gap-2 rounded-lg border px-4 py-2.5 text-sm font-semibold transition-all ${
           overlay
             ? 'border-white/30 bg-white/10 text-white hover:bg-white/20'

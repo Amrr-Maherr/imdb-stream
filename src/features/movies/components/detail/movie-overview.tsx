@@ -4,9 +4,17 @@ type MovieOverviewProps = {
   overview: string;
   director: string | null;
   writers: string[];
+  directorLabel?: string;
+  writersLabel?: string;
 };
 
-export function MovieOverview({ overview, director, writers }: MovieOverviewProps) {
+export function MovieOverview({
+  overview,
+  director,
+  writers,
+  directorLabel,
+  writersLabel,
+}: MovieOverviewProps) {
   const t = useTranslations('MovieDetail');
   if (!overview && !director && writers.length === 0) return null;
 
@@ -22,7 +30,7 @@ export function MovieOverview({ overview, director, writers }: MovieOverviewProp
         {director && (
           <div>
             <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
-              {t('director')}
+              {directorLabel ?? t('director')}
             </h3>
             <p className="text-foreground font-medium mt-0.5">{director}</p>
           </div>
@@ -30,7 +38,7 @@ export function MovieOverview({ overview, director, writers }: MovieOverviewProp
         {writers.length > 0 && (
           <div>
             <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
-              {t('writers')}
+              {writersLabel ?? t('writers')}
             </h3>
             <p className="text-foreground mt-0.5">{writers.join(', ')}</p>
           </div>

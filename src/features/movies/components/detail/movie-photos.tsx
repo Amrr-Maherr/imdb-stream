@@ -33,7 +33,7 @@ export function MoviePhotos({ backdrops, posters, logos }: MoviePhotosProps) {
         {all.map((img, i) => (
           <div
             key={i}
-            className="relative aspect-video w-full h-50 overflow-hidden rounded-lg bg-muted"
+            className="relative aspect-video w-full overflow-hidden rounded-lg bg-muted"
           >
             <Image
               src={`${TMDB_IMAGE_BASE}/w780${img?.file_path}`}

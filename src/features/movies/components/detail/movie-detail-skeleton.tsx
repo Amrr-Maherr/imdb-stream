@@ -16,8 +16,8 @@ export function MovieDetailSkeleton() {
       <div className="w-full mx-auto app-container mt-8 md:mt-10 pb-16 space-y-8">
         <div className="flex flex-col lg:flex-row gap-10 lg:gap-12">
           <div className="flex-1 min-w-0 space-y-10">
-            <div className="flex flex-col sm:flex-row gap-6">
-              <div className="flex-shrink-0 w-full max-w-[200px] mx-auto sm:mx-0">
+            <div className="flex flex-col sm:flex-row gap-6 lg:gap-8">
+              <div className="flex-shrink-0 w-full max-w-[160px] sm:max-w-[190px] lg:max-w-[210px] mx-auto sm:mx-0">
                 <div className="aspect-[2/3] w-full rounded-xl bg-muted" />
               </div>
               <div className="flex-1 min-w-0 space-y-3">
