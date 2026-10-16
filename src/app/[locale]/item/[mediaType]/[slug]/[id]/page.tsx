@@ -6,6 +6,7 @@ import { MovieHero } from '@/features/movies/components/detail/movie-hero';
 import { MovieCollection } from '@/features/movies/components/detail/movie-collection';
 import { MovieMainContent } from '@/features/movies/components/detail/movie-main-content';
 import { MovieSidebarColumn } from '@/features/movies/components/detail/movie-sidebar-column';
+import { WatchProvidersSection } from '@/features/movies/components/detail/movie-watch-providers';
 import { TvMainContent } from '@/features/tv/components/detail/tv-main-content';
 import { TvSidebarColumn } from '@/features/tv/components/detail/tv-sidebar-column';
 
@@ -164,6 +165,8 @@ async function MovieContent({ id, locale }: { id: string; locale: string }) {
           />
           <MovieSidebarColumn movie={movie} />
         </div>
+
+        <WatchProvidersSection providers={movie['watch/providers']} />
       </div>
     </div>
   );
@@ -186,6 +189,8 @@ async function TvContent({ id, slug, locale }: { id: string; slug: string; local
   }
 
   const year = show.first_air_date?.slice(0, 4) ?? '';
+  const lastYear = show.last_air_date?.slice(0, 4) ?? '';
+  const endYear = !show.in_production && lastYear && lastYear !== year ? lastYear : null;
   const trailers = (show.videos?.results ?? []).filter(
     (v) => v.site === 'YouTube' && (v.type === 'Trailer' || v.type === 'Teaser')
   );
@@ -200,6 +205,7 @@ async function TvContent({ id, slug, locale }: { id: string; slug: string; local
         backdropPath={show.backdrop_path}
         title={show.name}
         year={year}
+        endYear={endYear}
         certification={certification}
         runtime={runtime}
         tagline={show.tagline}
@@ -218,6 +224,8 @@ async function TvContent({ id, slug, locale }: { id: string; slug: string; local
           <TvMainContent show={show} slug={slug} creators={creators} />
           <TvSidebarColumn show={show} creators={creators} />
         </div>
+
+        <WatchProvidersSection providers={show['watch/providers']} />
       </div>
     </div>
   );

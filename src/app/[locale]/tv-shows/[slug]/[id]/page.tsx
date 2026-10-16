@@ -3,6 +3,7 @@ import { fetchApi } from '@/shared/services/fetchApi';
 import { ErrorState } from '@/shared/components/error-state';
 import type { TMDBTVDetails } from '@/shared/types/tmdb';
 import { MovieHero } from '@/features/movies/components/detail/movie-hero';
+import { WatchProvidersSection } from '@/features/movies/components/detail/movie-watch-providers';
 import { TvMainContent } from '@/features/tv/components/detail/tv-main-content';
 import { TvSidebarColumn } from '@/features/tv/components/detail/tv-sidebar-column';
 
@@ -69,6 +70,8 @@ export default async function TvShowPage({ params }: Props) {
   }
 
   const year = show.first_air_date?.slice(0, 4) ?? '';
+  const lastYear = show.last_air_date?.slice(0, 4) ?? '';
+  const endYear = !show.in_production && lastYear && lastYear !== year ? lastYear : null;
   const trailers = (show.videos?.results ?? []).filter(
     (v) => v.site === 'YouTube' && (v.type === 'Trailer' || v.type === 'Teaser')
   );
@@ -83,6 +86,7 @@ export default async function TvShowPage({ params }: Props) {
         backdropPath={show.backdrop_path}
         title={show.name}
         year={year}
+        endYear={endYear}
         certification={certification}
         runtime={runtime}
         tagline={show.tagline}
@@ -101,6 +105,8 @@ export default async function TvShowPage({ params }: Props) {
           <TvMainContent show={show} slug={slug} creators={creators} />
           <TvSidebarColumn show={show} creators={creators} />
         </div>
+
+        <WatchProvidersSection providers={show['watch/providers']} />
       </div>
     </div>
   );

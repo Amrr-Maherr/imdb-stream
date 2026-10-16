@@ -6,6 +6,7 @@ import { MovieHero } from '@/features/movies/components/detail/movie-hero';
 import { MovieCollection } from '@/features/movies/components/detail/movie-collection';
 import { MovieMainContent } from '@/features/movies/components/detail/movie-main-content';
 import { MovieSidebarColumn } from '@/features/movies/components/detail/movie-sidebar-column';
+import { WatchProvidersSection } from '@/features/movies/components/detail/movie-watch-providers';
 import NotFound from '@/app/[locale]/global-not-found';
 
 interface Props {
@@ -102,6 +103,8 @@ export default async function MoviePage({ params }: Props) {
           />
           <MovieSidebarColumn movie={movie} />
         </div>
+
+        <WatchProvidersSection providers={movie['watch/providers']} />
       </div>
     </div>
   );

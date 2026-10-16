@@ -1,8 +1,5 @@
-import { useTranslations } from 'next-intl';
 import type { TMDBMovieDetails } from '@/shared/types/tmdb';
-import { Tv } from 'lucide-react';
 import { MovieSidebar } from './movie-sidebar';
-import { MovieWatchProviders } from './movie-watch-providers';
 import { FadeIn } from './fade-in';
 
 type MovieSidebarColumnProps = {
@@ -10,9 +7,6 @@ type MovieSidebarColumnProps = {
 };
 
 export function MovieSidebarColumn({ movie }: MovieSidebarColumnProps) {
-  const t = useTranslations('MovieDetail');
-  const watchProviders = movie['watch/providers'] ?? null;
-
   return (
     <div className="w-full lg:w-80 xl:w-96 flex-shrink-0 space-y-8">
       <FadeIn delay={0.05}>
@@ -36,20 +30,6 @@ export function MovieSidebarColumn({ movie }: MovieSidebarColumnProps) {
           adult={movie.adult}
         />
       </FadeIn>
-
-      {watchProviders && (
-        <FadeIn delay={0.1}>
-          <div className="rounded-xl border border-border bg-card p-5">
-            <div className="flex items-center gap-2 mb-4">
-              <Tv className="size-4 text-muted-foreground" />
-              <h3 className="text-sm font-bold text-foreground uppercase tracking-wide">
-                {t('watch')}
-              </h3>
-            </div>
-            <MovieWatchProviders providers={watchProviders} />
-          </div>
-        </FadeIn>
-      )}
     </div>
   );
 }
