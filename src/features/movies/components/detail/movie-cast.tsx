@@ -28,6 +28,7 @@ export function MovieCast({ cast }: MovieCastProps) {
         {topCast.map((person) => (
           <CastCard
             key={person.credit_id}
+            id={person.id}
             name={person.name}
             character={person.character}
             profilePath={person.profile_path}

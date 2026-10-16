@@ -118,6 +118,7 @@ export function EpisodeMainContent({ ep }: EpisodeMainContentProps) {
               {ep.guest_stars.map((star) => (
                 <CastCard
                   key={star.credit_id}
+                  id={star.id}
                   name={star.name}
                   character={star.character}
                   profilePath={star.profile_path}
