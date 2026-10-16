@@ -28,7 +28,7 @@ export function SeasonMainContent({ season, slug, tvId, seasonNumber }: SeasonMa
   const backdrops = season.images?.backdrops ?? [];
 
   return (
-    <div className="flex-1 min-w-0 space-y-12">
+    <div className="order-2 flex-1 min-w-0 space-y-10 lg:order-1">
       <FadeIn>
         <section>
           <h2 className="text-xl font-bold text-foreground mb-6">{t('episodes')}</h2>

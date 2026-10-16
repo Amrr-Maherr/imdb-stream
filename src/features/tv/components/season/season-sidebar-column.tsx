@@ -1,6 +1,6 @@
 ﻿'use client';
 
-import { Star, Calendar, BarChart3, Users, Link2 } from 'lucide-react';
+import { Star, Users, Link2, Info } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import type { TVSeasonDetails, TVSeason } from '@/shared/types/tmdb';
 import { MovieSection } from '@/features/movies/components/detail/movie-section';
@@ -10,6 +10,7 @@ import { CrewCard } from '@/features/movies/components/detail/crew-card';
 import { FadeIn } from '@/features/movies/components/detail/fade-in';
 import { Slider } from '@/shared/components/ui/slider';
 import { TvSeasons } from '@/features/tv/components/detail/tv-seasons';
+import { FactsCard, type Fact } from '@/features/movies/components/detail/facts-card';
 
 type SeasonSidebarColumnProps = {
   season: TVSeasonDetails;
@@ -41,47 +42,34 @@ export function SeasonSidebarColumn({
       }
     : null;
 
+  const facts: Fact[] = [];
+  if (season.air_date) {
+    facts.push({
+      label: t('airDate'),
+      value: new Date(season.air_date).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      }),
+    });
+  }
+  facts.push({ label: t('episodes'), value: season.episodes.length });
+  if (season.vote_average > 0) {
+    facts.push({
+      label: t('voteAverage'),
+      value: (
+        <span className="inline-flex items-center gap-1.5">
+          <Star className="size-3.5 fill-rating-star text-rating-star" />
+          <span className="font-medium">{season.vote_average.toFixed(1)}</span>
+        </span>
+      ),
+    });
+  }
+
   return (
-    <div className="w-full lg:w-80 xl:w-96 flex-shrink-0 space-y-10">
+    <aside className="order-1 w-full space-y-8 lg:sticky lg:top-20 lg:order-2 lg:w-80 xl:w-96 lg:flex-shrink-0 lg:self-start">
       <FadeIn delay={0.05}>
-        <div className="rounded-xl border border-border bg-card p-5">
-          <h3 className="text-sm font-bold text-foreground uppercase tracking-wide mb-4">
-            {t('seasonStatistics')}
-          </h3>
-          <div className="space-y-3">
-            {season.air_date && (
-              <div className="flex items-center gap-3">
-                <Calendar className="size-4 text-muted-foreground shrink-0" />
-                <div className="min-w-0">
-                  <p className="text-xs text-muted-foreground">{t('airDate')}</p>
-                  <p className="text-sm text-foreground">
-                    {new Date(season.air_date).toLocaleDateString('en-US', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric',
-                    })}
-                  </p>
-                </div>
-              </div>
-            )}
-            <div className="flex items-center gap-3">
-              <BarChart3 className="size-4 text-muted-foreground shrink-0" />
-              <div className="min-w-0">
-                <p className="text-xs text-muted-foreground">{t('episodes')}</p>
-                <p className="text-sm text-foreground">{season.episodes.length}</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <Star className="size-4 text-muted-foreground shrink-0" />
-              <div className="min-w-0">
-                <p className="text-xs text-muted-foreground">{t('voteAverage')}</p>
-                <p className="text-sm text-foreground font-medium">
-                  {season.vote_average.toFixed(1)}
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+        <FactsCard title={t('seasonStatistics')} icon={<Info className="size-4" />} facts={facts} />
       </FadeIn>
 
       {allCrew.length > 0 && (
@@ -137,6 +125,6 @@ export function SeasonSidebarColumn({
           </MovieSection>
         </FadeIn>
       )}
-    </div>
+    </aside>
   );
 }
