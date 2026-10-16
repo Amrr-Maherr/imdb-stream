@@ -438,8 +438,8 @@ export type TMDBPersonDetails = {
 
 export type TaggedImage = {
   id: string;
-  image: Image;
-  media: { id: number; title?: string; name?: string; media_type: string };
+  image?: Image;
+  media?: { id: number; title?: string; name?: string; media_type: string };
   media_type: string;
   aspect_ratio: number;
   file_path: string;

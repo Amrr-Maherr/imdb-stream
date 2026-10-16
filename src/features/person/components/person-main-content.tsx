@@ -66,10 +66,12 @@ export function PersonMainContent({ person }: PersonMainContentProps) {
           <MovieSection title={t('taggedImages')} icon={<ImageIcon className="size-5" />}>
             <PersonPhotos
               variant="landscape"
-              profiles={taggedImages.map((item) => ({
-                file_path: item.image.file_path,
-                caption: item.media?.title ?? item.media?.name,
-              }))}
+              profiles={taggedImages
+                .map((item) => ({
+                  file_path: item.image?.file_path ?? item.file_path,
+                  caption: item.media?.title ?? item.media?.name,
+                }))
+                .filter((photo) => Boolean(photo.file_path))}
             />
           </MovieSection>
         </FadeIn>
