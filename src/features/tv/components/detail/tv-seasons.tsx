@@ -9,9 +9,10 @@ type TvSeasonsProps = {
   seasons: TVSeason[];
   tvId: number;
   tvSlug: string;
+  currentSeasonNumber?: number;
 };
 
-export function TvSeasons({ seasons, tvId, tvSlug }: TvSeasonsProps) {
+export function TvSeasons({ seasons, tvId, tvSlug, currentSeasonNumber }: TvSeasonsProps) {
   const t = useTranslations('TvDetail');
   const valid = seasons.filter((s) => s.season_number > 0);
   if (valid.length === 0) return null;
@@ -21,7 +22,13 @@ export function TvSeasons({ seasons, tvId, tvSlug }: TvSeasonsProps) {
       <h2 className="text-xl font-bold text-foreground mb-4">{t('seasons')}</h2>
       <Slider slidesPerView={6} slidesMobilePerView={2.5} spaceBetween={16} grabCursor freeMode>
         {valid.map((season) => (
-          <SeasonCard key={season.id} season={season} tvId={tvId} tvSlug={tvSlug} />
+          <SeasonCard
+            key={season.id}
+            season={season}
+            tvId={tvId}
+            tvSlug={tvSlug}
+            isActive={season.season_number === currentSeasonNumber}
+          />
         ))}
       </Slider>
     </section>

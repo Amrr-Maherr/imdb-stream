@@ -23,7 +23,7 @@ export function SeasonMainContent({ season, slug, tvId, seasonNumber }: SeasonMa
   const t = useTranslations('TvDetail');
   const tc = useTranslations('Common');
   const tm = useTranslations('MovieDetail');
-  const allCast = season.aggregate_credits?.cast ?? season.credits?.cast ?? [];
+  const allCast = season.credits?.cast ?? season.aggregate_credits?.cast ?? [];
   const posters = season.images?.posters ?? [];
   const backdrops = season.images?.backdrops ?? [];
 
@@ -32,7 +32,12 @@ export function SeasonMainContent({ season, slug, tvId, seasonNumber }: SeasonMa
       <FadeIn>
         <section>
           <h2 className="text-xl font-bold text-foreground mb-6">{t('episodes')}</h2>
-          <div className="space-y-3">
+          {season.episodes.length === 0 ? (
+            <div className="rounded-xl border border-dashed border-border bg-card p-8 text-center">
+              <p className="text-sm text-muted-foreground">{t('noEpisodes')}</p>
+            </div>
+          ) : (
+            <div className="space-y-3">
             {season.episodes.map((episode) => (
               <Link
                 key={episode.id}
@@ -102,7 +107,8 @@ export function SeasonMainContent({ season, slug, tvId, seasonNumber }: SeasonMa
                 </div>
               </Link>
             ))}
-          </div>
+            </div>
+          )}
         </section>
       </FadeIn>
 

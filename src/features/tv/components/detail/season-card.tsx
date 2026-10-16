@@ -11,18 +11,24 @@ type SeasonCardProps = {
   season: TVSeason;
   tvId: number;
   tvSlug: string;
+  isActive?: boolean;
 };
 
-export function SeasonCard({ season, tvId, tvSlug }: SeasonCardProps) {
+export function SeasonCard({ season, tvId, tvSlug, isActive = false }: SeasonCardProps) {
   const t = useTranslations('TvDetail');
   if (season.season_number === 0) return null;
 
   return (
     <Link
       href={`/tv-shows/${tvSlug}/${tvId}/season/${season.season_number}`}
-      className="group w-full"
+      aria-current={isActive ? 'page' : undefined}
+      className="group w-full focus-visible:outline-none"
     >
-      <div className="relative aspect-[2/3] w-full overflow-hidden rounded-lg bg-muted">
+      <div
+        className={`relative aspect-[2/3] w-full overflow-hidden rounded-lg bg-muted ${
+          isActive ? 'ring-2 ring-brand ring-offset-2 ring-offset-background' : ''
+        }`}
+      >
         {season.poster_path ? (
           <Image
             src={`${TMDB_IMAGE_BASE}/w342${season.poster_path}`}
@@ -38,7 +44,11 @@ export function SeasonCard({ season, tvId, tvSlug }: SeasonCardProps) {
         )}
       </div>
       <div className="mt-2 space-y-0.5">
-        <h3 className="text-sm font-medium text-foreground line-clamp-1 leading-tight">
+        <h3
+          className={`text-sm font-medium line-clamp-1 leading-tight ${
+            isActive ? 'text-brand' : 'text-foreground'
+          }`}
+        >
           {season.name}
         </h3>
         <p className="text-xs text-muted-foreground">

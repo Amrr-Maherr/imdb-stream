@@ -66,6 +66,8 @@ export default async function SeasonPage({ params }: Props) {
         season={season}
         backdropPath={tvShow?.backdrop_path ?? null}
         tvName={tvShow?.name ?? ''}
+        tvSlug={slug}
+        tvId={id}
       />
 
       <div className="w-full mx-auto app-container mt-8 md:mt-10 pb-16">
@@ -76,6 +78,7 @@ export default async function SeasonPage({ params }: Props) {
             allSeasons={tvShow?.seasons ?? []}
             tvSlug={slug}
             tvId={id}
+            currentSeasonNumber={Number(seasonNumber)}
           />
         </div>
       </div>

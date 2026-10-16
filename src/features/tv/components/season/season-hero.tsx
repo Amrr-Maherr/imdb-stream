@@ -1,8 +1,9 @@
 ﻿'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { useTranslations } from 'next-intl';
-import { Star, Calendar, Tv } from 'lucide-react';
+import { Star, Calendar, ChevronLeft } from 'lucide-react';
 import type { TVSeasonDetails } from '@/shared/types/tmdb';
 import { FadeIn } from '@/features/movies/components/detail/fade-in';
 
@@ -12,9 +13,11 @@ type SeasonHeroProps = {
   season: TVSeasonDetails;
   backdropPath: string | null;
   tvName: string;
+  tvSlug: string;
+  tvId: string;
 };
 
-export function SeasonHero({ season, backdropPath, tvName }: SeasonHeroProps) {
+export function SeasonHero({ season, backdropPath, tvName, tvSlug, tvId }: SeasonHeroProps) {
   const t = useTranslations('TvDetail');
   return (
     <FadeIn>
@@ -34,6 +37,7 @@ export function SeasonHero({ season, backdropPath, tvName }: SeasonHeroProps) {
 
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
         <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent" />
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-black/60 to-transparent" />
 
         <div className="absolute inset-0 z-10 flex flex-col justify-end pb-10 md:pb-16">
           <div className="w-full mx-auto app-container">
@@ -55,11 +59,16 @@ export function SeasonHero({ season, backdropPath, tvName }: SeasonHeroProps) {
               </div>
 
               <div className="min-w-0">
-                <p className="text-sm font-medium text-white/60 flex items-center gap-2">
-                  <Tv className="size-3.5" />
-                  {tvName}
-                </p>
-                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white leading-tight mt-1">
+                {tvName && (
+                  <Link
+                    href={`/tv-shows/${tvSlug}/${tvId}`}
+                    className="text-sm font-medium text-white/70 hover:text-white transition-colors inline-flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 rounded-sm"
+                  >
+                    <ChevronLeft className="size-3.5 rtl:rotate-180" />
+                    {tvName}
+                  </Link>
+                )}
+                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white leading-tight mt-1 break-words">
                   {season.name}
                 </h1>
 

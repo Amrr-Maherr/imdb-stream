@@ -16,6 +16,7 @@ type SeasonSidebarColumnProps = {
   allSeasons: TVSeason[];
   tvSlug: string;
   tvId: string;
+  currentSeasonNumber: number;
 };
 
 export function SeasonSidebarColumn({
@@ -23,15 +24,12 @@ export function SeasonSidebarColumn({
   allSeasons,
   tvSlug,
   tvId,
+  currentSeasonNumber,
 }: SeasonSidebarColumnProps) {
   const t = useTranslations('TvDetail');
   const tm = useTranslations('MovieDetail');
   const allCrew = season.aggregate_credits?.crew ?? season.credits?.crew ?? [];
   const videos = season.videos?.results ?? [];
-  const languages = season.episodes.reduce((acc: Set<string>, ep) => {
-    // Episodes don't have language data on season endpoint
-    return acc;
-  }, new Set<string>());
 
   const externalIds = season.external_ids
     ? {
@@ -123,7 +121,12 @@ export function SeasonSidebarColumn({
 
       {allSeasons?.length > 1 && (
         <FadeIn delay={0.2}>
-          <TvSeasons seasons={allSeasons} tvId={Number(tvId)} tvSlug={tvSlug} />
+          <TvSeasons
+            seasons={allSeasons}
+            tvId={Number(tvId)}
+            tvSlug={tvSlug}
+            currentSeasonNumber={currentSeasonNumber}
+          />
         </FadeIn>
       )}
 
