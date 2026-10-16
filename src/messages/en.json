@@ -9,12 +9,20 @@
       "movies": "Movies",
       "tvShows": "TV Shows",
       "people": "People",
+      "allMovies": "All Movies",
+      "allTvShows": "All TV Shows",
+      "popular": "Popular",
+      "topRated": "Top Rated",
+      "newReleases": "New Releases",
       "profile": "Profile",
       "settings": "Settings",
       "watchlist": "Watchlist",
       "favorites": "Favorites"
     },
     "search": "Search",
+    "searchPlaceholder": "Search movies, TV shows, people",
+    "noResults": "No results found",
+    "account": "Account",
     "closeSearch": "Close search",
     "toggleMenu": "Toggle menu",
     "signIn": "Sign In",
@@ -961,17 +969,33 @@
     }
   },
   "Footer": {
-    "about": "About",
-    "help": "Help",
+    "description": "Discover popular movies, trending TV shows, and something worth watching tonight.",
+    "explore": "Explore",
+    "discover": "Discover",
+    "genres": "Genres",
+    "company": "Company",
+    "support": "Support",
     "legal": "Legal",
-    "social": "Social",
-    "aboutLinks": {
+    "exploreLinks": {
+      "home": "Home",
+      "movies": "Movies",
+      "tvShows": "TV Shows",
+      "people": "People"
+    },
+    "discoverLinks": {
+      "popularMovies": "Popular Movies",
+      "topRated": "Top Rated Movies",
+      "newReleases": "New Releases",
+      "popularTv": "Popular TV Shows"
+    },
+    "companyLinks": {
       "about": "About Us",
       "careers": "Careers",
       "press": "Press",
-      "guidelines": "Community Guidelines"
+      "guidelines": "Community Guidelines",
+      "subscription": "Subscription Plans"
     },
-    "helpLinks": {
+    "supportLinks": {
       "helpCenter": "Help Center",
       "faq": "FAQ",
       "contact": "Contact Us",
@@ -980,14 +1004,9 @@
     "legalLinks": {
       "terms": "Terms of Use",
       "privacy": "Privacy Policy",
-      "cookies": "Cookie Preferences",
-      "subscription": "Subscription Plans"
+      "cookies": "Cookie Preferences"
     },
-    "socialLinks": {
-      "facebook": "Facebook",
-      "twitter": "Twitter",
-      "instagram": "Instagram"
-    },
+    "attribution": "This product uses the TMDB API but is not endorsed or certified by TMDB.",
     "copyright": "© {year} IMDb. All rights reserved."
   },
   "Collection": {
@@ -1051,6 +1070,12 @@
     "languagesCount": "{count} spoken · {translations} translations",
     "keywords": "Keywords",
     "watch": "Watch",
+    "whereToWatch": "Where to Watch",
+    "stream": "Stream",
+    "rent": "Rent",
+    "buy": "Buy",
+    "freeProviders": "Free",
+    "poweredByJustWatch": "Powered by JustWatch",
     "userScore": "User Score",
     "votes": "{count} votes",
     "popularity": "· {count} popular",
@@ -1135,7 +1160,9 @@
     "episodeInfo": "Episode Info",
     "productionCode": "Production Code",
     "previousEpisode": "Previous Episode",
+    "nextEpisode": "Next Episode",
     "moreEpisodes": "More Episodes",
+    "noEpisodes": "No episodes available for this season yet.",
     "tba": "TBA"
   },
   "Person": {

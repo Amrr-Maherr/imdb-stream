@@ -9,12 +9,20 @@
       "movies": "الأفلام",
       "tvShows": "المسلسلات",
       "people": "الأشخاص",
+      "allMovies": "كل الأفلام",
+      "allTvShows": "كل المسلسلات",
+      "popular": "الأكثر شعبية",
+      "topRated": "الأعلى تقييماً",
+      "newReleases": "أحدث الإصدارات",
       "profile": "الملف الشخصي",
       "settings": "الإعدادات",
       "watchlist": "قائمة المشاهدة",
       "favorites": "المفضلة"
     },
     "search": "بحث",
+    "searchPlaceholder": "ابحث عن أفلام ومسلسلات وأشخاص",
+    "noResults": "لا توجد نتائج",
+    "account": "الحساب",
     "closeSearch": "إغلاق البحث",
     "toggleMenu": "تبديل القائمة",
     "signIn": "تسجيل الدخول",
@@ -946,17 +954,33 @@
     }
   },
   "Footer": {
-    "about": "حول",
-    "help": "المساعدة",
+    "description": "اكتشف الأفلام الشائعة والمسلسلات الرائجة واعثر على ما يستحق المشاهدة الليلة.",
+    "explore": "استكشف",
+    "discover": "اكتشف",
+    "genres": "التصنيفات",
+    "company": "الشركة",
+    "support": "الدعم",
     "legal": "قانوني",
-    "social": "تواصل",
-    "aboutLinks": {
+    "exploreLinks": {
+      "home": "الرئيسية",
+      "movies": "الأفلام",
+      "tvShows": "المسلسلات",
+      "people": "الأشخاص"
+    },
+    "discoverLinks": {
+      "popularMovies": "الأفلام الشائعة",
+      "topRated": "الأفلام الأعلى تقييماً",
+      "newReleases": "أحدث الإصدارات",
+      "popularTv": "المسلسلات الشائعة"
+    },
+    "companyLinks": {
       "about": "معلومات عنا",
       "careers": "وظائف",
       "press": "صحافة",
-      "guidelines": "إرشادات المجتمع"
+      "guidelines": "إرشادات المجتمع",
+      "subscription": "خطط الاشتراك"
     },
-    "helpLinks": {
+    "supportLinks": {
       "helpCenter": "مركز المساعدة",
       "faq": "الأسئلة الشائعة",
       "contact": "اتصل بنا",
@@ -965,14 +989,9 @@
     "legalLinks": {
       "terms": "شروط الاستخدام",
       "privacy": "سياسة الخصوصية",
-      "cookies": "تفضيلات الكوكيز",
-      "subscription": "خطط الاشتراك"
+      "cookies": "تفضيلات الكوكيز"
     },
-    "socialLinks": {
-      "facebook": "فيسبوك",
-      "twitter": "تويتر",
-      "instagram": "انستغرام"
-    },
+    "attribution": "يستخدم هذا المنتج واجهة برمجة تطبيقات TMDB ولكنه غير معتمد أو مصدّق عليه من TMDB.",
     "copyright": "© {year} IMDb. جميع الحقوق محفوظة."
   },
   "Collection": {
@@ -1036,6 +1055,12 @@
     "languagesCount": "{count} لغة · {translations} ترجمة",
     "keywords": "الكلمات المفتاحية",
     "watch": "مشاهدة",
+    "whereToWatch": "أين تشاهد",
+    "stream": "بث",
+    "rent": "إيجار",
+    "buy": "شراء",
+    "freeProviders": "مجاني",
+    "poweredByJustWatch": "مدعوم من JustWatch",
     "userScore": "تقييم المستخدمين",
     "votes": "{count} صوت",
     "popularity": "· {count} مشهور",
@@ -1120,7 +1145,9 @@
     "episodeInfo": "معلومات الحلقة",
     "productionCode": "رمز الإنتاج",
     "previousEpisode": "الحلقة السابقة",
+    "nextEpisode": "الحلقة التالية",
     "moreEpisodes": "المزيد من الحلقات",
+    "noEpisodes": "لا توجد حلقات متاحة لهذا الموسم بعد.",
     "tba": "سيُحدد لاحقاً"
   },
   "Person": {
