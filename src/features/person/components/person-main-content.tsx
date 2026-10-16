@@ -41,7 +41,7 @@ export function PersonMainContent({ person }: PersonMainContentProps) {
     <div className="flex-1 min-w-0 space-y-10">
       <CareerStats cast={combinedCredits?.cast ?? []} crew={combinedCredits?.crew ?? []} />
 
-      <BiographySection biography={person.biography} alsoKnownAs={person.also_known_as} />
+      <BiographySection biography={person.biography} />
 
       {allKnownFor.length > 0 && (
         <FadeIn delay={0.05}>
@@ -64,7 +64,13 @@ export function PersonMainContent({ person }: PersonMainContentProps) {
       {taggedImages.length > 0 && (
         <FadeIn delay={0.2}>
           <MovieSection title={t('taggedImages')} icon={<ImageIcon className="size-5" />}>
-            <PersonPhotos profiles={taggedImages.map((t) => t.image)} />
+            <PersonPhotos
+              variant="landscape"
+              profiles={taggedImages.map((item) => ({
+                file_path: item.image.file_path,
+                caption: item.media?.title ?? item.media?.name,
+              }))}
+            />
           </MovieSection>
         </FadeIn>
       )}

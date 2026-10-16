@@ -6,40 +6,53 @@ import { Slider } from '@/shared/components/ui/slider';
 
 const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p';
 
-type PersonPhotosProps = {
-  profiles: { file_path: string; aspect_ratio: number }[];
+type PersonPhoto = {
+  file_path: string;
+  caption?: string;
 };
 
-export function PersonPhotos({ profiles }: PersonPhotosProps) {
+type PersonPhotosProps = {
+  profiles: PersonPhoto[];
+  variant?: 'portrait' | 'landscape';
+};
+
+export function PersonPhotos({ profiles, variant = 'portrait' }: PersonPhotosProps) {
   const t = useTranslations('Person');
   if (profiles.length === 0) return null;
 
+  const landscape = variant === 'landscape';
+
   return (
-    <section>
-      <h2 className="text-xl font-bold text-foreground mb-4">{t('photos')}</h2>
-      <Slider
-        slidesPerView={4}
-        slidesMobilePerView={2}
-        spaceBetween={12}
-        grabCursor
-        freeMode
-        className="-mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 pb-8"
-      >
-        {profiles.map((img) => (
+    <Slider
+      slidesPerView={landscape ? 3 : 4}
+      slidesMobilePerView={landscape ? 1.5 : 2}
+      spaceBetween={12}
+      grabCursor
+      freeMode
+      className="-mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 pb-8"
+    >
+      {profiles.map((img, index) => (
+        <div key={`${img.file_path}-${index}`} className="group">
           <div
-            key={img?.file_path}
-            className="relative aspect-[2/3] w-full overflow-hidden rounded-lg bg-muted"
+            className={`relative w-full overflow-hidden rounded-lg bg-muted ${
+              landscape ? 'aspect-video' : 'aspect-[2/3]'
+            }`}
           >
             <Image
-              src={`${TMDB_IMAGE_BASE}/w342${img?.file_path}`}
-              alt={t('profilePhoto')}
+              src={`${TMDB_IMAGE_BASE}/${landscape ? 'w500' : 'w342'}${img.file_path}`}
+              alt={img.caption ?? t('profilePhoto')}
               fill
-              className="object-cover"
-              sizes="(max-width: 640px) 50vw, 25vw"
+              className="object-cover transition-transform duration-300 group-hover:scale-105"
+              sizes={
+                landscape ? '(max-width: 640px) 75vw, 33vw' : '(max-width: 640px) 50vw, 25vw'
+              }
             />
           </div>
-        ))}
-      </Slider>
-    </section>
+          {img.caption && (
+            <p className="mt-2 text-xs text-muted-foreground line-clamp-1">{img.caption}</p>
+          )}
+        </div>
+      ))}
+    </Slider>
   );
 }

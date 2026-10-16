@@ -46,9 +46,9 @@ export function PersonHero({
 
   return (
     <FadeIn>
-      <section className="bg-card border-b border-border">
+      <section className="bg-card border-b border-border pt-16">
         <div className="w-full mx-auto app-container py-8 md:py-12">
-          <div className="flex flex-col md:flex-row gap-8">
+          <div className="flex flex-col md:flex-row gap-6 sm:gap-8">
             <div className="flex-shrink-0 mx-auto md:mx-0">
               <div className="relative w-[180px] sm:w-[220px] aspect-[2/3] overflow-hidden rounded-xl bg-muted shadow-lg">
                 {profilePath ? (
@@ -69,7 +69,7 @@ export function PersonHero({
             </div>
 
             <div className="flex-1 min-w-0 flex flex-col justify-center">
-              <h1 className="text-3xl sm:text-4xl font-bold text-foreground leading-tight">
+              <h1 className="text-3xl sm:text-4xl font-bold text-foreground leading-tight break-words">
                 {name}
               </h1>
 

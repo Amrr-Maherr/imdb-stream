@@ -10,7 +10,7 @@ export function PersonSidebarColumn({ person }: PersonSidebarColumnProps) {
   return (
     <div className="w-full lg:w-80 xl:w-96 flex-shrink-0">
       <FadeIn delay={0.05}>
-        <PersonSidebar gender={person.gender} popularity={person.popularity} adult={person.adult} />
+        <PersonSidebar gender={person.gender} alsoKnownAs={person.also_known_as ?? []} />
       </FadeIn>
     </div>
   );

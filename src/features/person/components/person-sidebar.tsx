@@ -4,18 +4,22 @@ import { useTranslations } from 'next-intl';
 
 type PersonSidebarProps = {
   gender: number;
-  popularity: number;
-  adult: boolean;
+  alsoKnownAs: string[];
 };
 
-export function PersonSidebar({ gender, popularity, adult }: PersonSidebarProps) {
+export function PersonSidebar({ gender, alsoKnownAs }: PersonSidebarProps) {
   const t = useTranslations('Person');
 
-  function genderLabel(gender: number): string {
-    if (gender === 1) return t('female');
-    if (gender === 2) return t('male');
+  function genderLabel(value: number): string {
+    if (value === 1) return t('female');
+    if (value === 2) return t('male');
     return t('nonBinary');
   }
+
+  const showGender = gender === 1 || gender === 2 || gender === 3;
+  const aliases = alsoKnownAs.filter((name) => name.trim().length > 0);
+
+  if (!showGender && aliases.length === 0) return null;
 
   return (
     <aside className="space-y-8">
@@ -24,20 +28,31 @@ export function PersonSidebar({ gender, popularity, adult }: PersonSidebarProps)
           {t('personalInfo')}
         </h3>
         <div className="space-y-4">
-          <div>
-            <h4 className="text-xs font-semibold text-muted-foreground uppercase">{t('gender')}</h4>
-            <p className="text-sm text-foreground mt-0.5">{genderLabel(gender)}</p>
-          </div>
-          <div>
-            <h4 className="text-xs font-semibold text-muted-foreground uppercase">
-              {t('popularity')}
-            </h4>
-            <p className="text-sm text-foreground mt-0.5">{popularity.toFixed(0)}</p>
-          </div>
-          <div>
-            <h4 className="text-xs font-semibold text-muted-foreground uppercase">{t('adult')}</h4>
-            <p className="text-sm text-foreground mt-0.5">{adult ? t('yes') : t('no')}</p>
-          </div>
+          {showGender && (
+            <div>
+              <h4 className="text-xs font-semibold text-muted-foreground uppercase">
+                {t('gender')}
+              </h4>
+              <p className="text-sm text-foreground mt-0.5">{genderLabel(gender)}</p>
+            </div>
+          )}
+          {aliases.length > 0 && (
+            <div>
+              <h4 className="text-xs font-semibold text-muted-foreground uppercase">
+                {t('alsoKnownAs')}
+              </h4>
+              <div className="mt-1.5 flex flex-wrap gap-1.5">
+                {aliases.map((name) => (
+                  <span
+                    key={name}
+                    className="rounded-full bg-muted px-3 py-1 text-xs text-foreground"
+                  >
+                    {name}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </aside>
