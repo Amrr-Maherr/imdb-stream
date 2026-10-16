@@ -1,53 +1,86 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+import FooterBrand from './FooterBrand';
 import FooterColumn from './FooterColumn';
+
+const FEATURED_GENRES = [
+  { id: '28', key: 'action' },
+  { id: '18', key: 'drama' },
+  { id: '35', key: 'comedy' },
+  { id: '878', key: 'sciFi' },
+  { id: '53', key: 'thriller' },
+  { id: '16', key: 'animation' },
+] as const;
 
 export default function FooterLinks() {
   const t = useTranslations('Footer');
+  const tGenres = useTranslations('Filters.genres');
 
   const columns = [
     {
-      title: t('about'),
+      title: t('explore'),
       links: [
-        { href: '/about', label: t('aboutLinks.about') },
-        { href: '/careers', label: t('aboutLinks.careers') },
-        { href: '/press', label: t('aboutLinks.press') },
-        { href: '/guidelines', label: t('aboutLinks.guidelines') },
+        { href: '/', label: t('exploreLinks.home') },
+        { href: '/movies', label: t('exploreLinks.movies') },
+        { href: '/tv-shows', label: t('exploreLinks.tvShows') },
+        { href: '/people', label: t('exploreLinks.people') },
       ],
     },
     {
-      title: t('help'),
+      title: t('discover'),
       links: [
-        { href: '/help', label: t('helpLinks.helpCenter') },
-        { href: '/faq', label: t('helpLinks.faq') },
-        { href: '/contact', label: t('helpLinks.contact') },
-        { href: '/feedback', label: t('helpLinks.feedback') },
+        {
+          href: { pathname: '/movies', query: { sort_by: 'popularity.desc' } },
+          label: t('discoverLinks.popularMovies'),
+        },
+        {
+          href: { pathname: '/movies', query: { sort_by: 'vote_average.desc' } },
+          label: t('discoverLinks.topRated'),
+        },
+        {
+          href: { pathname: '/movies', query: { sort_by: 'primary_release_date.desc' } },
+          label: t('discoverLinks.newReleases'),
+        },
+        {
+          href: { pathname: '/tv-shows', query: { sort_by: 'popularity.desc' } },
+          label: t('discoverLinks.popularTv'),
+        },
       ],
     },
     {
-      title: t('legal'),
+      title: t('genres'),
+      links: FEATURED_GENRES.map((genre) => ({
+        href: { pathname: '/movies', query: { with_genres: genre.id } },
+        label: tGenres(genre.key),
+      })),
+    },
+    {
+      title: t('company'),
       links: [
-        { href: '/terms', label: t('legalLinks.terms') },
-        { href: '/privacy', label: t('legalLinks.privacy') },
-        { href: '/cookies', label: t('legalLinks.cookies') },
-        { href: '/subscription', label: t('legalLinks.subscription') },
+        { href: '/about', label: t('companyLinks.about') },
+        { href: '/careers', label: t('companyLinks.careers') },
+        { href: '/press', label: t('companyLinks.press') },
+        { href: '/guidelines', label: t('companyLinks.guidelines') },
+        { href: '/subscription', label: t('companyLinks.subscription') },
       ],
     },
     {
-      title: t('social'),
+      title: t('support'),
       links: [
-        { href: 'https://facebook.com', label: t('socialLinks.facebook') },
-        { href: 'https://twitter.com', label: t('socialLinks.twitter') },
-        { href: 'https://instagram.com', label: t('socialLinks.instagram') },
+        { href: '/help', label: t('supportLinks.helpCenter') },
+        { href: '/faq', label: t('supportLinks.faq') },
+        { href: '/contact', label: t('supportLinks.contact') },
+        { href: '/feedback', label: t('supportLinks.feedback') },
       ],
     },
   ];
 
   return (
-    <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
-      {columns.map((col) => (
-        <FooterColumn key={col.title} title={col.title} links={col.links} />
+    <div className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 lg:grid-cols-[1.4fr_repeat(5,1fr)]">
+      <FooterBrand />
+      {columns.map((column) => (
+        <FooterColumn key={column.title} title={column.title} links={column.links} />
       ))}
     </div>
   );
