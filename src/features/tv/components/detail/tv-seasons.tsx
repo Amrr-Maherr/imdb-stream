@@ -20,7 +20,14 @@ export function TvSeasons({ seasons, tvId, tvSlug, currentSeasonNumber }: TvSeas
   return (
     <section>
       <h2 className="text-xl font-bold text-foreground mb-4">{t('seasons')}</h2>
-      <Slider slidesPerView={6} slidesMobilePerView={2.5} spaceBetween={16} grabCursor freeMode>
+      <Slider
+        slidesPerView={3}
+        slidesMobilePerView={2.5}
+        spaceBetween={16}
+        grabCursor
+        freeMode
+        className="py-3"
+      >
         {valid.map((season) => (
           <SeasonCard
             key={season.id}
