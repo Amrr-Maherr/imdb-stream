@@ -1157,6 +1157,8 @@
     "seasonStatistics": "Season Statistics",
     "airDate": "Air Date",
     "voteAverage": "Vote Average",
+    "averageRuntime": "Average Runtime",
+    "totalRuntime": "Total Runtime",
     "episodeInfo": "Episode Info",
     "productionCode": "Production Code",
     "episodeTypeStandard": "Standard",

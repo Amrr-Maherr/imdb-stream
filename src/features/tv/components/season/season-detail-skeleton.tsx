@@ -1,11 +1,11 @@
 export function SeasonDetailSkeleton() {
   return (
     <div className="flex flex-col flex-1 bg-background animate-pulse">
-      <div className="w-full aspect-[4/5] md:aspect-[16/9] lg:aspect-[21/9] bg-muted" />
+      <div className="w-full aspect-[16/10] sm:aspect-[16/9] md:aspect-[21/9] bg-muted" />
 
       <div className="w-full mx-auto app-container mt-8 md:mt-10 pb-16">
         <div className="flex flex-col lg:flex-row gap-10 lg:gap-12">
-          <div className="order-2 flex-1 min-w-0 space-y-6 lg:order-1">
+          <div className="flex-1 min-w-0 space-y-6">
             <div className="h-6 w-24 rounded bg-muted" />
             {[1, 2, 3, 4].map((i) => (
               <div key={i} className="flex gap-4 rounded-xl border border-border bg-card p-4">
@@ -19,7 +19,7 @@ export function SeasonDetailSkeleton() {
             ))}
           </div>
 
-          <div className="order-1 w-full space-y-6 lg:order-2 lg:w-80 xl:w-96 lg:flex-shrink-0">
+          <div className="w-full space-y-6 lg:w-80 xl:w-96 lg:flex-shrink-0">
             <div className="rounded-xl border border-border bg-card p-5 space-y-3">
               <div className="h-4 w-32 rounded bg-muted" />
               <div className="h-3 w-full rounded bg-muted" />

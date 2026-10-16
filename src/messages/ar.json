@@ -1142,6 +1142,8 @@
     "seasonStatistics": "إحصائيات الموسم",
     "airDate": "تاريخ البث",
     "voteAverage": "متوسط التصويت",
+    "averageRuntime": "متوسط مدة الحلقة",
+    "totalRuntime": "المدة الإجمالية",
     "episodeInfo": "معلومات الحلقة",
     "productionCode": "رمز الإنتاج",
     "episodeTypeStandard": "عادية",
