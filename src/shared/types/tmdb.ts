@@ -155,13 +155,18 @@ export type WatchProvider = {
   display_priority: number;
 };
 
-export type WatchProviders = {
+export type WatchProviderRegion = {
   link: string;
   flatrate?: WatchProvider[];
   rent?: WatchProvider[];
   buy?: WatchProvider[];
   free?: WatchProvider[];
   ads?: WatchProvider[];
+};
+
+export type WatchProviders = {
+  id?: number;
+  results: Record<string, WatchProviderRegion>;
 };
 
 export type AccountStates = {
