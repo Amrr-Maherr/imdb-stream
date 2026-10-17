@@ -1,20 +1,24 @@
 import { getTranslations } from 'next-intl/server';
 import { getHomeData } from '@/features/movies/services/homeData';
-import { MediaRow } from './media-row';
-import { FeaturedRow } from './featured-row';
-import { BannerSection } from './banner-section';
-import { PremiumRow } from './premium-row';
-import { MovieCard } from './movie-card';
-import { TvCard } from './tv-card';
-import { PersonCard } from './person-card';
 import {
   ProductionCompaniesSection,
   PlatformsSection,
 } from '@/features/company/components/company-section';
 import { LazySection } from '@/shared/components/lazy-section';
-import { FeaturedBannerGrid } from './featured-banner-grid';
-import { GenreDiscovery } from './genre-discovery';
-import { EditorialSpotlight } from './editorial-spotlight';
+import {
+  LazyAiringTodayRow,
+  LazyEditorialSpotlight,
+  LazyFeaturedBannerGrid,
+  LazyGenreDiscovery,
+  LazyNowPlayingRow,
+  LazyPopularPeopleRow,
+  LazyPopularMoviesRow,
+  LazyPopularTvRow,
+  LazyTopRatedMoviesRow,
+  LazyTopRatedTvRow,
+  LazyTrendingTvRow,
+  LazyUpcomingRow,
+} from './home-sections-lazy';
 import {
   BannerSectionSkeleton,
   EditorialSpotlightSkeleton,
@@ -55,18 +59,14 @@ export async function HomeSections({ locale }: Props) {
       {/* ── Popular Movies ── Pattern B: Featured Spotlight + Carousel ── */}
       {popular.length > 0 && (
         <LazySection fallback={<FeaturedRowSkeleton />}>
-          <FeaturedRow title={t('popularMovies')} spotlight={popular[0]} genreMap={genreMap}>
-            {popular.slice(1).map((movie) => (
-              <MovieCard key={movie.id} movie={movie} genreMap={genreMap} />
-            ))}
-          </FeaturedRow>
+          <LazyPopularMoviesRow title={t('popularMovies')} movies={popular} genreMap={genreMap} />
         </LazySection>
       )}
 
       {/* ── Featured This Week ── Featured Banner Grid ── */}
       {featuredItems.length > 0 && (
         <LazySection fallback={<FeaturedBannerGridSkeleton />}>
-          <FeaturedBannerGrid
+          <LazyFeaturedBannerGrid
             title={t('featuredThisWeek')}
             subtitle={t('featuredThisWeekDesc')}
             items={featuredItems}
@@ -79,37 +79,31 @@ export async function HomeSections({ locale }: Props) {
       {/* ── Top Rated Movies ── Pattern C: Premium Editorial ── */}
       {topRated.length > 0 && (
         <LazySection fallback={<PremiumRowSkeleton />}>
-          <PremiumRow
+          <LazyTopRatedMoviesRow
             title={t('topRated')}
             subtitle={t('topRatedDesc')}
-            averageRating={
-              topRated.length > 0
-                ? topRated.reduce((s, m) => s + m.vote_average, 0) / topRated.length
-                : undefined
-            }
-          >
-            {topRated.map((movie) => (
-              <MovieCard key={movie.id} movie={movie} genreMap={genreMap} />
-            ))}
-          </PremiumRow>
+            movies={topRated}
+            genreMap={genreMap}
+          />
         </LazySection>
       )}
 
       {/* ── Now Playing ── Pattern D: Banner Section ── */}
       {nowPlaying.length > 0 && (
         <LazySection fallback={<BannerSectionSkeleton />}>
-          <BannerSection title={t('nowPlaying')} subtitle={t('nowPlayingDesc')}>
-            {nowPlaying.map((movie) => (
-              <MovieCard key={movie.id} movie={movie} genreMap={genreMap} />
-            ))}
-          </BannerSection>
+          <LazyNowPlayingRow
+            title={t('nowPlaying')}
+            subtitle={t('nowPlayingDesc')}
+            movies={nowPlaying}
+            genreMap={genreMap}
+          />
         </LazySection>
       )}
 
       {/* ── Spotlight ── Pattern F: Premium Actor Spotlight ── */}
       {spotlight && spotlight.credits.length > 0 && (
         <LazySection fallback={<EditorialSpotlightSkeleton />}>
-          <EditorialSpotlight
+          <LazyEditorialSpotlight
             title={t('spotlight')}
             subtitle={t('spotlightDesc')}
             labels={{
@@ -135,17 +129,12 @@ export async function HomeSections({ locale }: Props) {
       {/* ── Upcoming Movies ── Coming Soon ── */}
       {upcoming.length > 0 && (
         <LazySection fallback={<SectionRowSkeleton />}>
-          <MediaRow
+          <LazyUpcomingRow
             title={t('upcomingMovies')}
             subtitle={t('upcomingMoviesDesc')}
-            slidesPerView={5}
-            slidesMobilePerView={2.5}
-            spaceBetween={14}
-          >
-            {upcoming.map((movie) => (
-              <MovieCard key={movie.id} movie={movie} genreMap={genreMap} />
-            ))}
-          </MediaRow>
+            movies={upcoming}
+            genreMap={genreMap}
+          />
         </LazySection>
       )}
 
@@ -160,69 +149,55 @@ export async function HomeSections({ locale }: Props) {
       {/* ── Trending TV ── Standard carousel ── */}
       {trendingTv.length > 0 && (
         <LazySection fallback={<SectionRowSkeleton />}>
-          <MediaRow
+          <LazyTrendingTvRow
             title={t('trendingTv')}
             subtitle={t('trendingTvDesc')}
-            slidesPerView={5}
-            slidesMobilePerView={2.5}
-            spaceBetween={14}
-          >
-            {trendingTv.map((tv) => (
-              <TvCard key={tv.id} tv={tv} genreMap={genreMap} />
-            ))}
-          </MediaRow>
+            shows={trendingTv}
+            genreMap={genreMap}
+          />
         </LazySection>
       )}
 
       {/* ── Popular TV ── Standard carousel with different config ── */}
       {popularTv.length > 0 && (
         <LazySection fallback={<SectionRowSkeleton />}>
-          <MediaRow
+          <LazyPopularTvRow
             title={t('popularTv')}
             subtitle={t('popularTvDesc')}
-            slidesPerView={5}
-            slidesMobilePerView={2.5}
-            spaceBetween={14}
-          >
-            {popularTv.map((tv) => (
-              <TvCard key={tv.id} tv={tv} genreMap={genreMap} />
-            ))}
-          </MediaRow>
+            shows={popularTv}
+            genreMap={genreMap}
+          />
         </LazySection>
       )}
 
       {/* ── Airing Today ── Pattern D: Banner Section ── */}
       {airingToday.length > 0 && (
         <LazySection fallback={<BannerSectionSkeleton />}>
-          <BannerSection title={t('airingToday')} subtitle={t('airingTodayDesc')}>
-            {airingToday.map((tv) => (
-              <TvCard key={tv.id} tv={tv} genreMap={genreMap} />
-            ))}
-          </BannerSection>
+          <LazyAiringTodayRow
+            title={t('airingToday')}
+            subtitle={t('airingTodayDesc')}
+            shows={airingToday}
+            genreMap={genreMap}
+          />
         </LazySection>
       )}
 
       {/* ── Top Rated TV ── Derived from trending/popular/airing ── */}
       {topRatedTv.length > 0 && (
         <LazySection fallback={<PremiumRowSkeleton />}>
-          <PremiumRow
+          <LazyTopRatedTvRow
             title={t('topRatedTv')}
             subtitle={t('topRatedTvDesc')}
-            averageRating={
-              topRatedTv.reduce((s, show) => s + show.vote_average, 0) / topRatedTv.length
-            }
-          >
-            {topRatedTv.map((tv) => (
-              <TvCard key={tv.id} tv={tv} genreMap={genreMap} />
-            ))}
-          </PremiumRow>
+            shows={topRatedTv}
+            genreMap={genreMap}
+          />
         </LazySection>
       )}
 
       {/* ── Explore Genres ── Pattern E: Genre Discovery ── */}
       {genreTiles.length > 0 && (
         <LazySection fallback={<GenreGridSkeleton />}>
-          <GenreDiscovery
+          <LazyGenreDiscovery
             title={t('exploreGenres')}
             subtitle={t('exploreGenresDesc')}
             genres={genreTiles}
@@ -233,17 +208,11 @@ export async function HomeSections({ locale }: Props) {
       {/* ── Popular Actors ── Standard carousel ── */}
       {popularPeople.length > 0 && (
         <LazySection fallback={<PersonRowSkeleton />}>
-          <MediaRow
+          <LazyPopularPeopleRow
             title={t('popularActors')}
             subtitle={t('popularActorsDesc')}
-            slidesPerView={6}
-            slidesMobilePerView={3}
-            spaceBetween={16}
-          >
-            {popularPeople.map((person) => (
-              <PersonCard key={person.id} person={person} />
-            ))}
-          </MediaRow>
+            people={popularPeople}
+          />
         </LazySection>
       )}
     </div>
