@@ -9,7 +9,9 @@ import { MovieVideos } from '@/features/movies/components/detail/movie-videos';
 import { MovieExternalLinks } from '@/features/movies/components/detail/movie-external-links';
 import { MovieCast } from '@/features/movies/components/detail/movie-cast';
 import { CastCard } from '@/features/movies/components/detail/cast-card';
-import { MovieCrewSection, PRIORITY_JOBS } from '@/features/movies/components/detail/movie-crew';
+import { MovieCrewSection } from '@/features/movies/components/detail/movie-crew';
+import { PRIORITY_JOBS } from '@/features/movies/utils/crew-helpers';
+import { getDirector, getProducers, getWriters } from '@/features/tv/utils/episode-crew';
 import { FadeIn } from '@/features/movies/components/detail/fade-in';
 import { Slider } from '@/shared/components/ui/slider';
 
@@ -18,18 +20,6 @@ const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p';
 type EpisodeMainContentProps = {
   ep: TMDBEpisodeDetails;
 };
-
-function getDirector(crew: TMDBEpisodeDetails['crew']) {
-  return crew.find((m) => m.job === 'Director') ?? null;
-}
-
-function getWriters(crew: TMDBEpisodeDetails['crew']) {
-  return crew.filter((m) => m.job === 'Writer' || m.job === 'Screenplay' || m.job === 'Teleplay');
-}
-
-function getProducers(crew: TMDBEpisodeDetails['crew']) {
-  return crew.filter((m) => m.job === 'Producer' || m.job === 'Executive Producer');
-}
 
 export function EpisodeMainContent({ ep }: EpisodeMainContentProps) {
   const t = useTranslations('TvDetail');

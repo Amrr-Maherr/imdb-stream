@@ -4,21 +4,10 @@ import { ErrorState } from '@/shared/components/error-state';
 import { ListHero } from '@/features/list/components/list-hero';
 import { ListMainContent } from '@/features/list/components/list-main-content';
 import { ListSidebar } from '@/features/list/components/list-sidebar';
+import type { ListItem } from '@/features/list/utils/list-helpers';
 interface Props {
   params: Promise<{ locale: string; slug: string; id: string }>;
 }
-
-type TMDBListItem = {
-  id: number;
-  title?: string;
-  name?: string;
-  poster_path: string | null;
-  media_type: string;
-  vote_average: number;
-  release_date?: string;
-  first_air_date?: string;
-  overview: string;
-};
 
 type TMDBListDetails = {
   id: number;
@@ -28,7 +17,7 @@ type TMDBListDetails = {
   item_count: number;
   list_type: string;
   poster_path: string | null;
-  items: TMDBListItem[];
+  items: ListItem[];
 };
 
 async function getList(id: string, locale: string) {

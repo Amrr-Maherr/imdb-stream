@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { Star } from 'lucide-react';
-import { slugify } from '@/shared/utils/slugify';
+import { getHref, getTitle, getYear } from '@/features/person/utils/credit-helpers';
 import { Slider } from '@/shared/components/ui/slider';
 
 const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p';
@@ -24,22 +24,6 @@ type KnownForItem = {
 type PersonKnownForProps = {
   items: KnownForItem[];
 };
-
-function getTitle(item: KnownForItem, t: (key: string) => string) {
-  return item.title || item.name || t('unknown');
-}
-
-function getYear(item: KnownForItem) {
-  const date = item.release_date || item.first_air_date;
-  return date ? date.slice(0, 4) : null;
-}
-
-function getHref(item: KnownForItem) {
-  const title = item.title || item.name || 'unknown';
-  if (item.media_type === 'movie') return `/movies/${slugify(title)}/${item.id}`;
-  if (item.media_type === 'tv') return `/tv-shows/${slugify(title)}/${item.id}`;
-  return '#';
-}
 
 export function PersonKnownFor({ items }: PersonKnownForProps) {
   const t = useTranslations('Person');

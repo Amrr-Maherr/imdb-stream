@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { ExternalLink, Calendar, MapPin, Flame } from 'lucide-react';
 import { FadeIn } from '@/features/movies/components/detail/fade-in';
+import { formatLongDate } from '@/shared/utils/format-date';
 
 const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p';
 
@@ -85,17 +86,8 @@ export function PersonHero({
                   <span className="flex items-center gap-1.5">
                     <Calendar className="size-3.5" />
                     <span className="font-medium text-foreground">{t('born')}</span>{' '}
-                    {new Date(birthday).toLocaleDateString('en-US', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric',
-                    })}
-                    {deathday &&
-                      ` — ${new Date(deathday).toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
-                      })}`}
+                    {formatLongDate(birthday)}
+                    {deathday && ` — ${formatLongDate(deathday)}`}
                     {age != null && (
                       <span className="text-muted-foreground/60">
                         {deathday ? t('ageSimple', { age }) : t('age', { age })}

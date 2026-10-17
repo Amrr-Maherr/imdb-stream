@@ -4,6 +4,8 @@ import { DollarSign, TrendingUp, Flag, Globe, ShieldCheck, Info } from 'lucide-r
 import { MovieRating } from './movie-rating';
 import { FactsCard, type Fact } from './facts-card';
 import { slugify } from '@/shared/utils/slugify';
+import { formatCurrency } from '@/shared/utils/format-currency';
+import { formatLongDate } from '@/shared/utils/format-date';
 
 type MovieSidebarProps = {
   voteAverage: number;
@@ -24,16 +26,6 @@ type MovieSidebarProps = {
   originCountry: string[];
   adult: boolean;
 };
-
-function formatCurrency(amount: number) {
-  if (amount === 0) return '—';
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(amount);
-}
 
 export function MovieSidebar({
   voteAverage,
@@ -61,11 +53,7 @@ export function MovieSidebar({
   if (releaseDate) {
     facts.push({
       label: t('releaseDate'),
-      value: new Date(releaseDate).toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-      }),
+      value: formatLongDate(releaseDate),
     });
   }
   if (originalLanguage) {

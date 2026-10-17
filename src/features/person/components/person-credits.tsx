@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { Star } from 'lucide-react';
 import type { PersonCreditCast, PersonCreditCrew } from '@/shared/types/tmdb';
-import { slugify } from '@/shared/utils/slugify';
+import { getHref, getTitle, getYear } from '@/features/person/utils/credit-helpers';
 import { EmptyState } from '@/shared/components/empty-state';
 
 const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p';
@@ -14,23 +14,6 @@ type PersonCreditsProps = {
   cast: PersonCreditCast[];
   crew: PersonCreditCrew[];
 };
-
-function getYear(item: { release_date?: string; first_air_date?: string }) {
-  const date = item.release_date || item.first_air_date;
-  if (!date) return '—';
-  return date.slice(0, 4);
-}
-
-function getTitle(item: { title?: string; name?: string }, t: (key: string) => string) {
-  return item.title || item.name || t('unknown');
-}
-
-function getHref(item: { media_type: string; id: number; title?: string; name?: string }) {
-  const title = item.title || item.name || 'unknown';
-  if (item.media_type === 'movie') return `/movies/${slugify(title)}/${item.id}`;
-  if (item.media_type === 'tv') return `/tv-shows/${slugify(title)}/${item.id}`;
-  return '#';
-}
 
 type KnownForDepartment = string;
 
@@ -56,7 +39,7 @@ export function PersonCredits({ cast, crew }: PersonCreditsProps) {
               <CreditRow
                 key={`cast-${credit.credit_id}`}
                 title={getTitle(credit, t)}
-                year={getYear(credit)}
+                year={getYear(credit) ?? '—'}
                 posterPath={credit.poster_path}
                 role={credit.character}
                 href={getHref(credit)}
@@ -77,7 +60,7 @@ export function PersonCredits({ cast, crew }: PersonCreditsProps) {
               <CreditRow
                 key={`crew-${credit.credit_id}`}
                 title={getTitle(credit, t)}
-                year={getYear(credit)}
+                year={getYear(credit) ?? '—'}
                 posterPath={credit.poster_path}
                 role={credit.job}
                 href={getHref(credit)}

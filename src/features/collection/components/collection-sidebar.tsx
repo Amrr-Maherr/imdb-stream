@@ -3,6 +3,8 @@
 import { Star, Layers, Calendar, BarChart3, TrendingUp } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import type { CollectionPart } from '@/shared/types/tmdb';
+import { isTV } from '@/features/collection/utils/collection-helpers';
+import { formatCurrency } from '@/shared/utils/format-currency';
 import { FadeIn } from '@/features/movies/components/detail/fade-in';
 import { MovieRating } from '@/features/movies/components/detail/movie-rating';
 
@@ -12,16 +14,6 @@ type CollectionSidebarProps = {
   avgRating: number;
   parts: CollectionPart[];
 };
-
-function formatCurrency(amount: number) {
-  if (amount === 0) return '—';
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(amount);
-}
 
 export function CollectionSidebar({
   partsCount,
@@ -167,8 +159,4 @@ export function CollectionSidebar({
       </FadeIn>
     </div>
   );
-}
-
-function isTV(part: CollectionPart): boolean {
-  return part.media_type === 'tv' || part.original_title === undefined || !part.title;
 }

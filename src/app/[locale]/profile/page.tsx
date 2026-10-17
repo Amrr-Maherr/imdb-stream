@@ -20,20 +20,12 @@ import {
 } from 'lucide-react';
 import { ProfileSkeleton } from '@/features/profile/components/profile-skeleton';
 import { useAuth } from '@/shared/provider/authProvider';
+import { formatLongDate } from '@/shared/utils/format-date';
 
 export default function ProfilePage() {
   const t = useTranslations('Profile');
   const tc = useTranslations('Common');
   const { user, loading } = useAuth();
-
-  const formatDate = (dateStr: string) => {
-    const date = new Date(dateStr);
-    return date.toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    });
-  };
 
   const getYearsSince = (dateStr: string) => {
     const joined = new Date(dateStr);
@@ -102,7 +94,7 @@ export default function ProfilePage() {
           </h1>
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <Calendar className="size-3.5" />
-            <span>{t('joined', { date: formatDate(user.metadata.creationTime ?? '') })}</span>
+            <span>{t('joined', { date: formatLongDate(user.metadata.creationTime ?? '') })}</span>
           </div>
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <Mail className="size-3.5" />
@@ -128,12 +120,12 @@ export default function ProfilePage() {
         <StatCard
           icon={Calendar}
           label={t('memberSince')}
-          value={formatDate(user.metadata.creationTime ?? '').split(',')[0]}
+          value={formatLongDate(user.metadata.creationTime ?? '').split(',')[0]}
         />
         <StatCard
           icon={Clock}
           label={t('lastLogin')}
-          value={formatDate(user.metadata.lastSignInTime ?? '').split(',')[0]}
+          value={formatLongDate(user.metadata.lastSignInTime ?? '').split(',')[0]}
         />
         <StatCard
           icon={Shield}

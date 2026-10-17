@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { ChevronDown, ChevronUp, Globe, CalendarDays } from 'lucide-react';
 import { Card, CardContent } from '@/shared/components/ui/card';
+import { getCountryName } from '@/shared/utils/format-country';
 
 type ReleaseDateItem = {
   certification: string;
@@ -24,14 +25,6 @@ type MovieReleaseDatesProps = {
 };
 
 const DISPLAY_LIMIT = 4;
-
-function getCountryName(code: string) {
-  try {
-    return new Intl.DisplayNames(['en'], { type: 'region' }).of(code) || code;
-  } catch {
-    return code;
-  }
-}
 
 function formatDate(dateStr: string) {
   return new Date(dateStr).toLocaleDateString('en-US', {

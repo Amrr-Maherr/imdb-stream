@@ -3,6 +3,7 @@
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { ChevronDown, ChevronUp, Globe } from 'lucide-react';
+import { getCountryName } from '@/shared/utils/format-country';
 
 type AlternativeTitle = {
   iso_3166_1: string;
@@ -15,14 +16,6 @@ type MovieAlternativeTitlesProps = {
 };
 
 const DISPLAY_LIMIT = 6;
-
-function getCountryName(code: string) {
-  try {
-    return new Intl.DisplayNames(['en'], { type: 'region' }).of(code) || code;
-  } catch {
-    return code;
-  }
-}
 
 export function MovieAlternativeTitles({ titles }: MovieAlternativeTitlesProps) {
   const t = useTranslations('MovieDetail');

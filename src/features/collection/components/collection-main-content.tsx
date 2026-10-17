@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { Star, Calendar, Film, Tv, Play } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import type { CollectionPart } from '@/shared/types/tmdb';
-import { slugify } from '@/shared/utils/slugify';
+import { getHref, getTitle, isTV } from '@/features/collection/utils/collection-helpers';
 import { FadeIn } from '@/features/movies/components/detail/fade-in';
 import { EmptyState } from '@/shared/components/empty-state';
 
@@ -16,23 +16,6 @@ type CollectionMainContentProps = {
   overview: string;
   parts: CollectionPart[];
 };
-
-function isTV(part: CollectionPart): boolean {
-  return part.media_type === 'tv' || part.original_title === undefined || !part.title;
-}
-
-function getTitle(part: CollectionPart): string {
-  return isTV(part) ? (part as any).name || part.original_title || part.title : part.title;
-}
-
-function getHref(part: CollectionPart): string {
-  const title = getTitle(part);
-  const slug = slugify(title);
-  if (isTV(part)) {
-    return `/tv-shows/${slug}/${part.id}`;
-  }
-  return `/movies/${slug}/${part.id}`;
-}
 
 export function CollectionMainContent({ name, overview, parts }: CollectionMainContentProps) {
   const t = useTranslations('Collection');

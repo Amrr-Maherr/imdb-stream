@@ -4,42 +4,17 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Star, Tv } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { slugify } from '@/shared/utils/slugify';
+import { getHref, getTitle, type ListItem } from '@/features/list/utils/list-helpers';
 import { FadeIn } from '@/features/movies/components/detail/fade-in';
 import { EmptyState } from '@/shared/components/empty-state';
 
 const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p';
-
-type ListItem = {
-  id: number;
-  title?: string;
-  name?: string;
-  poster_path: string | null;
-  media_type: string;
-  vote_average: number;
-  release_date?: string;
-  first_air_date?: string;
-  overview: string;
-};
 
 type ListMainContentProps = {
   name: string;
   description: string | null;
   items: ListItem[];
 };
-
-function getTitle(item: ListItem): string {
-  return item.title || item.name || 'Unknown';
-}
-
-function getHref(item: ListItem): string {
-  const title = getTitle(item);
-  const slug = slugify(title);
-  if (item.media_type === 'tv') {
-    return `/tv-shows/${slug}/${item.id}`;
-  }
-  return `/movies/${slug}/${item.id}`;
-}
 
 export function ListMainContent({ name, description, items }: ListMainContentProps) {
   const t = useTranslations('List');

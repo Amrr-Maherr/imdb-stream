@@ -11,7 +11,7 @@ import { FadeIn } from '@/features/movies/components/detail/fade-in';
 import { Slider } from '@/shared/components/ui/slider';
 import { TvSeasons } from '@/features/tv/components/detail/tv-seasons';
 import { SeasonMetadata } from './season-metadata';
-import { seasonCrew } from './season-credits';
+import { seasonCrew } from '@/features/tv/utils/season-credits';
 
 type SeasonSidebarColumnProps = {
   season: TVSeasonDetails;

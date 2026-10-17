@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { Quote, Star } from 'lucide-react';
 import { Card, CardContent } from '@/shared/components/ui/card';
 import { Slider } from '@/shared/components/ui/slider';
+import { formatLongDate } from '@/shared/utils/format-date';
 
 type AuthorDetails = {
   name: string;
@@ -28,14 +29,6 @@ type MovieReviewsProps = {
 };
 
 const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p';
-
-function formatDate(dateStr: string) {
-  return new Date(dateStr).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
-}
 
 function ReviewCard({ review }: { review: Review }) {
   const t = useTranslations('MovieDetail');
@@ -74,7 +67,7 @@ function ReviewCard({ review }: { review: Review }) {
                 </span>
               )}
             </div>
-            <p className="text-xs text-muted-foreground">{formatDate(review.created_at)}</p>
+            <p className="text-xs text-muted-foreground">{formatLongDate(review.created_at)}</p>
           </div>
         </div>
         <div className="mt-3 flex-1 overflow-y-auto">

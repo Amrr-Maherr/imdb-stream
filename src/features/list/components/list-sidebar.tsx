@@ -4,18 +4,7 @@ import { List as ListIcon, Heart, Film, Tv, Star } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { FadeIn } from '@/features/movies/components/detail/fade-in';
 import { MovieRating } from '@/features/movies/components/detail/movie-rating';
-
-type ListItem = {
-  id: number;
-  title?: string;
-  name?: string;
-  poster_path: string | null;
-  media_type: string;
-  vote_average: number;
-  release_date?: string;
-  first_air_date?: string;
-  overview: string;
-};
+import type { ListItem } from '@/features/list/utils/list-helpers';
 
 type ListSidebarProps = {
   name: string;

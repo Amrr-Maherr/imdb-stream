@@ -1,5 +1,6 @@
 import { Globe, Monitor } from 'lucide-react';
 import { Card, CardContent } from '@/shared/components/ui/card';
+import { getCountryName } from '@/shared/utils/format-country';
 
 type ContentRating = {
   iso_3166_1: string;
@@ -9,14 +10,6 @@ type ContentRating = {
 type TvContentRatingsProps = {
   ratings: ContentRating[];
 };
-
-function getCountryName(code: string) {
-  try {
-    return new Intl.DisplayNames(['en'], { type: 'region' }).of(code) || code;
-  } catch {
-    return code;
-  }
-}
 
 export function TvContentRatings({ ratings }: TvContentRatingsProps) {
   if (ratings.length === 0) return null;
