@@ -1276,18 +1276,31 @@
   },
   "HomePage": {
     "popularMovies": "Popular Movies",
+    "featuredThisWeek": "Featured This Week",
+    "featuredThisWeekDesc": "Handpicked highlights across movies and series",
     "topRated": "Top Rated",
     "topRatedDesc": "The highest-rated movies of all time",
     "nowPlaying": "Now Playing",
     "nowPlayingDesc": "Currently in theaters and recently released",
+    "spotlight": "Spotlight",
+    "spotlightDesc": "Get to know the people behind the screen",
+    "knownFor": "Known for",
+    "viewProfile": "View Profile",
+    "upcomingMovies": "Coming Soon",
+    "upcomingMoviesDesc": "Upcoming theatrical releases",
     "trendingTv": "Trending TV Shows",
     "trendingTvDesc": "This week's most popular series",
     "popularTv": "Popular TV",
     "popularTvDesc": "Most-watched series right now",
     "airingToday": "Airing Today",
     "airingTodayDesc": "New episodes and premieres airing today",
+    "topRatedTv": "Top Rated TV Shows",
+    "topRatedTvDesc": "Highest-rated series among this week's favorites",
+    "exploreGenres": "Explore Genres",
+    "exploreGenresDesc": "Browse movies by the genres you love",
     "popularActors": "Popular Actors",
-    "popularActorsDesc": "Fan-favorite performers"
+    "popularActorsDesc": "Fan-favorite performers",
+    "viewAll": "View All"
   },
   "Filters": {
     "filters": "Filters",
@@ -1390,7 +1403,8 @@
     "description": "Browse thousands of movies and discover new favorites.",
     "showing": "Showing {count} movies",
     "pageInfo": "Page {current} of {total}",
-    "adultBadge": "18+"
+    "adultBadge": "18+",
+    "adultBadgeLabel": "Adults only, 18+"
   },
   "TvShows": {
     "title": "TV Shows",
@@ -1665,6 +1679,11 @@
     "sheet": {
       "close": "Close"
     }
+  },
+  "QuickView": {
+    "open": "Quick view",
+    "close": "Close",
+    "viewDetails": "View Details"
   },
   "AiChat": {
     "openChat": "Open chat",

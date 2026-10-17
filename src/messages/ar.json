@@ -1261,18 +1261,31 @@
   },
   "HomePage": {
     "popularMovies": "أفلام شائعة",
+    "featuredThisWeek": "مختارات هذا الأسبوع",
+    "featuredThisWeekDesc": "أبرز الأعمال المختارة من الأفلام والمسلسلات",
     "topRated": "الأعلى تقييماً",
     "topRatedDesc": "أعلى الأفلام تقييماً على الإطلاق",
     "nowPlaying": "يُعرض الآن",
     "nowPlayingDesc": "في دور العرض حالياً وصدرت حديثاً",
+    "spotlight": "تحت الأضواء",
+    "spotlightDesc": "تعرّف على الأشخاص خلف الشاشة",
+    "knownFor": "الأعمال المعروفة",
+    "viewProfile": "عرض الملف الشخصي",
+    "upcomingMovies": "قريباً",
+    "upcomingMoviesDesc": "إصدارات سينمائية قادمة",
     "trendingTv": "مسلسلات رائجة",
     "trendingTvDesc": "المسلسلات الأكثر شعبية هذا الأسبوع",
     "popularTv": "مسلسلات شائعة",
     "popularTvDesc": "المسلسلات الأكثر مشاهدة الآن",
     "airingToday": "يُبث اليوم",
     "airingTodayDesc": "حلقات جديدة وعروض أولى تُبث اليوم",
+    "topRatedTv": "المسلسلات الأعلى تقييماً",
+    "topRatedTvDesc": "أعلى المسلسلات تقييماً من بين مفضلات هذا الأسبوع",
+    "exploreGenres": "استكشف التصنيفات",
+    "exploreGenresDesc": "تصفح الأفلام حسب التصنيفات التي تحبها",
     "popularActors": "ممثلون مشهورون",
-    "popularActorsDesc": "المؤدون المفضلون لدى الجماهير"
+    "popularActorsDesc": "المؤدون المفضلون لدى الجماهير",
+    "viewAll": "عرض الكل"
   },
   "Filters": {
     "filters": "تصفية",
@@ -1375,7 +1388,8 @@
     "description": "تصفح آلاف الأفلام واكتشف مفضلاتك الجديدة.",
     "showing": "عرض {count} فيلم",
     "pageInfo": "صفحة {current} من {total}",
-    "adultBadge": "18+"
+    "adultBadge": "18+",
+    "adultBadgeLabel": "للبالغين فقط، 18+"
   },
   "TvShows": {
     "title": "المسلسلات",
@@ -1650,6 +1664,11 @@
     "sheet": {
       "close": "إغلاق"
     }
+  },
+  "QuickView": {
+    "open": "عرض سريع",
+    "close": "إغلاق",
+    "viewDetails": "عرض التفاصيل"
   },
   "AiChat": {
     "openChat": "فتح الدردشة",
