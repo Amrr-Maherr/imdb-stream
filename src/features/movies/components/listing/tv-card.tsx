@@ -1,7 +1,11 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { Star, TrendingUp, Languages, Globe } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import type { TMDBTV } from '@/shared/types/tmdb';
+import { Badge } from '@/shared/components/ui/badge';
 import { TitleQuickView } from '@/features/movies/components/listing/title-quick-view';
 import { slugify } from '@/shared/utils/slugify';
 
@@ -14,6 +18,7 @@ type TvCardProps = {
 };
 
 export function TvCard({ tv, genreMap, showRank }: TvCardProps) {
+  const t = useTranslations('Movies');
   const year = tv.first_air_date?.slice(0, 4);
   const vote = tv.vote_average.toFixed(1);
   const genres = tv.genre_ids
@@ -42,6 +47,22 @@ export function TvCard({ tv, genreMap, showRank }: TvCardProps) {
             <div className="flex h-full items-center justify-center text-muted-foreground text-sm p-2 text-center">
               {tv.name}
             </div>
+          )}
+          {tv.adult && (
+            <>
+              {/* Adults-only blur over the poster. */}
+              <div
+                className="pointer-events-none absolute inset-0 z-10 bg-background/40 backdrop-blur-md"
+                aria-hidden="true"
+              />
+              <Badge
+                role="img"
+                aria-label={t('adultBadgeLabel')}
+                className="pointer-events-none absolute bottom-2 left-2 z-30 bg-red-500 px-1.5 py-0.5 text-[10px] font-bold text-white shadow-sm"
+              >
+                {t('adultBadge')}
+              </Badge>
+            </>
           )}
           {genres && genres.length > 0 && (
             <div className="absolute top-2 left-2 flex flex-wrap gap-1">

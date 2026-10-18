@@ -278,6 +278,7 @@ export type TMDBTV = {
   original_name: string;
   popularity: number;
   origin_country: string[];
+  adult?: boolean;
 };
 
 export type TMDBPerson = {
