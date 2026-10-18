@@ -44,7 +44,7 @@ export function TitleQuickView(props: TitleQuickViewProps) {
         <button
           type="button"
           aria-label={t('open')}
-          className="pointer-events-none absolute inset-x-0 top-0 z-20 flex aspect-[2/3] items-center justify-center rounded-lg opacity-0 transition-opacity duration-200 group-hover:opacity-100 focus-visible:pointer-events-auto focus-visible:opacity-100 [@media(hover:none)]:opacity-100"
+          className="pointer-events-none md:block hidden absolute inset-x-0 top-0 z-20 flex aspect-[2/3] items-center justify-center rounded-lg opacity-0 transition-opacity duration-200 group-hover:opacity-100 focus-visible:pointer-events-auto focus-visible:opacity-100 [@media(hover:none)]:opacity-100"
         >
           <span className="pointer-events-auto inline-flex items-center gap-1.5 rounded-full bg-background/85 px-3 py-1.5 text-xs font-semibold text-foreground shadow-md ring-1 ring-border backdrop-blur-sm">
             <Eye className="size-3.5" />

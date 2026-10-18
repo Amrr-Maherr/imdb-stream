@@ -58,7 +58,7 @@ export function MovieCard({ movie, genreMap, showRank }: MovieCardProps) {
               <Badge
                 role="img"
                 aria-label={t('adultBadgeLabel')}
-                className="pointer-events-none absolute bottom-2 left-2 z-30 bg-destructive px-1.5 py-0.5 text-[10px] font-bold text-primary-foreground shadow-sm"
+                className="pointer-events-none absolute bottom-2 left-2 z-30 bg-red-500 px-1.5 py-0.5 text-[10px] font-bold text-white shadow-sm"
               >
                 {t('adultBadge')}
               </Badge>
