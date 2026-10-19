@@ -201,12 +201,13 @@ export function TvSidebar({
           </h3>
           <div className="flex flex-wrap gap-1.5">
             {keywords.map((kw) => (
-              <span
+              <Link
                 key={kw.id}
-                className="rounded bg-muted px-2 py-0.5 text-xs text-muted-foreground"
+                href={`/keywords/${slugify(kw.name)}/${kw.id}`}
+                className="rounded bg-muted px-2 py-0.5 text-xs text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
               >
                 {kw.name}
-              </span>
+              </Link>
             ))}
           </div>
         </div>

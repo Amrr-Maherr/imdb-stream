@@ -1590,6 +1590,8 @@
     "episodeNotFoundDesc": "We couldn't find the episode you're looking for.",
     "collectionNotFound": "Collection not found",
     "collectionNotFoundDesc": "We couldn't find the collection you're looking for.",
+    "keywordNotFound": "Keyword not found",
+    "keywordNotFoundDesc": "We couldn't find the keyword you're looking for.",
     "backToTvShow": "Back to TV Show",
     "backToSeason": "Back to Season",
     "invalidMediaType": "Invalid media type",

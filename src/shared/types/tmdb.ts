@@ -538,3 +538,12 @@ export type TMDBResponse<T> = {
   total_pages: number;
   total_results: number;
 };
+
+/* ------------------------------------------------------------------ */
+/* Keywords                                                            */
+/* ------------------------------------------------------------------ */
+
+export type KeywordDetails = {
+  id: number;
+  name: string;
+};

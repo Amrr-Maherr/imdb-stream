@@ -1575,6 +1575,8 @@
     "episodeNotFoundDesc": "لم نتمكن من العثور على الحلقة التي تبحث عنها.",
     "collectionNotFound": "المجموعة غير موجودة",
     "collectionNotFoundDesc": "لم نتمكن من العثور على المجموعة التي تبحث عنها.",
+    "keywordNotFound": "الكلمة المفتاحية غير موجودة",
+    "keywordNotFoundDesc": "لم نتمكن من العثور على الكلمة المفتاحية التي تبحث عنها.",
     "backToTvShow": "العودة إلى المسلسل",
     "backToSeason": "العودة إلى الموسم",
     "invalidMediaType": "نوع الوسائط غير صالح",
