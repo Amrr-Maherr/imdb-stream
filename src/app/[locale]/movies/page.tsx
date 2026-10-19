@@ -76,7 +76,7 @@ export default async function MoviesPage({
         )}
 
         <section>
-          <div className="grid grid-cols-[repeat(auto-fill,minmax(160px,1fr))] gap-3 md:gap-4">
+          <div className="grid md:grid-cols-5 grid-cols-2 gap-3 md:gap-4">
             {data?.results?.map((movie: TMDBMovie) => (
               <MovieCard key={movie.id} movie={movie} />
             ))}
