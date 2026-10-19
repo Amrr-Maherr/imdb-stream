@@ -38,11 +38,11 @@ export function CollectionHero({
             priority
           />
         ) : (
-          <div className="absolute inset-0 bg-gradient-to-br from-card to-background" />
+          <div className="absolute inset-0 bg-card" />
         )}
 
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-black/50" />
+        <div className="absolute inset-0 bg-black/40" />
 
         <div className="absolute inset-0 z-10 flex flex-col justify-end pb-10 md:pb-16">
           <div className="w-full mx-auto app-container">

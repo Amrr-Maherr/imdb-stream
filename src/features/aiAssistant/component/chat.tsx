@@ -115,12 +115,9 @@ export function SheetDemo() {
           <MessageCircle className="size-5" />
         </Button>
       </SheetTrigger>
-      <SheetContent
-        side="right"
-        className="flex w-full max-w-md flex-col gap-0 p-0 sm:max-w-lg"
-      >
+      <SheetContent side="right" className="flex w-full max-w-md flex-col gap-0 p-0 sm:max-w-lg">
         <SheetHeader className="flex shrink-0 flex-row items-center gap-3 border-b px-4 py-3">
-          <div className="relative flex size-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-brand via-brand/80 to-brand/60 text-brand-foreground shadow-sm">
+          <div className="relative flex size-9 shrink-0 items-center justify-center rounded-full bg-brand text-brand-foreground shadow-sm">
             <Bot className="size-5" />
             <span className="absolute -bottom-0.5 -end-0.5 size-2.5 rounded-full border-2 border-background bg-emerald-500" />
           </div>
@@ -187,7 +184,7 @@ export function SheetDemo() {
                           <User className="size-4" />
                         </div>
                       ) : (
-                        <div className="flex size-8 items-center justify-center rounded-full bg-gradient-to-br from-brand to-brand/60 text-brand-foreground">
+                        <div className="flex size-8 items-center justify-center rounded-full bg-brand text-brand-foreground">
                           <Bot className="size-4" />
                         </div>
                       )}
@@ -218,7 +215,8 @@ export function SheetDemo() {
                           variant={msg.role === 'user' ? undefined : 'muted'}
                           className={cn(
                             msg.role === 'assistant' && 'text-foreground',
-                            msg.error && 'border border-destructive/30 bg-destructive/10 text-destructive'
+                            msg.error &&
+                              'border border-destructive/30 bg-destructive/10 text-destructive'
                           )}
                         >
                           <BubbleContent className="whitespace-pre-wrap">
@@ -240,7 +238,7 @@ export function SheetDemo() {
               {loading && (
                 <Message align="start">
                   <MessageAvatar className="self-start mt-1">
-                    <div className="flex size-8 items-center justify-center rounded-full bg-gradient-to-br from-brand to-brand/60 text-brand-foreground">
+                    <div className="flex size-8 items-center justify-center rounded-full bg-brand text-brand-foreground">
                       <Bot className="size-4" />
                     </div>
                   </MessageAvatar>

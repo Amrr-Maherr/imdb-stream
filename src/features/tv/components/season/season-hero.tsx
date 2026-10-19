@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import Image from 'next/image';
 import Link from 'next/link';
@@ -36,12 +36,12 @@ export function SeasonHero({ season, backdropPath, tvName, tvSlug, tvId }: Seaso
             priority
           />
         ) : (
-          <div className="absolute inset-0 bg-gradient-to-br from-card to-background" />
+          <div className="absolute inset-0 bg-card" />
         )}
 
-        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/45 to-black/20" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent" />
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-black/60 to-transparent" />
+        <div className="absolute inset-0 bg-black/50" />
+        <div className="absolute inset-0 bg-black/40" />
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-black/40" />
 
         <div className="absolute inset-0 z-10 flex flex-col justify-end pb-6 sm:pb-10 md:pb-14">
           <div className="w-full mx-auto app-container">

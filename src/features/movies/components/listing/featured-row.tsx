@@ -50,7 +50,7 @@ export function FeaturedRow({ title, spotlight, genreMap, children }: FeaturedRo
                 sizes="100vw"
               />
             ) : null}
-            <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/30 to-transparent" />
+            <div className="absolute inset-0 bg-background/60" />
             <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6">
               <h3 className="text-lg sm:text-2xl font-bold text-foreground line-clamp-1">
                 {spotlight.title}

@@ -6,7 +6,10 @@ import { Badge } from '@/shared/components/ui/badge';
 import { Card } from '@/shared/components/ui/card';
 import { MovieCard } from '@/features/movies/components/listing/movie-card';
 import { TvCard } from '@/features/movies/components/listing/tv-card';
-import { spotlightCreditToMovie, spotlightCreditToTv } from '@/features/movies/utils/spotlight-helpers';
+import {
+  spotlightCreditToMovie,
+  spotlightCreditToTv,
+} from '@/features/movies/utils/spotlight-helpers';
 import type {
   SpotlightCredit,
   SpotlightPerson,
@@ -108,9 +111,9 @@ export function EditorialSpotlight({
               className="object-cover object-center"
             />
           ) : (
-            <div className="absolute inset-0 bg-gradient-to-br from-card to-background" />
+            <div className="absolute inset-0 bg-card" />
           )}
-          <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent" />
+          <div className="absolute inset-0 bg-card/60" />
 
           {person.knownForDepartment && (
             <Badge variant="brand" className="absolute start-4 top-4 sm:start-6 sm:top-6">

@@ -194,11 +194,11 @@ export function MovieHero({
         <MovieBackground trailerKey={trailerKey} backdropPath={backdropPath} title={title} />
       </div>
 
-      {/* Gradient overlays – z-10 */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-10" />
-      <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-transparent z-10" />
+      {/* Scrim overlays – z-10 */}
+      <div className="absolute inset-0 bg-black/50 z-10" />
+      <div className="absolute inset-0 bg-black/40 z-10" />
       {/* Top scrim keeps the fixed header legible over bright backdrops */}
-      <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-black/60 to-transparent z-10 pointer-events-none" />
+      <div className="absolute inset-x-0 top-0 h-28 bg-black/40 z-10 pointer-events-none" />
 
       {/* Content overlay – z-20 */}
       <div className="absolute inset-0 z-20 flex flex-col justify-end pb-16 md:pb-20">

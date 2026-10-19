@@ -1,4 +1,4 @@
-﻿import { getTranslations } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
 import { Shield, Settings, BarChart3, Megaphone, Cookie, Info } from 'lucide-react';
 import { Card, CardContent } from '@/shared/components/ui/card';
 
@@ -27,7 +27,7 @@ export default async function CookiesPage() {
   return (
     <div className="bg-background">
       {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-brand/20 via-background to-background pb-20 pt-24">
+      <section className="relative overflow-hidden bg-brand/10 pb-20 pt-24">
         <div className="app-container relative z-10">
           <div className="mx-auto max-w-3xl text-center">
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-brand/20 bg-brand/10 px-4 py-1.5 text-sm font-medium text-brand">
@@ -40,7 +40,6 @@ export default async function CookiesPage() {
             <p className="mt-4 text-lg text-muted-foreground sm:text-xl">{t('hero.description')}</p>
           </div>
         </div>
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,oklch(0.79_0.175_88_/_0.15),transparent_70%)]" />
       </section>
 
       {/* Introduction */}

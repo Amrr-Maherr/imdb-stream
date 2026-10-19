@@ -36,7 +36,7 @@ function VideoCardInner({ videoKey, name, type }: VideoCardInnerProps) {
       <div className="absolute top-2 left-2 rounded bg-black/60 px-2 py-0.5 text-xs text-white">
         {type}
       </div>
-      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-3">
+      <div className="absolute bottom-0 left-0 right-0 bg-black/50 p-3">
         <p className="text-sm font-medium text-white line-clamp-1">{name}</p>
       </div>
     </Link>

@@ -1,4 +1,4 @@
-﻿import { getTranslations } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { Button } from '@/shared/components/ui/button';
 import {
@@ -73,8 +73,7 @@ export default async function HelpCenterPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <section className="relative overflow-hidden bg-gradient-to-b from-brand/10 via-brand/5 to-background py-20 md:py-28">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,oklch(0.79_0.175_88/0.15),transparent_70%)]" />
+      <section className="relative overflow-hidden bg-brand/5 py-20 md:py-28">
         <div className="app-container relative">
           <div className="mx-auto max-w-2xl text-center">
             <h1 className="text-4xl font-bold tracking-tight text-foreground md:text-5xl">

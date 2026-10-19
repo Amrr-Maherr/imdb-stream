@@ -1,4 +1,4 @@
-﻿import { getTranslations } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { Button } from '@/shared/components/ui/button';
 import {
@@ -93,7 +93,7 @@ export default async function SubscriptionPage() {
   return (
     <div className="bg-background">
       {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-brand/20 via-background to-background pb-20 pt-24">
+      <section className="relative overflow-hidden bg-brand/10 pb-20 pt-24">
         <div className="app-container relative z-10">
           <div className="mx-auto max-w-3xl text-center">
             <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
@@ -118,7 +118,6 @@ export default async function SubscriptionPage() {
             </div>
           </div>
         </div>
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,oklch(0.79_0.175_88_/_0.15),transparent_70%)]" />
       </section>
 
       {/* Pricing Cards */}
@@ -293,7 +292,7 @@ export default async function SubscriptionPage() {
       </section>
 
       {/* CTA */}
-      <section className="relative overflow-hidden bg-gradient-to-r from-brand/20 via-brand/10 to-background py-20">
+      <section className="relative overflow-hidden bg-brand/10 py-20">
         <div className="app-container relative z-10">
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-3xl font-bold text-foreground sm:text-4xl">{t('cta.heading')}</h2>
@@ -309,7 +308,6 @@ export default async function SubscriptionPage() {
             </div>
           </div>
         </div>
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_left,oklch(0.79_0.175_88_/_0.12),transparent_60%)]" />
       </section>
     </div>
   );

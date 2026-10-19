@@ -25,7 +25,8 @@ type FeaturedBannerGridProps = {
 };
 
 function imageSrc(item: FeaturedBanner, featured: boolean) {
-  if (item.backdropPath) return `${TMDB_IMAGE_BASE}/${featured ? 'w1280' : 'w780'}${item.backdropPath}`;
+  if (item.backdropPath)
+    return `${TMDB_IMAGE_BASE}/${featured ? 'w1280' : 'w780'}${item.backdropPath}`;
   if (item.posterPath) return `${TMDB_IMAGE_BASE}/w500${item.posterPath}`;
   return null;
 }
@@ -39,7 +40,9 @@ function BannerCard({ item, featured }: { item: FeaturedBanner; featured: boolea
       className={cn(
         'group relative block overflow-hidden rounded-xl bg-muted',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background',
-        featured ? 'col-span-2 aspect-[16/9] md:col-span-2 md:row-span-2 md:aspect-auto' : 'aspect-[16/9]'
+        featured
+          ? 'col-span-2 aspect-[16/9] md:col-span-2 md:row-span-2 md:aspect-auto'
+          : 'aspect-[16/9]'
       )}
     >
       {src ? (
@@ -55,7 +58,7 @@ function BannerCard({ item, featured }: { item: FeaturedBanner; featured: boolea
           {item.title}
         </div>
       )}
-      <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/30 to-transparent" />
+      <div className="absolute inset-0 bg-background/60" />
       <div className={cn('absolute bottom-0 start-0 end-0 p-3', featured && 'sm:p-5')}>
         <h3
           className={cn(

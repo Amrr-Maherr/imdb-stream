@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import Image from 'next/image';
 import Link from 'next/link';
@@ -49,12 +49,12 @@ export function EpisodeHero({
             priority
           />
         ) : (
-          <div className="absolute inset-0 bg-gradient-to-br from-card to-background" />
+          <div className="absolute inset-0 bg-card" />
         )}
 
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent" />
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-black/60 to-transparent" />
+        <div className="absolute inset-0 bg-black/50" />
+        <div className="absolute inset-0 bg-black/40" />
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-black/40" />
 
         <div className="absolute bottom-0 left-0 right-0 z-10 pb-8 md:pb-12">
           <div className="w-full mx-auto app-container">

@@ -23,8 +23,7 @@ export default async function AboutPage() {
   const t = await getTranslations('About');
   return (
     <main>
-      <section className="relative overflow-hidden bg-gradient-to-br from-background via-background to-brand/20 py-24 md:py-32">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,oklch(0.79_0.175_88/0.12),transparent_50%)]" />
+      <section className="relative overflow-hidden bg-background py-24 md:py-32">
         <div className="app-container relative">
           <AnimatedSection className="mx-auto max-w-3xl text-center">
             <h1 className="text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl">
@@ -155,8 +154,7 @@ export default async function AboutPage() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-gradient-to-br from-background via-background to-brand/20 py-24">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,oklch(0.79_0.175_88/0.12),transparent_50%)]" />
+      <section className="relative overflow-hidden bg-background py-24">
         <div className="app-container relative">
           <AnimatedSection className="mx-auto max-w-2xl text-center">
             <h2 className="text-3xl font-bold text-foreground md:text-4xl">{t('cta.heading')}</h2>

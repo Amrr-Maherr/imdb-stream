@@ -16,9 +16,9 @@ export function ListHero({ name, description, itemCount, favoriteCount }: ListHe
   const t = useTranslations('List');
   return (
     <FadeIn>
-      <section className="relative w-full aspect-[4/5] md:aspect-[16/9] lg:aspect-[21/9] overflow-hidden bg-gradient-to-br from-card to-background">
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent" />
+      <section className="relative w-full aspect-[4/5] md:aspect-[16/9] lg:aspect-[21/9] overflow-hidden bg-card">
+        <div className="absolute inset-0 bg-black/50" />
+        <div className="absolute inset-0 bg-black/40" />
 
         <div className="absolute inset-0 z-10 flex flex-col justify-end pb-10 md:pb-16">
           <div className="w-full mx-auto app-container">

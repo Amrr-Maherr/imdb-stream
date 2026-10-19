@@ -64,7 +64,7 @@ export function TitleQuickView(props: TitleQuickViewProps) {
               sizes="(max-width: 1024px) 100vw, 1024px"
             />
           )}
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-transparent" />
+          <div className="absolute inset-0 bg-background/80" />
           <div className="absolute inset-x-0 bottom-0 flex items-end gap-4 p-5 sm:p-6">
             {data.poster_path && (
               <div className="relative hidden aspect-[2/3] w-24 shrink-0 overflow-hidden rounded-lg ring-1 ring-border sm:block">

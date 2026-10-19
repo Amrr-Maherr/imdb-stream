@@ -40,7 +40,7 @@ export function GenreDiscovery({ title, subtitle, genres }: GenreDiscoveryProps)
                 className="object-cover opacity-70 transition-all duration-500 group-hover:scale-105 group-hover:opacity-90"
               />
             )}
-            <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/40 to-transparent" />
+            <div className="absolute inset-0 bg-background/60" />
             <span className="relative z-10 px-3 text-center text-base font-bold text-foreground sm:text-lg">
               {genre.name}
             </span>

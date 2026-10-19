@@ -18,8 +18,8 @@ export function HeroSlide({ movie }: { movie: TMDBMovie }) {
         sizes="100vw"
       />
 
-      <div className="absolute inset-0 dark:bg-gradient-to-t dark:from-background dark:via-background/60 dark:to-transparent" />
-      <div className="absolute inset-0 dark:bg-gradient-to-r dark:from-background/80 dark:via-transparent dark:to-transparent" />
+      <div className="absolute inset-0 dark:bg-background/60" />
+      <div className="absolute inset-0 dark:bg-background/50" />
 
       <HeroContent movie={movie} />
     </div>
