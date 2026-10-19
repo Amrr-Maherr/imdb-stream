@@ -1,4 +1,8 @@
-import { DesktopFilters, MobileBar } from '@/features/movies/components/filters/movies-filters';
+import {
+  MoviesActiveFilters,
+  MoviesFilters,
+  MoviesMobileBar,
+} from '@/features/movies/components/filters/movies-filters';
 import { MovieCard } from '@/features/movies/components/listing/movie-card';
 import GetMovies from '@/features/movies/services/getMovies';
 import { PaginationDemo } from '@/shared/components/pagination';
@@ -59,33 +63,38 @@ export default async function MoviesPage({
           <p className="mt-1.5 text-sm md:text-base text-muted-foreground">{t('description')}</p>
         </section>
 
-        <div className="hidden md:block w-full mb-6">
-          <DesktopFilters totalResults={totalResults} />
-        </div>
-        <div className="md:hidden w-full mb-4">
-          <MobileBar />
-        </div>
+        <MoviesMobileBar />
 
-        {totalResults > 0 && (
-          <div className="flex items-center justify-between mb-4 md:mb-5">
-            <p className="text-sm text-muted-foreground">{t('showing', { count: totalResults })}</p>
-            <p className="text-xs text-muted-foreground/70">
-              {t('pageInfo', { current: currentPage, total: totalPages })}
-            </p>
+        <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
+          <MoviesFilters />
+
+          <div className="flex-1 min-w-0">
+            <MoviesActiveFilters className="mb-4" />
+
+            {totalResults > 0 && (
+              <div className="flex items-center justify-between mb-4 md:mb-5">
+                <p className="text-sm text-muted-foreground">
+                  {t('showing', { count: totalResults })}
+                </p>
+                <p className="text-xs text-muted-foreground/70">
+                  {t('pageInfo', { current: currentPage, total: totalPages })}
+                </p>
+              </div>
+            )}
+
+            <section>
+              <div className="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-4">
+                {data?.results?.map((movie: TMDBMovie) => (
+                  <MovieCard key={movie.id} movie={movie} />
+                ))}
+              </div>
+            </section>
+
+            <section className="mt-10 md:mt-12 pb-8">
+              <PaginationDemo total_pages={totalPages} page={currentPage} />
+            </section>
           </div>
-        )}
-
-        <section>
-          <div className="grid md:grid-cols-5 grid-cols-2 gap-3 md:gap-4">
-            {data?.results?.map((movie: TMDBMovie) => (
-              <MovieCard key={movie.id} movie={movie} />
-            ))}
-          </div>
-        </section>
-
-        <section className="mt-10 md:mt-12 pb-8">
-          <PaginationDemo total_pages={totalPages} page={currentPage} />
-        </section>
+        </div>
       </main>
     </div>
   );

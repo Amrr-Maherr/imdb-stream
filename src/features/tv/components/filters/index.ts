@@ -1,9 +1,2 @@
-export { DesktopFilters, MobileBar } from './tv-filters';
-export { GenreDropdown } from './genre-dropdown';
-export { LanguageDropdown } from './language-dropdown';
-export { CountryDropdown } from './country-dropdown';
-export { SortSelect } from './sort-select';
-export { YearSelect } from './year-select';
-export { RatingSelect } from './rating-select';
-export { MobileFilterDrawer } from './mobile-filter-drawer';
-export { AdultToggle } from './adult-toggle';
+export { TvFilters, TvMobileBar, TvActiveFilters } from './tv-filters';
+export { useTvFilterConfig } from './config';
