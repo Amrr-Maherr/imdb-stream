@@ -8,7 +8,8 @@ export function useResetFilters() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const hasFilters = Array.from(searchParams.keys()).some((key) => key !== IGNORED_PARAM);
+  const activeCount = Array.from(searchParams.keys()).filter((key) => key !== IGNORED_PARAM).length;
+  const hasFilters = activeCount > 0;
 
   function handleReset() {
     const params = new URLSearchParams();
@@ -16,5 +17,5 @@ export function useResetFilters() {
     router.push(`?${params.toString()}`);
   }
 
-  return { hasFilters, handleReset };
+  return { hasFilters, activeCount, handleReset };
 }
