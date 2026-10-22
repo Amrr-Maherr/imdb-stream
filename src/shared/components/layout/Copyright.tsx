@@ -1,9 +1,11 @@
 'use client';
 
+import { ChevronUp } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import LanguageSwitcher from '@/shared/components/ui/language-switcher';
 import ThemeToggle from '@/shared/components/ui/theme-toggle';
+import { Button } from '@/shared/components/ui/button';
 
 export default function Copyright() {
   const t = useTranslations('Footer');
@@ -14,6 +16,10 @@ export default function Copyright() {
     { href: '/terms', label: t('legalLinks.terms') },
     { href: '/cookies', label: t('legalLinks.cookies') },
   ];
+
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 
   return (
     <div className="border-t border-border">
@@ -42,6 +48,19 @@ export default function Copyright() {
             <LanguageSwitcher />
             <ThemeToggle />
           </div>
+
+          <span className="hidden h-4 w-px bg-border sm:block" aria-hidden="true" />
+
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={scrollToTop}
+            className="rounded-full border-border transition-colors hover:border-brand hover:bg-brand hover:text-brand-foreground focus-visible:ring-ring"
+          >
+            <ChevronUp className="size-4 rtl:rotate-180" aria-hidden="true" />
+            {t('backToTop')}
+          </Button>
         </div>
       </div>
     </div>

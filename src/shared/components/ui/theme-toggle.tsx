@@ -8,7 +8,7 @@ import { useTranslations } from 'next-intl';
 
 import { Button } from './button';
 
-export default function ThemeToggle() {
+export default function ThemeToggle({ transparent }: { transparent?: boolean } = {}) {
   const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const t = useTranslations('Ui');
@@ -19,7 +19,12 @@ export default function ThemeToggle() {
 
   if (!mounted) {
     return (
-      <Button variant="outline" size="icon" disabled aria-label={t('themeToggle.toggleTheme')}>
+      <Button
+        variant={transparent ? 'glass' : 'outline'}
+        size="icon"
+        disabled
+        aria-label={t('themeToggle.toggleTheme')}
+      >
         <div className="size-4" />
       </Button>
     );
@@ -29,7 +34,7 @@ export default function ThemeToggle() {
 
   return (
     <Button
-      variant="outline"
+      variant={transparent ? 'glass' : 'outline'}
       size="icon"
       onClick={() => setTheme(isDark ? 'light' : 'dark')}
       aria-label={isDark ? t('themeToggle.switchToLight') : t('themeToggle.switchToDark')}

@@ -13,8 +13,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/shared/components/ui/dropdown-menu';
+import { cn } from '@/shared/utils/utils';
 
-export default function UserMenu() {
+export default function UserMenu({ transparent }: { transparent?: boolean } = {}) {
   const t = useTranslations('Header');
   const router = useRouter();
   const { user, logout } = useAuth();
@@ -25,8 +26,20 @@ export default function UserMenu() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" className="rounded-full" aria-label={t('account')}>
-          <span className="flex size-7 items-center justify-center rounded-full bg-muted text-xs font-semibold text-foreground">
+        <Button
+          variant="ghost"
+          size="icon"
+          className="rounded-full"
+          aria-label={t('account')}
+        >
+          <span
+            className={cn(
+              'flex size-7 items-center justify-center rounded-full text-xs font-semibold',
+              transparent
+                ? 'bg-white/15 text-white backdrop-blur-sm ring-1 ring-white/30'
+                : 'bg-muted text-foreground'
+            )}
+          >
             {initial || <User className="size-4 text-muted-foreground" />}
           </span>
         </Button>

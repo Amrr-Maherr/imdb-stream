@@ -21,6 +21,7 @@
     },
     "search": "بحث",
     "searchPlaceholder": "ابحث عن أفلام ومسلسلات وأشخاص",
+    "searchTriggerPlaceholder": "ابحث عن أفلام ومسلسلات وأشخاص…",
     "noResults": "لا توجد نتائج",
     "account": "الحساب",
     "closeSearch": "إغلاق البحث",
@@ -955,18 +956,13 @@
   },
   "Footer": {
     "description": "اكتشف الأفلام الشائعة والمسلسلات الرائجة واعثر على ما يستحق المشاهدة الليلة.",
-    "explore": "استكشف",
     "discover": "اكتشف",
     "genres": "التصنيفات",
     "company": "الشركة",
     "support": "الدعم",
     "legal": "قانوني",
-    "exploreLinks": {
-      "home": "الرئيسية",
-      "movies": "الأفلام",
-      "tvShows": "المسلسلات",
-      "people": "الأشخاص"
-    },
+    "allGenres": "جميع التصنيفات",
+    "backToTop": "العودة إلى الأعلى",
     "discoverLinks": {
       "popularMovies": "الأفلام الشائعة",
       "topRated": "الأفلام الأعلى تقييماً",

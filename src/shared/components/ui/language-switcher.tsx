@@ -13,7 +13,7 @@ const languages: Record<string, string> = {
   ar: 'arabic',
 };
 
-export default function LanguageSwitcher() {
+export default function LanguageSwitcher({ transparent }: { transparent?: boolean } = {}) {
   const locale = useLocale();
   const t = useTranslations('Common');
   const router = useRouter();
@@ -27,9 +27,9 @@ export default function LanguageSwitcher() {
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger asChild>
-        <Button variant="outline" size="sm" className="gap-1.5">
+        <Button variant={transparent ? 'glass' : 'outline'} size="sm" className="gap-1.5">
           {locale.toUpperCase()}
-          <ChevronDown className="size-3.5 text-muted-foreground" />
+          <ChevronDown className={cn('size-3.5', transparent ? 'text-white/80' : 'text-muted-foreground')} />
         </Button>
       </DropdownMenu.Trigger>
 

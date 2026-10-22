@@ -21,6 +21,7 @@
     },
     "search": "Search",
     "searchPlaceholder": "Search movies, TV shows, people",
+    "searchTriggerPlaceholder": "Search movies, TV, people…",
     "noResults": "No results found",
     "account": "Account",
     "closeSearch": "Close search",
@@ -970,18 +971,13 @@
   },
   "Footer": {
     "description": "Discover popular movies, trending TV shows, and something worth watching tonight.",
-    "explore": "Explore",
     "discover": "Discover",
     "genres": "Genres",
     "company": "Company",
     "support": "Support",
     "legal": "Legal",
-    "exploreLinks": {
-      "home": "Home",
-      "movies": "Movies",
-      "tvShows": "TV Shows",
-      "people": "People"
-    },
+    "allGenres": "All genres",
+    "backToTop": "Back to top",
     "discoverLinks": {
       "popularMovies": "Popular Movies",
       "topRated": "Top Rated Movies",

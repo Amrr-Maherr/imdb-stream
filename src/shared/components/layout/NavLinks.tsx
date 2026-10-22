@@ -10,6 +10,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/shared/components/ui/dropdown-menu';
+import { buildPath, TOP_RATED_MIN_VOTES } from '@/shared/config/footer';
 import { cn } from '@/shared/utils/utils';
 
 type NavChild = {
@@ -30,13 +31,19 @@ const links: NavItem[] = [
     key: 'movies',
     children: [
       { href: '/movies', key: 'allMovies' },
-      { href: { pathname: '/movies', query: { sort_by: 'popularity.desc' } }, key: 'popular' },
       {
-        href: { pathname: '/movies', query: { sort_by: 'vote_average.desc' } },
+        href: buildPath('/movies', { sort_by: 'popularity.desc' }),
+        key: 'popular',
+      },
+      {
+        href: buildPath('/movies', {
+          sort_by: 'vote_average.desc',
+          'vote_count.gte': TOP_RATED_MIN_VOTES,
+        }),
         key: 'topRated',
       },
       {
-        href: { pathname: '/movies', query: { sort_by: 'primary_release_date.desc' } },
+        href: buildPath('/movies', { sort_by: 'primary_release_date.desc' }),
         key: 'newReleases',
       },
     ],
@@ -46,13 +53,19 @@ const links: NavItem[] = [
     key: 'tvShows',
     children: [
       { href: '/tv-shows', key: 'allTvShows' },
-      { href: { pathname: '/tv-shows', query: { sort_by: 'popularity.desc' } }, key: 'popular' },
       {
-        href: { pathname: '/tv-shows', query: { sort_by: 'vote_average.desc' } },
+        href: buildPath('/tv-shows', { sort_by: 'popularity.desc' }),
+        key: 'popular',
+      },
+      {
+        href: buildPath('/tv-shows', {
+          sort_by: 'vote_average.desc',
+          'vote_count.gte': TOP_RATED_MIN_VOTES,
+        }),
         key: 'topRated',
       },
       {
-        href: { pathname: '/tv-shows', query: { sort_by: 'first_air_date.desc' } },
+        href: buildPath('/tv-shows', { sort_by: 'first_air_date.desc' }),
         key: 'newReleases',
       },
     ],
@@ -63,9 +76,12 @@ const links: NavItem[] = [
 export default function NavLinks({
   mobile,
   onNavigate,
+  transparent,
 }: {
   mobile?: boolean;
   onNavigate?: () => void;
+  /** Renders the navigation in white for the transparent (over hero) header state. */
+  transparent?: boolean;
 }) {
   const pathname = usePathname();
   const t = useTranslations('Header.nav');
@@ -117,8 +133,12 @@ export default function NavLinks({
       {links.map((link) => {
         const active = isActive(link.href);
         const base = cn(
-          'relative inline-flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors outline-none focus-visible:ring-3 focus-visible:ring-ring/50',
-          active ? 'text-foreground' : 'text-muted-foreground hover:text-foreground'
+          'relative inline-flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors outline-none',
+          transparent
+            ? 'text-white/90 [text-shadow:0_1px_2px_rgb(0_0_0/0.45)] hover:text-white focus-visible:ring-3 focus-visible:ring-white/50'
+            : 'focus-visible:ring-3 focus-visible:ring-ring/50',
+          !transparent &&
+            (active ? 'text-foreground' : 'text-muted-foreground hover:text-foreground')
         );
 
         if (link.children) {
@@ -133,12 +153,17 @@ export default function NavLinks({
                   )}
                 </button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="start" className="w-52">
+              <DropdownMenuContent
+                align="start"
+                className="w-auto min-w-[200px] rounded-[12px] p-1.5"
+              >
                 {link.children.map((child) => (
-                  <DropdownMenuItem key={child.key} asChild>
-                    <Link href={child.href} className="cursor-pointer">
-                      {t(child.key)}
-                    </Link>
+                  <DropdownMenuItem
+                    key={child.key}
+                    asChild
+                    className="rounded-[8px] px-2 py-1.5 text-[13px]"
+                  >
+                    <Link href={child.href}>{t(child.key)}</Link>
                   </DropdownMenuItem>
                 ))}
               </DropdownMenuContent>

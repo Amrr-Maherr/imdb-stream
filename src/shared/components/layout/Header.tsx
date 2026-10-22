@@ -1,17 +1,20 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Bookmark, Heart, Menu, Settings, User, X } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { Link } from '@/i18n/navigation';
+import { Link, usePathname } from '@/i18n/navigation';
 import Logo from './Logo';
 import NavLinks from './NavLinks';
 import SearchBar from './SearchBar';
+import SearchTrigger from './SearchTrigger';
 import UserMenu from './UserMenu';
 import LanguageSwitcher from '@/shared/components/ui/language-switcher';
 import ThemeToggle from '@/shared/components/ui/theme-toggle';
 import { Button } from '@/shared/components/ui/button';
 import { useAuth } from '@/shared/provider/authProvider';
+import { useSearchShortcuts } from '@/shared/hooks/useSearchShortcuts';
+import { hasHero } from '@/shared/utils/hero-routes';
 import {
   Drawer,
   DrawerContent,
@@ -21,19 +24,31 @@ import {
 } from '@/shared/components/ui/drawer';
 import { cn } from '@/shared/utils/utils';
 
+/** The header only becomes solid once the page has been scrolled past this offset. */
+const SCROLL_THRESHOLD = 40;
+
 export default function Header() {
   const t = useTranslations('Header');
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const { user, loading, logout } = useAuth();
 
+  /** Pages rendering a hero start with a transparent header. */
+  const transparent = hasHero(pathname) && !scrolled;
+
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 10);
+    const handleScroll = () => setScrolled(window.scrollY > SCROLL_THRESHOLD);
     handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const openSearch = useCallback(() => setSearchOpen(true), []);
+  const closeSearch = useCallback(() => setSearchOpen(false), []);
+
+  useSearchShortcuts(openSearch);
 
   const closeMenu = () => setMobileMenuOpen(false);
 
@@ -46,30 +61,47 @@ export default function Header() {
 
   return (
     <header
+      data-header-state={transparent ? 'transparent' : 'solid'}
       className={cn(
-        'fixed inset-x-0 top-0 z-50 transition-colors duration-300',
-        scrolled
-          ? 'border-b border-border/50 bg-background/80 shadow-sm backdrop-blur-md'
-          : 'bg-background/0'
+        'fixed inset-x-0 top-0 z-50 border-b transition-[background-color,border-color,box-shadow] duration-300',
+        transparent
+          ? 'border-transparent bg-transparent'
+          : 'border-border/50 bg-background/80 shadow-sm backdrop-blur-md'
       )}
     >
+      {/* Scrim that keeps the white navigation legible on top of any hero image. */}
+      <div
+        aria-hidden="true"
+        className={cn(
+          'pointer-events-none absolute inset-x-0 top-0 h-32 bg-[linear-gradient(to_bottom,rgb(0_0_0/0.8),rgb(0_0_0/0.35)_70%,transparent)] transition-opacity duration-300',
+          transparent ? 'opacity-100' : 'opacity-0'
+        )}
+      />
+
       <div className="app-container relative flex h-16 items-center gap-4">
         <Logo />
 
-        <NavLinks />
+        <NavLinks transparent={transparent} />
 
         <div className="ms-auto flex items-center gap-1 md:gap-2">
-          <SearchBar open={searchOpen} onToggle={() => setSearchOpen((p) => !p)} />
+          <SearchTrigger onOpen={openSearch} transparent={transparent} />
+
+          <SearchBar open={searchOpen} onToggle={closeSearch} />
 
           <div className="hidden items-center gap-1 md:flex md:gap-2">
-            <LanguageSwitcher />
-            <ThemeToggle />
+            <LanguageSwitcher transparent={transparent} />
+            <ThemeToggle transparent={transparent} />
           </div>
 
-          {!loading && user && <UserMenu />}
+          {!loading && user && <UserMenu transparent={transparent} />}
 
           {!loading && !user && (
-            <Button asChild variant="outline" size="sm" className="hidden md:inline-flex">
+            <Button
+              asChild
+              variant={transparent ? 'glass' : 'outline'}
+              size="sm"
+              className="hidden md:inline-flex"
+            >
               <Link href="/auth/signin">{t('signIn')}</Link>
             </Button>
           )}
@@ -79,7 +111,7 @@ export default function Header() {
               <Button
                 variant="ghost"
                 size="icon"
-                className="md:hidden"
+                className={cn('md:hidden', transparent && 'text-white hover:bg-white/15 hover:text-white')}
                 aria-label={t('toggleMenu')}
               >
                 {mobileMenuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
