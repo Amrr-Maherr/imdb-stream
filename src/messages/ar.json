@@ -1668,7 +1668,10 @@
   "QuickView": {
     "open": "عرض سريع",
     "close": "إغلاق",
-    "viewDetails": "عرض التفاصيل"
+    "viewDetails": "عرض التفاصيل",
+    "movie": "فيلم",
+    "tv": "مسلسل",
+    "overview": "نظرة عامة"
   },
   "AiChat": {
     "openChat": "فتح الدردشة",

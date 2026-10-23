@@ -1683,7 +1683,10 @@
   "QuickView": {
     "open": "Quick view",
     "close": "Close",
-    "viewDetails": "View Details"
+    "viewDetails": "View Details",
+    "movie": "Movie",
+    "tv": "TV Series",
+    "overview": "Overview"
   },
   "AiChat": {
     "openChat": "Open chat",
