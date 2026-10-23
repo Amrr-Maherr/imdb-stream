@@ -194,12 +194,6 @@ export function MovieHero({
         <MovieBackground trailerKey={trailerKey} backdropPath={backdropPath} title={title} />
       </div>
 
-      {/* Scrim overlays – z-10 */}
-      <div className="absolute inset-0 bg-black/50 z-10" />
-      <div className="absolute inset-0 bg-black/40 z-10" />
-      {/* Top scrim keeps the fixed header legible over bright backdrops */}
-      <div className="absolute inset-x-0 top-0 h-28 bg-black/40 z-10 pointer-events-none" />
-
       {/* Content overlay – z-20 */}
       <div className="absolute inset-0 z-20 flex flex-col justify-end pb-16 md:pb-20">
         <div className="w-full mx-auto app-container">

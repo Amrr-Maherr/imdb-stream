@@ -1,8 +1,6 @@
 export function HeroBannerSkeleton() {
   return (
     <section className="relative w-full h-screen overflow-hidden bg-muted animate-pulse">
-      <div className="absolute inset-0 bg-black/50" />
-      <div className="absolute inset-0 bg-black/40" />
       <div className="relative h-full mx-auto app-container">
         <div className="flex h-full flex-col justify-center items-start py-10 max-w-2xl">
           <div className="space-y-4 w-full">

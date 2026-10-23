@@ -52,10 +52,6 @@ export function EpisodeHero({
           <div className="absolute inset-0 bg-card" />
         )}
 
-        <div className="absolute inset-0 bg-black/50" />
-        <div className="absolute inset-0 bg-black/40" />
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-black/40" />
-
         <div className="absolute bottom-0 left-0 right-0 z-10 pb-8 md:pb-12">
           <div className="w-full mx-auto app-container">
             <div className="flex items-start gap-4">

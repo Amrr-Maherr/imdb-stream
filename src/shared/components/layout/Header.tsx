@@ -69,15 +69,6 @@ export default function Header() {
           : 'border-border/50 bg-background/80 shadow-sm backdrop-blur-md'
       )}
     >
-      {/* Scrim that keeps the white navigation legible on top of any hero image. */}
-      <div
-        aria-hidden="true"
-        className={cn(
-          'pointer-events-none absolute inset-x-0 top-0 h-32 bg-[linear-gradient(to_bottom,rgb(0_0_0/0.8),rgb(0_0_0/0.35)_70%,transparent)] transition-opacity duration-300',
-          transparent ? 'opacity-100' : 'opacity-0'
-        )}
-      />
-
       <div className="app-container relative flex h-16 items-center gap-4">
         <Logo />
 

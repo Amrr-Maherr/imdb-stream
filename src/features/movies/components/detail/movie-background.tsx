@@ -24,7 +24,6 @@ export function MovieBackground({ trailerKey, backdropPath, title }: MovieBackgr
               priority
               sizes="100vw"
             />
-            <div className="absolute inset-0 dark:bg-background/40" />
           </>
         ) : (
           <div className="absolute inset-0 bg-muted" />
@@ -36,7 +35,6 @@ export function MovieBackground({ trailerKey, backdropPath, title }: MovieBackgr
   return (
     <div className="relative w-full h-full">
       <div id="youtube-player" className="absolute inset-0 pointer-events-none !w-full !h-full" />
-      <div className="absolute inset-0 dark:bg-background/50 pointer-events-none" />
     </div>
   );
 }

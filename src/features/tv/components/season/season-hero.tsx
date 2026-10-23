@@ -39,10 +39,6 @@ export function SeasonHero({ season, backdropPath, tvName, tvSlug, tvId }: Seaso
           <div className="absolute inset-0 bg-card" />
         )}
 
-        <div className="absolute inset-0 bg-black/50" />
-        <div className="absolute inset-0 bg-black/40" />
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-black/40" />
-
         <div className="absolute inset-0 z-10 flex flex-col justify-end pb-6 sm:pb-10 md:pb-14">
           <div className="w-full mx-auto app-container">
             <div className="flex items-end gap-4 sm:gap-6">

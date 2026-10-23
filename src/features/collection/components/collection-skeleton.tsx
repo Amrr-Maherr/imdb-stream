@@ -27,8 +27,6 @@ export function CollectionSkeleton() {
   return (
     <div className="flex flex-col flex-1 bg-background animate-pulse">
       <section className="relative w-full aspect-[4/5] md:aspect-[16/9] lg:aspect-[21/9] overflow-hidden bg-muted">
-        <div className="absolute inset-0 bg-black/50" />
-        <div className="absolute inset-0 bg-black/40" />
         <div className="absolute inset-0 z-10 flex flex-col justify-end pb-10 md:pb-16">
           <div className="w-full mx-auto app-container">
             <div className="flex items-end gap-6">
