@@ -3,6 +3,7 @@
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { Slider } from '@/shared/components/ui/slider';
+import { SectionTitle } from '@/features/movies/components/detail/movie-section';
 
 const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p';
 
@@ -19,9 +20,7 @@ export function MoviePhotos({ backdrops, posters, logos }: MoviePhotosProps) {
 
   return (
     <section>
-      <h2 className="text-xl font-bold text-foreground mb-4">
-        {t(logos && logos.length > 0 ? 'photosAndLogos' : 'photos')}
-      </h2>
+      <SectionTitle>{t(logos && logos.length > 0 ? 'photosAndLogos' : 'photos')}</SectionTitle>
       <Slider
         slidesPerView={3}
         slidesMobilePerView={1.5}
@@ -31,10 +30,7 @@ export function MoviePhotos({ backdrops, posters, logos }: MoviePhotosProps) {
         className="-mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 pb-8"
       >
         {all.map((img, i) => (
-          <div
-            key={i}
-            className="relative aspect-video w-full overflow-hidden rounded-lg bg-muted"
-          >
+          <div key={i} className="relative aspect-video w-full overflow-hidden rounded-lg bg-muted">
             <Image
               src={`${TMDB_IMAGE_BASE}/w780${img?.file_path}`}
               alt={t('photoAlt', { index: i + 1 })}

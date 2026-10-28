@@ -5,6 +5,8 @@ import type { TMDBMovieDetails } from '@/shared/types/tmdb';
 import { MovieHero } from '@/features/movies/components/detail/movie-hero';
 import { MovieCollection } from '@/features/movies/components/detail/movie-collection';
 import { MovieMainContent } from '@/features/movies/components/detail/movie-main-content';
+import { DetailNav } from '@/features/movies/components/detail/detail-nav';
+import { MOVIE_NAV_SECTIONS } from '@/features/movies/components/detail/detail-sections';
 import { MovieSidebarColumn } from '@/features/movies/components/detail/movie-sidebar-column';
 import { WatchProvidersSection } from '@/features/movies/components/detail/movie-watch-providers';
 import NotFound from '@/app/[locale]/global-not-found';
@@ -89,8 +91,9 @@ export default async function MoviePage({ params }: Props) {
         homepage={movie.homepage || null}
         movie={movie}
       />
+      <DetailNav sections={MOVIE_NAV_SECTIONS} />
 
-      <div className="w-full mx-auto app-container mt-8 md:mt-10 pb-16 space-y-8">
+      <div className="w-full mx-auto app-container mt-10 md:mt-14 pb-20 space-y-12">
         {movie.belongs_to_collection && (
           <MovieCollection collection={movie.belongs_to_collection} />
         )}

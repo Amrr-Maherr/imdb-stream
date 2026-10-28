@@ -12,6 +12,9 @@ import { PersonCredits } from './person-credits';
 import { CareerStats } from './career-stats';
 import { BiographySection } from './biography-section';
 
+/** TMDB TV genres for News, Reality and Talk, which crowd out a person's actual work. */
+const NON_FICTION_TV_GENRES = new Set([10763, 10764, 10767]);
+
 type PersonMainContentProps = {
   person: TMDBPersonDetails;
 };
@@ -20,8 +23,21 @@ export function PersonMainContent({ person }: PersonMainContentProps) {
   const t = useTranslations('Person');
   const combinedCredits = person.combined_credits;
 
+  // Rank by how widely a title was rated rather than current popularity, so the person's
+  // signature work leads instead of whatever talk show they appeared on this week.
+  const seen = new Set<string>();
   const allKnownFor = [...(combinedCredits?.cast ?? []), ...(combinedCredits?.crew ?? [])]
-    .sort((a, b) => b.popularity - a.popularity)
+    .filter((credit) => {
+      const key = `${credit.media_type}-${credit.id}`;
+      if (seen.has(key)) return false;
+      seen.add(key);
+      const isSelf =
+        'character' in credit &&
+        /^(self|himself|herself|themselves)\b/i.test(credit.character ?? '');
+      const isTalkOrNews = (credit.genre_ids ?? []).some((id) => NON_FICTION_TV_GENRES.has(id));
+      return !isSelf && !isTalkOrNews;
+    })
+    .sort((a, b) => (b.vote_count ?? 0) - (a.vote_count ?? 0))
     .slice(0, 20);
 
   const profiles = person.images?.profiles ?? [];

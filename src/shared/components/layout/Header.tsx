@@ -66,9 +66,18 @@ export default function Header() {
         'fixed inset-x-0 top-0 z-50 border-b transition-[background-color,border-color,box-shadow] duration-300',
         transparent
           ? 'border-transparent bg-transparent'
-          : 'border-border/50 bg-background/80 shadow-sm backdrop-blur-md'
+          : 'border-border/50 bg-background/90 shadow-sm backdrop-blur-xl'
       )}
     >
+      {/* Keeps the white nav legible over bright artwork while the header is transparent */}
+      <div
+        aria-hidden="true"
+        className={cn(
+          'pointer-events-none absolute inset-x-0 top-0 -z-10 h-28 scrim-top transition-opacity duration-300',
+          transparent ? 'opacity-100' : 'opacity-0'
+        )}
+      />
+
       <div className="app-container relative flex h-16 items-center gap-4">
         <Logo />
 
@@ -102,7 +111,10 @@ export default function Header() {
               <Button
                 variant="ghost"
                 size="icon"
-                className={cn('md:hidden', transparent && 'text-white hover:bg-white/15 hover:text-white')}
+                className={cn(
+                  'md:hidden',
+                  transparent && 'text-white hover:bg-white/15 hover:text-white'
+                )}
                 aria-label={t('toggleMenu')}
               >
                 {mobileMenuOpen ? <X className="size-5" /> : <Menu className="size-5" />}

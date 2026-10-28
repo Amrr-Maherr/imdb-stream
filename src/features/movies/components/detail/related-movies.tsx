@@ -3,6 +3,7 @@
 import { Slider } from '@/shared/components/ui/slider';
 import { MovieCard } from '@/features/movies/components/listing/movie-card';
 import type { TMDBMovie } from '@/shared/types/tmdb';
+import { SectionTitle } from '@/features/movies/components/detail/movie-section';
 
 type RelatedMoviesProps = {
   title: string;
@@ -14,7 +15,7 @@ export function RelatedMovies({ title, movies }: RelatedMoviesProps) {
 
   return (
     <section>
-      <h2 className="text-xl font-bold text-foreground mb-4">{title}</h2>
+      <SectionTitle>{title}</SectionTitle>
       <Slider
         slidesPerView={4}
         slidesMobilePerView={2}

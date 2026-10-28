@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl';
 import { Slider } from '@/shared/components/ui/slider';
 import type { CastMember } from '@/shared/types/tmdb';
 import { CastCard } from './cast-card';
+import { SectionTitle } from '@/features/movies/components/detail/movie-section';
 
 type MovieCastProps = {
   cast: CastMember[];
@@ -16,7 +17,7 @@ export function MovieCast({ cast }: MovieCastProps) {
 
   return (
     <section>
-      <h2 className="text-xl font-bold text-foreground mb-4">{t('topCast')}</h2>
+      <SectionTitle>{t('topCast')}</SectionTitle>
       <Slider
         slidesPerView={6}
         slidesMobilePerView={2.5}

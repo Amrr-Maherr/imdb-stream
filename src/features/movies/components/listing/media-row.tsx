@@ -1,41 +1,8 @@
 'use client';
 
-import { Slider } from '@/shared/components/ui/slider';
+import { Rail, type RailProps } from './rail';
 
-type MediaRowProps = {
-  title: string;
-  children: React.ReactNode;
-  subtitle?: string;
-  slidesPerView?: number;
-  slidesMobilePerView?: number;
-  spaceBetween?: number;
-};
-
-export function MediaRow({
-  title,
-  children,
-  subtitle,
-  slidesPerView = 6,
-  slidesMobilePerView = 2.5,
-  spaceBetween = 16,
-}: MediaRowProps) {
-  return (
-    <section>
-      <div className="flex items-end justify-between mb-4">
-        <div>
-          <h2 className="text-xl font-bold text-foreground">{title}</h2>
-          {subtitle && <p className="text-sm text-muted-foreground mt-0.5">{subtitle}</p>}
-        </div>
-      </div>
-      <Slider
-        slidesPerView={slidesPerView}
-        slidesMobilePerView={slidesMobilePerView}
-        spaceBetween={spaceBetween}
-        grabCursor
-        freeMode
-      >
-        {children}
-      </Slider>
-    </section>
-  );
+/** Standard carousel row used by the home page and company pages. */
+export function MediaRow(props: RailProps) {
+  return <Rail {...props} />;
 }

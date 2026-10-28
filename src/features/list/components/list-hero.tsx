@@ -16,15 +16,12 @@ export function ListHero({ name, description, itemCount, favoriteCount }: ListHe
   const t = useTranslations('List');
   return (
     <FadeIn>
-      <section className="relative w-full aspect-[4/5] md:aspect-[16/9] lg:aspect-[21/9] overflow-hidden bg-card">
-        <div className="absolute inset-0 bg-black/50" />
-        <div className="absolute inset-0 bg-black/40" />
-
-        <div className="absolute inset-0 z-10 flex flex-col justify-end pb-10 md:pb-16">
+      <section className="relative w-full overflow-hidden bg-neutral-950 pt-28 pb-10 md:pt-36 md:pb-14">
+        <div className="relative">
           <div className="w-full mx-auto app-container">
             <div className="flex items-end gap-6">
-              <div className="relative w-[130px] sm:w-[160px] aspect-[2/3] flex-shrink-0 rounded-xl overflow-hidden shadow-2xl ring-1 ring-white/10 hidden sm:flex items-center justify-center bg-muted">
-                <div className="flex h-full w-full items-center justify-center text-muted-foreground">
+              <div className="relative w-[130px] sm:w-[160px] aspect-[2/3] flex-shrink-0 rounded-xl overflow-hidden shadow-2xl ring-1 ring-white/10 hidden sm:flex items-center justify-center bg-brand/15">
+                <div className="flex h-full w-full items-center justify-center text-brand">
                   <ListIcon className="size-12 sm:size-16" />
                 </div>
               </div>

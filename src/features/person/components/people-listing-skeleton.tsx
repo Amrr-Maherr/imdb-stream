@@ -1,12 +1,10 @@
+import { PageHeaderSkeleton } from '@/shared/components/page-header';
+
 export function PeopleListingSkeleton() {
   return (
-    <div className="flex flex-col flex-1 bg-background pt-16">
-      <main className="app-container flex flex-1 flex-col py-8 md:py-12">
-        <section className="mb-6 md:mb-8 animate-pulse">
-          <div className="h-9 md:h-10 w-28 rounded bg-muted" />
-          <div className="h-4 w-64 rounded bg-muted mt-1.5" />
-        </section>
-
+    <div className="flex flex-col flex-1 bg-background">
+      <PageHeaderSkeleton />
+      <main className="app-container flex flex-1 flex-col py-6 md:py-10">
         <div className="flex items-center justify-between mb-4 md:mb-5 animate-pulse">
           <div className="h-4 w-36 rounded bg-muted" />
           <div className="h-3 w-28 rounded bg-muted" />

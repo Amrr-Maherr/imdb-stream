@@ -1,14 +1,9 @@
 import { getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { Button } from '@/shared/components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-} from '@/shared/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/shared/components/ui/card';
 import { Check, X } from 'lucide-react';
+import { PricingSection } from '@/features/pricing/components/pricing-section';
 
 interface Props {
   params: Promise<{ locale: string }>;
@@ -77,17 +72,6 @@ export default async function SubscriptionPage() {
 
   const plans = ['free', 'pro', 'enterprise'] as const;
 
-  const planFeatures = plans.map((key) => ({
-    key,
-    name: t(`plans.${key}.name`),
-    price: t(`plans.${key}.price`),
-    period: t(`plans.${key}.period`),
-    description: t(`plans.${key}.description`),
-    features: t.raw(`plans.${key}.features`) as string[],
-    cta: t(`plans.${key}.cta`),
-    popular: key === 'pro',
-  }));
-
   const faqs = [1, 2, 3, 4, 5] as const;
 
   return (
@@ -100,77 +84,14 @@ export default async function SubscriptionPage() {
               {t('hero.title')}
             </h1>
             <p className="mt-4 text-lg text-muted-foreground sm:text-xl">{t('hero.subtitle')}</p>
-            <div className="mt-8 flex items-center justify-center gap-3">
-              <span
-                className={`text-sm font-medium ${true ? 'text-foreground' : 'text-muted-foreground'}`}
-              >
-                {t('hero.toggle')}
-              </span>
-              <div className="flex h-8 w-14 items-center rounded-full border border-border bg-muted p-1">
-                <div className="h-6 w-6 rounded-full bg-brand shadow-sm" />
-              </div>
-              <span className="text-sm font-medium text-muted-foreground">
-                {t('hero.toggleAnnual')}
-              </span>
-              <span className="rounded-full bg-brand/20 px-2.5 py-0.5 text-xs font-semibold text-brand">
-                {t('hero.saveText')}
-              </span>
-            </div>
           </div>
         </div>
       </section>
 
       {/* Pricing Cards */}
-      <section className="py-16">
-        <div className="app-container">
-          <div className="grid gap-8 md:grid-cols-3">
-            {planFeatures.map((plan) => (
-              <Card
-                key={plan.key}
-                className={`relative flex flex-col border ${
-                  plan.popular
-                    ? 'border-brand/50 shadow-glow ring-1 ring-brand/30'
-                    : 'border-border'
-                }`}
-              >
-                {plan.popular && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                    <span className="inline-block rounded-full bg-brand px-4 py-1 text-xs font-bold text-brand-foreground">
-                      {t('plans.pro.popular')}
-                    </span>
-                  </div>
-                )}
-                <CardHeader className={plan.popular ? 'pt-8' : ''}>
-                  <CardTitle className="text-2xl">{plan.name}</CardTitle>
-                  <div className="mt-2 flex items-baseline gap-1">
-                    <span className="text-4xl font-bold text-foreground">{plan.price}</span>
-                    <span className="text-sm text-muted-foreground">{plan.period}</span>
-                  </div>
-                  <CardDescription className="mt-2">{plan.description}</CardDescription>
-                </CardHeader>
-                <CardContent className="flex flex-1 flex-col gap-6">
-                  <ul className="flex-1 space-y-3">
-                    {plan.features.map((feature, i) => (
-                      <li key={i} className="flex items-start gap-3 text-sm text-foreground">
-                        <Check className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <Button
-                    variant={plan.popular ? 'default' : 'outline'}
-                    size="lg"
-                    className="w-full"
-                    asChild
-                  >
-                    <Link href="#">{plan.cta}</Link>
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
+      <div className="app-container -mt-8 pb-16">
+        <PricingSection showHeading={false} />
+      </div>
 
       {/* Feature Comparison */}
       <section className="bg-muted/50 py-16">

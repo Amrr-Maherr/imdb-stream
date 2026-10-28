@@ -1,29 +1,16 @@
 'use client';
 
-import { Slider } from '@/shared/components/ui/slider';
+import { Rail, type RailProps } from './rail';
 
-type BannerSectionProps = {
-  title: string;
-  subtitle?: string;
-  children: React.ReactNode;
-};
-
-export function BannerSection({ title, subtitle, children }: BannerSectionProps) {
+/** A rail framed in a tinted panel, used to set "what's on now" rows apart from the rest. */
+export function BannerSection(props: Omit<RailProps, 'density'>) {
   return (
-    <section className="relative overflow-hidden rounded-xl bg-muted/30 border border-border/50">
-      <div className="p-4 sm:p-6 pb-0">
-        <div className="flex items-end justify-between mb-4">
-          <div>
-            <h2 className="text-xl font-bold text-foreground">{title}</h2>
-            {subtitle && <p className="text-sm text-muted-foreground mt-0.5">{subtitle}</p>}
-          </div>
-        </div>
-      </div>
-      <div className="px-4 sm:px-6 pb-4 sm:pb-6">
-        <Slider slidesPerView={5} slidesMobilePerView={2.5} spaceBetween={14} grabCursor freeMode>
-          {children}
-        </Slider>
-      </div>
-    </section>
+    <div className="relative overflow-hidden rounded-3xl border border-brand/20 bg-brand/[0.04] p-4 sm:p-6 lg:p-8">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -end-24 -top-24 size-72 rounded-full bg-brand/10 blur-3xl"
+      />
+      <Rail {...props} className="relative" />
+    </div>
   );
 }

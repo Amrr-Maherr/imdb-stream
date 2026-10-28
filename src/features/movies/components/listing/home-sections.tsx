@@ -5,6 +5,7 @@ import {
   PlatformsSection,
 } from '@/features/company/components/company-section';
 import { LazySection } from '@/shared/components/lazy-section';
+import { PricingSection } from '@/features/pricing/components/pricing-section';
 import {
   LazyAiringTodayRow,
   LazyEditorialSpotlight,
@@ -55,7 +56,7 @@ export async function HomeSections({ locale }: Props) {
   } = await getHomeData(locale);
 
   return (
-    <div className="w-full app-container py-8 space-y-14">
+    <div className="w-full app-container space-y-16 pb-16 pt-4 md:space-y-24 md:pb-24">
       {/* ── Popular Movies ── Pattern B: Featured Spotlight + Carousel ── */}
       {popular.length > 0 && (
         <LazySection fallback={<FeaturedRowSkeleton />}>
@@ -215,6 +216,13 @@ export async function HomeSections({ locale }: Props) {
           />
         </LazySection>
       )}
+
+      {/* ── Membership plans ── */}
+      <LazySection fallback={<SectionRowSkeleton />}>
+        <div className="relative overflow-hidden rounded-[2rem] border border-border bg-card/40 px-4 py-12 sm:px-8 md:py-16">
+          <PricingSection compact />
+        </div>
+      </LazySection>
     </div>
   );
 }

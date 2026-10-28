@@ -1096,7 +1096,8 @@
     "wikidata": "ويكيداتا",
     "averageRating": "متوسط التقييم",
     "voteAverage": "متوسط التصويت",
-    "seeAllOptions": "عرض جميع الخيارات"
+    "seeAllOptions": "عرض جميع الخيارات",
+    "castTitle": "طاقم التمثيل"
   },
   "TvDetail": {
     "seasons": "المواسم",
@@ -1150,7 +1151,8 @@
     "nextEpisode": "الحلقة التالية",
     "moreEpisodes": "المزيد من الحلقات",
     "noEpisodes": "لا توجد حلقات متاحة لهذا الموسم بعد.",
-    "tba": "سيُحدد لاحقاً"
+    "tba": "سيُحدد لاحقاً",
+    "castTitle": "طاقم تمثيل المسلسل"
   },
   "Person": {
     "title": "الأشخاص",
@@ -1283,7 +1285,13 @@
     "exploreGenresDesc": "تصفح الأفلام حسب التصنيفات التي تحبها",
     "popularActors": "ممثلون مشهورون",
     "popularActorsDesc": "المؤدون المفضلون لدى الجماهير",
-    "viewAll": "عرض الكل"
+    "viewAll": "عرض الكل",
+    "popularMoviesDesc": "ما يشاهده الجميع الآن",
+    "mostPopular": "#1 الأكثر شعبية",
+    "top10": "أفضل 10",
+    "inTheaters": "في دور العرض",
+    "releaseCalendar": "تقويم الإصدارات",
+    "newEpisodes": "حلقات جديدة"
   },
   "Filters": {
     "filters": "تصفية",
@@ -1638,7 +1646,13 @@
     "deleting": "جارٍ الحذف...",
     "deleteAll": "حذف الكل",
     "english": "الإنجليزية",
-    "arabic": "العربية"
+    "arabic": "العربية",
+    "trendingRank": "#{rank} الأكثر رواجًا هذا الأسبوع",
+    "goToSlide": "انتقل إلى الشريحة {index}",
+    "noResultsTitle": "لا توجد نتائج مطابقة لهذه الفلاتر",
+    "noResultsDesc": "جرّب إزالة أحد الفلاتر أو اختيار نوع أو سنة أو تقييم مختلف.",
+    "previous": "السابق",
+    "next": "التالي"
   },
   "Ui": {
     "pagination": {
@@ -1688,5 +1702,31 @@
     "suggestion4": "أفلام أكشن الأعلى تقييماً",
     "thinking": "جارٍ التفكير",
     "error": "عذراً، حدث خطأ ما. حاول مرة أخرى."
+  },
+  "Pricing": {
+    "eyebrow": "العضوية",
+    "title": "اختر الخطة التي تناسب طريقة مشاهدتك",
+    "subtitle": "ابدأ مجانًا، ثم رقِّ خطتك عندما تريد تصفحًا بلا إعلانات وترشيحات أذكى ووصولًا مبكرًا.",
+    "billing": "فترة الفوترة",
+    "monthly": "شهري",
+    "annual": "سنوي",
+    "save": "-20%",
+    "perMonth": "/شهريًا",
+    "billedAnnually": "يُدفع مرة واحدة سنويًا",
+    "moreFeatures": "+{count} ميزات أخرى",
+    "compareAll": "قارن كل مزايا الخطط",
+    "annualPrice_free": "$0",
+    "annualPrice_pro": "$3.99",
+    "annualPrice_enterprise": "$11.99"
+  },
+  "DetailNav": {
+    "label": "أقسام الصفحة",
+    "overview": "نظرة عامة",
+    "seasons": "المواسم",
+    "cast": "الممثلون والطاقم",
+    "media": "الفيديو والصور",
+    "reviews": "المراجعات",
+    "more": "أعمال مشابهة",
+    "details": "التفاصيل"
   }
 }

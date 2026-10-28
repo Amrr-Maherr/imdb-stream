@@ -30,9 +30,6 @@ export function ProductionCompanyPortfolio({ movies }: ProductionCompanyPortfoli
           {
             title: t('popularWorks'),
             subtitle: t('mostPopular'),
-            slidesPerView: 5 as const,
-            slidesMobilePerView: 2.5 as const,
-            spaceBetween: 16 as const,
             items: popularWorks,
           },
         ]
@@ -42,9 +39,6 @@ export function ProductionCompanyPortfolio({ movies }: ProductionCompanyPortfoli
           {
             title: t('recentWorks'),
             subtitle: t('latestReleases'),
-            slidesPerView: 4 as const,
-            slidesMobilePerView: 2 as const,
-            spaceBetween: 20 as const,
             items: recentWorks,
           },
         ]
@@ -54,9 +48,6 @@ export function ProductionCompanyPortfolio({ movies }: ProductionCompanyPortfoli
           {
             title: t('topRated'),
             subtitle: t('highestRated'),
-            slidesPerView: 3.5 as const,
-            slidesMobilePerView: 1.5 as const,
-            spaceBetween: 24 as const,
             items: topRated,
           },
         ]
@@ -79,9 +70,6 @@ export function ProductionCompanyPortfolio({ movies }: ProductionCompanyPortfoli
           key={section.title}
           title={section.title}
           subtitle={section.subtitle}
-          slidesPerView={section.slidesPerView}
-          slidesMobilePerView={section.slidesMobilePerView}
-          spaceBetween={section.spaceBetween}
         >
           {section.items.map((movie) => (
             <MovieCard key={movie.id} movie={movie as TMDBMovie} />
