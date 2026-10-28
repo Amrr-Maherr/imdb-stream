@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { Play } from 'lucide-react';
 import { Slider } from '@/shared/components/ui/slider';
 import type { Video } from '@/shared/types/tmdb';
+import { SectionTitle } from '@/features/movies/components/detail/movie-section';
 
 type VideoCardInnerProps = {
   videoKey: string;
@@ -19,7 +20,7 @@ function VideoCardInner({ videoKey, name, type }: VideoCardInnerProps) {
       href={`https://www.youtube.com/watch?v=${videoKey}`}
       target="_blank"
       rel="noopener noreferrer"
-      className="group relative aspect-video w-full overflow-hidden rounded-lg bg-muted"
+      className="group relative block aspect-video w-full overflow-hidden rounded-lg bg-muted"
     >
       <Image
         src={`https://img.youtube.com/vi/${videoKey}/hqdefault.jpg`}
@@ -54,7 +55,7 @@ export function MovieVideos({ videos }: MovieVideosProps) {
 
   return (
     <section>
-      <h2 className="text-xl font-bold text-foreground mb-4">{t('videos')}</h2>
+      <SectionTitle>{t('videos')}</SectionTitle>
       <Slider
         slidesPerView={3}
         slidesMobilePerView={1.2}

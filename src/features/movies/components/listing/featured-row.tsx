@@ -2,10 +2,11 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { Star } from 'lucide-react';
+import { ArrowRight, Flame, Star, TrendingUp } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import type { TMDBMovie } from '@/shared/types/tmdb';
 import { slugify } from '@/shared/utils/slugify';
-import { Slider } from '@/shared/components/ui/slider';
+import { Rail } from './rail';
 
 const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p';
 
@@ -16,84 +17,103 @@ type FeaturedRowProps = {
   children?: React.ReactNode;
 };
 
+/** Most popular row: the #1 title gets a cinematic banner, the rest follow in a rail. */
 export function FeaturedRow({ title, spotlight, genreMap, children }: FeaturedRowProps) {
+  const t = useTranslations('HomePage');
+  const tc = useTranslations('Common');
   const year = spotlight.release_date?.slice(0, 4);
-  const vote = spotlight.vote_average.toFixed(1);
+  const href = `/movies/${slugify(spotlight.title)}/${spotlight.id}`;
   const genres = spotlight.genre_ids
     ?.slice(0, 3)
     .map((id) => genreMap?.[id])
-    .filter(Boolean) as string[] | undefined;
+    .filter((name): name is string => Boolean(name));
 
-  return (
-    <section>
-      <h2 className="text-xl font-bold text-foreground mb-4">{title}</h2>
-      <div className="flex flex-col gap-6">
-        <Link
-          href={`/movies/${slugify(spotlight.title)}/${spotlight.id}`}
-          className="group relative w-full overflow-hidden rounded-xl bg-muted"
-        >
-          <div className="relative aspect-[2/1] sm:aspect-[3/1] w-full">
-            {spotlight.backdrop_path ? (
-              <Image
-                src={`${TMDB_IMAGE_BASE}/w1280${spotlight.backdrop_path}`}
-                alt={spotlight.title}
-                fill
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
-                sizes="100vw"
-              />
-            ) : spotlight.poster_path ? (
-              <Image
-                src={`${TMDB_IMAGE_BASE}/w500${spotlight.poster_path}`}
-                alt={spotlight.title}
-                fill
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
-                sizes="100vw"
-              />
-            ) : null}
-            <div className="absolute inset-0 bg-background/60" />
-            <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6">
-              <h3 className="text-lg sm:text-2xl font-bold text-foreground line-clamp-1">
+  const banner = (
+    <Link
+      href={href}
+      className="group relative mb-6 block overflow-hidden rounded-3xl bg-black ring-1 ring-border/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
+    >
+      <div className="relative aspect-[4/5] w-full sm:aspect-[2/1] lg:aspect-[3/1]">
+        {(spotlight.backdrop_path || spotlight.poster_path) && (
+          <Image
+            src={
+              spotlight.backdrop_path
+                ? `${TMDB_IMAGE_BASE}/w1280${spotlight.backdrop_path}`
+                : `${TMDB_IMAGE_BASE}/w500${spotlight.poster_path}`
+            }
+            alt={spotlight.title}
+            fill
+            className="object-cover transition-transform duration-700 group-hover:scale-105"
+            sizes="100vw"
+          />
+        )}
+        <div className="pointer-events-none absolute inset-0 scrim-bottom sm:hidden" />
+        <div className="pointer-events-none absolute inset-0 hidden scrim-start sm:block" />
+
+        <div className="absolute inset-0 flex items-end p-5 sm:items-center sm:p-8 lg:p-12">
+          <div className="flex max-w-xl items-center gap-6">
+            {spotlight.poster_path && (
+              <div className="relative hidden aspect-2/3 w-36 shrink-0 overflow-hidden rounded-2xl shadow-2xl ring-1 ring-white/20 lg:block xl:w-44">
+                <Image
+                  src={`${TMDB_IMAGE_BASE}/w342${spotlight.poster_path}`}
+                  alt=""
+                  fill
+                  className="object-cover"
+                  sizes="176px"
+                />
+              </div>
+            )}
+            <div className="min-w-0">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-brand px-3 py-1 text-xs font-bold text-brand-foreground">
+                <Flame className="size-3.5" />
+                {t('mostPopular')}
+              </span>
+              <h3 className="mt-3 text-2xl font-black leading-tight tracking-tight text-white text-balance sm:text-4xl">
                 {spotlight.title}
               </h3>
-              <div className="flex flex-wrap items-center gap-2 mt-2 text-xs sm:text-sm text-muted-foreground">
-                {year && <span>{year}</span>}
-                <span className="flex items-center gap-0.5">
-                  <Star className="size-3 sm:size-4 fill-yellow-400 text-yellow-400" />
-                  <span className="font-semibold text-foreground">{vote}</span>
-                </span>
-                {spotlight.vote_count > 0 && (
-                  <span className="text-muted-foreground/70">
-                    ({spotlight.vote_count.toLocaleString()})
+              <div className="mt-3 flex flex-wrap items-center gap-2 text-sm text-white/80">
+                {spotlight.vote_average > 0 && (
+                  <span className="inline-flex items-center gap-1 rounded-md bg-rating-star px-2 py-0.5 font-bold text-brand-foreground">
+                    <Star className="size-3.5 fill-current" />
+                    {spotlight.vote_average.toFixed(1)}
                   </span>
                 )}
-                {genres && genres.length > 0 && (
-                  <span className="hidden sm:flex items-center gap-1.5">
-                    <span className="text-muted-foreground/40">|</span>
-                    {genres.map((g) => (
-                      <span
-                        key={g}
-                        className="px-2 py-0.5 text-[11px] font-medium rounded bg-background/60 text-foreground/80"
-                      >
-                        {g}
-                      </span>
-                    ))}
+                {year && <span className="font-medium text-white">{year}</span>}
+                {genres?.map((genre) => (
+                  <span
+                    key={genre}
+                    className="rounded-full border border-white/25 bg-white/10 px-2.5 py-0.5 text-xs backdrop-blur-sm"
+                  >
+                    {genre}
                   </span>
-                )}
+                ))}
               </div>
               {spotlight.overview && (
-                <p className="hidden sm:block text-sm text-muted-foreground/80 mt-2 line-clamp-2 max-w-2xl">
+                <p className="mt-3 hidden text-sm leading-relaxed text-white/80 sm:line-clamp-3">
                   {spotlight.overview}
                 </p>
               )}
+              <span className="mt-5 inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-bold text-black transition-colors group-hover:bg-brand group-hover:text-brand-foreground">
+                {tc('moreInfo')}
+                <ArrowRight className="size-4 rtl:rotate-180" />
+              </span>
             </div>
           </div>
-        </Link>
-        {children && (
-          <Slider slidesPerView={5} slidesMobilePerView={2.5} spaceBetween={14} grabCursor freeMode>
-            {children}
-          </Slider>
-        )}
+        </div>
       </div>
-    </section>
+    </Link>
+  );
+
+  return (
+    <Rail
+      title={title}
+      subtitle={t('popularMoviesDesc')}
+      icon={TrendingUp}
+      viewAllHref="/movies"
+      viewAllLabel={t('viewAll')}
+      before={banner}
+    >
+      {children}
+    </Rail>
   );
 }

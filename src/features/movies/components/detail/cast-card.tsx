@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { User } from 'lucide-react';
 import { slugify } from '@/shared/utils/slugify';
 
 const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p';
@@ -15,26 +16,26 @@ type CastCardProps = {
 export function CastCard({ name, character, profilePath, creditId, id }: CastCardProps) {
   const content = (
     <>
-      <div className="relative aspect-[2/3] w-full overflow-hidden rounded-lg bg-muted">
+      <div className="relative aspect-2/3 w-full overflow-hidden rounded-xl bg-muted ring-1 ring-border/60 transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-lg group-hover:ring-brand/50">
         {profilePath ? (
           <Image
             src={`${TMDB_IMAGE_BASE}/w185${profilePath}`}
             alt={name}
             fill
-            className="object-cover"
-            sizes="140px"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            sizes="(max-width: 640px) 40vw, 160px"
           />
         ) : (
-          <div className="flex h-full items-center justify-center text-muted-foreground text-xs p-2 text-center">
-            {name}
+          <div className="flex h-full items-center justify-center">
+            <User className="size-10 text-muted-foreground/40" />
           </div>
         )}
       </div>
-      <div className="mt-2 text-center">
-        <p className="text-sm font-medium text-foreground line-clamp-1 group-hover:text-brand transition-colors">
+      <div className="mt-2.5 px-0.5 text-center">
+        <p className="line-clamp-1 text-sm font-semibold text-foreground transition-colors group-hover:text-brand">
           {name}
         </p>
-        <p className="text-xs text-muted-foreground line-clamp-1">{character}</p>
+        {character && <p className="line-clamp-1 text-xs text-muted-foreground">{character}</p>}
       </div>
     </>
   );
@@ -44,7 +45,7 @@ export function CastCard({ name, character, profilePath, creditId, id }: CastCar
       <Link
         key={creditId}
         href={`/people/${slugify(name)}/${id}`}
-        className="group block w-full rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+        className="group block w-full rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
       >
         {content}
       </Link>

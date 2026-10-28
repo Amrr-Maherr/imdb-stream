@@ -39,6 +39,10 @@ export function SeasonHero({ season, backdropPath, tvName, tvSlug, tvId }: Seaso
           <div className="absolute inset-0 bg-card" />
         )}
 
+        {/* Text protection behind the copy; the rest of the artwork stays vivid */}
+        <div className="pointer-events-none absolute inset-0 scrim-bottom" />
+        <div className="pointer-events-none absolute inset-0 hidden scrim-start md:block" />
+
         <div className="absolute inset-0 z-10 flex flex-col justify-end pb-6 sm:pb-10 md:pb-14">
           <div className="w-full mx-auto app-container">
             <div className="flex items-end gap-4 sm:gap-6">

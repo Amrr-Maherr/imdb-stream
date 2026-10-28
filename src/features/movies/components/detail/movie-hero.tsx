@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { Play, Pause, Volume2, VolumeX, Maximize, Minimize, Square, Star } from 'lucide-react';
@@ -188,107 +189,130 @@ export function MovieHero({
   }, []);
 
   return (
-    <section className="relative w-full aspect-[4/5] md:aspect-[16/9] lg:aspect-[21/9] overflow-hidden">
-      {/* Background layer – z-0 */}
+    <section className="relative w-full min-h-[640px] overflow-hidden bg-black md:min-h-0 md:aspect-[16/9] lg:aspect-[21/9] lg:max-h-[88vh]">
+      {/* Background layer */}
       <div ref={containerRef} className="absolute inset-0">
         <MovieBackground trailerKey={trailerKey} backdropPath={backdropPath} title={title} />
       </div>
 
-      {/* Content overlay – z-20 */}
-      <div className="absolute inset-0 z-20 flex flex-col justify-end pb-16 md:pb-20">
+      {/* Text protection: darken behind the copy only, keep the artwork vivid on the far side */}
+      <div className="pointer-events-none absolute inset-0 z-10 scrim-bottom" />
+      <div className="pointer-events-none absolute inset-0 z-10 hidden scrim-start md:block" />
+
+      {/* Content overlay */}
+      <div className="absolute inset-0 z-20 flex flex-col justify-end pb-10 md:pb-16">
         <div className="w-full mx-auto app-container">
-          <MovieInfo
-            title={title}
-            year={year}
-            endYear={endYear}
-            certification={certification}
-            runtime={runtime}
-            tagline={tagline}
-            overlay
-          />
+          <div className="flex items-end gap-8 lg:gap-10">
+            {movie.poster_path && (
+              <div className="relative hidden aspect-2/3 w-44 shrink-0 overflow-hidden rounded-2xl shadow-2xl ring-1 ring-white/20 md:block lg:w-56">
+                <Image
+                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                  alt={title}
+                  fill
+                  className="object-cover"
+                  sizes="224px"
+                  priority
+                />
+              </div>
+            )}
+            <div className="min-w-0 max-w-3xl">
+              <MovieInfo
+                title={title}
+                year={year}
+                endYear={endYear}
+                certification={certification}
+                runtime={runtime}
+                tagline={tagline}
+                overlay
+              />
 
-          {/* Rating */}
-          <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-2">
-            <span className="inline-flex items-center gap-1.5 rounded-md bg-black/40 px-2.5 py-1 backdrop-blur-sm">
-              <Star className="size-4 fill-rating-star text-rating-star" />
-              <span className="text-base font-bold leading-none text-white">
-                {voteAverage.toFixed(1)}
-              </span>
-              <span className="text-xs text-white/70">{t('votes', { count: voteCount })}</span>
-            </span>
-            <GenreTags genres={genres} overlay />
-          </div>
+              {/* Rating */}
+              <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2">
+                {voteAverage > 0 && (
+                  <span className="inline-flex items-center gap-1.5 rounded-md bg-rating-star px-2.5 py-1 text-brand-foreground">
+                    <Star className="size-4 fill-current" />
+                    <span className="text-base font-bold leading-none">
+                      {voteAverage.toFixed(1)}
+                    </span>
+                    <span className="text-xs font-medium opacity-75">
+                      {t('votes', { count: voteCount })}
+                    </span>
+                  </span>
+                )}
+                <GenreTags genres={genres} overlay />
+              </div>
 
-          {/* Overview */}
-          {overview && (
-            <p className="mt-3 max-w-2xl text-sm leading-relaxed text-white/80 line-clamp-2 sm:line-clamp-3">
-              {overview}
-            </p>
-          )}
+              {/* Overview */}
+              {overview && (
+                <p className="mt-4 max-w-2xl text-sm leading-relaxed text-white/85 line-clamp-3 sm:text-base">
+                  {overview}
+                </p>
+              )}
 
-          {/* Actions */}
-          <div className="mt-5">
-            <MovieActions
-              trailerKey={trailerKey}
-              imdbId={imdbId}
-              homepage={homepage}
-              title={title}
-              overlay
-              movie={movie}
-            />
+              {/* Actions */}
+              <div className="mt-6">
+                <MovieActions
+                  trailerKey={trailerKey}
+                  imdbId={imdbId}
+                  homepage={homepage}
+                  title={title}
+                  overlay
+                  movie={movie}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Video controls toolbar */}
+      {/* Compact trailer controls: top on mobile so they never cover the copy */}
       {ready && trailerKey && (
-        <div className="absolute bottom-0 left-0 right-0 z-30 border-t border-white/10 bg-black/60 backdrop-blur-sm">
-          <div className="py-2 flex items-center gap-2 app-container">
-            <button
-              onClick={togglePlay}
-              className="flex size-9 items-center justify-center rounded-lg bg-white/10 text-white hover:bg-white/20 transition-colors"
-              aria-label={playing ? tc('pause') : tc('play')}
-            >
-              {playing ? <Pause className="size-4" /> : <Play className="size-4 ml-0.5" />}
-            </button>
-            <button
-              onClick={handleStop}
-              className="flex size-9 items-center justify-center rounded-lg bg-white/10 text-white hover:bg-white/20 transition-colors"
-              aria-label={tc('stop')}
-            >
-              <Square className="size-3.5" />
-            </button>
-            <div className="w-px h-5 bg-white/20 mx-1" />
-            <button
-              onClick={toggleMute}
-              className={`flex size-9 items-center justify-center rounded-lg transition-colors ${
-                muted
-                  ? 'bg-white/10 text-white hover:bg-white/20'
-                  : 'bg-brand/30 text-brand hover:bg-brand/40'
-              }`}
-              aria-label={muted ? tc('unmute') : tc('mute')}
-            >
-              {muted ? <VolumeX className="size-4" /> : <Volume2 className="size-4" />}
-            </button>
-            <div className="flex-1" />
-            {playing && (
-              <span className="flex items-center gap-1.5 text-xs text-white/60">
+        <div className="absolute end-4 top-20 z-30 flex items-center gap-1 rounded-full bg-black/55 p-1 ring-1 ring-white/15 backdrop-blur-md md:end-8 md:top-auto md:bottom-6">
+          <button
+            onClick={togglePlay}
+            className="flex size-9 items-center justify-center rounded-full text-white transition-colors hover:bg-white/15"
+            aria-label={playing ? tc('pause') : tc('play')}
+          >
+            {playing ? <Pause className="size-4" /> : <Play className="size-4 ms-0.5" />}
+          </button>
+          <button
+            onClick={handleStop}
+            className="flex size-9 items-center justify-center rounded-full text-white transition-colors hover:bg-white/15"
+            aria-label={tc('stop')}
+          >
+            <Square className="size-3.5" />
+          </button>
+          <button
+            onClick={toggleMute}
+            className={`flex size-9 items-center justify-center rounded-full transition-colors ${
+              muted
+                ? 'text-white hover:bg-white/15'
+                : 'bg-brand text-brand-foreground hover:bg-brand/90'
+            }`}
+            aria-label={muted ? tc('unmute') : tc('mute')}
+          >
+            {muted ? <VolumeX className="size-4" /> : <Volume2 className="size-4" />}
+          </button>
+          <span className="hidden items-center gap-1.5 px-2 text-xs text-white/70 sm:flex">
+            {playing ? (
+              <>
                 <span className="relative flex size-2">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand opacity-75" />
                   <span className="relative inline-flex size-2 rounded-full bg-brand" />
                 </span>
                 {tc('playing')}
-              </span>
+              </>
+            ) : (
+              tc('paused')
             )}
-            {!playing && <span className="text-xs text-white/60">{tc('paused')}</span>}
-            <button
-              onClick={toggleFullscreen}
-              className="flex size-9 items-center justify-center rounded-lg bg-white/10 text-white hover:bg-white/20 transition-colors"
-              aria-label={fullscreen ? tc('exitFullscreen') : tc('fullscreen')}
-            >
-              {fullscreen ? <Minimize className="size-4" /> : <Maximize className="size-4" />}
-            </button>
-          </div>
+          </span>
+          <button
+            onClick={toggleFullscreen}
+            className="flex size-9 items-center justify-center rounded-full text-white transition-colors hover:bg-white/15"
+            aria-label={fullscreen ? tc('exitFullscreen') : tc('fullscreen')}
+          >
+            {fullscreen ? <Minimize className="size-4" /> : <Maximize className="size-4" />}
+          </button>
         </div>
       )}
     </section>

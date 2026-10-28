@@ -2,6 +2,8 @@ import { PersonCard } from '@/features/movies/components/listing/person-card';
 import GetPeople from '@/features/person/services/getPeople';
 import { PaginationDemo } from '@/shared/components/pagination';
 import { getTranslations } from 'next-intl/server';
+import { Users, SearchX } from 'lucide-react';
+import { PageHeader } from '@/shared/components/page-header';
 
 interface Props {
   params: Promise<{ locale: string }>;
@@ -21,6 +23,7 @@ export default async function PeoplePage({
   const [params, searchParams] = await Promise.all([paramsPromise, searchParamsPromise]);
   const { locale } = params;
   const t = await getTranslations({ locale, namespace: 'People' });
+  const tc = await getTranslations({ locale, namespace: 'Common' });
 
   const data = await GetPeople({
     page: searchParams.page ? Number(searchParams.page) : undefined,
@@ -31,19 +34,26 @@ export default async function PeoplePage({
   const totalResults = data?.total_results ?? 0;
 
   return (
-    <div className="flex flex-col flex-1 bg-background pt-16">
-      <main className="app-container flex flex-1 flex-col py-8 md:py-12">
-        <section className="mb-6 md:mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-foreground">{t('title')}</h1>
-          <p className="mt-1.5 text-sm md:text-base text-muted-foreground">{t('description')}</p>
-        </section>
-
-        {totalResults > 0 && (
-          <div className="flex items-center justify-between mb-4 md:mb-5">
-            <p className="text-sm text-muted-foreground">{t('showing', { count: totalResults })}</p>
-            <p className="text-xs text-muted-foreground/70">
-              {t('pageInfo', { current: currentPage, total: totalPages })}
-            </p>
+    <div className="flex flex-col flex-1 bg-background">
+      <PageHeader
+        title={t('title')}
+        description={t('description')}
+        icon={Users}
+        stats={
+          totalResults > 0
+            ? [
+                t('showing', { count: totalResults.toLocaleString(locale) }),
+                t('pageInfo', { current: currentPage, total: totalPages.toLocaleString(locale) }),
+              ]
+            : []
+        }
+      />
+      <main className="app-container flex flex-1 flex-col py-6 md:py-10">
+        {!data?.results?.length && (
+          <div className="flex flex-col items-center justify-center gap-3 rounded-2xl border border-dashed border-border px-6 py-20 text-center">
+            <SearchX className="size-10 text-muted-foreground/60" />
+            <p className="text-lg font-semibold text-foreground">{tc('noResultsTitle')}</p>
+            <p className="max-w-sm text-sm text-muted-foreground">{tc('noResultsDesc')}</p>
           </div>
         )}
 

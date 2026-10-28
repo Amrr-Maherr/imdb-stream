@@ -1111,7 +1111,8 @@
     "wikidata": "Wikidata",
     "averageRating": "Average Rating",
     "voteAverage": "Vote Average",
-    "seeAllOptions": "See all options"
+    "seeAllOptions": "See all options",
+    "castTitle": "Cast"
   },
   "TvDetail": {
     "seasons": "Seasons",
@@ -1165,7 +1166,8 @@
     "nextEpisode": "Next Episode",
     "moreEpisodes": "More Episodes",
     "noEpisodes": "No episodes available for this season yet.",
-    "tba": "TBA"
+    "tba": "TBA",
+    "castTitle": "Series Cast"
   },
   "Person": {
     "title": "People",
@@ -1298,7 +1300,13 @@
     "exploreGenresDesc": "Browse movies by the genres you love",
     "popularActors": "Popular Actors",
     "popularActorsDesc": "Fan-favorite performers",
-    "viewAll": "View All"
+    "viewAll": "View All",
+    "popularMoviesDesc": "What everyone is watching right now",
+    "mostPopular": "#1 Most popular",
+    "top10": "Top 10",
+    "inTheaters": "In theaters",
+    "releaseCalendar": "Release calendar",
+    "newEpisodes": "New episodes"
   },
   "Filters": {
     "filters": "Filters",
@@ -1653,7 +1661,13 @@
     "deleting": "Deleting...",
     "deleteAll": "Delete All",
     "english": "English",
-    "arabic": "Arabic"
+    "arabic": "Arabic",
+    "trendingRank": "#{rank} Trending this week",
+    "goToSlide": "Go to slide {index}",
+    "noResultsTitle": "Nothing matches these filters",
+    "noResultsDesc": "Try removing a filter or picking a different genre, year or rating.",
+    "previous": "Previous",
+    "next": "Next"
   },
   "Ui": {
     "pagination": {
@@ -1703,5 +1717,31 @@
     "suggestion4": "Top rated action movies",
     "thinking": "Thinking",
     "error": "Sorry, something went wrong. Please try again."
+  },
+  "Pricing": {
+    "eyebrow": "Membership",
+    "title": "Pick the plan that fits your watch habits",
+    "subtitle": "Start free, upgrade when you want ad-free browsing, smarter AI picks and early access.",
+    "billing": "Billing period",
+    "monthly": "Monthly",
+    "annual": "Annual",
+    "save": "-20%",
+    "perMonth": "/month",
+    "billedAnnually": "Billed once a year",
+    "moreFeatures": "+{count} more features",
+    "compareAll": "Compare all plan features",
+    "annualPrice_free": "$0",
+    "annualPrice_pro": "$3.99",
+    "annualPrice_enterprise": "$11.99"
+  },
+  "DetailNav": {
+    "label": "Page sections",
+    "overview": "Overview",
+    "seasons": "Seasons",
+    "cast": "Cast & Crew",
+    "media": "Videos & Photos",
+    "reviews": "Reviews",
+    "more": "More Like This",
+    "details": "Details"
   }
 }

@@ -12,7 +12,7 @@ export function GenreTags({ genres, overlay }: GenreTagsProps) {
   if (genres.length === 0) return null;
 
   const tagClass = overlay
-    ? 'rounded-full border border-white/30 px-3 py-1 text-xs font-medium text-white'
+    ? 'rounded-full border border-white/25 bg-white/10 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm'
     : 'rounded-full border border-border px-3 py-1 text-xs font-medium text-foreground';
 
   return (

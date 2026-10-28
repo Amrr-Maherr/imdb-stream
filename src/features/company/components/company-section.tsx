@@ -1,3 +1,4 @@
+import { Building2, MonitorPlay } from 'lucide-react';
 import { fetchApi } from '@/shared/services/fetchApi';
 import type { TMDBCompanyDetails } from '@/shared/types/tmdb';
 import { MediaRow } from '@/features/movies/components/listing/media-row';
@@ -34,15 +35,8 @@ export async function ProductionCompaniesSection({ locale }: { locale: string })
   if (companies.length === 0) return null;
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center gap-3">
-        <div className="h-6 w-1 rounded-full bg-brand" />
-        <div>
-          <h2 className="text-2xl font-bold text-foreground">{t('productionCompanies')}</h2>
-          <p className="text-sm text-muted-foreground">{t('majorStudios')}</p>
-        </div>
-      </div>
-      <MediaRow title={t('studios')} slidesPerView={5} slidesMobilePerView={2.5} spaceBetween={14}>
+    <div>
+      <MediaRow title={t('productionCompanies')} subtitle={t('majorStudios')} icon={<Building2 />}>
         {companies.map((company) => (
           <CompanyCard key={company.id} company={company} />
         ))}
@@ -58,20 +52,8 @@ export async function PlatformsSection({ locale }: { locale: string }) {
   if (platforms.length === 0) return null;
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center gap-3">
-        <div className="h-6 w-1 rounded-full bg-brand" />
-        <div>
-          <h2 className="text-2xl font-bold text-foreground">{t('platforms')}</h2>
-          <p className="text-sm text-muted-foreground">{t('networksStreaming')}</p>
-        </div>
-      </div>
-      <MediaRow
-        title={t('networksShort')}
-        slidesPerView={5}
-        slidesMobilePerView={2.5}
-        spaceBetween={14}
-      >
+    <div>
+      <MediaRow title={t('platforms')} subtitle={t('networksStreaming')} icon={<MonitorPlay />}>
         {platforms.map((platform) => (
           <CompanyCard key={platform.id} company={platform} />
         ))}

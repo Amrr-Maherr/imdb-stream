@@ -5,6 +5,11 @@ import type { TMDBMovieDetails, TMDBTVDetails } from '@/shared/types/tmdb';
 import { MovieHero } from '@/features/movies/components/detail/movie-hero';
 import { MovieCollection } from '@/features/movies/components/detail/movie-collection';
 import { MovieMainContent } from '@/features/movies/components/detail/movie-main-content';
+import { DetailNav } from '@/features/movies/components/detail/detail-nav';
+import {
+  MOVIE_NAV_SECTIONS,
+  TV_NAV_SECTIONS,
+} from '@/features/movies/components/detail/detail-sections';
 import { MovieSidebarColumn } from '@/features/movies/components/detail/movie-sidebar-column';
 import { WatchProvidersSection } from '@/features/movies/components/detail/movie-watch-providers';
 import { TvMainContent } from '@/features/tv/components/detail/tv-main-content';
@@ -151,8 +156,9 @@ async function MovieContent({ id, locale }: { id: string; locale: string }) {
         homepage={movie.homepage || null}
         movie={movie}
       />
+      <DetailNav sections={MOVIE_NAV_SECTIONS} />
 
-      <div className="w-full mx-auto app-container mt-8 md:mt-10 pb-16 space-y-8">
+      <div className="w-full mx-auto app-container mt-10 md:mt-14 pb-20 space-y-12">
         {movie.belongs_to_collection && (
           <MovieCollection collection={movie.belongs_to_collection} />
         )}
@@ -218,8 +224,9 @@ async function TvContent({ id, slug, locale }: { id: string; slug: string; local
         homepage={show.homepage || null}
         movie={{ ...show, title: show.name }}
       />
+      <DetailNav sections={TV_NAV_SECTIONS} />
 
-      <div className="w-full mx-auto app-container mt-8 md:mt-10 pb-16 space-y-8">
+      <div className="w-full mx-auto app-container mt-10 md:mt-14 pb-20 space-y-12">
         <div className="flex flex-col lg:flex-row gap-10 lg:gap-12">
           <TvMainContent show={show} slug={slug} creators={creators} />
           <TvSidebarColumn show={show} creators={creators} />

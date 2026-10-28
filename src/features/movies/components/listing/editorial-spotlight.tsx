@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { Calendar, ExternalLink, MapPin, UserRound } from 'lucide-react';
+import { Calendar, ExternalLink, MapPin, Star, UserRound } from 'lucide-react';
 import { slugify } from '@/shared/utils/slugify';
 import { Badge } from '@/shared/components/ui/badge';
 import { Card } from '@/shared/components/ui/card';
@@ -98,7 +98,7 @@ export function EditorialSpotlight({
 
   return (
     <section>
-      <SectionHeader title={title} subtitle={subtitle} />
+      <SectionHeader title={title} subtitle={subtitle} icon={Star} />
 
       <Card className="overflow-hidden rounded-2xl border-border/60">
         <div className="relative h-36 sm:h-48 lg:h-52">

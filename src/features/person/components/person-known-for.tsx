@@ -49,7 +49,7 @@ export function PersonKnownFor({ items }: PersonKnownForProps) {
             <Link
               key={item.credit_id ?? `${item.id}-${getTitle(item, t)}`}
               href={href}
-              className="group w-full"
+              className="group block w-full"
             >
               <div className="relative aspect-[2/3] w-full overflow-hidden rounded-lg bg-muted">
                 {item.poster_path ? (

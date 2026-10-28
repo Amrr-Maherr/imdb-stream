@@ -28,7 +28,7 @@ export interface SliderProps {
   autoplay?: boolean | { delay: number };
   navigation?: boolean;
   pagination?: boolean | { type: 'bullets' | 'fraction' | 'progressbar' };
-  breakpoints?: Record<number, Omit<SliderProps, 'breakpoints'>>;
+  breakpoints?: Record<number, { slidesPerView?: number | 'auto'; spaceBetween?: number }>;
   direction?: 'horizontal' | 'vertical';
   speed?: number;
   centeredSlides?: boolean;

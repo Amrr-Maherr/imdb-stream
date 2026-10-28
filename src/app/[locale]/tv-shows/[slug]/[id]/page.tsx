@@ -4,6 +4,8 @@ import { ErrorState } from '@/shared/components/error-state';
 import type { TMDBTVDetails } from '@/shared/types/tmdb';
 import { MovieHero } from '@/features/movies/components/detail/movie-hero';
 import { WatchProvidersSection } from '@/features/movies/components/detail/movie-watch-providers';
+import { DetailNav } from '@/features/movies/components/detail/detail-nav';
+import { TV_NAV_SECTIONS } from '@/features/movies/components/detail/detail-sections';
 import { TvMainContent } from '@/features/tv/components/detail/tv-main-content';
 import { TvSidebarColumn } from '@/features/tv/components/detail/tv-sidebar-column';
 
@@ -99,8 +101,9 @@ export default async function TvShowPage({ params }: Props) {
         homepage={show.homepage || null}
         movie={{ ...show, title: show.name }}
       />
+      <DetailNav sections={TV_NAV_SECTIONS} />
 
-      <div className="w-full mx-auto app-container mt-8 md:mt-10 pb-16 space-y-8">
+      <div className="w-full mx-auto app-container mt-10 md:mt-14 pb-20 space-y-12">
         <div className="flex flex-col lg:flex-row gap-10 lg:gap-12">
           <TvMainContent show={show} slug={slug} creators={creators} />
           <TvSidebarColumn show={show} creators={creators} />

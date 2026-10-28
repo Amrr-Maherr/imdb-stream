@@ -1,7 +1,9 @@
+import { PageHeaderSkeleton } from '@/shared/components/page-header';
+
 function SkeletonCard() {
   return (
     <div className="w-[calc(50%-0.375rem)] sm:w-[calc(33.333%-0.5rem)] md:w-[calc(25%-0.5rem)] lg:w-[calc(20%-0.5rem)] xl:w-[calc(16.666%-0.5rem)] animate-pulse">
-      <div className="aspect-[2/3] w-full rounded-lg bg-muted" />
+      <div className="aspect-[2/3] w-full rounded-xl bg-muted" />
       <div className="mt-3 space-y-2">
         <div className="h-3 w-3/4 rounded bg-muted" />
         <div className="flex items-center gap-3">
@@ -15,13 +17,9 @@ function SkeletonCard() {
 
 export function MoviesListingSkeleton() {
   return (
-    <div className="flex flex-col flex-1 bg-background pt-16">
-      <main className="app-container flex flex-1 flex-col py-8 md:py-12">
-        <section className="mb-6 md:mb-8 animate-pulse">
-          <div className="h-9 md:h-10 w-32 rounded bg-muted" />
-          <div className="h-4 w-72 rounded bg-muted mt-1.5" />
-        </section>
-
+    <div className="flex flex-col flex-1 bg-background">
+      <PageHeaderSkeleton />
+      <main className="app-container flex flex-1 flex-col py-6 md:py-10">
         <div className="hidden md:block w-full mb-6 animate-pulse">
           <div className="flex gap-2">
             <div className="h-10 w-32 rounded-lg bg-muted" />

@@ -1,12 +1,20 @@
-﻿'use client';
+'use client';
 
 import type { TMDBTVDetails } from '@/shared/types/tmdb';
 import { useTranslations } from 'next-intl';
-import { Building, Users, MessageSquare, Languages, List, Link2 } from 'lucide-react';
+import {
+  Building,
+  Languages,
+  Link2,
+  List,
+  MessageSquare,
+  ShieldCheck,
+  UserRoundCog,
+  Users,
+} from 'lucide-react';
 import { MoviePoster } from '@/features/movies/components/detail/movie-poster';
 import { MovieOverview } from '@/features/movies/components/detail/movie-overview';
 import { MovieSection } from '@/features/movies/components/detail/movie-section';
-import { MovieCast } from '@/features/movies/components/detail/movie-cast';
 import { FullCastSlider } from '@/features/movies/components/detail/full-cast-slider';
 import { MovieVideos } from '@/features/movies/components/detail/movie-videos';
 import { MoviePhotos } from '@/features/movies/components/detail/movie-photos';
@@ -47,11 +55,20 @@ export function TvMainContent({ show, slug, creators }: TvMainContentProps) {
       }
     : null;
 
+  const videos = show.videos?.results ?? [];
+  const recommendations = show.recommendations?.results ?? [];
+  const similar = show.similar?.results ?? [];
+  const hasMedia =
+    videos.length > 0 ||
+    (show.images?.backdrops?.length ?? 0) > 0 ||
+    (show.images?.posters?.length ?? 0) > 0;
+
   return (
-    <div className="flex-1 min-w-0 space-y-10">
+    <div className="flex-1 min-w-0 space-y-14">
       <FadeIn>
-        <div className="flex flex-col sm:flex-row gap-6 lg:gap-8">
-          <div className="flex-shrink-0 w-full max-w-[160px] sm:max-w-[190px] lg:max-w-[210px] mx-auto sm:mx-0">
+        <div id="overview" className="scroll-mt-32 flex flex-col gap-6 sm:flex-row lg:gap-8">
+          {/* The poster lives in the hero from md up */}
+          <div className="mx-auto w-full max-w-[160px] flex-shrink-0 sm:mx-0 sm:max-w-[190px] md:hidden">
             <MoviePoster posterPath={show.poster_path} title={show.name} priority />
           </div>
           <div className="flex-1 min-w-0">
@@ -65,114 +82,126 @@ export function TvMainContent({ show, slug, creators }: TvMainContentProps) {
         </div>
       </FadeIn>
 
-      {show.production_companies && show.production_companies.length > 0 && (
-        <FadeIn delay={0.05}>
-          <MovieSection title={t('productionCompanies')} icon={<Building className="size-5" />}>
-            <MovieProductionCompanies companies={show.production_companies} />
-          </MovieSection>
-        </FadeIn>
+      {(show.seasons?.some((season) => season.season_number > 0) ?? false) && (
+        <div id="seasons" className="scroll-mt-32">
+          <FadeIn>
+            <TvSeasons seasons={show.seasons ?? []} tvId={show.id} tvSlug={slug} />
+          </FadeIn>
+        </div>
       )}
 
-      {allCrew.length > 0 && (
-        <FadeIn delay={0.1}>
-          <MovieSection title={t('seriesCrew')} icon={<Users className="size-5" />}>
-            <Slider
-              slidesPerView={6}
-              slidesMobilePerView={3}
-              spaceBetween={14}
-              grabCursor
-              freeMode
-              className="-mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 pb-8"
-            >
-              {allCrew.slice(0, 30).map((m, idx) => (
-                <CrewCard
-                  key={`${m.credit_id}-${idx}`}
-                  id={m.id}
-                  name={m.name}
-                  job={m.job}
-                  department={m.department}
-                  profilePath={m.profile_path}
-                  creditId={m.credit_id}
-                />
-              ))}
-            </Slider>
-          </MovieSection>
-        </FadeIn>
+      {(allCast.length > 0 || allCrew.length > 0) && (
+        <div id="cast" className="scroll-mt-32 space-y-12">
+          {allCast.length > 0 && (
+            <FadeIn>
+              <MovieSection title={t('castTitle')} icon={<Users />}>
+                <FullCastSlider cast={allCast} />
+              </MovieSection>
+            </FadeIn>
+          )}
+          {allCrew.length > 0 && (
+            <FadeIn>
+              <MovieSection title={t('seriesCrew')} icon={<UserRoundCog />}>
+                <Slider
+                  slidesPerView={6}
+                  slidesMobilePerView={3}
+                  spaceBetween={14}
+                  grabCursor
+                  freeMode
+                  className="-mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 pb-8"
+                >
+                  {allCrew.slice(0, 30).map((m, idx) => (
+                    <CrewCard
+                      key={`${m.credit_id}-${idx}`}
+                      id={m.id}
+                      name={m.name}
+                      job={m.job}
+                      department={m.department}
+                      profilePath={m.profile_path}
+                      creditId={m.credit_id}
+                    />
+                  ))}
+                </Slider>
+              </MovieSection>
+            </FadeIn>
+          )}
+        </div>
       )}
 
-      <FadeIn delay={0.15}>
-        <MovieCast cast={show.credits?.cast ?? []} />
-      </FadeIn>
-
-      {allCast.length > 0 && (
-        <FadeIn delay={0.18}>
-          <MovieSection title={t('filmography')}>
-            <FullCastSlider cast={allCast} />
-          </MovieSection>
-        </FadeIn>
+      {hasMedia && (
+        <div id="media" className="scroll-mt-32 space-y-12">
+          <FadeIn>
+            <MovieVideos videos={videos} />
+          </FadeIn>
+          <FadeIn>
+            <MoviePhotos
+              backdrops={show.images?.backdrops ?? []}
+              posters={show.images?.posters ?? []}
+              logos={show.images?.logos ?? []}
+            />
+          </FadeIn>
+        </div>
       )}
-
-      <FadeIn delay={0.2}>
-        <TvSeasons seasons={show.seasons ?? []} tvId={show.id} tvSlug={slug} />
-      </FadeIn>
-
-      {ratings.length > 0 && (
-        <FadeIn delay={0.25}>
-          <MovieSection title={t('contentRatings')} icon={<Link2 className="size-5" />}>
-            <TvContentRatings ratings={ratings} />
-          </MovieSection>
-        </FadeIn>
-      )}
-
-      <FadeIn delay={0.25}>
-        <MovieVideos videos={show.videos?.results ?? []} />
-      </FadeIn>
-
-      <FadeIn delay={0.3}>
-        <MoviePhotos
-          backdrops={show.images?.backdrops ?? []}
-          posters={show.images?.posters ?? []}
-          logos={show.images?.logos ?? []}
-        />
-      </FadeIn>
 
       {reviews.length > 0 && (
-        <FadeIn delay={0.35}>
-          <MovieSection title={t('reviews')} icon={<MessageSquare className="size-5" />}>
+        <FadeIn>
+          <MovieSection id="reviews" title={t('reviews')} icon={<MessageSquare />}>
             <MovieReviews reviews={reviews} />
           </MovieSection>
         </FadeIn>
       )}
 
-      <FadeIn delay={0.4}>
-        <RelatedTvShows title={t('recommendations')} shows={show.recommendations?.results ?? []} />
-      </FadeIn>
-
-      <FadeIn delay={0.45}>
-        <RelatedTvShows title={t('similarShows')} shows={show.similar?.results ?? []} />
-      </FadeIn>
-
-      {altTitles.length > 0 && (
-        <FadeIn delay={0.5}>
-          <MovieSection title={t('alternativeTitles')} icon={<Languages className="size-5" />}>
-            <MovieAlternativeTitles titles={altTitles} />
-          </MovieSection>
-        </FadeIn>
+      {(recommendations.length > 0 || similar.length > 0) && (
+        <div id="more" className="scroll-mt-32 space-y-12">
+          <FadeIn>
+            <RelatedTvShows title={t('recommendations')} shows={recommendations} />
+          </FadeIn>
+          <FadeIn>
+            <RelatedTvShows title={t('similarShows')} shows={similar} />
+          </FadeIn>
+        </div>
       )}
 
-      {lists.length > 0 && (
-        <FadeIn delay={0.55}>
-          <MovieSection title={t('lists')} icon={<List className="size-5" />}>
-            <MovieLists lists={lists} />
+      <div id="details" className="scroll-mt-32 space-y-12">
+        {show.production_companies && show.production_companies.length > 0 && (
+          <FadeIn>
+            <MovieSection title={t('productionCompanies')} icon={<Building />}>
+              <MovieProductionCompanies companies={show.production_companies} />
+            </MovieSection>
+          </FadeIn>
+        )}
+
+        {ratings.length > 0 && (
+          <FadeIn>
+            <MovieSection title={t('contentRatings')} icon={<ShieldCheck />}>
+              <TvContentRatings ratings={ratings} />
+            </MovieSection>
+          </FadeIn>
+        )}
+
+        {altTitles.length > 0 && (
+          <FadeIn>
+            <MovieSection title={t('alternativeTitles')} icon={<Languages />}>
+              <MovieAlternativeTitles titles={altTitles} />
+            </MovieSection>
+          </FadeIn>
+        )}
+
+        {lists.length > 0 && (
+          <FadeIn>
+            <MovieSection title={t('lists')} icon={<List />}>
+              <MovieLists lists={lists} />
+            </MovieSection>
+          </FadeIn>
+        )}
+
+        <FadeIn>
+          <MovieSection title={t('externalLinks')} icon={<Link2 />}>
+            <MovieExternalLinks ids={externalIds} homepage={show.homepage || null} />
           </MovieSection>
         </FadeIn>
-      )}
-
-      <FadeIn delay={0.6}>
-        <MovieSection title={t('externalLinks')} icon={<Link2 className="size-5" />}>
-          <MovieExternalLinks ids={externalIds} homepage={show.homepage || null} />
-        </MovieSection>
-      </FadeIn>
+      </div>
     </div>
   );
 }
+

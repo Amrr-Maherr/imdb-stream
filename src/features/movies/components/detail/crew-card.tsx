@@ -15,7 +15,7 @@ type CrewCardProps = {
 
 export function CrewCard({ id, name, job, profilePath }: CrewCardProps) {
   return (
-    <Link href={`/people/${slugify(name)}/${id}`} className="group w-full text-center">
+    <Link href={`/people/${slugify(name)}/${id}`} className="group block w-full text-center">
       <div className="relative size-24 mx-auto overflow-hidden rounded-full bg-muted ring-2 ring-border group-hover:ring-brand transition-all">
         {profilePath ? (
           <Image

@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl';
 import { Slider } from '@/shared/components/ui/slider';
 import type { TVSeason } from '@/shared/types/tmdb';
 import { SeasonCard } from './season-card';
+import { SectionTitle } from '@/features/movies/components/detail/movie-section';
 
 type TvSeasonsProps = {
   seasons: TVSeason[];
@@ -19,7 +20,7 @@ export function TvSeasons({ seasons, tvId, tvSlug, currentSeasonNumber }: TvSeas
 
   return (
     <section>
-      <h2 className="text-xl font-bold text-foreground mb-4">{t('seasons')}</h2>
+      <SectionTitle>{t('seasons')}</SectionTitle>
       <Slider
         slidesPerView={3}
         slidesMobilePerView={2.5}

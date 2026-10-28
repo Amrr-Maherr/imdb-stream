@@ -33,8 +33,18 @@ export function MovieBackground({ trailerKey, backdropPath, title }: MovieBackgr
   }
 
   return (
-    <div className="relative w-full h-full">
-      <div id="youtube-player" className="absolute inset-0 pointer-events-none !w-full !h-full" />
+    <div className="video-cover relative w-full h-full">
+      {backdropPath && (
+        <Image
+          src={`${TMDB_IMAGE_BASE}/original${backdropPath}`}
+          alt={title}
+          fill
+          className="object-cover"
+          priority
+          sizes="100vw"
+        />
+      )}
+      <div id="youtube-player" className="absolute inset-0 pointer-events-none" />
     </div>
   );
 }

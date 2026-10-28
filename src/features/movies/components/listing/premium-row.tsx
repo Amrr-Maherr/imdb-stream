@@ -1,41 +1,30 @@
 'use client';
 
-import { Star, Award } from 'lucide-react';
+import { Award, Star } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { Slider } from '@/shared/components/ui/slider';
+import { Rail, type RailProps } from './rail';
 
-type PremiumRowProps = {
-  title: string;
-  subtitle?: string;
-  children: React.ReactNode;
+type PremiumRowProps = Omit<RailProps, 'density' | 'icon' | 'extra'> & {
   averageRating?: number;
 };
 
-export function PremiumRow({ title, subtitle, children, averageRating }: PremiumRowProps) {
+/** Critically acclaimed row: award icon plus the row's average rating. */
+export function PremiumRow({ averageRating, ...props }: PremiumRowProps) {
   const t = useTranslations('Common');
+
   return (
-    <section className="relative">
-      <div className="flex items-end justify-between mb-4">
-        <div className="flex items-center gap-3">
-          <div className="flex items-center justify-center size-8 rounded-full bg-brand/10 text-brand">
-            <Award className="size-4" />
-          </div>
-          <div>
-            <h2 className="text-xl font-bold text-foreground">{title}</h2>
-            {subtitle && <p className="text-sm text-muted-foreground mt-0.5">{subtitle}</p>}
-          </div>
-        </div>
-        {averageRating && (
-          <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-brand/10 text-brand text-sm font-semibold">
-            <Star className="size-4 fill-brand text-brand" />
-            <span>{averageRating.toFixed(1)}</span>
-            <span className="text-brand/60 text-xs font-normal">{t('avg')}</span>
-          </div>
-        )}
-      </div>
-      <Slider slidesPerView={5} slidesMobilePerView={2.5} spaceBetween={14} grabCursor freeMode>
-        {children}
-      </Slider>
-    </section>
+    <Rail
+      icon={Award}
+      extra={
+        averageRating ? (
+          <span className="hidden items-center gap-1.5 rounded-full bg-brand/10 px-3 py-1.5 text-sm font-bold text-brand ring-1 ring-brand/25 sm:inline-flex">
+            <Star className="size-4 fill-current" />
+            {averageRating.toFixed(1)}
+            <span className="text-xs font-medium opacity-70">{t('avg')}</span>
+          </span>
+        ) : null
+      }
+      {...props}
+    />
   );
 }

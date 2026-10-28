@@ -32,7 +32,11 @@ export function MovieProductionCompanies({ companies }: MovieProductionCompanies
       className="-mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 pb-8"
     >
       {companies.map((c) => (
-        <Link key={c.id} href={`/company/${slugify(c.name)}/${c.id}`} className="group w-full">
+        <Link
+          key={c.id}
+          href={`/company/${slugify(c.name)}/${c.id}`}
+          className="group block w-full"
+        >
           <div className="flex h-24 items-center justify-center rounded-xl border border-border bg-card p-4 group-hover:bg-muted transition-colors">
             {c.logo_path ? (
               <Image

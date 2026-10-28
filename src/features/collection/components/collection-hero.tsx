@@ -41,6 +41,10 @@ export function CollectionHero({
           <div className="absolute inset-0 bg-card" />
         )}
 
+        {/* Text protection behind the copy; the rest of the artwork stays vivid */}
+        <div className="pointer-events-none absolute inset-0 scrim-bottom" />
+        <div className="pointer-events-none absolute inset-0 hidden scrim-start md:block" />
+
         <div className="absolute inset-0 z-10 flex flex-col justify-end pb-10 md:pb-16">
           <div className="w-full mx-auto app-container">
             <div className="flex items-end gap-6">

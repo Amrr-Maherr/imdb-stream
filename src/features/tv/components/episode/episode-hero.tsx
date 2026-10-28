@@ -52,6 +52,10 @@ export function EpisodeHero({
           <div className="absolute inset-0 bg-card" />
         )}
 
+        {/* Text protection behind the copy; the rest of the artwork stays vivid */}
+        <div className="pointer-events-none absolute inset-0 scrim-bottom" />
+        <div className="pointer-events-none absolute inset-0 hidden scrim-start md:block" />
+
         <div className="absolute bottom-0 left-0 right-0 z-10 pb-8 md:pb-12">
           <div className="w-full mx-auto app-container">
             <div className="flex items-start gap-4">

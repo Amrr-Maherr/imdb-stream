@@ -1,4 +1,5 @@
 import { useTranslations } from 'next-intl';
+import { SectionTitle } from '@/features/movies/components/detail/movie-section';
 
 type MovieOverviewProps = {
   overview: string;
@@ -22,7 +23,7 @@ export function MovieOverview({
     <section>
       {overview && (
         <div>
-          <h2 className="text-xl font-bold text-foreground mb-3">{t('storyline')}</h2>
+          <SectionTitle>{t('storyline')}</SectionTitle>
           <p className="text-muted-foreground leading-relaxed">{overview}</p>
         </div>
       )}

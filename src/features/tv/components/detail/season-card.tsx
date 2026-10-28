@@ -22,7 +22,7 @@ export function SeasonCard({ season, tvId, tvSlug, isActive = false }: SeasonCar
     <Link
       href={`/tv-shows/${tvSlug}/${tvId}/season/${season.season_number}`}
       aria-current={isActive ? 'page' : undefined}
-      className="group w-full focus-visible:outline-none"
+      className="group block w-full focus-visible:outline-none"
     >
       <div
         className={`relative aspect-[2/3] w-full overflow-hidden rounded-lg bg-muted ${
