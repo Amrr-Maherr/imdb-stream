@@ -1,11 +1,11 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
 import { Star } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import type { ReactNode } from 'react';
 import { Badge } from '@/shared/components/ui/badge';
+import { Link } from '@/i18n/navigation';
 
 const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p';
 

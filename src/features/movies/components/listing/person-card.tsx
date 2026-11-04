@@ -1,11 +1,11 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import type { TMDBPerson } from '@/shared/types/tmdb';
 import { cn } from '@/shared/utils/utils';
 import { slugify } from '@/shared/utils/slugify';
+import { Link } from '@/i18n/navigation';
 
 const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p';
 
