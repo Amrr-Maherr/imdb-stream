@@ -35,7 +35,7 @@ export function PersonPhotos({ profiles, variant = 'portrait' }: PersonPhotosPro
         <div key={`${img.file_path}-${index}`} className="group">
           <div
             className={`relative w-full overflow-hidden rounded-lg bg-muted ${
-              landscape ? 'aspect-video' : 'aspect-[2/3]'
+              landscape ? 'h-52 sm:h-60 lg:h-180' : 'aspect-[2/3]'
             }`}
           >
             <Image
@@ -43,9 +43,7 @@ export function PersonPhotos({ profiles, variant = 'portrait' }: PersonPhotosPro
               alt={img.caption ?? t('profilePhoto')}
               fill
               className="object-cover transition-transform duration-300 group-hover:scale-105"
-              sizes={
-                landscape ? '(max-width: 640px) 75vw, 33vw' : '(max-width: 640px) 50vw, 25vw'
-              }
+              sizes={landscape ? '(max-width: 640px) 75vw, 33vw' : '(max-width: 640px) 50vw, 25vw'}
             />
           </div>
           {img.caption && (

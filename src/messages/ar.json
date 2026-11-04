@@ -1190,7 +1190,8 @@
     "profilePhoto": "صورة الملف الشخصي",
     "noCredits": "لا توجد سيرة فنية متاحة.",
     "showLess": "عرض أقل",
-    "showMore": "عرض المزيد"
+    "showMore": "عرض المزيد",
+    "viewMoreCredits": "عرض المزيد من الأعمال (متبقي {count})"
   },
   "Company": {
     "productionCompanies": "شركات الإنتاج",

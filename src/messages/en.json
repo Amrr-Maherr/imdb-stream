@@ -1205,7 +1205,8 @@
     "profilePhoto": "Profile photo",
     "noCredits": "No credits available.",
     "showLess": "Show Less",
-    "showMore": "Show More"
+    "showMore": "Show More",
+    "viewMoreCredits": "View more credits ({count} remaining)"
   },
   "Company": {
     "productionCompanies": "Production Companies",

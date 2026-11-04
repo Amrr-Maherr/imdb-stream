@@ -68,10 +68,25 @@ export function PersonDetailSkeleton() {
               </div>
             </div>
 
-            <div className="space-y-2">
-              <div className="h-6 w-40 rounded bg-muted" />
-              {Array.from({ length: 4 }).map((_, j) => (
-                <div key={j} className="h-12 w-full rounded-lg bg-muted" />
+            <div className="space-y-5">
+              <div className="h-10 w-44 rounded-xl bg-muted" />
+              {[0, 1].map((section) => (
+                <div key={section} className="space-y-3">
+                  <div className="h-6 w-32 rounded bg-muted" />
+                  {Array.from({ length: 3 }).map((_, j) => (
+                    <div
+                      key={j}
+                      className="flex items-center gap-3 rounded-2xl border border-border/70 bg-card p-3"
+                    >
+                      <div className="size-14 shrink-0 rounded-xl bg-muted sm:h-[4.5rem] sm:w-16" />
+                      <div className="min-w-0 flex-1 space-y-2">
+                        <div className="h-4 w-2/3 rounded bg-muted" />
+                        <div className="h-3 w-1/3 rounded bg-muted" />
+                      </div>
+                      <div className="h-8 w-20 shrink-0 rounded-lg bg-muted" />
+                    </div>
+                  ))}
+                </div>
               ))}
             </div>
           </div>
