@@ -23,28 +23,28 @@ All colors use the OKLCH color space for perceptual uniformity and smooth dark-m
 
 | Token                | Light Value           | Dark Value             | Usage                     |
 | -------------------- | --------------------- | ---------------------- | ------------------------- |
-| `--brand`            | `oklch(0.53 0.13 76)` | `oklch(0.79 0.175 88)` | Accessible gold accent    |
+| `--brand`            | `oklch(0.49 0.12 72)` | `oklch(0.79 0.175 88)` | Accessible gold accent    |
 | `--brand-foreground` | `oklch(0.145 0 0)`    | same                   | Text on brand backgrounds |
 
 ### Neutral Palette
 
 | Token                    | Light Value                | Dark Value                | Usage                  |
 | ------------------------ | -------------------------- | ------------------------- | ---------------------- |
-| `--background`           | `oklch(0.985 0.008 85)`    | `oklch(0.16 0.012 255)`   | Warm page background   |
-| `--foreground`           | `oklch(0.22 0.018 65)`     | `oklch(0.97 0.006 85)`    | Primary text           |
-| `--card`                 | `oklch(0.998 0.004 85)`    | `oklch(0.21 0.014 255)`   | Elevated card surface  |
-| `--card-foreground`      | `oklch(0.22 0.018 65)`     | `oklch(0.97 0.006 85)`    | Text on card           |
-| `--popover`              | `oklch(0.998 0.004 85)`    | `oklch(0.23 0.015 255)`   | Dropdown/modal surface |
-| `--popover-foreground`   | `oklch(0.22 0.018 65)`     | `oklch(0.97 0.006 85)`    | Text in popover        |
-| `--muted`                | `oklch(0.955 0.012 85)`    | `oklch(0.255 0.014 255)`  | Subtle warm background |
-| `--muted-foreground`     | `oklch(0.47 0.018 65)`     | `oklch(0.735 0.012 255)`  | Secondary/muted text   |
-| `--secondary`            | `oklch(0.955 0.012 85)`    | `oklch(0.265 0.016 255)`  | Secondary surface      |
+| `--background`           | `oklch(0.96 0.014 82)`     | `oklch(0.16 0.012 255)`   | Warm page background   |
+| `--foreground`           | `oklch(0.21 0.022 62)`     | `oklch(0.97 0.006 85)`    | Primary text           |
+| `--card`                 | `oklch(0.994 0.006 86)`    | `oklch(0.21 0.014 255)`   | Elevated card surface  |
+| `--card-foreground`      | `oklch(0.21 0.022 62)`     | `oklch(0.97 0.006 85)`    | Text on card           |
+| `--popover`              | `oklch(0.999 0.003 86)`    | `oklch(0.23 0.015 255)`   | Dropdown/modal surface |
+| `--popover-foreground`   | `oklch(0.21 0.022 62)`     | `oklch(0.97 0.006 85)`    | Text in popover        |
+| `--muted`                | `oklch(0.93 0.016 80)`     | `oklch(0.255 0.014 255)`  | Subtle warm background |
+| `--muted-foreground`     | `oklch(0.43 0.022 62)`     | `oklch(0.735 0.012 255)`  | Secondary/muted text   |
+| `--secondary`            | `oklch(0.93 0.016 80)`     | `oklch(0.265 0.016 255)`  | Secondary surface      |
 | `--secondary-foreground` | `oklch(0.24 0.018 65)`     | `oklch(0.97 0.006 85)`    | Text on secondary      |
-| `--accent`               | `oklch(0.94 0.025 82)`     | `oklch(0.29 0.025 255)`   | Interactive hover bg   |
+| `--accent`               | `oklch(0.918 0.035 76)`    | `oklch(0.29 0.025 255)`   | Interactive hover bg   |
 | `--accent-foreground`    | `oklch(0.24 0.018 65)`     | `oklch(0.97 0.006 85)`    | Text on accent         |
-| `--border`               | `oklch(0.9 0.018 78)`      | `oklch(1 0.01 255 / 12%)` | Borders, dividers      |
-| `--input`                | `oklch(0.88 0.022 78)`     | `oklch(1 0.01 255 / 17%)` | Input borders          |
-| `--ring`                 | `oklch(0.53 0.12 76)`      | `oklch(0.79 0.175 88)`    | Focus ring             |
+| `--border`               | `oklch(0.88 0.022 76)`     | `oklch(1 0.01 255 / 12%)` | Borders, dividers      |
+| `--input`                | `oklch(0.85 0.026 74)`     | `oklch(1 0.01 255 / 17%)` | Input borders          |
+| `--ring`                 | `oklch(0.49 0.12 72)`      | `oklch(0.79 0.175 88)`    | Focus ring             |
 | `--overlay`              | `oklch(0.2 0.01 70 / 48%)` | `oklch(0 0 0 / 70%)`      | Modal backdrop         |
 
 ### Semantic Colors
