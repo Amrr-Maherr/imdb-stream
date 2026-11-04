@@ -1,8 +1,8 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import { Sparkles, Star } from 'lucide-react';
 import { SectionHeader } from './section-header';
 import { cn } from '@/shared/utils/utils';
+import { Link } from '@/i18n/navigation';
 
 const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p';
 
@@ -92,18 +92,24 @@ export function FeaturedBannerGrid({
   if (items.length === 0) return null;
 
   return (
-    <section>
-      <SectionHeader
-        title={title}
-        subtitle={subtitle}
-        icon={Sparkles}
-        viewAllHref={viewAllHref}
-        viewAllLabel={viewAllLabel}
+    <section className="relative overflow-hidden rounded-3xl border border-brand/15 bg-gradient-to-br from-brand/[0.065] via-card to-card p-4 shadow-lg shadow-black/[0.035] sm:p-6">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -end-24 -top-28 size-72 rounded-full bg-brand/[0.08] blur-3xl"
       />
-      <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
-        {items.map((item, index) => (
-          <BannerCard key={`${item.id}-${index}`} item={item} featured={index === 0} />
-        ))}
+      <div className="relative">
+        <SectionHeader
+          title={title}
+          subtitle={subtitle}
+          icon={Sparkles}
+          viewAllHref={viewAllHref}
+          viewAllLabel={viewAllLabel}
+        />
+        <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
+          {items.map((item, index) => (
+            <BannerCard key={`${item.id}-${index}`} item={item} featured={index === 0} />
+          ))}
+        </div>
       </div>
     </section>
   );

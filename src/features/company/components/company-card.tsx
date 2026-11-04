@@ -1,11 +1,11 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { Building2 } from 'lucide-react';
 import type { TMDBCompanyDetails } from '@/shared/types/tmdb';
 import { slugify } from '@/shared/utils/slugify';
+import { Link } from '@/i18n/navigation';
 
 const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p';
 
@@ -18,9 +18,9 @@ export function CompanyCard({ company }: CompanyCardProps) {
   return (
     <Link
       href={`/company/${slugify(company.name)}/${company.id}`}
-      className="group flex-shrink-0 w-[160px] sm:w-[180px]"
+      className="group w-[160px] flex-shrink-0 rounded-2xl p-2 transition-colors hover:bg-brand/[0.04] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand sm:w-[180px]"
     >
-      <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg bg-card border border-border flex items-center justify-center p-4 transition-colors group-hover:border-brand/50">
+      <div className="relative flex aspect-[4/3] w-full items-center justify-center overflow-hidden rounded-xl border border-border/70 bg-background/70 p-4 shadow-sm transition-all group-hover:border-brand/40 group-hover:shadow-md">
         {company.logo_path ? (
           <Image
             src={`${TMDB_IMAGE_BASE}/w185${company.logo_path}`}

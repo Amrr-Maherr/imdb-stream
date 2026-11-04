@@ -29,29 +29,15 @@ function PersonSkeletonCard() {
 
 export function SectionRowSkeleton() {
   return (
-    <div className="space-y-4 animate-pulse">
-      <div className="flex items-end justify-between">
-        <div>
-          <div className="h-6 w-44 rounded bg-muted" />
-          <div className="h-4 w-64 rounded bg-muted mt-1" />
+    <div className="rounded-3xl border border-brand/15 bg-gradient-to-br from-brand/[0.065] via-card to-card p-4 shadow-lg shadow-black/[0.035] sm:p-6">
+      <div className="animate-pulse space-y-4">
+        <div className="flex items-end justify-between">
+          <div>
+            <div className="h-6 w-44 rounded bg-muted" />
+            <div className="mt-1 h-4 w-64 rounded bg-muted" />
+          </div>
         </div>
-      </div>
-      <div className="flex gap-3 md:gap-4 overflow-hidden">
-        {Array.from({ length: 6 }).map((_, i) => (
-          <SkeletonCard key={i} />
-        ))}
-      </div>
-    </div>
-  );
-}
-
-export function FeaturedRowSkeleton() {
-  return (
-    <div className="space-y-4 animate-pulse">
-      <div className="h-6 w-44 rounded bg-muted" />
-      <div className="flex flex-col gap-6">
-        <div className="relative w-full aspect-[2/1] sm:aspect-[3/1] rounded-xl bg-muted" />
-        <div className="flex gap-3 md:gap-4 overflow-hidden">
+        <div className="flex gap-3 overflow-hidden md:gap-4">
           {Array.from({ length: 6 }).map((_, i) => (
             <SkeletonCard key={i} />
           ))}
@@ -61,20 +47,64 @@ export function FeaturedRowSkeleton() {
   );
 }
 
-export function PremiumRowSkeleton() {
+export function FeaturedRowSkeleton() {
   return (
-    <div className="space-y-4 animate-pulse">
-      <div className="flex items-end gap-3">
-        <div className="size-8 rounded-full bg-muted" />
-        <div>
-          <div className="h-6 w-32 rounded bg-muted" />
-          <div className="h-4 w-56 rounded bg-muted mt-1" />
+    <div className="rounded-3xl border border-brand/15 bg-gradient-to-br from-brand/[0.065] via-card to-card p-4 shadow-lg shadow-black/[0.035] sm:p-6">
+      <div className="animate-pulse space-y-4">
+        <div className="h-6 w-44 rounded bg-muted" />
+        <div className="flex flex-col gap-6">
+          <div className="relative aspect-[2/1] w-full rounded-2xl bg-muted sm:aspect-[3/1]" />
+          <div className="flex gap-3 overflow-hidden md:gap-4">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <SkeletonCard key={i} />
+            ))}
+          </div>
         </div>
       </div>
-      <div className="flex gap-3 md:gap-4 overflow-hidden">
-        {Array.from({ length: 6 }).map((_, i) => (
-          <SkeletonCard key={i} />
-        ))}
+    </div>
+  );
+}
+
+export function PremiumRowSkeleton() {
+  return (
+    <div className="relative overflow-hidden rounded-3xl border border-brand/20 bg-gradient-to-br from-brand/[0.08] via-card to-card p-4 shadow-xl shadow-black/[0.05] sm:p-6">
+      <div className="animate-pulse space-y-4">
+        <div className="flex items-end gap-3">
+          <div className="size-10 rounded-xl bg-muted" />
+          <div>
+            <div className="h-6 w-32 rounded bg-muted" />
+            <div className="mt-1 h-4 w-56 rounded bg-muted" />
+          </div>
+        </div>
+        <div className="flex gap-3 overflow-hidden md:gap-4">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <SkeletonCard key={i} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function RankedRowSkeleton() {
+  return (
+    <div className="overflow-hidden rounded-3xl border border-brand/20 bg-gradient-to-br from-brand/[0.09] via-card to-card p-4 shadow-xl shadow-black/[0.05] sm:p-6">
+      <div className="animate-pulse space-y-5">
+        <div className="flex items-center gap-3">
+          <div className="size-10 rounded-xl bg-muted" />
+          <div className="space-y-2">
+            <div className="h-6 w-40 rounded bg-muted" />
+            <div className="h-4 w-56 rounded bg-muted" />
+          </div>
+        </div>
+        <div className="flex gap-5 overflow-hidden">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <div key={i} className="flex w-[140px] shrink-0 items-end sm:w-[180px]">
+              <div className="h-28 min-w-0 flex-1 rounded bg-muted md:h-36" />
+              <div className="aspect-[2/3] w-[64%] shrink-0 rounded-xl bg-muted shadow-lg" />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -82,16 +112,14 @@ export function PremiumRowSkeleton() {
 
 export function BannerSectionSkeleton() {
   return (
-    <div className="overflow-hidden rounded-xl bg-muted/30 border border-border/50 animate-pulse">
-      <div className="p-4 sm:p-6 pb-0">
-        <div className="flex items-end justify-between mb-4">
+    <div className="overflow-hidden rounded-3xl border border-brand/20 bg-gradient-to-br from-brand/[0.09] via-card to-card p-4 shadow-lg shadow-black/[0.035] sm:p-6 lg:p-8">
+      <div className="animate-pulse space-y-4">
+        <div className="flex items-end justify-between">
           <div>
             <div className="h-6 w-36 rounded bg-muted" />
-            <div className="h-4 w-72 rounded bg-muted mt-1" />
+            <div className="mt-1 h-4 w-72 rounded bg-muted" />
           </div>
         </div>
-      </div>
-      <div className="px-4 sm:px-6 pb-4 sm:pb-6">
         <div className="flex gap-3 md:gap-4 overflow-hidden">
           {Array.from({ length: 6 }).map((_, i) => (
             <SkeletonCard key={i} />
@@ -104,16 +132,18 @@ export function BannerSectionSkeleton() {
 
 export function FeaturedBannerGridSkeleton() {
   return (
-    <div className="space-y-4 animate-pulse">
-      <div>
-        <div className="h-7 w-56 rounded bg-muted" />
-        <div className="h-4 w-72 rounded bg-muted mt-1" />
-      </div>
-      <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
-        <div className="col-span-2 aspect-[16/9] rounded-xl bg-muted md:row-span-2 md:aspect-auto md:min-h-[200px]" />
-        {Array.from({ length: 4 }).map((_, i) => (
-          <div key={i} className="aspect-[16/9] rounded-xl bg-muted" />
-        ))}
+    <div className="rounded-3xl border border-brand/15 bg-gradient-to-br from-brand/[0.065] via-card to-card p-4 shadow-lg shadow-black/[0.035] sm:p-6">
+      <div className="animate-pulse space-y-4">
+        <div>
+          <div className="h-7 w-56 rounded bg-muted" />
+          <div className="mt-1 h-4 w-72 rounded bg-muted" />
+        </div>
+        <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
+          <div className="col-span-2 aspect-[16/9] rounded-2xl bg-muted md:row-span-2 md:aspect-auto md:min-h-[200px]" />
+          {Array.from({ length: 4 }).map((_, i) => (
+            <div key={i} className="aspect-[16/9] rounded-2xl bg-muted" />
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -121,15 +151,17 @@ export function FeaturedBannerGridSkeleton() {
 
 export function GenreGridSkeleton() {
   return (
-    <div className="space-y-4 animate-pulse">
-      <div>
-        <div className="h-6 w-40 rounded bg-muted" />
-        <div className="h-4 w-64 rounded bg-muted mt-1" />
-      </div>
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-        {Array.from({ length: 8 }).map((_, i) => (
-          <div key={i} className="aspect-[16/9] rounded-xl bg-muted" />
-        ))}
+    <div className="rounded-3xl border border-brand/15 bg-gradient-to-br from-brand/[0.065] via-card to-card p-4 shadow-lg shadow-black/[0.035] sm:p-6">
+      <div className="animate-pulse space-y-4">
+        <div>
+          <div className="h-6 w-40 rounded bg-muted" />
+          <div className="mt-1 h-4 w-64 rounded bg-muted" />
+        </div>
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+          {Array.from({ length: 8 }).map((_, i) => (
+            <div key={i} className="aspect-[16/9] rounded-2xl bg-muted" />
+          ))}
+        </div>
       </div>
     </div>
   );

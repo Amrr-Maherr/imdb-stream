@@ -1,12 +1,12 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
 import { ArrowRight, Flame, Star, TrendingUp } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import type { TMDBMovie } from '@/shared/types/tmdb';
 import { slugify } from '@/shared/utils/slugify';
 import { Rail } from './rail';
+import { Link } from '@/i18n/navigation';
 
 const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p';
 
@@ -112,6 +112,7 @@ export function FeaturedRow({ title, spotlight, genreMap, children }: FeaturedRo
       viewAllHref="/movies"
       viewAllLabel={t('viewAll')}
       before={banner}
+      surface
     >
       {children}
     </Rail>

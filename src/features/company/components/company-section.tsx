@@ -36,7 +36,12 @@ export async function ProductionCompaniesSection({ locale }: { locale: string })
 
   return (
     <div>
-      <MediaRow title={t('productionCompanies')} subtitle={t('majorStudios')} icon={<Building2 />}>
+      <MediaRow
+        title={t('productionCompanies')}
+        subtitle={t('majorStudios')}
+        icon={<Building2 />}
+        surface
+      >
         {companies.map((company) => (
           <CompanyCard key={company.id} company={company} />
         ))}
@@ -53,7 +58,12 @@ export async function PlatformsSection({ locale }: { locale: string }) {
 
   return (
     <div>
-      <MediaRow title={t('platforms')} subtitle={t('networksStreaming')} icon={<MonitorPlay />}>
+      <MediaRow
+        title={t('platforms')}
+        subtitle={t('networksStreaming')}
+        icon={<MonitorPlay />}
+        surface
+      >
         {platforms.map((platform) => (
           <CompanyCard key={platform.id} company={platform} />
         ))}

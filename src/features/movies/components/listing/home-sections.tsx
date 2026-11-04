@@ -28,6 +28,7 @@ import {
   GenreGridSkeleton,
   PersonRowSkeleton,
   PremiumRowSkeleton,
+  RankedRowSkeleton,
   SectionRowSkeleton,
 } from './home-skeleton';
 
@@ -79,7 +80,7 @@ export async function HomeSections({ locale }: Props) {
 
       {/* ── Top Rated Movies ── Pattern C: Premium Editorial ── */}
       {topRated.length > 0 && (
-        <LazySection fallback={<PremiumRowSkeleton />}>
+        <LazySection fallback={<RankedRowSkeleton />}>
           <LazyTopRatedMoviesRow
             title={t('topRated')}
             subtitle={t('topRatedDesc')}

@@ -21,37 +21,37 @@ All colors use the OKLCH color space for perceptual uniformity and smooth dark-m
 
 ### Brand Colors
 
-| Token                | Light Value           | Dark Value | Usage                             |
-| -------------------- | --------------------- | ---------- | --------------------------------- |
-| `--brand`            | `oklch(0.82 0.15 85)` | same       | Primary accent, IMDb-style yellow |
-| `--brand-foreground` | `oklch(0.145 0 0)`    | same       | Text on brand backgrounds         |
+| Token                | Light Value           | Dark Value             | Usage                     |
+| -------------------- | --------------------- | ---------------------- | ------------------------- |
+| `--brand`            | `oklch(0.53 0.13 76)` | `oklch(0.79 0.175 88)` | Accessible gold accent    |
+| `--brand-foreground` | `oklch(0.145 0 0)`    | same                   | Text on brand backgrounds |
 
 ### Neutral Palette
 
-| Token                    | Light Value          | Dark Value           | Usage                  |
-| ------------------------ | -------------------- | -------------------- | ---------------------- |
-| `--background`           | `oklch(1 0 0)`       | `oklch(0.145 0 0)`   | Page background        |
-| `--foreground`           | `oklch(0.145 0 0)`   | `oklch(0.985 0 0)`   | Primary text           |
-| `--card`                 | `oklch(1 0 0)`       | `oklch(0.205 0 0)`   | Card surface           |
-| `--card-foreground`      | `oklch(0.145 0 0)`   | `oklch(0.985 0 0)`   | Text on card           |
-| `--popover`              | `oklch(1 0 0)`       | `oklch(0.205 0 0)`   | Dropdown/modal surface |
-| `--popover-foreground`   | `oklch(0.145 0 0)`   | `oklch(0.985 0 0)`   | Text in popover        |
-| `--muted`                | `oklch(0.97 0 0)`    | `oklch(0.269 0 0)`   | Subtle background      |
-| `--muted-foreground`     | `oklch(0.556 0 0)`   | `oklch(0.708 0 0)`   | Secondary/muted text   |
-| `--secondary`            | `oklch(0.97 0 0)`    | `oklch(0.269 0 0)`   | Secondary surface      |
-| `--secondary-foreground` | `oklch(0.205 0 0)`   | `oklch(0.985 0 0)`   | Text on secondary      |
-| `--accent`               | `oklch(0.97 0 0)`    | `oklch(0.269 0 0)`   | Interactive hover bg   |
-| `--accent-foreground`    | `oklch(0.205 0 0)`   | `oklch(0.985 0 0)`   | Text on accent         |
-| `--border`               | `oklch(0.922 0 0)`   | `oklch(1 0 0 / 10%)` | Borders, dividers      |
-| `--input`                | `oklch(0.922 0 0)`   | `oklch(1 0 0 / 15%)` | Input borders          |
-| `--ring`                 | `oklch(0.708 0 0)`   | `oklch(0.556 0 0)`   | Focus ring             |
-| `--overlay`              | `oklch(0 0 0 / 50%)` | `oklch(0 0 0 / 70%)` | Modal backdrop         |
+| Token                    | Light Value                | Dark Value                | Usage                  |
+| ------------------------ | -------------------------- | ------------------------- | ---------------------- |
+| `--background`           | `oklch(0.985 0.008 85)`    | `oklch(0.16 0.012 255)`   | Warm page background   |
+| `--foreground`           | `oklch(0.22 0.018 65)`     | `oklch(0.97 0.006 85)`    | Primary text           |
+| `--card`                 | `oklch(0.998 0.004 85)`    | `oklch(0.21 0.014 255)`   | Elevated card surface  |
+| `--card-foreground`      | `oklch(0.22 0.018 65)`     | `oklch(0.97 0.006 85)`    | Text on card           |
+| `--popover`              | `oklch(0.998 0.004 85)`    | `oklch(0.23 0.015 255)`   | Dropdown/modal surface |
+| `--popover-foreground`   | `oklch(0.22 0.018 65)`     | `oklch(0.97 0.006 85)`    | Text in popover        |
+| `--muted`                | `oklch(0.955 0.012 85)`    | `oklch(0.255 0.014 255)`  | Subtle warm background |
+| `--muted-foreground`     | `oklch(0.47 0.018 65)`     | `oklch(0.735 0.012 255)`  | Secondary/muted text   |
+| `--secondary`            | `oklch(0.955 0.012 85)`    | `oklch(0.265 0.016 255)`  | Secondary surface      |
+| `--secondary-foreground` | `oklch(0.24 0.018 65)`     | `oklch(0.97 0.006 85)`    | Text on secondary      |
+| `--accent`               | `oklch(0.94 0.025 82)`     | `oklch(0.29 0.025 255)`   | Interactive hover bg   |
+| `--accent-foreground`    | `oklch(0.24 0.018 65)`     | `oklch(0.97 0.006 85)`    | Text on accent         |
+| `--border`               | `oklch(0.9 0.018 78)`      | `oklch(1 0.01 255 / 12%)` | Borders, dividers      |
+| `--input`                | `oklch(0.88 0.022 78)`     | `oklch(1 0.01 255 / 17%)` | Input borders          |
+| `--ring`                 | `oklch(0.53 0.12 76)`      | `oklch(0.79 0.175 88)`    | Focus ring             |
+| `--overlay`              | `oklch(0.2 0.01 70 / 48%)` | `oklch(0 0 0 / 70%)`      | Modal backdrop         |
 
 ### Semantic Colors
 
 | Token                  | Light Value                 | Dark Value                  | Usage                     |
 | ---------------------- | --------------------------- | --------------------------- | ------------------------- |
-| `--primary`            | `oklch(0.205 0 0)`          | `oklch(0.922 0 0)`          | Primary buttons, CTA text |
+| `--primary`            | `oklch(0.24 0.018 65)`      | `oklch(0.922 0 0)`          | Primary buttons, CTA text |
 | `--primary-foreground` | `oklch(0.985 0 0)`          | `oklch(0.205 0 0)`          | Text on primary           |
 | `--destructive`        | `oklch(0.577 0.245 27.325)` | `oklch(0.704 0.191 22.216)` | Delete, errors            |
 | `--info`               | `oklch(0.6 0.15 250)`       | same                        | Informational badges      |

@@ -57,6 +57,8 @@ export type RailProps = {
   className?: string;
   /** Rendered between the heading and the carousel, e.g. a spotlight banner. */
   before?: ReactNode;
+  /** Framed surface for homepage rails; leave unset for embedded/detail-page rails. */
+  surface?: boolean;
   children: ReactNode;
 };
 
@@ -72,6 +74,7 @@ export function Rail({
   extra,
   className,
   before,
+  surface = false,
   children,
 }: RailProps) {
   const t = useTranslations('Common');
@@ -90,7 +93,7 @@ export function Rail({
   const arrowClass =
     'flex size-9 items-center justify-center rounded-full border border-border bg-card text-foreground transition-all hover:border-brand hover:bg-brand hover:text-brand-foreground disabled:pointer-events-none disabled:opacity-30';
 
-  return (
+  const content = (
     <section className={className}>
       <SectionHeader
         title={title}
@@ -140,5 +143,17 @@ export function Rail({
         </Slider>
       </div>
     </section>
+  );
+
+  if (!surface) return content;
+
+  return (
+    <div className="relative overflow-hidden rounded-3xl border border-brand/15 bg-gradient-to-br from-brand/[0.065] via-card to-card p-4 shadow-lg shadow-black/[0.035] sm:p-6">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -end-24 -top-28 size-72 rounded-full bg-brand/[0.08] blur-3xl"
+      />
+      <div className="relative">{content}</div>
+    </div>
   );
 }

@@ -99,6 +99,7 @@ export function UpcomingRow({ title, subtitle, movies, genreMap }: MoviesRowProp
       icon={CalendarClock}
       viewAllHref="/movies?sort_by=primary_release_date.desc"
       viewAllLabel={viewAll}
+      surface
     >
       {sorted.map((movie) => (
         <MovieCard
@@ -120,6 +121,7 @@ export function TrendingTvRow({ title, subtitle, shows, genreMap }: TvRowProps) 
       icon={Flame}
       viewAllHref="/tv-shows"
       viewAllLabel={useViewAll()}
+      surface
     >
       {shows.map((tv, index) => (
         <TvCard
@@ -141,6 +143,7 @@ export function PopularTvRow({ title, subtitle, shows, genreMap }: TvRowProps) {
       icon={Sparkles}
       viewAllHref="/tv-shows"
       viewAllLabel={useViewAll()}
+      surface
     >
       {shows.map((tv) => (
         <TvCard key={tv.id} tv={tv} genreMap={genreMap} />
@@ -201,6 +204,7 @@ export function PopularPeopleRow({
       density="person"
       viewAllHref="/people"
       viewAllLabel={useViewAll()}
+      surface
     >
       {people.map((person) => (
         <PersonCard key={person.id} person={person} />

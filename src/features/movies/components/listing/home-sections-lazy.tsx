@@ -18,6 +18,7 @@ import {
   GenreGridSkeleton,
   PersonRowSkeleton,
   PremiumRowSkeleton,
+  RankedRowSkeleton,
   SectionRowSkeleton,
 } from './home-skeleton';
 
@@ -79,7 +80,7 @@ export function LazyTopRatedMoviesRow(props: {
   genreMap: GenreMap;
 }) {
   return (
-    <Suspense fallback={<PremiumRowSkeleton />}>
+    <Suspense fallback={<RankedRowSkeleton />}>
       <TopRatedMoviesRow {...props} />
     </Suspense>
   );

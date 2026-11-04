@@ -102,7 +102,7 @@ export function EditorialSpotlight({
     <section>
       <SectionHeader title={title} subtitle={subtitle} icon={Star} />
 
-      <Card className="relative overflow-hidden rounded-3xl border-border/70 bg-card shadow-xl shadow-black/[0.04] ring-1 ring-brand/10">
+      <Card className="relative overflow-hidden rounded-3xl border-brand/15 bg-gradient-to-br from-card via-card to-brand/[0.045] shadow-xl shadow-black/[0.04] ring-1 ring-brand/10">
         <div className="relative h-44 overflow-hidden sm:h-56 lg:h-64">
           {person.backdropPath ? (
             <Image
