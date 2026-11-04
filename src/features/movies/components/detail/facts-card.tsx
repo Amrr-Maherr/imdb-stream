@@ -18,7 +18,12 @@ export function FactsCard({ title, icon, facts, className }: FactsCardProps) {
   if (visible.length === 0) return null;
 
   return (
-    <section className={cn('rounded-xl border border-border bg-card p-5', className)}>
+    <section
+      className={cn(
+        'rounded-2xl border border-brand/10 bg-gradient-to-br from-card via-card to-brand/[0.035] p-5 shadow-sm',
+        className
+      )}
+    >
       <div className="flex items-center gap-2 mb-4">
         {icon && <span className="text-muted-foreground">{icon}</span>}
         <h3 className="text-sm font-bold text-foreground uppercase tracking-wide">{title}</h3>

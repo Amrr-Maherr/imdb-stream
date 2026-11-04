@@ -88,7 +88,10 @@ export function TvSidebar({
   if (numberOfSeasons > 0) facts.push({ label: t('seasons'), value: numberOfSeasons });
   if (numberOfEpisodes > 0) facts.push({ label: t('episodes'), value: numberOfEpisodes });
   if (episodeRuntime.length > 0) {
-    facts.push({ label: t('episodeRuntime'), value: t('runtimeMin', { runtime: episodeRuntime[0] }) });
+    facts.push({
+      label: t('episodeRuntime'),
+      value: t('runtimeMin', { runtime: episodeRuntime[0] }),
+    });
   }
   if (originalLanguage) {
     facts.push({ label: tm('originalLanguage'), value: originalLanguage.toUpperCase() });
@@ -186,7 +189,7 @@ export function TvSidebar({
   return (
     <aside className="space-y-8">
       {/* Rating Card */}
-      <div className="rounded-xl border border-border bg-card p-5">
+      <div className="rounded-2xl border border-brand/10 bg-gradient-to-br from-card via-card to-brand/[0.035] p-5 shadow-sm">
         <MovieRating voteAverage={voteAverage} voteCount={voteCount} popularity={popularity} />
       </div>
 

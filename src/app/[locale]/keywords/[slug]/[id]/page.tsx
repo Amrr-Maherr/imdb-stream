@@ -1,9 +1,11 @@
 import { getTranslations } from 'next-intl/server';
 import { ErrorState } from '@/shared/components/error-state';
 import { PaginationDemo } from '@/shared/components/pagination';
+import { PageHeader } from '@/shared/components/page-header';
 import { MovieCard } from '@/features/movies/components/listing/movie-card';
 import { getKeyword, getKeywordMovies } from '@/features/keyword/services/getKeyword';
 import type { TMDBMovie } from '@/shared/types/tmdb';
+import { Hash } from 'lucide-react';
 
 interface Props {
   params: Promise<{ locale: string; slug: string; id: string }>;
@@ -49,25 +51,25 @@ export default async function KeywordPage({ params, searchParams }: Props) {
   const totalResults = data?.total_results ?? 0;
 
   return (
-    <div className="flex flex-col flex-1 bg-background pt-16">
-      <main className="app-container flex flex-1 flex-col py-8 md:py-12">
-        <section className="mb-6 md:mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-foreground">{keyword.name}</h1>
-        </section>
-
-        {totalResults > 0 && (
-          <div className="flex items-center justify-between mb-4 md:mb-5">
-            <p className="text-sm text-muted-foreground">
-              {tm('showing', { count: totalResults })}
-            </p>
-            <p className="text-xs text-muted-foreground/70">
-              {tm('pageInfo', { current: currentPage, total: totalPages })}
-            </p>
-          </div>
-        )}
-
-        <section>
-          <div className="grid md:grid-cols-5 grid-cols-2 gap-3 md:gap-4">
+    <div className="flex flex-1 flex-col bg-background">
+      <PageHeader
+        title={keyword.name}
+        icon={Hash}
+        stats={
+          totalResults > 0
+            ? [
+                tm('showing', { count: totalResults.toLocaleString(locale) }),
+                tm('pageInfo', {
+                  current: currentPage,
+                  total: totalPages.toLocaleString(locale),
+                }),
+              ]
+            : []
+        }
+      />
+      <main className="app-container flex flex-1 flex-col py-6 md:py-10">
+        <section className="rounded-3xl border border-brand/10 bg-gradient-to-br from-card via-card to-brand/[0.025] p-4 shadow-sm sm:p-6">
+          <div className="grid grid-cols-2 gap-x-3 gap-y-6 sm:grid-cols-3 md:grid-cols-4 md:gap-x-5 md:gap-y-8 xl:grid-cols-5">
             {movies.map((movie) => (
               <MovieCard key={movie.id} movie={movie} />
             ))}
@@ -75,7 +77,7 @@ export default async function KeywordPage({ params, searchParams }: Props) {
         </section>
 
         {totalPages > 1 && (
-          <section className="mt-10 md:mt-12 pb-8">
+          <section className="mt-10 pb-8 md:mt-12">
             <PaginationDemo total_pages={totalPages} page={currentPage} />
           </section>
         )}

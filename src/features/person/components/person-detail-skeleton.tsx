@@ -1,11 +1,11 @@
 export function PersonDetailSkeleton() {
   return (
     <div className="flex flex-col flex-1 bg-background animate-pulse">
-      <section className="bg-card border-b border-border pt-16">
+      <section className="border-b border-brand/15 bg-gradient-to-b from-brand/[0.05] to-background pt-16">
         <div className="w-full mx-auto app-container py-8 md:py-12">
           <div className="flex flex-col md:flex-row gap-6 sm:gap-8">
             <div className="flex-shrink-0 mx-auto md:mx-0">
-              <div className="w-[180px] sm:w-[220px] aspect-[2/3] rounded-xl bg-muted" />
+              <div className="w-[180px] sm:w-[220px] aspect-[2/3] rounded-2xl bg-muted ring-2 ring-brand/20" />
             </div>
             <div className="flex-1 min-w-0 space-y-4">
               <div className="h-8 w-1/3 rounded bg-muted" />
@@ -26,7 +26,10 @@ export function PersonDetailSkeleton() {
               <div className="h-6 w-40 rounded bg-muted" />
               <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
                 {Array.from({ length: 6 }).map((_, i) => (
-                  <div key={i} className="rounded-xl border border-border bg-card p-4 space-y-2">
+                  <div
+                    key={i}
+                    className="rounded-2xl border border-brand/10 bg-gradient-to-br from-card via-card to-brand/[0.035] p-4 shadow-sm space-y-2"
+                  >
                     <div className="h-4 w-4 mx-auto rounded bg-muted" />
                     <div className="h-6 w-8 mx-auto rounded bg-muted" />
                     <div className="h-3 w-12 mx-auto rounded bg-muted" />
@@ -92,7 +95,7 @@ export function PersonDetailSkeleton() {
           </div>
 
           <div className="w-full lg:w-80 xl:w-96 flex-shrink-0">
-            <div className="rounded-xl border border-border bg-card p-5 space-y-4">
+            <div className="rounded-2xl border border-brand/10 bg-gradient-to-br from-card via-card to-brand/[0.035] p-5 shadow-sm space-y-4">
               <div className="h-4 w-24 rounded bg-muted" />
               <div className="space-y-2">
                 <div className="h-3 w-full rounded bg-muted" />

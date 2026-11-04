@@ -18,6 +18,10 @@ export function SectionTitle({ children, icon, className }: SectionTitleProps) {
         <span className="h-6 w-1.5 shrink-0 rounded-full bg-brand" aria-hidden="true" />
       )}
       <h2 className="text-xl font-black tracking-tight text-foreground md:text-2xl">{children}</h2>
+      <span
+        className="h-px flex-1 bg-gradient-to-r from-brand/30 via-border/70 to-transparent rtl:bg-gradient-to-l"
+        aria-hidden="true"
+      />
     </div>
   );
 }

@@ -157,7 +157,7 @@ export function MovieSidebar({
   return (
     <aside className="space-y-8">
       {/* Rating Card */}
-      <div className="rounded-xl border border-border bg-card p-5">
+      <div className="rounded-2xl border border-brand/10 bg-gradient-to-br from-card via-card to-brand/[0.035] p-5 shadow-sm">
         <MovieRating voteAverage={voteAverage} voteCount={voteCount} popularity={popularity} />
       </div>
 

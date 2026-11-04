@@ -33,7 +33,7 @@ export function CollectionSidebar({
     <div className="w-full lg:w-80 xl:w-96 flex-shrink-0 space-y-8">
       {/* Statistics Card */}
       <FadeIn delay={0.05}>
-        <div className="rounded-xl border border-border bg-card p-5">
+        <div className="rounded-2xl border border-brand/10 bg-gradient-to-br from-card via-card to-brand/[0.035] p-5 shadow-sm">
           <h3 className="text-sm font-bold text-foreground uppercase tracking-wide mb-4">
             {t('statistics')}
           </h3>
@@ -81,7 +81,7 @@ export function CollectionSidebar({
       {/* Rating Card */}
       {avgRating > 0 && (
         <FadeIn delay={0.1}>
-          <div className="rounded-xl border border-border bg-card p-5">
+          <div className="rounded-2xl border border-brand/10 bg-gradient-to-br from-card via-card to-brand/[0.035] p-5 shadow-sm">
             <MovieRating
               voteAverage={avgRating}
               voteCount={parts.reduce((sum, p) => sum + p.vote_count, 0)}
@@ -94,7 +94,7 @@ export function CollectionSidebar({
       {/* Budget & Revenue Stats */}
       {(totalBudget > 0 || totalRevenue > 0) && (
         <FadeIn delay={0.15}>
-          <div className="rounded-xl border border-border bg-card p-5">
+          <div className="rounded-2xl border border-brand/10 bg-gradient-to-br from-card via-card to-brand/[0.035] p-5 shadow-sm">
             <h3 className="text-sm font-bold text-foreground uppercase tracking-wide mb-4">
               {t('financials')}
             </h3>
@@ -124,7 +124,7 @@ export function CollectionSidebar({
 
       {/* Collection Facts */}
       <FadeIn delay={0.05}>
-        <div className="rounded-xl border border-border bg-card p-5">
+        <div className="rounded-2xl border border-brand/10 bg-gradient-to-br from-card via-card to-brand/[0.035] p-5 shadow-sm">
           <h3 className="text-sm font-bold text-foreground uppercase tracking-wide mb-3">
             {td('facts')}
           </h3>

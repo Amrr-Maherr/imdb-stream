@@ -7,6 +7,7 @@ import { useTranslations } from 'next-intl';
 import type { CollectionPart } from '@/shared/types/tmdb';
 import { getHref, getTitle, isTV } from '@/features/collection/utils/collection-helpers';
 import { FadeIn } from '@/features/movies/components/detail/fade-in';
+import { SectionTitle } from '@/features/movies/components/detail/movie-section';
 import { EmptyState } from '@/shared/components/empty-state';
 
 const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p';
@@ -26,9 +27,9 @@ export function CollectionMainContent({ name, overview, parts }: CollectionMainC
       {/* Overview */}
       {overview && (
         <FadeIn>
-          <section>
-            <h2 className="text-xl font-bold text-foreground mb-3">{td('storyline')}</h2>
-            <p className="text-muted-foreground leading-relaxed">{overview}</p>
+          <section className="rounded-3xl border border-brand/10 bg-gradient-to-br from-card via-card to-brand/[0.035] p-5 shadow-sm sm:p-6">
+            <SectionTitle>{td('storyline')}</SectionTitle>
+            <p className="leading-relaxed text-muted-foreground">{overview}</p>
           </section>
         </FadeIn>
       )}
@@ -36,8 +37,8 @@ export function CollectionMainContent({ name, overview, parts }: CollectionMainC
       {/* Collection Timeline */}
       {parts.length > 0 && (
         <FadeIn delay={0.05}>
-          <section>
-            <h2 className="text-xl font-bold text-foreground mb-6">{t('collectionTimeline')}</h2>
+          <section className="rounded-3xl border border-brand/10 bg-gradient-to-br from-card via-card to-brand/[0.025] p-4 shadow-sm sm:p-6">
+            <SectionTitle>{t('collectionTimeline')}</SectionTitle>
             <div className="space-y-3">
               {parts.map((part, index) => {
                 const title = getTitle(part);
@@ -49,7 +50,7 @@ export function CollectionMainContent({ name, overview, parts }: CollectionMainC
                   <Link
                     key={part.id}
                     href={href}
-                    className="flex gap-4 rounded-xl border border-border bg-card p-3 sm:p-4 hover:bg-muted transition-colors group"
+                    className="group flex gap-4 rounded-2xl border border-border/70 bg-background/60 p-3 transition-all hover:border-brand/30 hover:bg-brand/[0.035] hover:shadow-md sm:p-4"
                   >
                     <div className="relative w-[100px] sm:w-[120px] aspect-[2/3] flex-shrink-0 overflow-hidden rounded-lg bg-muted">
                       {part.poster_path ? (
@@ -83,7 +84,7 @@ export function CollectionMainContent({ name, overview, parts }: CollectionMainC
                           {title}
                         </h3>
                         <div className="flex items-center gap-1 text-xs text-muted-foreground shrink-0">
-                          <Star className="size-3 fill-yellow-400 text-yellow-400" />
+                          <Star className="size-3 fill-rating-star text-rating-star" />
                           <span>{part.vote_average.toFixed(1)}</span>
                         </div>
                       </div>
@@ -120,9 +121,9 @@ export function CollectionMainContent({ name, overview, parts }: CollectionMainC
       {/* Grid of all collection items */}
       {parts.length > 0 && (
         <FadeIn delay={0.1}>
-          <section>
-            <h2 className="text-xl font-bold text-foreground mb-6">{t('titlesInCollection')}</h2>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+          <section className="rounded-3xl border border-brand/10 bg-gradient-to-br from-card via-card to-brand/[0.025] p-4 shadow-sm sm:p-6">
+            <SectionTitle>{t('titlesInCollection')}</SectionTitle>
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
               {parts.map((part, index) => {
                 const title = getTitle(part);
                 const year = part.release_date?.slice(0, 4);
@@ -130,7 +131,7 @@ export function CollectionMainContent({ name, overview, parts }: CollectionMainC
 
                 return (
                   <Link key={part.id} href={href} className="group flex flex-col">
-                    <div className="relative aspect-[2/3] w-full overflow-hidden rounded-lg bg-muted">
+                    <div className="relative aspect-[2/3] w-full overflow-hidden rounded-xl bg-muted shadow-sm ring-1 ring-border/60 transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-xl group-hover:ring-brand/50">
                       {part.poster_path ? (
                         <Image
                           src={`${TMDB_IMAGE_BASE}/w342${part.poster_path}`}
@@ -146,7 +147,7 @@ export function CollectionMainContent({ name, overview, parts }: CollectionMainC
                       )}
                       {part.vote_average > 0 && (
                         <div className="absolute top-2 right-2 flex items-center gap-0.5 px-1.5 py-0.5 text-[11px] font-bold rounded bg-background/80 text-foreground backdrop-blur-sm">
-                          <Star className="size-2.5 fill-yellow-400 text-yellow-400" />
+                          <Star className="size-2.5 fill-rating-star text-rating-star" />
                           <span>{part.vote_average.toFixed(1)}</span>
                         </div>
                       )}
@@ -155,13 +156,13 @@ export function CollectionMainContent({ name, overview, parts }: CollectionMainC
                       </div>
                     </div>
                     <div className="mt-2 space-y-1">
-                      <h3 className="text-sm font-medium text-foreground line-clamp-1 leading-tight group-hover:text-brand transition-colors">
+                      <h3 className="text-sm font-semibold text-foreground line-clamp-1 leading-tight group-hover:text-brand transition-colors">
                         {title}
                       </h3>
                       <div className="flex items-center gap-2 text-xs text-muted-foreground flex-wrap">
                         {year && <span>{year}</span>}
                         <span className="flex items-center gap-0.5">
-                          <Star className="size-3 fill-yellow-400 text-yellow-400" />
+                          <Star className="size-3 fill-rating-star text-rating-star" />
                           <span>{part.vote_average.toFixed(1)}</span>
                         </span>
                         {part.original_language && (

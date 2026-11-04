@@ -4,6 +4,7 @@ import type { PersonCreditCast, PersonCreditCrew } from '@/shared/types/tmdb';
 import { useTranslations } from 'next-intl';
 import { Film, Tv, Clapperboard, PenLine, Monitor, Pencil } from 'lucide-react';
 import { FadeIn } from '@/features/movies/components/detail/fade-in';
+import { SectionTitle } from '@/features/movies/components/detail/movie-section';
 
 type CareerStatsProps = {
   cast: PersonCreditCast[];
@@ -44,12 +45,12 @@ export function CareerStats({ cast, crew }: CareerStatsProps) {
   return (
     <FadeIn>
       <section>
-        <h2 className="text-xl font-bold text-foreground mb-4">{t('careerStatistics')}</h2>
+        <SectionTitle>{t('careerStatistics')}</SectionTitle>
         <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
           {stats.map((stat) => (
             <div
               key={stat.label}
-              className="rounded-xl border border-border bg-card p-4 text-center"
+              className="rounded-2xl border border-brand/10 bg-gradient-to-br from-card via-card to-brand/[0.035] p-4 text-center shadow-sm"
             >
               <div className="flex justify-center text-muted-foreground mb-1">{stat.icon}</div>
               <p className="text-xl font-bold text-foreground">{stat.value}</p>

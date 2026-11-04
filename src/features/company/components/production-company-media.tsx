@@ -22,7 +22,7 @@ export function ProductionCompanyMedia({ logos }: ProductionCompanyMediaProps) {
         {logos.map((logo) => (
           <div
             key={logo.file_path}
-            className="relative aspect-[4/3] overflow-hidden rounded-lg bg-card border border-border flex items-center justify-center p-4"
+            className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-brand/10 bg-gradient-to-br from-card to-brand/[0.035] p-4 shadow-sm"
           >
             <Image
               src={`${TMDB_IMAGE_BASE}/w342${logo.file_path}`}

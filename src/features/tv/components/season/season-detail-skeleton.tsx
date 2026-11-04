@@ -8,7 +8,10 @@ export function SeasonDetailSkeleton() {
           <div className="flex-1 min-w-0 space-y-6">
             <div className="h-6 w-24 rounded bg-muted" />
             {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="flex gap-4 rounded-xl border border-border bg-card p-4">
+              <div
+                key={i}
+                className="flex gap-4 rounded-2xl border border-brand/10 bg-gradient-to-br from-card via-card to-brand/[0.035] p-4 shadow-sm"
+              >
                 <div className="w-[140px] sm:w-[180px] aspect-video rounded-lg bg-muted shrink-0" />
                 <div className="flex-1 space-y-2">
                   <div className="h-4 w-3/4 rounded bg-muted" />
@@ -20,7 +23,7 @@ export function SeasonDetailSkeleton() {
           </div>
 
           <div className="w-full space-y-6 lg:w-80 xl:w-96 lg:flex-shrink-0">
-            <div className="rounded-xl border border-border bg-card p-5 space-y-3">
+            <div className="rounded-2xl border border-brand/10 bg-gradient-to-br from-card via-card to-brand/[0.035] p-5 shadow-sm space-y-3">
               <div className="h-4 w-32 rounded bg-muted" />
               <div className="h-3 w-full rounded bg-muted" />
               <div className="h-3 w-3/4 rounded bg-muted" />

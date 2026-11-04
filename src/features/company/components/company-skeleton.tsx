@@ -1,24 +1,26 @@
 export function CompanySkeleton() {
   return (
     <div className="flex flex-col flex-1 bg-background animate-pulse">
-      <section className="bg-card border-b border-border">
-        <div className="app-container py-8 md:py-12">
-          <div className="flex flex-col md:flex-row gap-8 items-start">
-            <div className="flex-shrink-0 mx-auto md:mx-0 w-full max-w-[280px]">
-              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-muted" />
-            </div>
-            <div className="flex-1 min-w-0 space-y-4">
-              <div className="h-9 sm:h-10 w-1/2 rounded bg-muted" />
-              <div className="flex gap-2">
-                <div className="h-7 w-24 rounded-full bg-muted" />
-                <div className="h-7 w-36 rounded-full bg-muted" />
-                <div className="h-7 w-32 rounded-full bg-muted" />
+      <section className="border-b border-brand/15 bg-background">
+        <div className="app-container py-5 md:py-7">
+          <div className="rounded-3xl border border-brand/15 bg-gradient-to-br from-card via-card to-brand/[0.05] p-5 shadow-xl shadow-black/[0.04] sm:p-7 md:p-9">
+            <div className="flex flex-col md:flex-row gap-8 items-start">
+              <div className="flex-shrink-0 mx-auto md:mx-0 w-full max-w-[280px]">
+                <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-muted" />
               </div>
-              <div className="h-9 w-24 rounded-lg bg-muted" />
-              <div className="space-y-2">
-                <div className="h-4 w-full rounded bg-muted" />
-                <div className="h-4 w-3/4 rounded bg-muted" />
-                <div className="h-4 w-5/6 rounded bg-muted" />
+              <div className="flex-1 min-w-0 space-y-4">
+                <div className="h-9 sm:h-10 w-1/2 rounded bg-muted" />
+                <div className="flex gap-2">
+                  <div className="h-7 w-24 rounded-full bg-muted" />
+                  <div className="h-7 w-36 rounded-full bg-muted" />
+                  <div className="h-7 w-32 rounded-full bg-muted" />
+                </div>
+                <div className="h-9 w-24 rounded-lg bg-muted" />
+                <div className="space-y-2">
+                  <div className="h-4 w-full rounded bg-muted" />
+                  <div className="h-4 w-3/4 rounded bg-muted" />
+                  <div className="h-4 w-5/6 rounded bg-muted" />
+                </div>
               </div>
             </div>
           </div>
@@ -26,7 +28,7 @@ export function CompanySkeleton() {
       </section>
 
       <div className="w-full mx-auto app-container mt-8 md:mt-10 pb-16 space-y-10">
-        <section className="space-y-6">
+        <section className="space-y-6 rounded-3xl border border-brand/10 bg-gradient-to-br from-card via-card to-brand/[0.035] p-5 shadow-sm sm:p-6">
           <div className="h-6 w-28 rounded bg-muted" />
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {Array.from({ length: 4 }).map((_, i) => (
@@ -44,7 +46,7 @@ export function CompanySkeleton() {
           </div>
         </section>
 
-        <section className="space-y-6">
+        <section className="space-y-6 rounded-3xl border border-brand/10 bg-gradient-to-br from-card via-card to-brand/[0.025] p-4 shadow-sm sm:p-6">
           <div className="h-6 w-36 rounded bg-muted" />
           <div className="flex gap-4 overflow-hidden">
             {Array.from({ length: 6 }).map((_, i) => (
@@ -57,7 +59,7 @@ export function CompanySkeleton() {
           </div>
         </section>
 
-        <section className="space-y-6">
+        <section className="space-y-6 rounded-3xl border border-brand/10 bg-gradient-to-br from-card via-card to-brand/[0.025] p-4 shadow-sm sm:p-6">
           <div className="h-6 w-20 rounded bg-muted" />
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
             {Array.from({ length: 4 }).map((_, i) => (

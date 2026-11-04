@@ -52,7 +52,7 @@ export function TvDetailSkeleton() {
           </div>
 
           <div className="w-full lg:w-80 xl:w-96 flex-shrink-0 space-y-6">
-            <div className="rounded-xl border border-border bg-card p-5 space-y-4">
+            <div className="rounded-2xl border border-brand/10 bg-gradient-to-br from-card via-card to-brand/[0.035] p-5 shadow-sm space-y-4">
               <div className="flex items-center gap-3">
                 <div className="size-12 rounded-full bg-muted" />
                 <div className="space-y-2 flex-1">

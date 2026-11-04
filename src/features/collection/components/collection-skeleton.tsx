@@ -1,6 +1,6 @@
 function SkeletonTimelineItem() {
   return (
-    <div className="flex gap-4 rounded-xl border border-border bg-card p-3 sm:p-4 animate-pulse">
+    <div className="flex animate-pulse gap-4 rounded-2xl border border-brand/10 bg-gradient-to-br from-card via-card to-brand/[0.035] p-3 shadow-sm sm:p-4">
       <div className="w-[100px] sm:w-[120px] aspect-[2/3] rounded-lg bg-muted shrink-0" />
       <div className="flex-1 min-w-0 space-y-2">
         <div className="h-4 w-3/4 rounded bg-muted" />
@@ -48,7 +48,7 @@ export function CollectionSkeleton() {
       <div className="w-full mx-auto app-container mt-8 md:mt-10 pb-16 space-y-8">
         <div className="flex flex-col lg:flex-row gap-10 lg:gap-12">
           <div className="flex-1 min-w-0 space-y-10">
-            <div className="space-y-4">
+            <div className="rounded-3xl border border-brand/10 bg-gradient-to-br from-card via-card to-brand/[0.035] p-5 shadow-sm sm:p-6 space-y-4">
               <div className="h-6 w-24 rounded bg-muted" />
               <div className="space-y-2">
                 <div className="h-4 w-full rounded bg-muted" />
@@ -56,7 +56,7 @@ export function CollectionSkeleton() {
               </div>
             </div>
 
-            <div className="space-y-4">
+            <div className="rounded-3xl border border-brand/10 bg-gradient-to-br from-card via-card to-brand/[0.025] p-4 shadow-sm sm:p-6 space-y-4">
               <div className="h-6 w-44 rounded bg-muted" />
               <div className="space-y-3">
                 {Array.from({ length: 4 }).map((_, i) => (
@@ -76,7 +76,7 @@ export function CollectionSkeleton() {
           </div>
 
           <div className="w-full lg:w-80 xl:w-96 flex-shrink-0 space-y-6">
-            <div className="rounded-xl border border-border bg-card p-5 space-y-4">
+            <div className="rounded-2xl border border-brand/10 bg-gradient-to-br from-card via-card to-brand/[0.035] p-5 shadow-sm space-y-4">
               <div className="h-4 w-24 rounded bg-muted" />
               <div className="space-y-3">
                 <div className="flex items-center gap-3">
@@ -103,7 +103,7 @@ export function CollectionSkeleton() {
               </div>
             </div>
 
-            <div className="rounded-xl border border-border bg-card p-5 space-y-3">
+            <div className="rounded-2xl border border-brand/10 bg-gradient-to-br from-card via-card to-brand/[0.035] p-5 shadow-sm space-y-3">
               <div className="h-4 w-16 rounded bg-muted" />
               <div className="h-3 w-full rounded bg-muted" />
               <div className="h-3 w-3/4 rounded bg-muted" />

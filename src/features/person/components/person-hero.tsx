@@ -47,7 +47,7 @@ export function PersonHero({
 
   return (
     <FadeIn>
-      <section className="relative overflow-hidden border-b border-border bg-card pt-16">
+      <section className="relative overflow-hidden border-b border-brand/15 bg-gradient-to-b from-brand/[0.05] to-background pt-16">
         {/* Ambient backdrop: the portrait, heavily blurred, tints the band */}
         {profilePath && (
           <div aria-hidden="true" className="pointer-events-none absolute inset-0">
@@ -63,7 +63,7 @@ export function PersonHero({
         <div className="relative w-full mx-auto app-container py-8 md:py-14">
           <div className="flex flex-col md:flex-row gap-6 sm:gap-8">
             <div className="flex-shrink-0 mx-auto md:mx-0">
-              <div className="relative w-[180px] sm:w-[220px] aspect-[2/3] overflow-hidden rounded-2xl bg-muted shadow-2xl ring-1 ring-border">
+              <div className="relative w-[180px] sm:w-[220px] aspect-[2/3] overflow-hidden rounded-2xl bg-muted shadow-2xl shadow-brand/10 ring-2 ring-brand/20">
                 {profilePath ? (
                   <Image
                     src={`${TMDB_IMAGE_BASE}/w342${profilePath}`}
@@ -87,8 +87,8 @@ export function PersonHero({
               </h1>
 
               {knownForDepartment && (
-                <span className="inline-flex items-center gap-1 mt-2 rounded-full bg-muted px-3 py-1 text-xs font-medium text-foreground w-fit">
-                  <Flame className="size-3 text-muted-foreground" />
+                <span className="inline-flex w-fit items-center gap-1 rounded-full border border-brand/15 bg-brand/[0.08] px-3 py-1 text-xs font-semibold text-brand mt-2">
+                  <Flame className="size-3" />
                   {knownForDepartment}
                 </span>
               )}

@@ -66,11 +66,7 @@ export function ProductionCompanyPortfolio({ movies }: ProductionCompanyPortfoli
   return (
     <section className="space-y-10">
       {sections.map((section) => (
-        <MediaRow
-          key={section.title}
-          title={section.title}
-          subtitle={section.subtitle}
-        >
+        <MediaRow key={section.title} title={section.title} subtitle={section.subtitle} surface>
           {section.items.map((movie) => (
             <MovieCard key={movie.id} movie={movie as TMDBMovie} />
           ))}

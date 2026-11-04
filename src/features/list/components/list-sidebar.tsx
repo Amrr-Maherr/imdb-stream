@@ -26,7 +26,7 @@ export function ListSidebar({ itemCount, favoriteCount, listType, items }: ListS
     <div className="w-full lg:w-80 xl:w-96 flex-shrink-0 space-y-8">
       {/* Statistics Card */}
       <FadeIn delay={0.05}>
-        <div className="rounded-xl border border-border bg-card p-5">
+        <div className="rounded-2xl border border-brand/10 bg-gradient-to-br from-card via-card to-brand/[0.035] p-5 shadow-sm">
           <h3 className="text-sm font-bold text-foreground uppercase tracking-wide mb-4">
             {t('statistics')}
           </h3>
@@ -63,7 +63,7 @@ export function ListSidebar({ itemCount, favoriteCount, listType, items }: ListS
       {/* Rating Card */}
       {avgRating > 0 && items.length > 0 && (
         <FadeIn delay={0.1}>
-          <div className="rounded-xl border border-border bg-card p-5">
+          <div className="rounded-2xl border border-brand/10 bg-gradient-to-br from-card via-card to-brand/[0.035] p-5 shadow-sm">
             <MovieRating
               voteAverage={avgRating}
               voteCount={items.length}
@@ -77,7 +77,7 @@ export function ListSidebar({ itemCount, favoriteCount, listType, items }: ListS
 
       {/* Facts */}
       <FadeIn delay={0.05}>
-        <div className="rounded-xl border border-border bg-card p-5">
+        <div className="rounded-2xl border border-brand/10 bg-gradient-to-br from-card via-card to-brand/[0.035] p-5 shadow-sm">
           <h3 className="text-sm font-bold text-foreground uppercase tracking-wide mb-3">
             {t('facts')}
           </h3>

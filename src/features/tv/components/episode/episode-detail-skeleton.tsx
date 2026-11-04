@@ -37,7 +37,7 @@ export function EpisodeDetailSkeleton() {
           </div>
 
           <div className="order-1 w-full space-y-6 lg:order-2 lg:w-80 xl:w-96 lg:flex-shrink-0">
-            <div className="rounded-xl border border-border bg-card p-5 space-y-3">
+            <div className="rounded-2xl border border-brand/10 bg-gradient-to-br from-card via-card to-brand/[0.035] p-5 shadow-sm space-y-3">
               <div className="h-4 w-24 rounded bg-muted" />
               {[1, 2, 3, 4].map((i) => (
                 <div key={i} className="flex items-center justify-between gap-4">
@@ -50,7 +50,7 @@ export function EpisodeDetailSkeleton() {
               {[1, 2].map((i) => (
                 <div
                   key={i}
-                  className="flex items-center gap-3 rounded-xl border border-border bg-card p-3"
+                  className="flex items-center gap-3 rounded-2xl border border-brand/10 bg-gradient-to-br from-card via-card to-brand/[0.035] p-3 shadow-sm"
                 >
                   <div className="size-5 rounded bg-muted" />
                   <div className="aspect-video w-20 flex-shrink-0 rounded-md bg-muted" />
