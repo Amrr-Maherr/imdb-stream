@@ -142,32 +142,37 @@ export function EditorialSpotlightSkeleton() {
         <div className="h-6 w-32 rounded bg-muted" />
         <div className="h-4 w-60 rounded bg-muted mt-1" />
       </div>
-      <div className="overflow-hidden rounded-2xl border border-border/60 bg-card">
-        <div className="h-36 bg-muted sm:h-48 lg:h-52" />
+      <div className="overflow-hidden rounded-3xl border border-border/70 bg-card shadow-xl shadow-black/[0.04]">
+        <div className="h-44 bg-muted sm:h-56 lg:h-64" />
         <div className="px-5 pb-6 sm:px-7 sm:pb-8 lg:px-9 lg:pb-9">
-          <div className="grid gap-5 lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-9">
-            <div className="-mt-20 aspect-[2/3] w-[150px] rounded-xl bg-muted ring-4 ring-card sm:-mt-24 sm:w-[180px] lg:-mt-28 lg:w-[220px]" />
-            <div className="space-y-4 lg:pt-2">
-              <div className="h-8 w-52 rounded bg-muted sm:h-9" />
-              <div className="h-4 w-72 rounded bg-muted" />
-              <div className="space-y-2 pt-1">
-                <div className="h-3 w-24 rounded bg-muted" />
+          <div className="grid gap-5 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-9">
+            <div className="-mt-24 aspect-[2/3] w-[156px] rounded-2xl bg-muted ring-4 ring-card sm:-mt-28 sm:w-[190px] lg:-mt-32 lg:w-[240px]" />
+            <div className="space-y-4 lg:pt-5">
+              <div className="h-6 w-24 rounded-full bg-muted" />
+              <div className="h-10 w-64 rounded bg-muted sm:h-12" />
+              <div className="flex flex-wrap gap-2">
+                <div className="h-9 w-40 rounded-full bg-muted" />
+                <div className="h-9 w-48 rounded-full bg-muted" />
+              </div>
+              <div className="space-y-2 rounded-2xl border border-border/60 bg-muted/35 p-4">
+                <div className="h-5 w-28 rounded bg-muted" />
                 <div className="h-3 w-full max-w-xl rounded bg-muted" />
                 <div className="h-3 w-full max-w-lg rounded bg-muted" />
+                <div className="h-3 w-3/4 rounded bg-muted" />
               </div>
               <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
                 {Array.from({ length: 4 }).map((_, i) => (
-                  <div key={i} className="h-16 rounded-lg bg-muted" />
+                  <div key={i} className="h-20 rounded-2xl bg-muted" />
                 ))}
               </div>
-              <div className="h-10 w-40 rounded-lg bg-muted" />
+              <div className="h-11 w-40 rounded-xl bg-muted" />
             </div>
           </div>
-          <div className="mt-8">
-            <div className="mb-3 h-4 w-24 rounded bg-muted" />
+          <div className="mt-9 border-t border-border/60 pt-7">
+            <div className="mb-4 h-9 w-40 rounded-xl bg-muted" />
             <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 lg:grid-cols-6">
               {Array.from({ length: 6 }).map((_, i) => (
-                <div key={i} className="aspect-[2/3] rounded-lg bg-muted" />
+                <div key={i} className="aspect-[2/3] rounded-xl bg-muted" />
               ))}
             </div>
           </div>

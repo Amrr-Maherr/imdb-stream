@@ -58,11 +58,11 @@ export function TitleQuickView(props: TitleQuickViewProps) {
 
       <DialogContent
         showCloseButton={false}
-        overlayClassName="bg-black/60"
-        className="max-w-4xl gap-0 overflow-hidden p-0 lg:h-[min(36rem,calc(100dvh-2rem))] lg:max-w-5xl"
+        overlayClassName="bg-black/75 backdrop-blur-md"
+        className="max-w-4xl gap-0 overflow-hidden rounded-3xl border-border/70 bg-card p-0 shadow-2xl ring-1 ring-brand/10 sm:w-[calc(100%-3rem)] lg:h-[min(40rem,calc(100dvh-2rem))] lg:max-w-5xl"
       >
         <div className="flex min-h-0 flex-1 flex-col overflow-hidden lg:flex-row">
-          <div className="relative shrink-0 bg-muted lg:w-[42%] lg:border-e lg:border-border">
+          <div className="relative shrink-0 overflow-hidden bg-muted lg:w-[40%] lg:border-e lg:border-border/60">
             <div className="relative aspect-[16/9] w-full overflow-hidden lg:hidden">
               {data.backdrop_path ? (
                 <Image
@@ -75,7 +75,7 @@ export function TitleQuickView(props: TitleQuickViewProps) {
                 />
               ) : data.poster_path ? (
                 <Image
-                  src={`${TMDB_IMAGE_BASE}/w342${data.poster_path}`}
+                  src={`${TMDB_IMAGE_BASE}/w780${data.poster_path}`}
                   alt=""
                   aria-hidden="true"
                   fill
@@ -87,16 +87,31 @@ export function TitleQuickView(props: TitleQuickViewProps) {
                   <Film className="size-8 text-muted-foreground/70" aria-hidden="true" />
                 </div>
               )}
+              <div
+                className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-black/20"
+                aria-hidden="true"
+              />
+              {data.vote_average > 0 && (
+                <div className="absolute bottom-3 start-4 inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-black/55 px-3 py-1.5 text-sm font-bold text-white shadow-lg backdrop-blur-md">
+                  <Star className="size-4 fill-rating-star text-rating-star" aria-hidden="true" />
+                  {data.vote_average.toFixed(1)}
+                  {data.vote_count > 0 && (
+                    <span className="text-xs font-medium text-white/70">
+                      ({data.vote_count.toLocaleString(locale)})
+                    </span>
+                  )}
+                </div>
+              )}
             </div>
 
             <div className="relative hidden h-full w-full overflow-hidden lg:block">
               {data.poster_path ? (
                 <Image
-                  src={`${TMDB_IMAGE_BASE}/w342${data.poster_path}`}
+                  src={`${TMDB_IMAGE_BASE}/w500${data.poster_path}`}
                   alt={title}
                   fill
                   className="object-cover"
-                  sizes="(max-width: 1280px) 42vw, 420px"
+                  sizes="(max-width: 1280px) 40vw, 480px"
                 />
               ) : (
                 <div className="flex h-full flex-col items-center justify-center gap-3 bg-muted p-6 text-center">
@@ -106,13 +121,41 @@ export function TitleQuickView(props: TitleQuickViewProps) {
                   </span>
                 </div>
               )}
+              <div
+                className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/5 to-black/20"
+                aria-hidden="true"
+              />
+              <div className="absolute inset-x-0 bottom-0 p-6">
+                <Badge
+                  variant="brand"
+                  className="mb-3 rounded-full px-3 py-1 text-xs font-bold shadow-lg"
+                >
+                  {isMovie ? t('movie') : t('tv')}
+                </Badge>
+                {data.vote_average > 0 && (
+                  <div className="flex items-center gap-2 text-white">
+                    <span className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-black/45 px-3 py-1.5 text-sm font-bold backdrop-blur-md">
+                      <Star
+                        className="size-4 fill-rating-star text-rating-star"
+                        aria-hidden="true"
+                      />
+                      {data.vote_average.toFixed(1)}
+                    </span>
+                    {data.vote_count > 0 && (
+                      <span className="text-xs text-white/75">
+                        {data.vote_count.toLocaleString(locale)}
+                      </span>
+                    )}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
 
-          <div className="relative flex min-h-0 flex-1 flex-col">
+          <div className="relative flex min-h-0 flex-1 flex-col bg-gradient-to-br from-card via-card to-brand/[0.04]">
             <DialogClose
               aria-label={t('close')}
-              className="absolute end-3 top-3 z-30 inline-flex size-9 items-center justify-center rounded-full bg-muted text-foreground ring-1 ring-border shadow-sm transition-colors hover:bg-muted/80 focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
+              className="absolute end-4 top-4 z-30 inline-flex size-9 items-center justify-center rounded-full border border-border/70 bg-background/80 text-foreground shadow-sm backdrop-blur-md transition-all hover:scale-105 hover:border-brand/40 hover:bg-brand/10 focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
             >
               <X className="size-4" aria-hidden="true" />
             </DialogClose>
@@ -121,12 +164,12 @@ export function TitleQuickView(props: TitleQuickViewProps) {
               <div className="p-5 sm:p-7 lg:p-8">
                 <div className="pe-12">
                   <div className="flex flex-wrap items-center gap-2">
-                    <Badge variant="outline" className="text-[11px] font-semibold">
+                    <Badge variant="brand" className="rounded-full px-3 py-1 text-[11px] font-bold">
                       {isMovie ? t('movie') : t('tv')}
                     </Badge>
                     {year && (
-                      <span className="inline-flex items-center gap-1 text-xs font-medium text-muted-foreground">
-                        <Calendar className="size-3.5" aria-hidden="true" />
+                      <span className="inline-flex items-center gap-1.5 rounded-full border border-border/70 bg-background/70 px-3 py-1.5 text-xs font-medium text-muted-foreground">
+                        <Calendar className="size-3.5 text-brand" aria-hidden="true" />
                         {year}
                       </span>
                     )}
@@ -134,29 +177,27 @@ export function TitleQuickView(props: TitleQuickViewProps) {
 
                   <DialogTitle
                     title={title}
-                    className="mt-3 line-clamp-3 text-2xl leading-tight font-bold tracking-tight text-foreground sm:text-3xl"
+                    className="mt-4 line-clamp-3 text-3xl leading-[1.1] font-black tracking-tight text-foreground sm:text-4xl"
                   >
                     {title}
                   </DialogTitle>
                   <DialogDescription className="sr-only">{title}</DialogDescription>
 
-                  <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-xs text-muted-foreground">
+                  <div className="mt-4 flex flex-wrap items-center gap-2">
                     {data.vote_average > 0 && (
-                      <span className="inline-flex items-center gap-1 font-semibold text-foreground">
+                      <span className="inline-flex items-center gap-2 rounded-xl border border-brand/25 bg-brand/[0.08] px-3 py-2 text-sm font-bold text-foreground">
                         <Star
-                          className="size-3.5 fill-rating-star text-rating-star"
+                          className="size-4 fill-rating-star text-rating-star"
                           aria-hidden="true"
                         />
-                        <span>{data.vote_average.toFixed(1)}</span>
-                        {data.vote_count > 0 && (
-                          <span className="font-normal text-muted-foreground">
-                            ({data.vote_count.toLocaleString(locale)})
-                          </span>
-                        )}
+                        {data.vote_average.toFixed(1)}
+                        <span className="text-xs font-medium text-muted-foreground">
+                          {data.vote_count > 0 ? `· ${data.vote_count.toLocaleString(locale)}` : ''}
+                        </span>
                       </span>
                     )}
                     {data.original_language && (
-                      <span className="inline-flex items-center gap-1">
+                      <span className="inline-flex items-center gap-1.5 rounded-xl border border-border/70 bg-background/70 px-3 py-2 text-xs font-semibold text-muted-foreground">
                         <Languages className="size-3.5" aria-hidden="true" />
                         {data.original_language.toUpperCase()}
                       </span>
@@ -165,9 +206,13 @@ export function TitleQuickView(props: TitleQuickViewProps) {
                 </div>
 
                 {genres.length > 0 && (
-                  <div className="mt-4 flex flex-wrap gap-1.5">
+                  <div className="mt-5 flex flex-wrap gap-2">
                     {genres.map((genre) => (
-                      <Badge key={genre} variant="secondary">
+                      <Badge
+                        key={genre}
+                        variant="secondary"
+                        className="rounded-full border border-brand/15 bg-brand/[0.06] px-3 py-1 text-xs font-medium"
+                      >
                         {genre}
                       </Badge>
                     ))}
@@ -175,21 +220,23 @@ export function TitleQuickView(props: TitleQuickViewProps) {
                 )}
 
                 {data.overview && (
-                  <div className="mt-6 border-t border-border/60 pt-5">
+                  <div className="mt-7 rounded-2xl border border-border/60 bg-muted/35 p-4 sm:p-5">
                     <div className="mb-2 flex items-center gap-2">
-                      <span className="h-4 w-1 rounded-full bg-brand" aria-hidden="true" />
-                      <h3 className="text-sm font-semibold text-foreground">{t('overview')}</h3>
+                      <span className="flex size-7 items-center justify-center rounded-lg bg-brand/15 text-brand">
+                        <Film className="size-4" aria-hidden="true" />
+                      </span>
+                      <h3 className="text-sm font-bold text-foreground">{t('overview')}</h3>
                     </div>
-                    <p className="text-sm leading-relaxed text-muted-foreground">{data.overview}</p>
+                    <p className="text-sm leading-7 text-muted-foreground">{data.overview}</p>
                   </div>
                 )}
               </div>
             </div>
 
-            <div className="shrink-0 border-t border-border/60 p-4 sm:px-7 sm:py-5 lg:px-8">
+            <div className="shrink-0 border-t border-border/60 bg-background/70 p-4 backdrop-blur-sm sm:px-7 sm:py-5 lg:px-8">
               <Button
                 asChild
-                className="h-10 w-full gap-2 bg-brand px-5 font-semibold text-brand-foreground hover:bg-brand/90 sm:w-auto"
+                className="h-11 w-full gap-2 rounded-xl bg-brand px-5 text-sm font-bold text-brand-foreground shadow-lg shadow-brand/15 transition-all hover:-translate-y-0.5 hover:bg-brand/90 hover:shadow-brand/25 sm:w-auto"
               >
                 <Link href={href}>
                   {t('viewDetails')}

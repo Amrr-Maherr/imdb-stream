@@ -9,7 +9,6 @@ import Header from '@/shared/components/layout/Header';
 import Footer from '@/shared/components/layout/Footer';
 import ToasterProvider from '@/shared/components/ToasterProvider';
 import { AuthProvider } from '@/shared/provider/authProvider';
-import { QueryProvider } from '@/shared/provider/query-provider';
 import { SerwistProvider } from '@serwist/turbopack/react';
 import { SheetDemo } from '@/features/aiAssistant/component/chat';
 
@@ -64,17 +63,15 @@ export default async function RootLayout({
             disableTransitionOnChange
           >
             <NextIntlClientProvider messages={messages} locale={locale}>
-              <QueryProvider>
-                <SerwistProvider swUrl="/serwist/sw.js">
-                  <ToasterProvider />
-                  <div className="flex min-h-full flex-col">
-                    <Header />
-                    <main className="flex-1">{children}</main>
-                    <SheetDemo />
-                    <Footer />
-                  </div>
-                </SerwistProvider>
-              </QueryProvider>
+              <SerwistProvider swUrl="/serwist/sw.js">
+                <ToasterProvider />
+                <div className="flex min-h-full flex-col">
+                  <Header />
+                  <main className="flex-1">{children}</main>
+                  <SheetDemo />
+                  <Footer />
+                </div>
+              </SerwistProvider>
             </NextIntlClientProvider>
           </ThemeProvider>
         </AuthProvider>
