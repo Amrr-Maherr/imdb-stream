@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { Monitor, Flag, Globe, ShieldCheck, Info } from 'lucide-react';
 import { MovieRating } from '@/features/movies/components/detail/movie-rating';
+import { MovieKeywords } from '@/features/movies/components/detail/movie-keywords';
 import { FactsCard, type Fact } from '@/features/movies/components/detail/facts-card';
 import { slugify } from '@/shared/utils/slugify';
 
@@ -196,25 +197,7 @@ export function TvSidebar({
       {/* TV Facts */}
       <FactsCard title={tm('facts')} icon={<Info className="size-4" />} facts={facts} />
 
-      {/* Keywords */}
-      {keywords.length > 0 && (
-        <div>
-          <h3 className="text-sm font-bold text-foreground uppercase tracking-wide mb-3">
-            {tm('keywords')}
-          </h3>
-          <div className="flex flex-wrap gap-1.5">
-            {keywords.map((kw) => (
-              <Link
-                key={kw.id}
-                href={`/keywords/${slugify(kw.name)}/${kw.id}`}
-                className="rounded bg-muted px-2 py-0.5 text-xs text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
-              >
-                {kw.name}
-              </Link>
-            ))}
-          </div>
-        </div>
-      )}
+      <MovieKeywords keywords={keywords} />
     </aside>
   );
 }

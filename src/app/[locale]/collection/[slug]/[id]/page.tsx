@@ -75,11 +75,7 @@ export default async function CollectionPage({ params }: Props) {
 
       <div className="w-full mx-auto app-container mt-8 md:mt-10 pb-16 space-y-8">
         <div className="flex flex-col lg:flex-row gap-10 lg:gap-12">
-          <CollectionMainContent
-            name={collection.name}
-            overview={collection.overview}
-            parts={parts}
-          />
+          <CollectionMainContent overview={collection.overview} parts={parts} />
           <CollectionSidebar
             partsCount={parts.length}
             releaseRange={releaseRange}
