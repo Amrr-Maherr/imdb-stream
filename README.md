@@ -10,7 +10,7 @@ An IMDb-inspired movie and TV show discovery platform built with Next.js (App Ro
 
 - **Home page** — hero banner (`trending/movie/week`) plus curated rows: Popular Movies, Top Rated, Now Playing, Trending TV, Popular TV, Airing Today, and Popular Actors.
 - **Movies & TV catalogs** — filterable listings driven by URL search params (genre, country, language, year, rating, sort, adult toggle) with responsive grids and pagination.
-- **Rich detail pages** — movies, TV shows, seasons, episodes, people, collections, production companies, and TMDB lists.
+- **Rich detail pages** — movies, TV shows, seasons, episodes, people, collections, production companies, and TMDB lists. Movie and TV pages request additional TMDB detail data; the UI presents recent changes as readable accordions, and TV pages include an episode guide with episode groups and theatrical screenings when available.
 - **Search** — debounced header search via TMDB `search/multi` with a results dropdown.
 - **AI Assistant** — a slide-over chat (floating action button) powered by the Groq API that returns structured recommendations rendered as clickable TV/movie cards.
 - **Favorites & Watchlist** — Firestore-backed, per-user collections with add/remove and "delete all".
@@ -54,7 +54,6 @@ The following dependencies exist in `package.json` but have **no imports in `src
 
 | Dependency              | Purpose (potential)                          |
 | ----------------------- | -------------------------------------------- |
-| `@tanstack/react-query` | Client-side data fetching / caching          |
 | `zustand`               | Global state store                           |
 | `react-player`          | Media playback                               |
 | `hookli`                | Streaming data-hook utilities                |
@@ -191,9 +190,9 @@ Status legend: **Implemented** (in `src`), **Partial** (UI only / not persisted)
 | ----------------------- | --------------------- | ------------------------------------------------------------------------------------------ | ---------------------------------------------------------------- |
 | Home page               | ✅ Implemented        | `src/app/[locale]/page.tsx`, `src/features/movies/components/listing/`                     | Hero + curated rows from TMDB                                  |
 | Movies listing          | ✅ Implemented        | `src/app/[locale]/movies/page.tsx`, `src/features/movies/components/filters/`              | Filters + pagination via URL params                             |
-| Movie detail            | ✅ Implemented        | `src/app/[locale]/movies/[slug]/[id]/`, `src/app/[locale]/item/…`, `features/movies/components/detail/` | YouTube trailer playback in hero, video gallery, credits, reviews, watch providers, similar, lists |
+| Movie detail            | ✅ Implemented        | `src/app/[locale]/movies/[slug]/[id]/`, `src/app/[locale]/item/…`, `features/movies/components/detail/` | Appended TMDB details, trailer and video gallery, credits, reviews, watch providers, similar titles, lists, and readable recent-change accordions |
 | TV shows listing        | ✅ Implemented        | `src/app/[locale]/tv-shows/page.tsx`, `src/features/tv/components/filters/`                | Filters + pagination via URL params                             |
-| TV show detail          | ✅ Implemented        | `src/app/[locale]/tv-shows/[slug]/[id]/`, `features/tv/components/detail/`                 | Seasons, content ratings, creators, similar                    |
+| TV show detail          | ✅ Implemented        | `src/app/[locale]/tv-shows/[slug]/[id]/`, `features/tv/components/detail/`                 | Appended TMDB details, seasons, content ratings, creators, similar titles, recent-change accordions, and an episode guide with episode groups and theatrical screenings |
 | Season detail           | ✅ Implemented        | `…/season/[seasonNumber]/`                                                                 | Episode list per season                                          |
 | Episode detail          | ✅ Implemented        | `…/season/[seasonNumber]/episode/[episodeNumber]/`                                         | Episode overview, cast/credits, navigation between episodes      |
 | People directory        | ✅ Implemented        | `src/app/[locale]/people/page.tsx`, `GetPeople`                                             | Responsive grid + pagination                                     |
@@ -220,6 +219,7 @@ Status legend: **Implemented** (in `src`), **Partial** (UI only / not persisted)
 - **Hybrid rendering** — Most content pages are server components that fetch TMDB data through `fetchApi` (`src/shared/services/fetchApi.ts`) with per-endpoint ISR `revalidate` values (3600s for most content, 86400s for genres/companies). Interactive surfaces (search, filters, chat, auth, favorites) are client components.
 - **Feature-based organization** — Each domain (auth, movies, tv, person, favorites, watchlist, settings, …) is self-contained under `src/features/`, sharing `src/shared/` utilities, types, and UI primitives.
 - **Client fetching via Axios** — Listing pages and search use Axios wrappers (`GetMovies`, `GetTvShows`, `GetPeople`, `MultiSearch`) that proxy the same TMDB endpoints with locale-aware language params.
+- **TMDB detail data** — Movie and TV detail requests use `append_to_response` for related data such as credits, videos, releases or content ratings, keywords, and change history. TV details also request episode groups and theatrical screening data. Technical identifiers and raw API payloads are not presented as user-facing content.
 - **Auth + persistence** — `AuthProvider` (React context) listens to Firebase `onAuthStateChanged`; Favorites and Watchlist are stored at `users/{uid}/favorites` and `users/{uid}/watchlist` as documents keyed by TMDB media ID, mapped through `mapper.ts` (`toTMDBMovie` / `toTMDBTV`).
 - **AI Assistant** — `aiChat` (`src/features/aiAssistant/services/aiChat.ts`) calls Groq (`openai/gpt-oss-120b`) with a system prompt that instructs a JSON-only response (`message` + `recommendations`); the chat parses it and renders link cards with slugged TMDB URLs.
 - **Middleware** — `src/proxy.ts` runs `next-intl/middleware` for locale detection/redirect; valid locales are `en` / `ar` with `en` as default.
