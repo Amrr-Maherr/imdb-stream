@@ -1,8 +1,8 @@
 # IMDB Stream
 
-An IMDb-inspired movie and TV show discovery platform built with Next.js (App Router). Browse popular movies, TV shows, and people with rich detail pages, multi-criteria filtering, full-text search, an AI recommendation assistant, Firebase authentication, bilingual (English / Arabic) support, and PWA offline support.
+An IMDb-inspired movie and TV show discovery platform built with Next.js (App Router). Browse popular movies, TV shows, and people with rich detail pages, multi-criteria filtering, full-text search, an AI recommendation assistant, Firebase authentication, and bilingual (English / Arabic) support.
 
-> **Note on naming:** the project is registered in `package.json` as `IMDB stream`; the browser metadata title is `IMDb`; the PWA manifest uses `IMDB-Stream`; and the in-app AI assistant brands itself as **SmartStream AI** in its system prompt. This README uses the package name throughout.
+> **Note on naming:** the project is registered in `package.json` as `IMDB stream`; the browser metadata title is `IMDb`; and the in-app AI assistant brands itself as **SmartStream AI** in its system prompt. This README uses the package name throughout.
 
 ---
 
@@ -17,7 +17,6 @@ An IMDb-inspired movie and TV show discovery platform built with Next.js (App Ro
 - **Authentication** — Firebase email/password, Google, phone (reCAPTCHA + OTP), and anonymous guest sign-in, plus forgot/reset password flows.
 - **Internationalization** — English and Arabic with full RTL layout via `next-intl`.
 - **Theming** — light / dark / system with an OKLCH design token system.
-- **PWA / Offline** — service worker via Serwist with precaching, TMDB image caching, and an offline fallback page.
 
 ---
 
@@ -43,7 +42,6 @@ An IMDb-inspired movie and TV show discovery platform built with Next.js (App Ro
 | **Toasts**               | react-hot-toast                                          |
 | **Phone Input**          | react-phone-number-input                                 |
 | **Theme**                | next-themes                                              |
-| **PWA / Service Worker** | Serwist 9 (`@serwist/turbopack`)                         |
 | **CSS Utilities**        | clsx, tailwind-merge, class-variance-authority           |
 | **Fonts**                | Roboto (`next/font/google`)                              |
 | **Linting**              | ESLint 9 (flat config) with `eslint-config-next`         |
@@ -90,10 +88,6 @@ src/
 │   │   ├── subscription/         # Pricing pages (static/marketing)
 │   │   ├── tv-shows/             # Listing + [slug]/[id] detail + season/[n] + season/[n]/episode/[m]
 │   │   └── watchlist/            # Firestore watchlist
-│   ├── ~offline/page.tsx         # Offline fallback (PWA)
-│   ├── serwist/[path]/route.ts   # Service worker route
-│   ├── manifest.json             # Web app manifest
-│   ├── sw.ts                     # Service worker script
 │   └── favicon.ico
 │
 ├── components/ui/                # Small dedicated UI kit (message primitives used by AI chat)
@@ -218,7 +212,6 @@ Status legend: **Implemented** (in `src`), **Partial** (UI only / not persisted)
 | Static pages            | ✅ Implemented        | `src/app/[locale]/{about,careers,contact,cookies,faq,feedback,guidelines,help,press,privacy,terms}/` | Company info, legal, support content                            |
 | Internationalization    | ✅ Implemented        | `src/i18n/`, `src/messages/en.json`, `src/messages/ar.json`                                | en/ar with RTL (dir switch on `<html>`)                          |
 | Theme system            | ✅ Implemented        | `src/shared/components/theme/`, `globals.css`                                              | light/dark/system via next-themes, OKLCH tokens                 |
-| PWA / Offline           | ✅ Implemented        | `src/app/sw.ts`, `src/app/serwist/[path]/route.ts`, `src/app/manifest.json`, `src/app/~offline/` | Precache + runtime caching (TMDB images, Google avatars) + offline page |
 
 ---
 
@@ -247,7 +240,7 @@ Status legend: **Implemented** (in `src`), **Partial** (UI only / not persisted)
 
 ## Deployment
 
-The app is a standard Next.js deployment that requires a Node.js server (the `proxy.ts` middleware and the Serwist service-worker route need a running server; there is no static export).
+The app is a standard Next.js deployment that requires a Node.js server for the `proxy.ts` middleware (there is no static export).
 
 ### Vercel
 
@@ -266,9 +259,7 @@ npm run start
 
 Build and runtime notes:
 
-- `next.config.ts` enables the React Compiler and the Serwist PWA plugin.
 - Images are served unoptimized (`images.unoptimized = true`), so no image optimizer needs to be configured on the host.
-- After deploy, verify the service worker registers (`/serwist/sw.js`) and the offline page (`/~offline`) loads without a network connection.
 
 ---
 
@@ -303,6 +294,6 @@ This is a personal/portfolio project, so there is no formal contributor workflow
 
 ## Conclusion
 
-IMDB Stream is a production-shaped, feature-rich entertainment discovery platform. It demonstrates a **hybrid rendering architecture** (server-rendered content with ISR + client interactivity), a **feature-first codebase**, full **English/Arabic internationalization with RTL**, multiple **Firebase authentication providers**, Firestore-backed **favorites and watchlists**, a **Groq-powered AI recommendation assistant**, and **PWA offline support**.
+IMDB Stream is a production-shaped, feature-rich entertainment discovery platform. It demonstrates a **hybrid rendering architecture** (server-rendered content with ISR + client interactivity), a **feature-first codebase**, full **English/Arabic internationalization with RTL**, multiple **Firebase authentication providers**, Firestore-backed **favorites and watchlists**, and a **Groq-powered AI recommendation assistant**.
 
 The browsing experience — from home carousels to filterable catalogs, detail pages, people directories, collections, companies, and lists — is fully implemented against live TMDb data. Remaining work is concentrated in persistence of user preferences (settings/profile editing), test coverage, subscription checkout, and hardening (server-side AI proxy, error boundaries).

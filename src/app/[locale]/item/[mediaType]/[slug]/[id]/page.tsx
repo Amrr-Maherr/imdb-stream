@@ -14,6 +14,7 @@ import { MovieSidebarColumn } from '@/features/movies/components/detail/movie-si
 import { WatchProvidersSection } from '@/features/movies/components/detail/movie-watch-providers';
 import { TvMainContent } from '@/features/tv/components/detail/tv-main-content';
 import { TvSidebarColumn } from '@/features/tv/components/detail/tv-sidebar-column';
+import { TvEpisodeHighlights } from '@/features/tv/components/detail/tv-episode-highlights';
 
 interface Props {
   params: Promise<{ locale: string; mediaType: string; slug: string; id: string }>;
@@ -22,6 +23,7 @@ interface Props {
 const MOVIE_APPEND = [
   'account_states',
   'alternative_titles',
+  'changes',
   'credits',
   'external_ids',
   'images',
@@ -40,14 +42,17 @@ const TV_APPEND = [
   'account_states',
   'aggregate_credits',
   'alternative_titles',
+  'changes',
   'content_ratings',
   'credits',
+  'episode_groups',
   'external_ids',
   'images',
   'keywords',
   'lists',
   'recommendations',
   'reviews',
+  'screened_theatrically',
   'similar',
   'translations',
   'videos',
@@ -227,6 +232,15 @@ async function TvContent({ id, slug, locale }: { id: string; slug: string; local
       <DetailNav sections={TV_NAV_SECTIONS} />
 
       <div className="w-full mx-auto app-container mt-10 md:mt-14 pb-20 space-y-12">
+        <TvEpisodeHighlights
+          slug={slug}
+          tvId={show.id}
+          lastEpisode={show.last_episode_to_air ?? null}
+          nextEpisode={show.next_episode_to_air ?? null}
+          episodeGroups={show.episode_groups?.results ?? []}
+          screenedTheatrically={show.screened_theatrically?.results ?? []}
+        />
+
         <div className="flex flex-col lg:flex-row gap-10 lg:gap-12">
           <TvMainContent show={show} slug={slug} creators={creators} />
           <TvSidebarColumn show={show} creators={creators} />

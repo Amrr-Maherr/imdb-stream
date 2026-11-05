@@ -175,6 +175,25 @@ export type AccountStates = {
   rated: { value: number } | boolean;
 };
 
+export type TMDBChanges = {
+  id?: number;
+  page?: number;
+  total_pages?: number;
+  total_results?: number;
+  changes: {
+    key: string;
+    items: {
+      id: string;
+      action: string;
+      time: string;
+      iso_639_1?: string;
+      iso_3166_1?: string;
+      value?: Record<string, unknown>;
+      original_value?: Record<string, unknown>;
+    }[];
+  }[];
+};
+
 export type List = {
   id: number;
   name: string;
@@ -250,6 +269,7 @@ export type TMDBMovieDetails = {
   // append_to_response
   account_states?: AccountStates;
   alternative_titles?: { titles: AlternativeTitle[] };
+  changes?: TMDBChanges;
   credits?: Credits;
   external_ids?: ExternalIds;
   images?: MovieImages;
@@ -342,6 +362,8 @@ export type TMDBTVDetails = {
   networks: { id: number; name: string; logo_path: string | null; origin_country: string }[];
   created_by: { id: number; name: string; credit_id: string }[];
   seasons: TVSeason[];
+  last_episode_to_air?: TVEpisodeSummary | null;
+  next_episode_to_air?: TVEpisodeSummary | null;
   origin_country: string[];
   production_companies: ProductionCompany[];
   production_countries: ProductionCountry[];
@@ -351,14 +373,20 @@ export type TMDBTVDetails = {
   account_states?: AccountStates;
   aggregate_credits?: Credits;
   alternative_titles?: { results: AlternativeTitle[] };
+  changes?: TMDBChanges;
   content_ratings?: { results: ContentRating[] };
   credits?: Credits;
   external_ids?: TVExternalIds;
   images?: MovieImages;
   keywords?: { results: Keyword[] };
+  episode_groups?: { results: TVEpisodeGroupSummary[] };
   lists?: { results: List[] };
   recommendations?: TMDBResponse<TMDBTV>;
   reviews?: { results: Review[]; page: number; total_pages: number; total_results: number };
+  screened_theatrically?: {
+    id: number;
+    results: { id: number; episode_number: number; season_number: number }[];
+  };
   similar?: TMDBResponse<TMDBTV>;
   translations?: { translations: Translation[] };
   videos?: { results: Video[] };
@@ -465,6 +493,28 @@ export type TVEpisode = {
   runtime: number | null;
   crew: CrewMember[];
   guest_stars: CastMember[];
+};
+
+export type TVEpisodeGroupSummary = {
+  id: string;
+  name: string;
+  description?: string;
+  episode_count: number;
+  group_count: number;
+  type: number;
+  network?: { id: number; name: string; logo_path: string | null; origin_country: string } | null;
+};
+
+export type TVEpisodeSummary = {
+  id: number;
+  name: string;
+  overview: string;
+  still_path: string | null;
+  air_date: string | null;
+  episode_number: number;
+  season_number: number;
+  vote_average: number;
+  runtime?: number | null;
 };
 
 export type TVSeasonDetails = {

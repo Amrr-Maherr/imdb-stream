@@ -1,14 +1,6 @@
 import { useTranslations } from 'next-intl';
 import type { TMDBMovieDetails } from '@/shared/types/tmdb';
-import {
-  Building,
-  Calendar,
-  Languages,
-  Link2,
-  List,
-  MessageSquare,
-  Users,
-} from 'lucide-react';
+import { Building, Calendar, Languages, Link2, List, MessageSquare, Users } from 'lucide-react';
 import { MoviePoster } from './movie-poster';
 import { MovieOverview } from './movie-overview';
 import { MovieSection } from './movie-section';
@@ -22,6 +14,7 @@ import { MovieAlternativeTitles } from './movie-alternative-titles';
 import { MovieReleaseDates } from './movie-release-dates';
 import { MovieLists } from './movie-lists';
 import { MovieExternalLinks } from './movie-external-links';
+import { MovieChangeHistory } from './movie-change-history';
 import { FadeIn } from './fade-in';
 
 type MovieMainContentProps = {
@@ -141,6 +134,10 @@ export function MovieMainContent({ movie, directorName, writers }: MovieMainCont
             </MovieSection>
           </FadeIn>
         )}
+
+        <FadeIn>
+          <MovieChangeHistory changes={movie.changes} />
+        </FadeIn>
 
         <FadeIn>
           <MovieSection title={t('externalLinks')} icon={<Link2 />}>

@@ -18,6 +18,7 @@ interface Props {
 const APPEND_PARAMS = [
   'account_states',
   'alternative_titles',
+  'changes',
   'credits',
   'external_ids',
   'images',

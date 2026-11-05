@@ -1,7 +1,7 @@
 ﻿'use client';
 
 import Link from 'next/link';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { Monitor, Flag, Globe, ShieldCheck, Info } from 'lucide-react';
 import { MovieRating } from '@/features/movies/components/detail/movie-rating';
 import { MovieKeywords } from '@/features/movies/components/detail/movie-keywords';
@@ -62,6 +62,8 @@ export function TvSidebar({
   const t = useTranslations('TvDetail');
   const tm = useTranslations('MovieDetail');
   const tc = useTranslations('Common');
+  const locale = useLocale();
+  const languageNames = new Intl.DisplayNames([locale], { type: 'language' });
 
   const facts: Fact[] = [];
   if (status) facts.push({ label: t('status'), value: status });
@@ -186,6 +188,12 @@ export function TvSidebar({
     label: tm('languages'),
     value: tm('languagesCount', { count: spokenLanguagesCount, translations: translationsCount }),
   });
+  if (languages.length > 0) {
+    facts.push({
+      label: t('seriesLanguages'),
+      value: languages.map((language) => languageNames.of(language) ?? language).join(', '),
+    });
+  }
 
   return (
     <aside className="space-y-8">

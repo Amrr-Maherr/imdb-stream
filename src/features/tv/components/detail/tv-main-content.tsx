@@ -2,15 +2,7 @@
 
 import type { TMDBTVDetails } from '@/shared/types/tmdb';
 import { useTranslations } from 'next-intl';
-import {
-  Building,
-  Languages,
-  Link2,
-  List,
-  MessageSquare,
-  ShieldCheck,
-  Users,
-} from 'lucide-react';
+import { Building, Languages, Link2, List, MessageSquare, ShieldCheck, Users } from 'lucide-react';
 import { MoviePoster } from '@/features/movies/components/detail/movie-poster';
 import { MovieOverview } from '@/features/movies/components/detail/movie-overview';
 import { MovieSection } from '@/features/movies/components/detail/movie-section';
@@ -22,10 +14,12 @@ import { MovieReviews } from '@/features/movies/components/detail/movie-reviews'
 import { MovieAlternativeTitles } from '@/features/movies/components/detail/movie-alternative-titles';
 import { MovieLists } from '@/features/movies/components/detail/movie-lists';
 import { MovieExternalLinks } from '@/features/movies/components/detail/movie-external-links';
+import { MovieChangeHistory } from '@/features/movies/components/detail/movie-change-history';
 import { FadeIn } from '@/features/movies/components/detail/fade-in';
 import { TvSeasons } from './tv-seasons';
 import { TvContentRatings } from './tv-content-ratings';
 import { RelatedTvShows } from './related-tv-shows';
+import { TvEpisodeHighlights } from './tv-episode-highlights';
 
 type TvMainContentProps = {
   show: TMDBTVDetails;
@@ -85,6 +79,17 @@ export function TvMainContent({ show, slug, creators }: TvMainContentProps) {
           </FadeIn>
         </div>
       )}
+
+      <FadeIn>
+        <TvEpisodeHighlights
+          slug={slug}
+          tvId={show.id}
+          lastEpisode={show.last_episode_to_air ?? null}
+          nextEpisode={show.next_episode_to_air ?? null}
+          episodeGroups={show.episode_groups?.results ?? []}
+          screenedTheatrically={show.screened_theatrically?.results ?? []}
+        />
+      </FadeIn>
 
       {allCast.length > 0 && (
         <div id="cast" className="scroll-mt-32 space-y-12">
@@ -162,6 +167,10 @@ export function TvMainContent({ show, slug, creators }: TvMainContentProps) {
             </MovieSection>
           </FadeIn>
         )}
+
+        <FadeIn>
+          <MovieChangeHistory changes={show.changes} />
+        </FadeIn>
 
         <FadeIn>
           <MovieSection title={t('externalLinks')} icon={<Link2 />}>
