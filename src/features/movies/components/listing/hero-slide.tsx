@@ -25,11 +25,6 @@ export function HeroSlide({ movie, rank }: HeroSlideProps) {
         />
       </div>
 
-      {/* Text protection: darken only behind the copy, then blend into the page */}
-      <div className="pointer-events-none absolute inset-0 scrim-start" />
-      <div className="pointer-events-none absolute inset-0 scrim-bottom opacity-70" />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 fade-to-background" />
-
       <HeroContent movie={movie} rank={rank} />
     </div>
   );
