@@ -9,7 +9,7 @@ export default function Logo() {
       <Image
         src="/logo.svg"
         alt={t('siteName')}
-        width={96}
+        width={64}
         height={32}
         className="h-8 w-auto"
         priority
