@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import Image from '@/shared/components/ui/image';
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { ChevronDown, Clapperboard, Film, Star, Tv } from 'lucide-react';

@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import Image from '@/shared/components/ui/image';
 import Link from 'next/link';
 import { Building } from 'lucide-react';
 import { Slider } from '@/shared/components/ui/slider';

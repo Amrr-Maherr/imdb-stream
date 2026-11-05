@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import Image from '@/shared/components/ui/image';
 import { useTranslations } from 'next-intl';
 import type { TMDBPerson } from '@/shared/types/tmdb';
 import { cn } from '@/shared/utils/utils';

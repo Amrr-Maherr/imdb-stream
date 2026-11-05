@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
+import Image from '@/shared/components/ui/image';
 import { Star, Calendar, Film, Tv, Play } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import type { CollectionPart } from '@/shared/types/tmdb';

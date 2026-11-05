@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from '@/shared/components/ui/image';
 import { Link } from '@/i18n/navigation';
 import { Card, CardContent, CardHeader, CardTitle } from '@/shared/components/ui/card';
 

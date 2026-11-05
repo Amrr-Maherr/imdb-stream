@@ -1,5 +1,5 @@
 import { useTranslations } from 'next-intl';
-import Image from 'next/image';
+import Image from '@/shared/components/ui/image';
 import Link from 'next/link';
 import { Film } from 'lucide-react';
 import { slugify } from '@/shared/utils/slugify';

@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import Image from '@/shared/components/ui/image';
 import type { TMDBMovie } from '@/shared/types/tmdb';
 import { HeroContent } from './hero-content';
 

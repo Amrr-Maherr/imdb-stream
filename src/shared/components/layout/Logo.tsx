@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from '@/shared/components/ui/image';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 

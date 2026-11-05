@@ -1,4 +1,4 @@
-﻿import Image from 'next/image';
+﻿import Image from '@/shared/components/ui/image';
 import { Link } from '@/i18n/navigation';
 import { getTranslations } from 'next-intl/server';
 import { ForgotPasswordForm } from '@/features/auth/components/forgot-password-form';

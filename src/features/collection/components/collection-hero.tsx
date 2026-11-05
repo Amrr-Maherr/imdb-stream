@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import Image from '@/shared/components/ui/image';
 import { Star, Layers } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { FadeIn } from '@/features/movies/components/detail/fade-in';

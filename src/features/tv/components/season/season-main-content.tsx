@@ -1,6 +1,6 @@
 ﻿'use client';
 
-import Image from 'next/image';
+import Image from '@/shared/components/ui/image';
 import { useTranslations } from 'next-intl';
 import type { TVSeasonDetails } from '@/shared/types/tmdb';
 import { MovieCast } from '@/features/movies/components/detail/movie-cast';

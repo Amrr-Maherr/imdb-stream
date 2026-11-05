@@ -10,6 +10,7 @@ import {
   Pagination,
   EffectFade,
   EffectCoverflow,
+  Virtual,
 } from 'swiper/modules';
 
 import 'swiper/css';
@@ -35,6 +36,7 @@ export interface SliderProps {
   freeMode?: boolean;
   grabCursor?: boolean;
   effect?: 'slide' | 'fade' | 'coverflow';
+  virtual?: boolean;
   className?: string;
   onSwiper?: (swiper: SwiperClass) => void;
   onSlideChange?: (swiper: SwiperClass) => void;
@@ -56,6 +58,7 @@ export function Slider({
   freeMode = false,
   grabCursor = true,
   effect = 'slide',
+  virtual = true,
   className = '',
   onSwiper,
   onSlideChange,
@@ -79,7 +82,7 @@ export function Slider({
   );
 
   const slides = Children.map(children, (child, index) => (
-    <SwiperSlide key={index} className="h-full">
+    <SwiperSlide key={index} virtualIndex={index} className="h-full">
       {child}
     </SwiperSlide>
   ));
@@ -98,7 +101,7 @@ export function Slider({
         ? { ...pagination, clickable: true }
         : false;
 
-  const modules = [FreeMode, EffectFade, EffectCoverflow];
+  const modules = [FreeMode, EffectFade, EffectCoverflow, Virtual];
   if (autoplay) modules.push(Autoplay);
   if (navigation) modules.push(Navigation);
   if (pagination) modules.push(Pagination);
@@ -123,6 +126,7 @@ export function Slider({
         freeMode={freeMode}
         grabCursor={grabCursor}
         effect={effect === 'slide' ? undefined : effect}
+        virtual={virtual}
         onSwiper={handleSwiper}
         onSlideChange={onSlideChange}
       >

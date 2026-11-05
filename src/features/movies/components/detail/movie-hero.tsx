@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import Image from '@/shared/components/ui/image';
 import { useTranslations } from 'next-intl';
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { Play, Pause, Volume2, VolumeX, Maximize, Minimize, Square, Star } from 'lucide-react';

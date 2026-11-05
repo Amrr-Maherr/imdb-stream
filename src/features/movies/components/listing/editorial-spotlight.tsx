@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from '@/shared/components/ui/image';
 import { useLocale } from 'next-intl';
 import { Calendar, ExternalLink, MapPin, Star, UserRound, Clapperboard } from 'lucide-react';
 import { slugify } from '@/shared/utils/slugify';

@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import Image from '@/shared/components/ui/image';
 import { useTranslations } from 'next-intl';
 import { Slider } from '@/shared/components/ui/slider';
 import type { CastMember } from '@/shared/types/tmdb';

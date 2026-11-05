@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from '@/shared/components/ui/image';
 import { Shapes } from 'lucide-react';
 import { SectionHeader } from './section-header';
 import { Link } from '@/i18n/navigation';

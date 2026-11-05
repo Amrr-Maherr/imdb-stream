@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import Image from '@/shared/components/ui/image';
 import { ArrowRight, Flame, Star, TrendingUp } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import type { TMDBMovie } from '@/shared/types/tmdb';

@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import Image from '@/shared/components/ui/image';
 import { useTranslations } from 'next-intl';
 import { Building2, ExternalLink, Globe, MapPin, Film } from 'lucide-react';
 

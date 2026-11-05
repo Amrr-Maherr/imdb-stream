@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from '@/shared/components/ui/image';
 import Link from 'next/link';
 import { slugify } from '@/shared/utils/slugify';
 

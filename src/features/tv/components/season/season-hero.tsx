@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import Image from '@/shared/components/ui/image';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { Calendar, ChevronLeft, Star } from 'lucide-react';

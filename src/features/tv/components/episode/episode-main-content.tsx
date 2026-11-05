@@ -1,6 +1,6 @@
 ﻿'use client';
 
-import Image from 'next/image';
+import Image from '@/shared/components/ui/image';
 import { useTranslations } from 'next-intl';
 import type { TMDBEpisodeDetails } from '@/shared/types/tmdb';
 import { Users, Film, Link2 } from 'lucide-react';

@@ -1,7 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import Image from 'next/image';
+import Image from '@/shared/components/ui/image';
 import Link from 'next/link';
 import { Tv, ShoppingCart, CreditCard, Monitor, ExternalLink } from 'lucide-react';
 import type { ReactNode } from 'react';

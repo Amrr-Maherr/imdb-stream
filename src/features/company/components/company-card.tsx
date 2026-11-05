@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import Image from '@/shared/components/ui/image';
 import { useTranslations } from 'next-intl';
 import { Building2 } from 'lucide-react';
 import type { TMDBCompanyDetails } from '@/shared/types/tmdb';

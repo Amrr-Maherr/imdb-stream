@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from '@/shared/components/ui/image';
 import { Sparkles, Star } from 'lucide-react';
 import { SectionHeader } from './section-header';
 import { cn } from '@/shared/utils/utils';

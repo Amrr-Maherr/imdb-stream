@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import Image from '@/shared/components/ui/image';
 import { useLocale, useTranslations } from 'next-intl';
 import { ArrowRight, Calendar, Eye, Film, Languages, Star, X } from 'lucide-react';
 import type { TMDBMovie, TMDBTV } from '@/shared/types/tmdb';

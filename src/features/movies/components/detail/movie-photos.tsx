@@ -1,7 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import Image from 'next/image';
+import Image from '@/shared/components/ui/image';
 import { Slider } from '@/shared/components/ui/slider';
 import { SectionTitle } from '@/features/movies/components/detail/movie-section';
 

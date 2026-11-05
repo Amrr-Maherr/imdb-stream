@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
+import Image from '@/shared/components/ui/image';
 import { Star, Tv } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { getHref, getTitle, type ListItem } from '@/features/list/utils/list-helpers';

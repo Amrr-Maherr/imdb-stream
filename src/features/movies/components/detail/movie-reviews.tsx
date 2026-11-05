@@ -1,7 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import Image from 'next/image';
+import Image from '@/shared/components/ui/image';
 import { Quote, Star } from 'lucide-react';
 import { Card, CardContent } from '@/shared/components/ui/card';
 import { Slider } from '@/shared/components/ui/slider';

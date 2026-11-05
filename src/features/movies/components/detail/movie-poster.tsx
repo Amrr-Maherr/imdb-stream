@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from '@/shared/components/ui/image';
 
 const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p';
 
