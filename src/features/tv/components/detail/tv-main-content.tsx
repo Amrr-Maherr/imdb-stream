@@ -9,7 +9,6 @@ import {
   List,
   MessageSquare,
   ShieldCheck,
-  UserRoundCog,
   Users,
 } from 'lucide-react';
 import { MoviePoster } from '@/features/movies/components/detail/movie-poster';
@@ -24,8 +23,6 @@ import { MovieAlternativeTitles } from '@/features/movies/components/detail/movi
 import { MovieLists } from '@/features/movies/components/detail/movie-lists';
 import { MovieExternalLinks } from '@/features/movies/components/detail/movie-external-links';
 import { FadeIn } from '@/features/movies/components/detail/fade-in';
-import { CrewCard } from '@/features/movies/components/detail/crew-card';
-import { Slider } from '@/shared/components/ui/slider';
 import { TvSeasons } from './tv-seasons';
 import { TvContentRatings } from './tv-content-ratings';
 import { RelatedTvShows } from './related-tv-shows';
@@ -38,7 +35,6 @@ type TvMainContentProps = {
 
 export function TvMainContent({ show, slug, creators }: TvMainContentProps) {
   const t = useTranslations('TvDetail');
-  const allCrew = show.aggregate_credits?.crew ?? show.credits?.crew ?? [];
   const allCast = show.aggregate_credits?.cast ?? show.credits?.cast ?? [];
   const reviews = show.reviews?.results ?? [];
   const altTitles = show.alternative_titles?.results ?? [];
@@ -90,41 +86,13 @@ export function TvMainContent({ show, slug, creators }: TvMainContentProps) {
         </div>
       )}
 
-      {(allCast.length > 0 || allCrew.length > 0) && (
+      {allCast.length > 0 && (
         <div id="cast" className="scroll-mt-32 space-y-12">
-          {allCast.length > 0 && (
-            <FadeIn>
-              <MovieSection title={t('castTitle')} icon={<Users />}>
-                <FullCastSlider cast={allCast} />
-              </MovieSection>
-            </FadeIn>
-          )}
-          {allCrew.length > 0 && (
-            <FadeIn>
-              <MovieSection title={t('seriesCrew')} icon={<UserRoundCog />}>
-                <Slider
-                  slidesPerView={6}
-                  slidesMobilePerView={3}
-                  spaceBetween={14}
-                  grabCursor
-                  freeMode
-                  className="-mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 pb-8"
-                >
-                  {allCrew.slice(0, 30).map((m, idx) => (
-                    <CrewCard
-                      key={`${m.credit_id}-${idx}`}
-                      id={m.id}
-                      name={m.name}
-                      job={m.job}
-                      department={m.department}
-                      profilePath={m.profile_path}
-                      creditId={m.credit_id}
-                    />
-                  ))}
-                </Slider>
-              </MovieSection>
-            </FadeIn>
-          )}
+          <FadeIn>
+            <MovieSection title={t('castTitle')} icon={<Users />}>
+              <FullCastSlider cast={allCast} />
+            </MovieSection>
+          </FadeIn>
         </div>
       )}
 
@@ -204,4 +172,3 @@ export function TvMainContent({ show, slug, creators }: TvMainContentProps) {
     </div>
   );
 }
-

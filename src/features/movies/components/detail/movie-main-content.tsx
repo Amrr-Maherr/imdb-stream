@@ -8,13 +8,11 @@ import {
   List,
   MessageSquare,
   Users,
-  UserRoundCog,
 } from 'lucide-react';
 import { MoviePoster } from './movie-poster';
 import { MovieOverview } from './movie-overview';
 import { MovieSection } from './movie-section';
 import { MovieProductionCompanies } from './movie-production-companies';
-import { MovieCrewSection } from './movie-crew';
 import { FullCastSlider } from './full-cast-slider';
 import { MovieVideos } from './movie-videos';
 import { MoviePhotos } from './movie-photos';
@@ -40,7 +38,6 @@ type MovieMainContentProps = {
  */
 export function MovieMainContent({ movie, directorName, writers }: MovieMainContentProps) {
   const t = useTranslations('MovieDetail');
-  const allCrew = movie.credits?.crew ?? [];
   const cast = movie.credits?.cast ?? [];
   const reviews = movie.reviews?.results ?? [];
   const altTitles = movie.alternative_titles?.titles ?? [];
@@ -68,22 +65,13 @@ export function MovieMainContent({ movie, directorName, writers }: MovieMainCont
         </div>
       </FadeIn>
 
-      {(cast.length > 0 || allCrew.length > 0) && (
+      {cast.length > 0 && (
         <div id="cast" className="scroll-mt-32 space-y-12">
-          {cast.length > 0 && (
-            <FadeIn>
-              <MovieSection title={t('castTitle')} icon={<Users />}>
-                <FullCastSlider cast={cast} />
-              </MovieSection>
-            </FadeIn>
-          )}
-          {allCrew.length > 0 && (
-            <FadeIn>
-              <MovieSection title={t('fullCrew')} icon={<UserRoundCog />}>
-                <MovieCrewSection crew={allCrew} />
-              </MovieSection>
-            </FadeIn>
-          )}
+          <FadeIn>
+            <MovieSection title={t('castTitle')} icon={<Users />}>
+              <FullCastSlider cast={cast} />
+            </MovieSection>
+          </FadeIn>
         </div>
       )}
 
@@ -166,4 +154,3 @@ export function MovieMainContent({ movie, directorName, writers }: MovieMainCont
     </div>
   );
 }
-
