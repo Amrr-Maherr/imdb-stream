@@ -9,13 +9,31 @@ An IMDb-inspired movie and TV show discovery platform built with Next.js (App Ro
 ## Core Features
 
 - **Home page** — hero banner (`trending/movie/week`) plus curated rows: Popular Movies, Top Rated, Now Playing, Trending TV, Popular TV, Airing Today, and Popular Actors.
+
+  <img src="docs/screenshots/home.svg" alt="IMDB Stream home page with hero banner" width="480">
+
 - **Movies & TV catalogs** — filterable listings driven by URL search params (genre, country, language, year, rating, sort, adult toggle) with responsive grids and pagination.
+
+  <img src="docs/screenshots/movies.svg" alt="Movies catalog with filters and grid" width="480">
+
+
+  <img src="docs/screenshots/tv-shows.svg" alt="TV shows catalog with filters and grid" width="480">
+
 - **Rich detail pages** — movies, TV shows, seasons, episodes, people, collections, production companies, and TMDB lists. Movie and TV pages request additional TMDB detail data; the UI presents recent changes as readable accordions, and TV pages include an episode guide with episode groups and theatrical screenings when available.
+
+  <img src="docs/screenshots/movie-details.svg" alt="Movie detail page for Iron Man" width="480">
+
 - **Search** — debounced header search via TMDB `search/multi` with a results dropdown.
 - **AI Assistant** — a slide-over chat (floating action button) powered by the Groq API that returns structured recommendations rendered as clickable TV/movie cards.
+
+  <img src="docs/screenshots/ai-assistant.svg" alt="AI assistant slide-over chat panel" width="480">
+
 - **Favorites & Watchlist** — Firestore-backed, per-user collections with add/remove and "delete all".
 - **Authentication** — Firebase email/password, Google, phone (reCAPTCHA + OTP), and anonymous guest sign-in, plus forgot/reset password flows.
 - **Internationalization** — English and Arabic with full RTL layout via `next-intl`.
+
+  <img src="docs/screenshots/arabic-rtl.svg" alt="Arabic RTL home page" width="480">
+
 - **Theming** — light / dark / system with an OKLCH design token system.
 
 ---
